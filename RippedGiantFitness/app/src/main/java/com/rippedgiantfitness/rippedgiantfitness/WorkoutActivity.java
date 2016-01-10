@@ -7,6 +7,7 @@ import android.media.ToneGenerator;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.LinearLayoutCompat;
@@ -19,6 +20,7 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 
 import com.rippedgiantfitness.rippedgiantfitness.helper.ActivityHelper;
+import com.rippedgiantfitness.rippedgiantfitness.helper.DialogHelper;
 import com.rippedgiantfitness.rippedgiantfitness.helper.LogHelper;
 import com.rippedgiantfitness.rippedgiantfitness.helper.SharedPreferencesHelper;
 import com.rippedgiantfitness.rippedgiantfitness.interfaces.RGFActivity;
@@ -172,20 +174,27 @@ public class WorkoutActivity extends AppCompatActivity implements RGFActivity {
         buttonFinish.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                boolean finishWorkout = true;
-                for (Map.Entry<String, Map<String, Boolean>> exerciseEntry : exerciseMap.entrySet()) {
-                    boolean success = true;
-                    String exerciseIndex = exerciseEntry.getKey();
-                    for (Map.Entry<String, Boolean> setEntry : exerciseEntry.getValue().entrySet()) {
-                        success = (success && setEntry.getValue());
+                final AlertDialog dialog = DialogHelper.createDialog(context, "Finish Workout", DialogHelper.YES, DialogHelper.NO, "Finish workout and auto-update sets/reps/weights?");
+                dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        boolean finishWorkout = true;
+                        for (Map.Entry<String, Map<String, Boolean>> exerciseEntry : exerciseMap.entrySet()) {
+                            boolean success = true;
+                            String exerciseIndex = exerciseEntry.getKey();
+                            for (Map.Entry<String, Boolean> setEntry : exerciseEntry.getValue().entrySet()) {
+                                success = (success && setEntry.getValue());
+                            }
+                            finishWorkout = (finishWorkout && SharedPreferencesHelper.finishWorkout(exerciseIndex, success));
+                        }
+                        dialog.dismiss();
+                        if (finishWorkout) {
+                            finish();
+                        } else {
+                            LogHelper.error("Failed to save and update the workout");
+                        }
                     }
-                    finishWorkout = (finishWorkout && SharedPreferencesHelper.finishWorkout(exerciseIndex, success));
-                }
-                if (finishWorkout) {
-                    finish();
-                } else {
-                    LogHelper.error("Failed to save and update the workout");
-                }
+                });
             }
         });
 

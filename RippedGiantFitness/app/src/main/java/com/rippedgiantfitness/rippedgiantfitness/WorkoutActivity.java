@@ -83,7 +83,7 @@ public class WorkoutActivity extends AppCompatActivity implements RGFActivity {
             /**
              * add warm-up sets
              */
-            final int numberOfWarmupSets = 2;
+            final int numberOfWarmupSets = Integer.valueOf(SharedPreferencesHelper.getPreference(exerciseIndex, SharedPreferencesHelper.WARMUP_SETS));
             final int firstSetWeight = Integer.valueOf(SharedPreferencesHelper.getPreference(sets.get(0), SharedPreferencesHelper.WEIGHT));
             final int increment = Integer.valueOf(SharedPreferencesHelper.getPreference(exerciseIndex, SharedPreferencesHelper.INCREMENT));
 

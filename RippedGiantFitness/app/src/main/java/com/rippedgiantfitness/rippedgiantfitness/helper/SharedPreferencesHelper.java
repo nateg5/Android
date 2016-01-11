@@ -32,6 +32,7 @@ public class SharedPreferencesHelper {
     public final static String FAILED_VOLUME = "Failed Volume";
     public final static String INCREMENT = "Increment";
     public final static String INCREMENT_SETS = "Increment Sets";
+    public final static String WARMUP_SETS = "Warmup Sets";
     public final static String WEIGHT = "Weight";
     public final static String SEPARATOR = ".";
     public final static String SWAP = "Swap";
@@ -183,12 +184,13 @@ public class SharedPreferencesHelper {
         return getList(workout, EXERCISES, NAME);
     }
 
-    public static boolean addExercise(String workout, String name, String increment, String incrementSets, String reps, String rest, String minWeight, String maxWeight) {
+    public static boolean addExercise(String workout, String name, String increment, String incrementSets, String warmupSets, String reps, String rest, String minWeight, String maxWeight) {
         List<String> exercises = getExercises(workout);
 
         if(name.trim().length() == 0
                 || increment.trim().length() == 0
                 || incrementSets.trim().length() == 0
+                || warmupSets.trim().length() == 0
                 || reps.trim().length() == 0
                 || rest.trim().length() == 0
                 || minWeight.trim().length() == 0
@@ -200,6 +202,7 @@ public class SharedPreferencesHelper {
         return (setPreference(buildPreferenceString(workout, EXERCISES, String.valueOf(exercises.size())), NAME, name)
                 && setPreference(buildPreferenceString(workout, EXERCISES, String.valueOf(exercises.size())), INCREMENT, increment)
                 && setPreference(buildPreferenceString(workout, EXERCISES, String.valueOf(exercises.size())), INCREMENT_SETS, incrementSets)
+                && setPreference(buildPreferenceString(workout, EXERCISES, String.valueOf(exercises.size())), WARMUP_SETS, warmupSets)
                 && setPreference(buildPreferenceString(workout, EXERCISES, String.valueOf(exercises.size())), REPS, reps)
                 && setPreference(buildPreferenceString(workout, EXERCISES, String.valueOf(exercises.size())), REST, rest)
                 && setPreference(buildPreferenceString(workout, EXERCISES, String.valueOf(exercises.size())), MIN_WEIGHT, minWeight)

@@ -80,6 +80,7 @@ public class ExerciseActivity extends AppCompatActivity implements RGFActivity {
         ActivityHelper.createEditButton(activity, R.id.content_exercise, exerciseIndex, DialogHelper.FAILED_VOLUME, SharedPreferencesHelper.FAILED_VOLUME, InputType.TYPE_CLASS_NUMBER, false);
         ActivityHelper.createEditButton(activity, R.id.content_exercise, exerciseIndex, DialogHelper.WEIGHT_INCREMENT, SharedPreferencesHelper.INCREMENT, InputType.TYPE_CLASS_NUMBER, true);
         ActivityHelper.createEditButton(activity, R.id.content_exercise, exerciseIndex, DialogHelper.SETS_INCREMENT, SharedPreferencesHelper.INCREMENT_SETS, InputType.TYPE_CLASS_NUMBER, true);
+        ActivityHelper.createEditButton(activity, R.id.content_exercise, exerciseIndex, DialogHelper.SETS_WARMUP, SharedPreferencesHelper.WARMUP_SETS, InputType.TYPE_CLASS_NUMBER, true);
         ActivityHelper.createEditButton(activity, R.id.content_exercise, exerciseIndex, DialogHelper.NUMBER_OF_REPS, SharedPreferencesHelper.REPS, InputType.TYPE_CLASS_NUMBER, true);
         ActivityHelper.createEditButton(activity, R.id.content_exercise, exerciseIndex, DialogHelper.REST_IN_SECONDS, SharedPreferencesHelper.REST, InputType.TYPE_CLASS_NUMBER, true);
         ActivityHelper.createEditButton(activity, R.id.content_exercise, exerciseIndex, DialogHelper.MIN_WEIGHT, SharedPreferencesHelper.MIN_WEIGHT, InputType.TYPE_CLASS_NUMBER, true);

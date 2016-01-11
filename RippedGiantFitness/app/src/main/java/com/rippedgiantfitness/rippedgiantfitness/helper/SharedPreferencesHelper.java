@@ -42,6 +42,8 @@ public class SharedPreferencesHelper {
     public final static String HIIT_REST = "HIIT Rest";
     public final static String HIIT_ROUNDS = "HIIT Rounds";
 
+    public final static String INSTAGRAM = "Instagram";
+
     private static Context context;
     private static SharedPreferences sharedPreferences;
     private static SharedPreferences.Editor editor;

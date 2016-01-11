@@ -2,6 +2,7 @@ package com.rippedgiantfitness.rippedgiantfitness;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
@@ -51,6 +52,17 @@ public class HomeActivity extends AppCompatActivity {
         });
 
         ((ViewGroup)findViewById(R.id.content_home)).addView(buttonHiit);
+
+        AppCompatButton buttonInstagram = ActivityHelper.createButton(context, SharedPreferencesHelper.INSTAGRAM, true);
+        buttonInstagram.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.instagram.com/rippedgiantfitness"));
+                startActivity(intent);
+            }
+        });
+
+        ((ViewGroup)findViewById(R.id.content_home)).addView(buttonInstagram);
     }
 
     @Override

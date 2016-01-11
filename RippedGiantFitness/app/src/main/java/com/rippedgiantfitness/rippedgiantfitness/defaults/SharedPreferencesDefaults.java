@@ -34,6 +34,14 @@ public class SharedPreferencesDefaults {
                         add(getHyperWorkout("Abs", "Sit Up", "0", "0", "0", "10", "0", "0", "Leg Raise", "0", "0", "0", "10", "0", "0"));
                     }});
                 }});
+                add(new HashMap<String, Object>() {{
+                    put(SharedPreferencesHelper.NAME, "Body Weight");
+                    put(SharedPreferencesHelper.WORKOUTS, new ArrayList<Object>() {{
+                        add(getHyperWorkout("Upper Body", "Pushup", "0", "0", "0", "10", "0", "0", "Pullup", "0", "0", "0", "10", "0", "0"));
+                        add(getHyperWorkout("Lower Body", "Squat", "0", "0", "0", "10", "0", "0", "Lunge", "0", "0", "0", "10", "0", "0"));
+                        add(getHyperWorkout("Abs", "Sit Up", "0", "0", "0", "10", "0", "0", "Leg Raise", "0", "0", "0", "10", "0", "0"));
+                    }});
+                }});
             }});
         }};
 

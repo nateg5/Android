@@ -62,6 +62,9 @@ public class WorkoutActivity extends AppCompatActivity implements RGFActivity {
             final Map<String, Boolean> setMap = new HashMap<>();
             exerciseMap.put(exerciseIndex, setMap);
 
+            /**
+             * add exercise title
+             */
             String PR = "";
             if(SharedPreferencesHelper.getVolume(exerciseIndex) >= Integer.valueOf(SharedPreferencesHelper.getPreference(exerciseIndex, SharedPreferencesHelper.FAILED_VOLUME))) {
                 PR = " PR";
@@ -72,9 +75,42 @@ public class WorkoutActivity extends AppCompatActivity implements RGFActivity {
             buttonExercise.setTextColor(ContextCompat.getColor(context, R.color.colorWhite));
 
             ((ViewGroup) findViewById(R.id.content_workout)).addView(buttonExercise);
+            /**/
 
+            //get all sets
             List<String> sets = SharedPreferencesHelper.getSets(exerciseIndex);
 
+            /**
+             * add warm-up sets
+             */
+            final int numberOfWarmupSets = 2;
+            final int firstSetWeight = Integer.valueOf(SharedPreferencesHelper.getPreference(sets.get(0), SharedPreferencesHelper.WEIGHT));
+            final int increment = Integer.valueOf(SharedPreferencesHelper.getPreference(exerciseIndex, SharedPreferencesHelper.INCREMENT));
+
+            for(int i = 0; i < numberOfWarmupSets; i++) {
+                float halfWeight = (float)firstSetWeight / (float)2;
+                float warmupIncrement = halfWeight / (float)numberOfWarmupSets;
+                int warmupWeight = (int)((warmupIncrement * (float)i) + halfWeight);
+                warmupWeight = warmupWeight - (warmupWeight % increment);
+
+                final AppCompatButton buttonWarmupSet = ActivityHelper.createButton(context, "WU " + (i + 1), false);
+                final AppCompatButton buttonWarmupWeight = ActivityHelper.createButton(context, warmupWeight + " Lbs", false);
+
+                final AppCompatButton buttonWarmupReps = createRepsButton(exerciseIndex, null, null);
+
+                final LinearLayoutCompat linearLayout = new LinearLayoutCompat(context);
+                linearLayout.setOrientation(LinearLayoutCompat.HORIZONTAL);
+                linearLayout.addView(buttonWarmupSet);
+                linearLayout.addView(buttonWarmupWeight);
+                linearLayout.addView(buttonWarmupReps);
+
+                ((ViewGroup) findViewById(R.id.content_workout)).addView(linearLayout);
+            }
+            /**/
+
+            /**
+             * add working sets
+             */
             int setNum = 1;
             for(String set : sets) {
                 final String setIndex = set;
@@ -82,68 +118,9 @@ public class WorkoutActivity extends AppCompatActivity implements RGFActivity {
                 setMap.put(setIndex, false);
 
                 final AppCompatButton buttonSet = ActivityHelper.createButton(context, "Set " + String.valueOf(setNum++), false);
-
                 final AppCompatButton buttonWeight = ActivityHelper.createButton(context, SharedPreferencesHelper.getPreference(setIndex, SharedPreferencesHelper.WEIGHT) + " Lbs", false);
 
-                final AppCompatButton buttonReps = ActivityHelper.createButton(context, SharedPreferencesHelper.getPreference(exerciseIndex, SharedPreferencesHelper.REPS) + " Reps", true);
-                buttonReps.setLayoutParams(new LinearLayoutCompat.LayoutParams(LinearLayoutCompat.LayoutParams.WRAP_CONTENT, LinearLayoutCompat.LayoutParams.WRAP_CONTENT, 1));
-                buttonReps.setBackgroundColor(ContextCompat.getColor(context, R.color.colorLightGray));
-                buttonReps.setOnTouchListener(new View.OnTouchListener() {
-                    @Override
-                    public boolean onTouch(View v, MotionEvent event) {
-                        if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                            if (((AppCompatButton) v).getCurrentTextColor() == ContextCompat.getColor(context, R.color.colorWhite)) {
-                                v.setBackgroundColor(ContextCompat.getColor(context, R.color.colorAccentDark));
-                            } else {
-                                v.setBackgroundColor(ContextCompat.getColor(context, R.color.colorGray));
-                            }
-                        } else if (event.getAction() == MotionEvent.ACTION_UP || event.getAction() == MotionEvent.ACTION_CANCEL) {
-                            if (((AppCompatButton) v).getCurrentTextColor() == ContextCompat.getColor(context, R.color.colorWhite)) {
-                                v.setBackgroundColor(ContextCompat.getColor(context, R.color.colorAccent));
-                            } else {
-                                v.setBackgroundColor(ContextCompat.getColor(context, R.color.colorLightGray));
-                            }
-                        }
-                        return false;
-                    }
-                });
-                buttonReps.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        int textColor = ((AppCompatButton) v).getCurrentTextColor();
-                        String text = ((AppCompatButton) v).getText().toString();
-                        int reps = Integer.valueOf(text.substring(0, text.indexOf(" ")));
-
-                        if (textColor == ContextCompat.getColor(context, R.color.colorWhite)) {
-                            if (reps == 0) {
-                                v.setBackgroundColor(ContextCompat.getColor(context, R.color.colorLightGray));
-                                ((AppCompatButton) v).setTextColor(ActivityHelper.getButton(context).getCurrentTextColor());
-                                ((AppCompatButton) v).setText(SharedPreferencesHelper.getPreference(exerciseIndex, SharedPreferencesHelper.REPS) + " Reps");
-                            } else {
-                                ((AppCompatButton) v).setText((reps - 1) + " Reps");
-                            }
-                            setMap.put(setIndex, false);
-                        } else {
-                            v.setBackgroundColor(ContextCompat.getColor(context, R.color.colorAccent));
-                            ((AppCompatButton) v).setTextColor(ContextCompat.getColor(context, R.color.colorWhite));
-                            setMap.put(setIndex, true);
-                        }
-
-                        final Snackbar snackbar = Snackbar.make(v, "Rest Time: " + SharedPreferencesHelper.getPreference(exerciseIndex, SharedPreferencesHelper.REST), Snackbar.LENGTH_INDEFINITE);
-
-                        snackbar.setAction("Dismiss", new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                snackbar.dismiss();
-                                getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-                            }
-                        });
-
-                        snackbar.show();
-                        snackbarTimer(snackbar, Integer.valueOf(SharedPreferencesHelper.getPreference(exerciseIndex, SharedPreferencesHelper.REST)));
-                        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-                    }
-                });
+                final AppCompatButton buttonReps = createRepsButton(exerciseIndex, setMap, setIndex);
 
                 final LinearLayoutCompat linearLayout = new LinearLayoutCompat(context);
                 linearLayout.setOrientation(LinearLayoutCompat.HORIZONTAL);
@@ -153,6 +130,7 @@ public class WorkoutActivity extends AppCompatActivity implements RGFActivity {
 
                 ((ViewGroup) findViewById(R.id.content_workout)).addView(linearLayout);
             }
+            /**/
         }
 
         final AppCompatButton buttonFinish = ActivityHelper.createButton(context, "Finish Workout", true);
@@ -199,6 +177,75 @@ public class WorkoutActivity extends AppCompatActivity implements RGFActivity {
         });
 
         ((ViewGroup) findViewById(R.id.content_workout)).addView(buttonFinish);
+    }
+
+    private AppCompatButton createRepsButton(final String exerciseIndex, final Map<String, Boolean> setMap, final String setIndex) {
+        final Context context = this;
+        AppCompatButton buttonReps = ActivityHelper.createButton(context, SharedPreferencesHelper.getPreference(exerciseIndex, SharedPreferencesHelper.REPS) + " Reps", true);
+        buttonReps.setLayoutParams(new LinearLayoutCompat.LayoutParams(LinearLayoutCompat.LayoutParams.WRAP_CONTENT, LinearLayoutCompat.LayoutParams.WRAP_CONTENT, 1));
+        buttonReps.setBackgroundColor(ContextCompat.getColor(context, R.color.colorLightGray));
+        buttonReps.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    if (((AppCompatButton) v).getCurrentTextColor() == ContextCompat.getColor(context, R.color.colorWhite)) {
+                        v.setBackgroundColor(ContextCompat.getColor(context, R.color.colorAccentDark));
+                    } else {
+                        v.setBackgroundColor(ContextCompat.getColor(context, R.color.colorGray));
+                    }
+                } else if (event.getAction() == MotionEvent.ACTION_UP || event.getAction() == MotionEvent.ACTION_CANCEL) {
+                    if (((AppCompatButton) v).getCurrentTextColor() == ContextCompat.getColor(context, R.color.colorWhite)) {
+                        v.setBackgroundColor(ContextCompat.getColor(context, R.color.colorAccent));
+                    } else {
+                        v.setBackgroundColor(ContextCompat.getColor(context, R.color.colorLightGray));
+                    }
+                }
+                return false;
+            }
+        });
+        buttonReps.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int textColor = ((AppCompatButton) v).getCurrentTextColor();
+                String text = ((AppCompatButton) v).getText().toString();
+                int reps = Integer.valueOf(text.substring(0, text.indexOf(" ")));
+
+                if (textColor == ContextCompat.getColor(context, R.color.colorWhite)) {
+                    if (reps == 0) {
+                        v.setBackgroundColor(ContextCompat.getColor(context, R.color.colorLightGray));
+                        ((AppCompatButton) v).setTextColor(ActivityHelper.getButton(context).getCurrentTextColor());
+                        ((AppCompatButton) v).setText(SharedPreferencesHelper.getPreference(exerciseIndex, SharedPreferencesHelper.REPS) + " Reps");
+                    } else {
+                        ((AppCompatButton) v).setText((reps - 1) + " Reps");
+                    }
+                    if(setMap != null && setIndex != null) {
+                        setMap.put(setIndex, false);
+                    }
+                } else {
+                    v.setBackgroundColor(ContextCompat.getColor(context, R.color.colorAccent));
+                    ((AppCompatButton) v).setTextColor(ContextCompat.getColor(context, R.color.colorWhite));
+                    if(setMap != null && setIndex != null) {
+                        setMap.put(setIndex, true);
+                    }
+                }
+
+                final Snackbar snackbar = Snackbar.make(v, "Rest Time: " + SharedPreferencesHelper.getPreference(exerciseIndex, SharedPreferencesHelper.REST), Snackbar.LENGTH_INDEFINITE);
+
+                snackbar.setAction("Dismiss", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        snackbar.dismiss();
+                        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+                    }
+                });
+
+                snackbar.show();
+                snackbarTimer(snackbar, Integer.valueOf(SharedPreferencesHelper.getPreference(exerciseIndex, SharedPreferencesHelper.REST)));
+                getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+            }
+        });
+
+        return buttonReps;
     }
 
     private void snackbarTimer(final Snackbar snackbar, final int seconds) {

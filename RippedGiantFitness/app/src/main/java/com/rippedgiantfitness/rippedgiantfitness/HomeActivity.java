@@ -1,5 +1,6 @@
 package com.rippedgiantfitness.rippedgiantfitness;
 
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -57,8 +58,15 @@ public class HomeActivity extends AppCompatActivity {
         buttonInstagram.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.instagram.com/rippedgiantfitness"));
-                startActivity(intent);
+                Uri uri = Uri.parse("https://www.instagram.com/rippedgiantfitness/");
+                try {
+                    Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                    intent.setPackage("com.instagram.android");
+                    startActivity(intent);
+                } catch(ActivityNotFoundException e) {
+                    Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                    startActivity(intent);
+                }
             }
         });
 

@@ -7,6 +7,7 @@ import android.media.ToneGenerator;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.Toolbar;
@@ -69,12 +70,15 @@ public class HiitTimerActivity extends AppCompatActivity implements RGFActivity 
         }
 
         buttonRound = ActivityHelper.createButton(context, "Round: ", false);
+        buttonRound.setTextSize(buttonRound.getTextSize() * 4);
         ((ViewGroup)findViewById(R.id.content_hiit_timer)).addView(buttonRound);
 
         buttonAction = ActivityHelper.createButton(context, "Action: ", false);
+        buttonAction.setTextSize(buttonAction.getTextSize() * 4);
         ((ViewGroup)findViewById(R.id.content_hiit_timer)).addView(buttonAction);
 
         buttonTime = ActivityHelper.createButton(context, "Time: ", false);
+        buttonTime.setTextSize(buttonTime.getTextSize() * 4);
         ((ViewGroup)findViewById(R.id.content_hiit_timer)).addView(buttonTime);
 
         continueTimer();
@@ -88,10 +92,14 @@ public class HiitTimerActivity extends AppCompatActivity implements RGFActivity 
                 time = list.get(0).get(SharedPreferencesHelper.HIIT_GO);
                 list.get(0).remove(SharedPreferencesHelper.HIIT_GO);
                 buttonAction.setText("Action: Go");
+                buttonAction.setTextColor(ContextCompat.getColor(this, R.color.colorGreen));
+                buttonTime.setTextColor(ContextCompat.getColor(this, R.color.colorGreen));
             } else {
                 time = list.get(0).get(SharedPreferencesHelper.HIIT_REST);
                 list.remove(0);
                 buttonAction.setText("Action: Rest");
+                buttonAction.setTextColor(ContextCompat.getColor(this, R.color.colorAccent));
+                buttonTime.setTextColor(ContextCompat.getColor(this, R.color.colorAccent));
             }
             if(time > 0) {
                 timer(time);

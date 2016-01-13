@@ -58,7 +58,7 @@ public class HomeActivity extends AppCompatActivity {
         buttonInstagram.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Uri uri = Uri.parse("https://www.instagram.com/rippedgiantfitness/");
+                Uri uri = Uri.parse("https://www.instagram.com/_u/rippedgiantfitness/");
                 try {
                     Intent intent = new Intent(Intent.ACTION_VIEW, uri);
                     intent.setPackage("com.instagram.android");

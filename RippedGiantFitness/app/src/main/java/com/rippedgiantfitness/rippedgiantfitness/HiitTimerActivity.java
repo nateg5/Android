@@ -70,15 +70,15 @@ public class HiitTimerActivity extends AppCompatActivity implements RGFActivity 
         }
 
         buttonRound = ActivityHelper.createButton(context, "Round: ", false);
-        buttonRound.setTextSize(buttonRound.getTextSize() * 4);
+        buttonRound.setTextSize(buttonRound.getTextSize() * 2);
         ((ViewGroup)findViewById(R.id.content_hiit_timer)).addView(buttonRound);
 
         buttonAction = ActivityHelper.createButton(context, "Action: ", false);
-        buttonAction.setTextSize(buttonAction.getTextSize() * 4);
+        buttonAction.setTextSize(buttonAction.getTextSize() * 2);
         ((ViewGroup)findViewById(R.id.content_hiit_timer)).addView(buttonAction);
 
         buttonTime = ActivityHelper.createButton(context, "Time: ", false);
-        buttonTime.setTextSize(buttonTime.getTextSize() * 4);
+        buttonTime.setTextSize(buttonTime.getTextSize() * 2);
         ((ViewGroup)findViewById(R.id.content_hiit_timer)).addView(buttonTime);
 
         continueTimer();

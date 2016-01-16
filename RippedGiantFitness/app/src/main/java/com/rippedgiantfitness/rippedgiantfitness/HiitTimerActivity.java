@@ -11,6 +11,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.Toolbar;
+import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -69,16 +70,19 @@ public class HiitTimerActivity extends AppCompatActivity implements RGFActivity 
             list.add(map);
         }
 
-        buttonRound = ActivityHelper.createButton(context, "Round: ", false);
-        buttonRound.setTextSize(buttonRound.getTextSize() * 2);
+        buttonRound = ActivityHelper.createButton(context, "", false);
+        buttonRound.setGravity(Gravity.CENTER);
+        buttonRound.setTextSize(buttonRound.getTextSize() * 4);
         ((ViewGroup)findViewById(R.id.content_hiit_timer)).addView(buttonRound);
 
-        buttonAction = ActivityHelper.createButton(context, "Action: ", false);
-        buttonAction.setTextSize(buttonAction.getTextSize() * 2);
+        buttonAction = ActivityHelper.createButton(context, "", false);
+        buttonAction.setGravity(Gravity.CENTER);
+        buttonAction.setTextSize(buttonAction.getTextSize() * 4);
         ((ViewGroup)findViewById(R.id.content_hiit_timer)).addView(buttonAction);
 
-        buttonTime = ActivityHelper.createButton(context, "Time: ", false);
-        buttonTime.setTextSize(buttonTime.getTextSize() * 2);
+        buttonTime = ActivityHelper.createButton(context, "", false);
+        buttonTime.setGravity(Gravity.CENTER);
+        buttonTime.setTextSize(buttonTime.getTextSize() * 4);
         ((ViewGroup)findViewById(R.id.content_hiit_timer)).addView(buttonTime);
 
         continueTimer();
@@ -86,18 +90,18 @@ public class HiitTimerActivity extends AppCompatActivity implements RGFActivity 
 
     private void continueTimer() {
         if(list.size() > 0) {
-            buttonRound.setText("Round: " + (rounds - list.size() + 1));
+            buttonRound.setText((rounds - list.size() + 1) + " of " + rounds);
             int time = 0;
             if(list.get(0).get(SharedPreferencesHelper.HIIT_GO) != null) {
                 time = list.get(0).get(SharedPreferencesHelper.HIIT_GO);
                 list.get(0).remove(SharedPreferencesHelper.HIIT_GO);
-                buttonAction.setText("Action: Go");
+                buttonAction.setText("Go");
                 buttonAction.setTextColor(ContextCompat.getColor(this, R.color.colorGreen));
                 buttonTime.setTextColor(ContextCompat.getColor(this, R.color.colorGreen));
             } else {
                 time = list.get(0).get(SharedPreferencesHelper.HIIT_REST);
                 list.remove(0);
-                buttonAction.setText("Action: Rest");
+                buttonAction.setText("Rest");
                 buttonAction.setTextColor(ContextCompat.getColor(this, R.color.colorAccent));
                 buttonTime.setTextColor(ContextCompat.getColor(this, R.color.colorAccent));
             }
@@ -114,7 +118,7 @@ public class HiitTimerActivity extends AppCompatActivity implements RGFActivity 
     private void timer(final int seconds) {
         if(!finished) {
             if (seconds > 0) {
-                buttonTime.setText("Time: " + String.valueOf(seconds));
+                buttonTime.setText(String.valueOf(seconds));
                 new Timer().schedule(new TimerTask() {
                     @Override
                     public void run() {
@@ -127,7 +131,11 @@ public class HiitTimerActivity extends AppCompatActivity implements RGFActivity 
                     }
                 }, 1000);
             } else {
-                beep(2);
+                if(list.size() > 0) {
+                    beep(2);
+                } else {
+                    beep(4);
+                }
                 continueTimer();
             }
         }

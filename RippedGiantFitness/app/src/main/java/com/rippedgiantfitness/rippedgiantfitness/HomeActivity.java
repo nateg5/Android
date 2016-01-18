@@ -46,6 +46,16 @@ public class HomeActivity extends AppCompatActivity {
 
         ((ViewGroup)findViewById(R.id.content_home)).addView(buttonPrograms);
 
+        AppCompatButton buttonMeasurements = ActivityHelper.createButton(context, SharedPreferencesHelper.MEASUREMENTS, true);
+        buttonMeasurements.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        ((ViewGroup)findViewById(R.id.content_home)).addView(buttonMeasurements);
+
         AppCompatButton buttonHiit = ActivityHelper.createButton(context, SharedPreferencesHelper.HIIT_TIMER, true);
         buttonHiit.setOnClickListener(new View.OnClickListener() {
             @Override

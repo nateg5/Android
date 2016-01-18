@@ -4,7 +4,8 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Environment;
 
-import com.rippedgiantfitness.rippedgiantfitness.defaults.SharedPreferencesDefaults;
+import com.rippedgiantfitness.rippedgiantfitness.defaults.HiitDefaults;
+import com.rippedgiantfitness.rippedgiantfitness.defaults.ProgramsDefaults;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -41,6 +42,8 @@ public class SharedPreferencesHelper {
     public final static String SEPARATOR = ".";
     public final static String SWAP = "Swap";
 
+    public final static String MEASUREMENTS = "Measurements";
+
     public final static String HIIT_TIMER = "HIIT Timer";
     public final static String HIIT_GO = "HIIT Go";
     public final static String HIIT_REST = "HIIT Rest";
@@ -69,15 +72,27 @@ public class SharedPreferencesHelper {
 
         if(getPrograms().isEmpty()) {
             LogHelper.debug("Programs are empty, creating defaults.");
-
-            createDefaultSharedPreferences();
+            ProgramsDefaults.create();
+            commit();
         } else {
             LogHelper.debug("Found " + getPrograms().size() + " existing programs.");
+        }
+
+        if(localPreferences.containsKey(HIIT_GO)) {
+            LogHelper.debug("HIIT Settings already exist.");
+        } else {
+            LogHelper.debug("HIIT Settings do not exist, creating defaults.");
+            HiitDefaults.create();
+            commit();
         }
     }
 
     public static Context getContext() {
         return context;
+    }
+
+    public static Map<String,String> getLocalPreferences() {
+        return localPreferences;
     }
 
     private static boolean commit() {
@@ -277,7 +292,7 @@ public class SharedPreferencesHelper {
         return setPreference(parent, child, value, true);
     }
 
-    private static boolean setPreference(String parent, String child, String value, boolean commit) {
+    public static boolean setPreference(String parent, String child, String value, boolean commit) {
         LogHelper.debug("Setting preference " + parent + ", " + child + ", " + value);
 
         boolean success = false;
@@ -442,7 +457,7 @@ public class SharedPreferencesHelper {
         return success;
     }
 
-    private static boolean isParentIndexValid(String parent, boolean reportError) {
+    public static boolean isParentIndexValid(String parent, boolean reportError) {
         boolean valid = true;
 
         try {
@@ -468,31 +483,6 @@ public class SharedPreferencesHelper {
             preferenceString += strings[i];
         }
         return preferenceString;
-    }
-
-    private static void createDefaultSharedPreferences() {
-        createDefaultSharedPreferences("", SharedPreferencesDefaults.getSharedPreferencesDefaults());
-        localPreferences.put(HIIT_GO, "");
-        localPreferences.put(HIIT_REST, "");
-        localPreferences.put(HIIT_ROUNDS, "");
-        commit();
-        printSharedPreferences();
-    }
-
-    private static void createDefaultSharedPreferences(String parent, Map<String,Object> map) {
-        if(isParentIndexValid(parent, true)) {
-            for (Map.Entry<String, Object> entry : map.entrySet()) {
-                if (entry.getValue() instanceof String) {
-                    setPreference(parent, entry.getKey(), (String) entry.getValue(), false);
-                } else {
-                    List<Object> list = (List<Object>) entry.getValue();
-
-                    for (int i = 0; i < list.size(); i++) {
-                        createDefaultSharedPreferences(buildPreferenceString(parent, entry.getKey(), String.valueOf(i)), (Map<String, Object>) list.get(i));
-                    }
-                }
-            }
-        }
     }
 
     public static boolean backup() {

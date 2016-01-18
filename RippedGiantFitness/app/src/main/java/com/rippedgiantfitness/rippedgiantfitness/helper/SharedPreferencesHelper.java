@@ -2,13 +2,17 @@ package com.rippedgiantfitness.rippedgiantfitness.helper;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.Environment;
 
-import com.rippedgiantfitness.rippedgiantfitness.R;
 import com.rippedgiantfitness.rippedgiantfitness.defaults.SharedPreferencesDefaults;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -43,6 +47,11 @@ public class SharedPreferencesHelper {
     public final static String HIIT_ROUNDS = "HIIT Rounds";
 
     public final static String INSTAGRAM = "Instagram";
+
+    public final static String BACKUP_FOLDER = "RippedGiantFitness";
+    public final static String BACKUP_FILE = "RippedGiantFitness.bak";
+    public final static String BACKUP = "Data Backup";
+    public final static String RESTORE = "Data Restore";
 
     private static Context context;
     private static SharedPreferences sharedPreferences;
@@ -482,6 +491,94 @@ public class SharedPreferencesHelper {
                 }
             }
         }
+    }
+
+    public static boolean backup() {
+        boolean success = false;
+
+        if(Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
+            File externalStorage = Environment.getExternalStorageDirectory();
+            File backupFolder = new File(externalStorage, BACKUP_FOLDER);
+            File backupFile = new File(backupFolder, BACKUP_FILE);
+
+            try {
+                backupFolder.mkdirs();
+                backupFile.createNewFile();
+
+                FileOutputStream oStream = new FileOutputStream(backupFile);
+
+                for (Map.Entry<String, String> entry : localPreferences.entrySet()) {
+                    oStream.write(entry.getKey().getBytes());
+                    oStream.write("\n".getBytes());
+                    oStream.write(entry.getValue().getBytes());
+                    oStream.write("\n".getBytes());
+                }
+
+                oStream.close();
+
+                success = true;
+            } catch (FileNotFoundException e) {
+                LogHelper.error(e.toString());
+            } catch (IOException e) {
+                LogHelper.error(e.toString());
+            }
+        } else {
+            LogHelper.error("SD Card is not mounted.");
+        }
+
+        return success;
+    }
+
+    public static boolean restore() {
+        boolean success = false;
+
+        if(Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
+            File externalStorage = Environment.getExternalStorageDirectory();
+            File backupFolder = new File(externalStorage, BACKUP_FOLDER);
+            File backupFile = new File(backupFolder, BACKUP_FILE);
+
+            try {
+                FileInputStream iStream = new FileInputStream(backupFile);
+
+                byte[] bytes = new byte[(int) backupFile.length()];
+                iStream.read(bytes);
+                iStream.close();
+
+                localPreferences.clear();
+
+                boolean savingKey = true;
+                String key = "";
+                String value = "";
+                for (byte b : bytes) {
+                    if (b == '\n') {
+                        if (savingKey) {
+                            savingKey = false;
+                        } else {
+                            localPreferences.put(key, value);
+                            savingKey = true;
+                            key = "";
+                            value = "";
+                        }
+                    } else {
+                        if (savingKey) {
+                            key += (char) b;
+                        } else {
+                            value += (char) b;
+                        }
+                    }
+                }
+
+                success = commit();
+            } catch (FileNotFoundException e) {
+                LogHelper.toast("The data backup " + BACKUP_FILE + " does not exist. First use " + BACKUP + ".");
+            } catch (IOException e) {
+                LogHelper.error(e.toString());
+            }
+        } else {
+            LogHelper.error("SD Card is not mounted.");
+        }
+
+        return success;
     }
 
     public static void printSharedPreferences() {

@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.Toolbar;
@@ -12,6 +13,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.rippedgiantfitness.rippedgiantfitness.helper.ActivityHelper;
+import com.rippedgiantfitness.rippedgiantfitness.helper.DialogHelper;
+import com.rippedgiantfitness.rippedgiantfitness.helper.LogHelper;
 import com.rippedgiantfitness.rippedgiantfitness.helper.SharedPreferencesHelper;
 
 public class HomeActivity extends AppCompatActivity {
@@ -63,7 +66,7 @@ public class HomeActivity extends AppCompatActivity {
                     Intent intent = new Intent(Intent.ACTION_VIEW, uri);
                     intent.setPackage("com.instagram.android");
                     startActivity(intent);
-                } catch(ActivityNotFoundException e) {
+                } catch (ActivityNotFoundException e) {
                     Intent intent = new Intent(Intent.ACTION_VIEW, uri);
                     startActivity(intent);
                 }
@@ -71,6 +74,48 @@ public class HomeActivity extends AppCompatActivity {
         });
 
         ((ViewGroup)findViewById(R.id.content_home)).addView(buttonInstagram);
+
+        AppCompatButton buttonBackup = ActivityHelper.createButton(context, SharedPreferencesHelper.BACKUP, true);
+        buttonBackup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final AlertDialog dialog = DialogHelper.createDialog(context, SharedPreferencesHelper.BACKUP, DialogHelper.YES, DialogHelper.NO, "Are you sure you want to backup all of your data to " + SharedPreferencesHelper.BACKUP_FILE + "? This will overwrite the current backup if it exists. Continue?");
+                dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (SharedPreferencesHelper.backup()) {
+                            LogHelper.toast("Data backup complete!");
+                            dialog.dismiss();
+                        } else {
+                            LogHelper.error("Data backup failed.");
+                        }
+                    }
+                });
+            }
+        });
+
+        ((ViewGroup)findViewById(R.id.content_home)).addView(buttonBackup);
+
+        AppCompatButton buttonRestore = ActivityHelper.createButton(context, SharedPreferencesHelper.RESTORE, true);
+        buttonRestore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final AlertDialog dialog = DialogHelper.createDialog(context, SharedPreferencesHelper.RESTORE, DialogHelper.YES, DialogHelper.NO, "Are you sure you want to restore all of your data from " + SharedPreferencesHelper.BACKUP_FILE + "? This will overwrite all current app data. Continue?");
+                dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if(SharedPreferencesHelper.restore()) {
+                            LogHelper.toast("Data restore complete!");
+                            dialog.dismiss();
+                        } else {
+                            LogHelper.error("Data restore failed.");
+                        }
+                    }
+                });
+            }
+        });
+
+        ((ViewGroup)findViewById(R.id.content_home)).addView(buttonRestore);
     }
 
     @Override

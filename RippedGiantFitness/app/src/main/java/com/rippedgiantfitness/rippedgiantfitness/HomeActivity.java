@@ -57,6 +57,8 @@ public class HomeActivity extends AppCompatActivity {
 
         ((ViewGroup)findViewById(R.id.content_home)).addView(buttonHiit);
 
+        ((ViewGroup)findViewById(R.id.content_home)).addView(ActivityHelper.getSeparatorView(context));
+
         AppCompatButton buttonInstagram = ActivityHelper.createButton(context, SharedPreferencesHelper.INSTAGRAM, true);
         buttonInstagram.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,6 +76,8 @@ public class HomeActivity extends AppCompatActivity {
         });
 
         ((ViewGroup)findViewById(R.id.content_home)).addView(buttonInstagram);
+
+        ((ViewGroup)findViewById(R.id.content_home)).addView(ActivityHelper.getSeparatorView(context));
 
         AppCompatButton buttonBackup = ActivityHelper.createButton(context, SharedPreferencesHelper.BACKUP, true);
         buttonBackup.setOnClickListener(new View.OnClickListener() {
@@ -116,6 +120,18 @@ public class HomeActivity extends AppCompatActivity {
         });
 
         ((ViewGroup)findViewById(R.id.content_home)).addView(buttonRestore);
+
+        ((ViewGroup)findViewById(R.id.content_home)).addView(ActivityHelper.getSeparatorView(context));
+
+        AppCompatButton buttonHelp = ActivityHelper.createButton(context, SharedPreferencesHelper.HELP, true);
+        buttonHelp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        ((ViewGroup)findViewById(R.id.content_home)).addView(buttonHelp);
     }
 
     @Override

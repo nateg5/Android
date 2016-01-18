@@ -6,6 +6,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatEditText;
+import android.support.v7.widget.LinearLayoutCompat;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
@@ -124,5 +125,13 @@ public class ActivityHelper {
         } else {
             LogHelper.error("Failed to move down " + index);
         }
+    }
+
+    public static View getSeparatorView(Context context) {
+        View separatorView = new View(context);
+        separatorView.setBackgroundColor(ContextCompat.getColor(context, R.color.colorLightGray));
+        separatorView.setLayoutParams(new LinearLayoutCompat.LayoutParams(LinearLayoutCompat.LayoutParams.MATCH_PARENT, 1));
+
+        return separatorView;
     }
 }

@@ -53,6 +53,8 @@ public class SharedPreferencesHelper {
     public final static String BACKUP = "Data Backup";
     public final static String RESTORE = "Data Restore";
 
+    public final static String HELP = "Help";
+
     private static Context context;
     private static SharedPreferences sharedPreferences;
     private static SharedPreferences.Editor editor;

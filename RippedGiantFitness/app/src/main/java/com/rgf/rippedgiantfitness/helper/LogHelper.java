@@ -1,4 +1,4 @@
-package com.rippedgiantfitness.rippedgiantfitness.helper;
+package com.rgf.rippedgiantfitness.helper;
 
 import android.util.Log;
 import android.widget.Toast;

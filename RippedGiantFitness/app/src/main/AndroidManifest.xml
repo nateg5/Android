@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.rippedgiantfitness.rippedgiantfitness" >
+    package="com.rgf.rippedgiantfitness" >
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
@@ -29,7 +29,7 @@
             android:theme="@style/AppTheme.NoActionBar" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.rippedgiantfitness.rippedgiantfitness.HomeActivity" />
+                android:value="com.rgf.rippedgiantfitness.HomeActivity" />
         </activity>
         <activity
             android:name=".WorkoutsActivity"
@@ -39,7 +39,7 @@
             android:theme="@style/AppTheme.NoActionBar" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.rippedgiantfitness.rippedgiantfitness.ProgramsActivity" />
+                android:value="com.rgf.rippedgiantfitness.ProgramsActivity" />
         </activity>
         <activity
             android:name=".ExercisesActivity"
@@ -49,7 +49,7 @@
             android:theme="@style/AppTheme.NoActionBar" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.rippedgiantfitness.rippedgiantfitness.WorkoutsActivity" />
+                android:value="com.rgf.rippedgiantfitness.WorkoutsActivity" />
         </activity>
         <activity
             android:name=".ExerciseActivity"
@@ -59,7 +59,7 @@
             android:theme="@style/AppTheme.NoActionBar" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.rippedgiantfitness.rippedgiantfitness.ExercisesActivity" />
+                android:value="com.rgf.rippedgiantfitness.ExercisesActivity" />
         </activity>
         <activity
             android:name=".WorkoutActivity"
@@ -69,7 +69,7 @@
             android:theme="@style/AppTheme.NoActionBar" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.rippedgiantfitness.rippedgiantfitness.WorkoutsActivity" />
+                android:value="com.rgf.rippedgiantfitness.WorkoutsActivity" />
         </activity>
         <activity
             android:name=".HiitSettingsActivity"
@@ -80,7 +80,7 @@
             android:windowSoftInputMode="stateHidden" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.rippedgiantfitness.rippedgiantfitness.HomeActivity" />
+                android:value="com.rgf.rippedgiantfitness.HomeActivity" />
         </activity>
         <activity
             android:name=".HiitTimerActivity"
@@ -90,7 +90,7 @@
             android:theme="@style/AppTheme.NoActionBar" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.rippedgiantfitness.rippedgiantfitness.HiitSettingsActivity" />
+                android:value="com.rgf.rippedgiantfitness.HiitSettingsActivity" />
         </activity>
     </application>
 

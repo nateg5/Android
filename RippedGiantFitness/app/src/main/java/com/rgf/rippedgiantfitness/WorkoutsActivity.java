@@ -1,4 +1,4 @@
-package com.rippedgiantfitness.rippedgiantfitness;
+package com.rgf.rippedgiantfitness;
 
 import android.content.Context;
 import android.content.Intent;
@@ -16,11 +16,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 
-import com.rippedgiantfitness.rippedgiantfitness.helper.ActivityHelper;
-import com.rippedgiantfitness.rippedgiantfitness.helper.DialogHelper;
-import com.rippedgiantfitness.rippedgiantfitness.helper.LogHelper;
-import com.rippedgiantfitness.rippedgiantfitness.helper.SharedPreferencesHelper;
-import com.rippedgiantfitness.rippedgiantfitness.interfaces.RGFActivity;
+import com.rgf.rippedgiantfitness.helper.ActivityHelper;
+import com.rgf.rippedgiantfitness.helper.DialogHelper;
+import com.rgf.rippedgiantfitness.helper.LogHelper;
+import com.rgf.rippedgiantfitness.helper.SharedPreferencesHelper;
+import com.rgf.rippedgiantfitness.interfaces.RGFActivity;
 
 import java.util.List;
 

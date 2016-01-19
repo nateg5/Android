@@ -1,4 +1,4 @@
-package com.rippedgiantfitness.rippedgiantfitness;
+package com.rgf.rippedgiantfitness;
 
 import android.content.ActivityNotFoundException;
 import android.content.Context;
@@ -12,10 +12,10 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.rippedgiantfitness.rippedgiantfitness.helper.ActivityHelper;
-import com.rippedgiantfitness.rippedgiantfitness.helper.DialogHelper;
-import com.rippedgiantfitness.rippedgiantfitness.helper.LogHelper;
-import com.rippedgiantfitness.rippedgiantfitness.helper.SharedPreferencesHelper;
+import com.rgf.rippedgiantfitness.helper.ActivityHelper;
+import com.rgf.rippedgiantfitness.helper.DialogHelper;
+import com.rgf.rippedgiantfitness.helper.LogHelper;
+import com.rgf.rippedgiantfitness.helper.SharedPreferencesHelper;
 
 public class HomeActivity extends AppCompatActivity {
 

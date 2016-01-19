@@ -5,7 +5,7 @@ android {
     buildToolsVersion "23.0.2"
 
     defaultConfig {
-        applicationId "com.rippedgiantfitness.rippedgiantfitness"
+        applicationId "com.rgf.rippedgiantfitness"
         minSdkVersion 8
         targetSdkVersion 23
         versionCode 1

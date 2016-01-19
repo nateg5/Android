@@ -1,6 +1,6 @@
-package com.rippedgiantfitness.rippedgiantfitness.defaults;
+package com.rgf.rippedgiantfitness.defaults;
 
-import com.rippedgiantfitness.rippedgiantfitness.helper.SharedPreferencesHelper;
+import com.rgf.rippedgiantfitness.helper.SharedPreferencesHelper;
 
 /**
  * Created by Nate on 1/18/2016.

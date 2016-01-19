@@ -1,6 +1,6 @@
-package com.rippedgiantfitness.rippedgiantfitness.defaults;
+package com.rgf.rippedgiantfitness.defaults;
 
-import com.rippedgiantfitness.rippedgiantfitness.helper.SharedPreferencesHelper;
+import com.rgf.rippedgiantfitness.helper.SharedPreferencesHelper;
 
 import java.util.ArrayList;
 import java.util.HashMap;

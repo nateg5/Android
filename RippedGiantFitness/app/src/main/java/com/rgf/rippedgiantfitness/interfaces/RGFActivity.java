@@ -1,4 +1,4 @@
-package com.rippedgiantfitness.rippedgiantfitness.interfaces;
+package com.rgf.rippedgiantfitness.interfaces;
 
 import android.support.v7.app.AppCompatActivity;
 

@@ -1,11 +1,11 @@
-package com.rippedgiantfitness.rippedgiantfitness.helper;
+package com.rgf.rippedgiantfitness.helper;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Environment;
 
-import com.rippedgiantfitness.rippedgiantfitness.defaults.HiitDefaults;
-import com.rippedgiantfitness.rippedgiantfitness.defaults.ProgramsDefaults;
+import com.rgf.rippedgiantfitness.defaults.HiitDefaults;
+import com.rgf.rippedgiantfitness.defaults.ProgramsDefaults;
 
 import java.io.File;
 import java.io.FileInputStream;

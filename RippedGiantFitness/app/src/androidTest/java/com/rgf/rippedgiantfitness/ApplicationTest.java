@@ -1,4 +1,4 @@
-package com.rippedgiantfitness.rippedgiantfitness;
+package com.rgf.rippedgiantfitness;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

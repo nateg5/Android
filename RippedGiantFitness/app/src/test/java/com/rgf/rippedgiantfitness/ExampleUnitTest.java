@@ -1,4 +1,4 @@
-package com.rippedgiantfitness.rippedgiantfitness;
+package com.rgf.rippedgiantfitness;
 
 import org.junit.Test;
 

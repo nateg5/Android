@@ -1,4 +1,4 @@
-package com.rippedgiantfitness.rippedgiantfitness.helper;
+package com.rgf.rippedgiantfitness.helper;
 
 import android.content.Context;
 import android.support.v4.content.ContextCompat;
@@ -12,8 +12,8 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.rippedgiantfitness.rippedgiantfitness.R;
-import com.rippedgiantfitness.rippedgiantfitness.interfaces.RGFActivity;
+import com.rgf.rippedgiantfitness.R;
+import com.rgf.rippedgiantfitness.interfaces.RGFActivity;
 
 /**
  * Created by Nate on 11/27/2015.

@@ -134,62 +134,124 @@ public class SharedPreferencesHelper {
     public static boolean finishWorkout(String exercise, boolean success) {
         boolean retVal = true;
 
+        if(success) {
+            retVal = (retVal && increaseVolumeOnePercent(exercise));
+        } else {
+            retVal = (retVal
+                    && setPreference(exercise, FAILED_VOLUME, String.valueOf(getVolume(exercise)))
+                    && decreaseVolumeTenPercent(exercise));
+        }
+
+        retVal = (retVal
+                && setPreference(exercise, CURRENT_VOLUME, String.valueOf(getVolume(exercise)))
+                && commit());
+
+        return retVal;
+    }
+
+    private static boolean increaseVolumeOnePercent(String exercise) {
+        boolean success = true;
+
+        double targetVolume = getVolume(exercise) * 1.01;
+
+        while(getVolume(exercise) < targetVolume) {
+            success = (success && increaseVolume(exercise));
+        }
+
+        return success;
+    }
+
+    private static boolean decreaseVolumeTenPercent(String exercise) {
+        boolean success = true;
+
+        double targetVolume = getVolume(exercise) * 0.9;
+
+        while(getVolume(exercise) > targetVolume && getVolume(exercise) > getVolumeMin(exercise)) {
+            success = (success && decreaseVolume(exercise));
+        }
+
+        return success;
+    }
+
+    private static boolean increaseVolume(String exercise) {
+        boolean success = true;
+
         int minWeight = Integer.valueOf(getPreference(exercise, MIN_WEIGHT));
         int maxWeight = Integer.valueOf(getPreference(exercise, MAX_WEIGHT));
         int increment = Integer.valueOf(getPreference(exercise, INCREMENT));
-        int incrementSets = Integer.valueOf(getPreference(exercise, INCREMENT_SETS));
         int reps = Integer.valueOf(getPreference(exercise, REPS));
 
         List<String> sets = getSets(exercise);
 
-        if(success) {
-            for(int inc = 0; inc < incrementSets; inc++) {
-                int lastSetWeight = Integer.valueOf(getPreference(sets.get(sets.size() - 1), WEIGHT));
-                if (lastSetWeight < maxWeight) {
-                    for (int i = sets.size() - 1; i >= 0; i--) {
-                        int setWeight = Integer.valueOf(getPreference(sets.get(i), WEIGHT));
-                        if (i == 0 || setWeight < Integer.valueOf(getPreference(sets.get(i - 1), WEIGHT))) {
-                            setWeight = setWeight + increment;
-                            if (setWeight > maxWeight) {
-                                setWeight = maxWeight;
-                            }
-                            retVal = (retVal && setPreference(sets.get(i), WEIGHT, String.valueOf(setWeight), false));
-                            break;
-                        }
+        int lastSetWeight = Integer.valueOf(getPreference(sets.get(sets.size() - 1), WEIGHT));
+        if (lastSetWeight < maxWeight) {
+            for (int i = sets.size() - 1; i >= 0; i--) {
+                int setWeight = Integer.valueOf(getPreference(sets.get(i), WEIGHT));
+                if (i == 0 || setWeight < Integer.valueOf(getPreference(sets.get(i - 1), WEIGHT))) {
+                    setWeight = setWeight + increment;
+                    if (setWeight > maxWeight) {
+                        setWeight = maxWeight;
                     }
-                } else {
-                    retVal = (retVal && setPreference(exercise, REPS, String.valueOf(reps + 1), false));
-                    retVal = (retVal && addSet(exercise, String.valueOf(maxWeight)));
+                    success = (success && setPreference(sets.get(i), WEIGHT, String.valueOf(setWeight), false));
                     break;
                 }
             }
         } else {
-            retVal = (retVal && setPreference(exercise, FAILED_VOLUME, String.valueOf(getVolume(exercise))));
-            int firstSetWeight = Integer.valueOf(getPreference(sets.get(0), WEIGHT));
-            if(firstSetWeight > minWeight) {
-                for(int i = sets.size() - 1; i >= 0; i--) {
-                    int setWeight = Integer.valueOf(getPreference(sets.get(i), WEIGHT));
-                    setWeight = (int)(setWeight * 0.9) - ((int)(setWeight * 0.9) % increment);
-                    if(setWeight < minWeight) {
+            if(reps < sets.size()) {
+                success = (success && setPreference(exercise, REPS, String.valueOf(reps + 1), false));
+            } else if (sets.size() < reps) {
+                success = (success && addSet(exercise, String.valueOf(maxWeight)));
+            } else {
+                success = (success && setPreference(exercise, REPS, String.valueOf(reps + 1), false));
+                success = (success && addSet(exercise, String.valueOf(maxWeight)));
+            }
+            if(minWeight < maxWeight) {
+                decreaseVolumeTenPercent(exercise);
+            }
+        }
+
+        return success;
+    }
+
+    private static boolean decreaseVolume(String exercise) {
+        boolean success = true;
+
+        int minWeight = Integer.valueOf(getPreference(exercise, MIN_WEIGHT));
+        int maxWeight = Integer.valueOf(getPreference(exercise, MAX_WEIGHT));
+        int increment = Integer.valueOf(getPreference(exercise, INCREMENT));
+        int reps = Integer.valueOf(getPreference(exercise, REPS));
+
+        List<String> sets = getSets(exercise);
+
+        int firstSetWeight = Integer.valueOf(getPreference(sets.get(0), WEIGHT));
+        if (firstSetWeight > minWeight) {
+            for (int i = 0; i < sets.size(); i++) {
+                int setWeight = Integer.valueOf(getPreference(sets.get(i), WEIGHT));
+                if (i == (sets.size() - 1) || setWeight > Integer.valueOf(getPreference(sets.get(i + 1), WEIGHT))) {
+                    setWeight = setWeight - increment;
+                    if (setWeight < minWeight) {
                         setWeight = minWeight;
                     }
-                    retVal = (retVal && setPreference(sets.get(i), WEIGHT, String.valueOf(setWeight), false));
+                    success = (success && setPreference(sets.get(i), WEIGHT, String.valueOf(setWeight), false));
+                    break;
                 }
+            }
+        } else {
+            if(reps > sets.size() && reps > 1) {
+                success = (success && setPreference(exercise, REPS, String.valueOf(reps - 1), false));
+            } else if (sets.size() > reps && sets.size() > 1) {
+                success = (success && removePreferenceTree(sets.get(sets.size() - 1)));
             } else {
-                if(reps - 1 > 0) {
-                    retVal = (retVal && setPreference(exercise, REPS, String.valueOf(reps - 1), false));
+                if(reps > 1) {
+                    success = (success && setPreference(exercise, REPS, String.valueOf(reps - 1), false));
                 }
-                if(sets.size() - 1 > 0) {
-                    retVal = (retVal && removePreferenceTree(sets.get(sets.size() - 1)));
+                if(sets.size() > 1) {
+                    success = (success && removePreferenceTree(sets.get(sets.size() - 1)));
                 }
             }
         }
 
-        retVal = (retVal && setPreference(exercise, CURRENT_VOLUME, String.valueOf(getVolume(exercise))));
-
-        retVal = (retVal && commit());
-
-        return retVal;
+        return success;
     }
 
     public static int getVolume(String exercise) {
@@ -202,10 +264,24 @@ public class SharedPreferencesHelper {
         for(int i = 0; i < sets.size(); i++) {
             int setWeight = Integer.valueOf(getPreference(sets.get(i), WEIGHT));
 
+            if(setWeight <= 0) {
+                setWeight = 1;
+            }
+
             volume += setWeight * reps;
         }
 
         return volume;
+    }
+
+    private static int getVolumeMin(String exercise) {
+        int volumeMin = Integer.valueOf(getPreference(exercise, MIN_WEIGHT));
+
+        if(volumeMin <= 0) {
+            volumeMin = 1;
+        }
+
+        return volumeMin;
     }
 
     public static List<String> getExercises(String workout) {

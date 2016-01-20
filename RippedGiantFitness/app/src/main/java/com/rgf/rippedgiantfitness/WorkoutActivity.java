@@ -88,9 +88,9 @@ public class WorkoutActivity extends AppCompatActivity implements RGFActivity {
             final int increment = Integer.valueOf(SharedPreferencesHelper.getPreference(exerciseIndex, SharedPreferencesHelper.INCREMENT));
 
             for(int i = 0; i < numberOfWarmupSets; i++) {
-                float halfWeight = (float)firstSetWeight / (float)2;
-                float warmupIncrement = halfWeight / (float)numberOfWarmupSets;
-                int warmupWeight = (int)((warmupIncrement * (float)i) + halfWeight);
+                double halfWeight = firstSetWeight / 2.0;
+                double warmupIncrement = halfWeight / numberOfWarmupSets;
+                int warmupWeight = (int)((warmupIncrement * i) + halfWeight);
                 warmupWeight = warmupWeight - (warmupWeight % increment);
 
                 final AppCompatButton buttonWarmupSet = ActivityHelper.createButton(context, "WU " + (i + 1), false);

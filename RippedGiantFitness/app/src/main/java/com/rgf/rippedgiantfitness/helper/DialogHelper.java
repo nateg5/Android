@@ -31,7 +31,6 @@ public class DialogHelper {
     public final static String CURRENT_VOLUME = "Current Volume";
     public final static String FAILED_VOLUME = "Failed Volume";
     public final static String WEIGHT_INCREMENT = "Weight Increment";
-    public final static String SETS_INCREMENT = "Sets to Increment";
     public final static String SETS_WARMUP = "Number of Warmup Sets";
     public final static String NUMBER_OF_REPS = "Number of Reps";
     public final static String REST_IN_SECONDS = "Rest in Seconds";

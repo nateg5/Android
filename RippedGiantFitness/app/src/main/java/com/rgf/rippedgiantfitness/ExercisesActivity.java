@@ -43,14 +43,13 @@ public class ExercisesActivity extends AppCompatActivity implements RGFActivity 
             public void onClick(View view) {
                 final AppCompatEditText editTextName = DialogHelper.createEditText(context, "", DialogHelper.EXERCISE_NAME, InputType.TYPE_CLASS_TEXT);
                 final AppCompatEditText editTextIncrement = DialogHelper.createEditText(context, "", DialogHelper.WEIGHT_INCREMENT, InputType.TYPE_CLASS_NUMBER);
-                final AppCompatEditText editTextIncrementSets = DialogHelper.createEditText(context, "", DialogHelper.SETS_INCREMENT, InputType.TYPE_CLASS_NUMBER);
                 final AppCompatEditText editTextWarmupSets = DialogHelper.createEditText(context, "", DialogHelper.SETS_WARMUP, InputType.TYPE_CLASS_NUMBER);
                 final AppCompatEditText editTextReps = DialogHelper.createEditText(context, "", DialogHelper.NUMBER_OF_REPS, InputType.TYPE_CLASS_NUMBER);
                 final AppCompatEditText editTextRest = DialogHelper.createEditText(context, "", DialogHelper.REST_IN_SECONDS, InputType.TYPE_CLASS_NUMBER);
                 final AppCompatEditText editTextMinWeight = DialogHelper.createEditText(context, "", DialogHelper.MIN_WEIGHT, InputType.TYPE_CLASS_NUMBER);
                 final AppCompatEditText editTextMaxWeight = DialogHelper.createEditText(context, "", DialogHelper.MAX_WEIGHT, InputType.TYPE_CLASS_NUMBER);
 
-                final AlertDialog dialog = DialogHelper.createDialog(context, DialogHelper.CREATE, DialogHelper.CREATE, DialogHelper.CANCEL, editTextName, editTextIncrement, editTextIncrementSets, editTextWarmupSets, editTextReps, editTextRest, editTextMinWeight, editTextMaxWeight);
+                final AlertDialog dialog = DialogHelper.createDialog(context, DialogHelper.CREATE, DialogHelper.CREATE, DialogHelper.CANCEL, editTextName, editTextIncrement, editTextWarmupSets, editTextReps, editTextRest, editTextMinWeight, editTextMaxWeight);
 
                 dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -58,7 +57,6 @@ public class ExercisesActivity extends AppCompatActivity implements RGFActivity 
                         if (SharedPreferencesHelper.addExercise(workoutIndex,
                                 editTextName.getText().toString(),
                                 editTextIncrement.getText().toString(),
-                                editTextIncrementSets.getText().toString(),
                                 editTextWarmupSets.getText().toString(),
                                 editTextReps.getText().toString(),
                                 editTextRest.getText().toString(),

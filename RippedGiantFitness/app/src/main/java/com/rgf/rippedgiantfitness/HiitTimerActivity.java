@@ -106,11 +106,13 @@ public class HiitTimerActivity extends AppCompatActivity implements RGFActivity 
                 buttonTime.setTextColor(ContextCompat.getColor(this, R.color.colorAccent));
             }
             if(time > 0) {
+                beep(2);
                 timer(time);
             } else {
                 continueTimer();
             }
         } else {
+            beep(4);
             finish();
         }
     }
@@ -131,11 +133,6 @@ public class HiitTimerActivity extends AppCompatActivity implements RGFActivity 
                     }
                 }, 1000);
             } else {
-                if(list.size() > 0) {
-                    beep(2);
-                } else {
-                    beep(4);
-                }
                 continueTimer();
             }
         }

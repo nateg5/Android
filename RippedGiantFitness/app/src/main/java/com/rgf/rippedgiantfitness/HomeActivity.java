@@ -50,7 +50,8 @@ public class HomeActivity extends AppCompatActivity {
         buttonMeasurements.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(context, MeasurementsActivity.class);
+                startActivity(intent);
             }
         });
 

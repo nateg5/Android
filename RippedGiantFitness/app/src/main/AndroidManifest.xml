@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.rgf.rippedgiantfitness" >
 
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -91,6 +91,26 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.rgf.rippedgiantfitness.HiitSettingsActivity" />
+        </activity>
+        <activity
+            android:name=".MeasurementsActivity"
+            android:label="@string/title_activity_measurements"
+            android:parentActivityName=".HomeActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.rgf.rippedgiantfitness.HomeActivity" />
+        </activity>
+        <activity
+            android:name=".MeasurementActivity"
+            android:label="@string/title_activity_measurement"
+            android:parentActivityName=".MeasurementsActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.rgf.rippedgiantfitness.MeasurementsActivity" />
         </activity>
     </application>
 

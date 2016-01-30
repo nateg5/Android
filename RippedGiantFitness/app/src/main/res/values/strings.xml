@@ -10,4 +10,6 @@
     <string name="title_activity_workout">Workout</string>
     <string name="title_activity_hiit">HIIT Settings</string>
     <string name="title_activity_hiit_timer">HIIT Timer</string>
+    <string name="title_activity_measurements">Measurements</string>
+    <string name="title_activity_measurement">Measurement</string>
 </resources>

@@ -37,6 +37,11 @@ public class DialogHelper {
     public final static String MIN_WEIGHT = "Minimum Weight";
     public final static String MAX_WEIGHT = "Maximum Weight";
     public final static String SET_WEIGHT = "New Set Weight";
+    public final static String MEASUREMENT_NAME = "Measurement Name";
+    public final static String CURRENT = "Current";
+    public final static String AVERAGE = "7 Day Average";
+    public final static String HIGH = "7 Day High";
+    public final static String LOW = "7 Day Low";
     public final static String CREATE = "Create";
     public final static String SAVE = "Save";
     public final static String CANCEL = "Cancel";
@@ -117,6 +122,27 @@ public class DialogHelper {
             public void onClick(View v) {
                 if (SharedPreferencesHelper.setPreference(index, preference, editText.getText().toString())) {
                     button.setText(label2 + editText.getText().toString());
+                    dialogEdit.dismiss();
+                } else {
+                    LogHelper.error("Failed to save " + SharedPreferencesHelper.buildPreferenceString(index, preference));
+                }
+            }
+        });
+
+        return dialogEdit;
+    }
+
+    public static AlertDialog createEditDialog(final Context context, final int resId, final String index, final String hint, final String preference, final int inputType) {
+        final AppCompatEditText editText = createEditText(context, SharedPreferencesHelper.getPreference(index, preference), hint, inputType);
+
+        final AlertDialog dialogEdit = createDialog(context, EDIT, SAVE, CANCEL, editText);
+
+        dialogEdit.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (SharedPreferencesHelper.setPreference(index, preference, editText.getText().toString())) {
+                    ((ViewGroup)((AppCompatActivity)context).findViewById(resId)).removeAllViews();
+                    ((RGFActivity)context).init();
                     dialogEdit.dismiss();
                 } else {
                     LogHelper.error("Failed to save " + SharedPreferencesHelper.buildPreferenceString(index, preference));

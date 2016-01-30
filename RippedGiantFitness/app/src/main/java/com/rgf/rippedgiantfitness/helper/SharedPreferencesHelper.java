@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.os.Environment;
 
 import com.rgf.rippedgiantfitness.defaults.HiitDefaults;
+import com.rgf.rippedgiantfitness.defaults.MeasurementsDefaults;
 import com.rgf.rippedgiantfitness.defaults.ProgramsDefaults;
 
 import java.io.File;
@@ -12,8 +13,12 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -42,6 +47,9 @@ public class SharedPreferencesHelper {
     public final static String SWAP = "Swap";
 
     public final static String MEASUREMENTS = "Measurements";
+    public final static String ENTRIES = "Entries";
+    public final static String DATE = "Date";
+    public final static String ENTRY = "Entry";
 
     public final static String HIIT_TIMER = "HIIT Timer";
     public final static String HIIT_GO = "HIIT Go";
@@ -75,6 +83,14 @@ public class SharedPreferencesHelper {
             commit();
         } else {
             LogHelper.debug("Found " + getPrograms().size() + " existing programs.");
+        }
+
+        if(getMeasurements().isEmpty()) {
+            LogHelper.debug("Measurements are empty, creating defaults.");
+            MeasurementsDefaults.create();
+            commit();
+        } else {
+            LogHelper.debug("Found " + getMeasurements().size() + " existing measurements.");
         }
 
         if(localPreferences.containsKey(HIIT_GO)) {
@@ -320,6 +336,44 @@ public class SharedPreferencesHelper {
         List<String> sets = getSets(exercise);
 
         return setPreference(buildPreferenceString(exercise, SETS, String.valueOf(sets.size())), WEIGHT, weight);
+    }
+
+    public static List<String> getMeasurements() {
+        return getList("", MEASUREMENTS, NAME);
+    }
+
+    public static boolean addMeasurement(String name) {
+        List<String> measurements = getMeasurements();
+
+        return setPreference(buildPreferenceString(MEASUREMENTS, String.valueOf(measurements.size())), NAME, name);
+    }
+
+    public static List<String> getEntries(String measurement) {
+        return getList(measurement, ENTRIES, DATE);
+    }
+
+    public static boolean addEntry(String measurement, String date, String entry) {
+        List<String> entries = getEntries(measurement);
+
+        try {
+            DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+            Date dateObj = dateFormat.parse(date);
+            if(!date.equals(dateFormat.format(dateObj))) {
+                LogHelper.error("Invalid date format: " + date);
+                return false;
+            }
+        } catch(ParseException e) {
+            LogHelper.error("Invalid date format: " + date + ". " + e.toString());
+            return false;
+        }
+
+        if(date.trim().length() == 0 || entry.trim().length() == 0) {
+            LogHelper.error("All preference must contain a value");
+            return false;
+        }
+
+        return (setPreference(buildPreferenceString(measurement, ENTRIES, String.valueOf(entries.size())), DATE, date)
+                && setPreference(buildPreferenceString(measurement, ENTRIES, String.valueOf(entries.size())), ENTRY, entry));
     }
 
     private static List<String> getList(String parent, String child, String preference) {
@@ -635,7 +689,7 @@ public class SharedPreferencesHelper {
 
                 success = commit();
             } catch (FileNotFoundException e) {
-                LogHelper.toast("The data backup " + BACKUP_FILE + " does not exist. First use " + BACKUP + ".");
+                LogHelper.toast("The data backup " + BACKUP_FILE + " does not exist. First use " + BACKUP + ". " + e.toString());
             } catch (IOException e) {
                 LogHelper.error(e.toString());
             }

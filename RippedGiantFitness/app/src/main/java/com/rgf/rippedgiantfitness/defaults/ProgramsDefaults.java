@@ -13,7 +13,7 @@ import java.util.Map;
 public class ProgramsDefaults {
 
     public static void create() {
-        create("", getSharedPreferencesDefaults());
+        create("", getProgramsDefaults());
     }
 
     private static void create(String parent, Map<String,Object> map) {
@@ -32,8 +32,8 @@ public class ProgramsDefaults {
         }
     }
 
-    private static Map<String,Object> getSharedPreferencesDefaults() {
-        Map<String,Object> sharedPreferencesDefaults = new HashMap<String,Object>() {{
+    private static Map<String,Object> getProgramsDefaults() {
+        Map<String,Object> programsDefaults = new HashMap<String,Object>() {{
             put(SharedPreferencesHelper.PROGRAMS, new ArrayList<Object>() {{
                 add(new HashMap<String, Object>() {{
                     put(SharedPreferencesHelper.NAME, "Hypertrophy");
@@ -76,7 +76,7 @@ public class ProgramsDefaults {
             }});
         }};
 
-        return sharedPreferencesDefaults;
+        return programsDefaults;
     }
 
     private static Map<String,Object> getHyperWorkout(final String workoutName,

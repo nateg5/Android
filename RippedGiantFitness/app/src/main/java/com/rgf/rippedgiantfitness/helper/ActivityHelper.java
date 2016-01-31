@@ -1,6 +1,7 @@
 package com.rgf.rippedgiantfitness.helper;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -21,9 +22,14 @@ import com.rgf.rippedgiantfitness.interfaces.RGFActivity;
 public class ActivityHelper {
 
     public static AppCompatButton createButton(final Context context, String text, boolean clickable) {
+        return createButton(context, text, Typeface.DEFAULT, clickable);
+    }
+
+    public static AppCompatButton createButton(final Context context, String text, Typeface typeface, boolean clickable) {
         AppCompatButton button = new AppCompatButton(context);
         button.setText(text);
         button.setSupportAllCaps(false);
+        button.setTypeface(typeface);
         button.setGravity(Gravity.LEFT | Gravity.CENTER_VERTICAL);
         button.setBackgroundColor(ContextCompat.getColor(context, R.color.colorTransparent));
         if(clickable) {

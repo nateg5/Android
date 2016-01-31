@@ -112,6 +112,16 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.rgf.rippedgiantfitness.MeasurementsActivity" />
         </activity>
+        <activity
+            android:name=".HelpActivity"
+            android:label="@string/title_activity_help"
+            android:parentActivityName=".HomeActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.rgf.rippedgiantfitness.HomeActivity" />
+        </activity>
     </application>
 
 </manifest>

@@ -12,4 +12,5 @@
     <string name="title_activity_hiit_timer">HIIT Timer</string>
     <string name="title_activity_measurements">Measurements</string>
     <string name="title_activity_measurement">Measurement</string>
+    <string name="title_activity_help">Help</string>
 </resources>

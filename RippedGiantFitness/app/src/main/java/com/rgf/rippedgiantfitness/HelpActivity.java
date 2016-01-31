@@ -1,0 +1,220 @@
+package com.rgf.rippedgiantfitness;
+
+import android.content.Context;
+import android.content.Intent;
+import android.graphics.Typeface;
+import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.AppCompatButton;
+import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
+import android.view.ViewGroup;
+
+import com.rgf.rippedgiantfitness.helper.ActivityHelper;
+import com.rgf.rippedgiantfitness.interfaces.RGFActivity;
+
+public class HelpActivity extends AppCompatActivity implements RGFActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_help);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        init();
+    }
+
+    public void init() {
+        Context context = this;
+
+        AppCompatButton buttonGeneralTitle = ActivityHelper.createButton(
+                context,
+                "General",
+                Typeface.DEFAULT_BOLD,
+                false);
+
+        ((ViewGroup)findViewById(R.id.content_help)).addView(buttonGeneralTitle);
+
+        ((ViewGroup)findViewById(R.id.content_help)).addView(ActivityHelper.getSeparatorView(context));
+
+        AppCompatButton buttonGeneralContent = ActivityHelper.createButton(
+                context,
+                "On any screen you can touch an item to select it. On most screens you can also " +
+                        "touch and hold an item to bring up a menu of actions that can be performed " +
+                        "on that item.\n\n" +
+                        "The first time the app is started default Programs and Measurements are " +
+                        "created. These can be modified, removed or used as is. The default Programs " +
+                        "are intended to be used in an \"N on 1 off\" schedule, where N is the number " +
+                        "of Workouts in the Programs. For example, the \"10 x 10\" Program would be " +
+                        "schedule 4 days on and 1 day off.",
+                false);
+
+        ((ViewGroup)findViewById(R.id.content_help)).addView(buttonGeneralContent);
+
+        AppCompatButton buttonProgramsTitle = ActivityHelper.createButton(
+                context,
+                "Programs",
+                Typeface.DEFAULT_BOLD,
+                false);
+
+        ((ViewGroup)findViewById(R.id.content_help)).addView(buttonProgramsTitle);
+
+        ((ViewGroup)findViewById(R.id.content_help)).addView(ActivityHelper.getSeparatorView(context));
+
+        AppCompatButton buttonProgramsContent = ActivityHelper.createButton(
+                context,
+                "Program store all of you Workout and Exercise information. You can create, remove " +
+                        "and reorder Programs. Each Program can have multiple Workouts, and each " +
+                        "Workout can have multiple Exercises. The Exercise setting allow you to " +
+                        "create a custom workout that fits your specific needs.\n\n" +
+                        "To start a Workout you will touch and hold a Workout to bring up the action " +
+                        "menu and then select Start Workout. After each set touch the Reps button " +
+                        "for that set to select how many reps you completed. A rest timer will " +
+                        "automatically be started between each set. Once you have completed all sets " +
+                        "touch the Finish Workout button. This will auto increment or decrement your " +
+                        "sets, reps and weights based on how many sets and reps you completed.\n\n" +
+                        "All Workouts will use a 10/1 progressive overload approach for auto " +
+                        "decrementing and " +
+                        "incrementing the sets, reps and weights. This means that if you fail to " +
+                        "complete " +
+                        "all of the sets and reps on an Exercise the total volume (sets * reps * " +
+                        "weight) of that Exercise will be decreased by 10%. If you succeed at " +
+                        "completing all of the " +
+                        "sets and reps on an Exercise the total volume of that Exercise will be " +
+                        "increased by 1%. This will prevent overtraining plateaus and allow for " +
+                        "continuous progression.",
+                false);
+
+        ((ViewGroup)findViewById(R.id.content_help)).addView(buttonProgramsContent);
+
+        AppCompatButton buttonMeasurementsTitle = ActivityHelper.createButton(
+                context,
+                "Measurements",
+                Typeface.DEFAULT_BOLD,
+                false);
+
+        ((ViewGroup)findViewById(R.id.content_help)).addView(buttonMeasurementsTitle);
+
+        ((ViewGroup)findViewById(R.id.content_help)).addView(ActivityHelper.getSeparatorView(context));
+
+        AppCompatButton buttonMeasurementsContent = ActivityHelper.createButton(
+                context,
+                "Measurements are used to track your body's progress, such as weight or body fat " +
+                        "percentage. Measurements can be added and removed and will provide you " +
+                        "with the current, 7 day average, 7 day high and 7 day low value for each " +
+                        "Measurement.",
+                false);
+
+        ((ViewGroup)findViewById(R.id.content_help)).addView(buttonMeasurementsContent);
+
+        AppCompatButton buttonHiitTitle = ActivityHelper.createButton(
+                context,
+                "HIIT Timer",
+                Typeface.DEFAULT_BOLD,
+                false);
+
+        ((ViewGroup)findViewById(R.id.content_help)).addView(buttonHiitTitle);
+
+        ((ViewGroup)findViewById(R.id.content_help)).addView(ActivityHelper.getSeparatorView(context));
+
+        AppCompatButton buttonHiitContent = ActivityHelper.createButton(
+                context,
+                "HIIT Timer is a simple high intensity interval training timer to be used for " +
+                        "cardio. Enter the Go time, Rest time, number of Rounds and touch the Start " +
+                        "button. The timer will beep at the beginning of each time interval so that " +
+                        "you can focus of you workout and not your phone.",
+                false);
+
+        ((ViewGroup)findViewById(R.id.content_help)).addView(buttonHiitContent);
+
+        AppCompatButton buttonInstagramTitle = ActivityHelper.createButton(
+                context,
+                "Instagram",
+                Typeface.DEFAULT_BOLD,
+                false);
+
+        ((ViewGroup)findViewById(R.id.content_help)).addView(buttonInstagramTitle);
+
+        ((ViewGroup)findViewById(R.id.content_help)).addView(ActivityHelper.getSeparatorView(context));
+
+        AppCompatButton buttonInstagramContent = ActivityHelper.createButton(
+                context,
+                "Instagram will open the Ripped Giant Fitness Instagram page in the Instagram app. " +
+                        "If you do not have the Instagram app installed then it will open in your " +
+                        "web browser.",
+                false);
+
+        ((ViewGroup)findViewById(R.id.content_help)).addView(buttonInstagramContent);
+
+        AppCompatButton buttonDataBackupTitle = ActivityHelper.createButton(
+                context,
+                "Data Backup",
+                Typeface.DEFAULT_BOLD,
+                false);
+
+        ((ViewGroup)findViewById(R.id.content_help)).addView(buttonDataBackupTitle);
+
+        ((ViewGroup)findViewById(R.id.content_help)).addView(ActivityHelper.getSeparatorView(context));
+
+        AppCompatButton buttonDataBackupContent = ActivityHelper.createButton(
+                context,
+                "Data Backup will backup all of the user data including Programs, Measurements and " +
+                        "HIIT Timer settings to phone storage at " +
+                        "RippedGiantFitness/RippedGiantFitness.bak. This backup file can be used " +
+                        "to transfer settings to a new phone or backup your settings in case the app " +
+                        "settings are lost.",
+                false);
+
+        ((ViewGroup)findViewById(R.id.content_help)).addView(buttonDataBackupContent);
+
+        AppCompatButton buttonDataRestoreTitle = ActivityHelper.createButton(
+                context,
+                "Data Restore",
+                Typeface.DEFAULT_BOLD,
+                false);
+
+        ((ViewGroup)findViewById(R.id.content_help)).addView(buttonDataRestoreTitle);
+
+        ((ViewGroup)findViewById(R.id.content_help)).addView(ActivityHelper.getSeparatorView(context));
+
+        AppCompatButton buttonDataRestoreContent = ActivityHelper.createButton(
+                context,
+                "Data Restore will restore all of the user data including Programs, Measurements and " +
+                        "HIIT Timer settings from phone storage at " +
+                        "RippedGiantFitness/RippedGiantFitness.bak. This restore will overwrite all " +
+                        "current user settings in the app.",
+                false);
+
+        ((ViewGroup)findViewById(R.id.content_help)).addView(buttonDataRestoreContent);
+    }
+
+    @Override
+    public void startActivity(Intent intent) {
+        if(intent.getComponent().getClassName().equals(HomeActivity.class.getName())) {
+            finish();
+        } else {
+            super.startActivity(intent);
+            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+        }
+    }
+
+    @Override
+    public void finish() {
+        super.finish();
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(item.getItemId() == android.R.id.home) {
+            finish();
+            return true;
+        } else {
+            return super.onOptionsItemSelected(item);
+        }
+    }
+
+}

@@ -57,6 +57,7 @@ public class SharedPreferencesHelper {
     public final static String HIIT_ROUNDS = "HIIT Rounds";
 
     public final static String INSTAGRAM = "Instagram";
+    public final static String MY_FITNESS_PAL = "MyFitnessPal";
 
     public final static String BACKUP_FOLDER = "RippedGiantFitness";
     public final static String BACKUP_FILE = "RippedGiantFitness.bak";

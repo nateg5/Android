@@ -149,6 +149,25 @@ public class HelpActivity extends AppCompatActivity implements RGFActivity {
 
         ((ViewGroup)findViewById(R.id.content_help)).addView(buttonInstagramContent);
 
+        AppCompatButton buttonMfpTitle = ActivityHelper.createButton(
+                context,
+                "MyFitnessPal",
+                Typeface.DEFAULT_BOLD,
+                false);
+
+        ((ViewGroup)findViewById(R.id.content_help)).addView(buttonMfpTitle);
+
+        ((ViewGroup)findViewById(R.id.content_help)).addView(ActivityHelper.getSeparatorView(context));
+
+        AppCompatButton buttonMfpContent = ActivityHelper.createButton(
+                context,
+                "MyFitnessPal will open the MyFitnessPal app. " +
+                        "If you do not have the MyFitnessPal app installed then it will open in your " +
+                        "web browser.",
+                false);
+
+        ((ViewGroup)findViewById(R.id.content_help)).addView(buttonMfpContent);
+
         AppCompatButton buttonDataBackupTitle = ActivityHelper.createButton(
                 context,
                 "Data Backup",

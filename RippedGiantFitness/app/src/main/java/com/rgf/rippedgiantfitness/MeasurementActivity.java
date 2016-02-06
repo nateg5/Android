@@ -51,8 +51,8 @@ public class MeasurementActivity extends AppCompatActivity implements RGFActivit
             @Override
             public void onClick(View view) {
                 DateFormat dateFormat = new SimpleDateFormat("yyy/MM/dd");
-                final AppCompatEditText editTextDate = DialogHelper.createEditText(context, dateFormat.format(new Date()), SharedPreferencesHelper.DATE, InputType.TYPE_CLASS_DATETIME);
-                final AppCompatEditText editTextEntry = DialogHelper.createEditText(context, "", getTitle().toString(), InputType.TYPE_CLASS_NUMBER);
+                final AppCompatEditText editTextDate = DialogHelper.createEditText(context, dateFormat.format(new Date()), SharedPreferencesHelper.DATE, InputType.TYPE_CLASS_DATETIME|InputType.TYPE_DATETIME_VARIATION_DATE);
+                final AppCompatEditText editTextEntry = DialogHelper.createEditText(context, "", getTitle().toString(), InputType.TYPE_CLASS_NUMBER|InputType.TYPE_NUMBER_FLAG_DECIMAL);
 
                 final AlertDialog dialog = DialogHelper.createDialog(context, DialogHelper.CREATE, DialogHelper.CREATE, DialogHelper.CANCEL, editTextDate, editTextEntry);
 
@@ -82,13 +82,13 @@ public class MeasurementActivity extends AppCompatActivity implements RGFActivit
 
         List<String> entries = SharedPreferencesHelper.getEntries(measurementIndex);
 
-        int entryCount = 0;
-        int entryTotal = 0;
-        int entryCurrent = 0;
+        float entryCount = 0;
+        float entryTotal = 0;
+        float entryCurrent = 0;
         Date entryCurrentDate = null;
-        int entryAverage = 0;
-        int entryHigh = 0;
-        int entryLow = 0;
+        float entryAverage = 0;
+        float entryHigh = 0;
+        float entryLow = 0;
         for(String entry : entries) {
             String entryIndex = entry;
             String entryDate = SharedPreferencesHelper.getPreference(entryIndex, SharedPreferencesHelper.DATE);
@@ -104,13 +104,13 @@ public class MeasurementActivity extends AppCompatActivity implements RGFActivit
 
                 if(dateEntry.after(dateWeek)) {
                     entryCount++;
-                    entryTotal += Integer.valueOf(entryValue);
-                    entryHigh = entryHigh == 0 || Integer.valueOf(entryValue) > entryHigh ? Integer.valueOf(entryValue) : entryHigh;
-                    entryLow = entryLow == 0 || Integer.valueOf(entryValue) < entryLow ? Integer.valueOf(entryValue) : entryLow;
+                    entryTotal += Float.valueOf(entryValue);
+                    entryHigh = entryHigh == 0 || Float.valueOf(entryValue) > entryHigh ? Float.valueOf(entryValue) : entryHigh;
+                    entryLow = entryLow == 0 || Float.valueOf(entryValue) < entryLow ? Float.valueOf(entryValue) : entryLow;
                 }
 
                 if(entryCurrentDate == null || dateEntry.after(entryCurrentDate) || dateEntry.equals(entryCurrentDate)) {
-                    entryCurrent = Integer.valueOf(entryValue);
+                    entryCurrent = Float.valueOf(entryValue);
                     entryCurrentDate = dateEntry;
                 }
 
@@ -120,10 +120,10 @@ public class MeasurementActivity extends AppCompatActivity implements RGFActivit
         }
         entryAverage = entryCount > 0 ? entryTotal / entryCount : entryAverage;
 
-        AppCompatButton buttonCurrent = ActivityHelper.createButton(context, DialogHelper.CURRENT + ": " + entryCurrent, false);
-        AppCompatButton buttonAverage = ActivityHelper.createButton(context, DialogHelper.AVERAGE + ": " + entryAverage, false);
-        AppCompatButton buttonHigh = ActivityHelper.createButton(context, DialogHelper.HIGH + ": " + entryHigh, false);
-        AppCompatButton buttonLow = ActivityHelper.createButton(context, DialogHelper.LOW + ": " + entryLow, false);
+        AppCompatButton buttonCurrent = ActivityHelper.createButton(context, DialogHelper.CURRENT + ": " + String.format("%.1f", entryCurrent), false);
+        AppCompatButton buttonAverage = ActivityHelper.createButton(context, DialogHelper.AVERAGE + ": " + String.format("%.1f", entryAverage), false);
+        AppCompatButton buttonHigh = ActivityHelper.createButton(context, DialogHelper.HIGH + ": " + String.format("%.1f", entryHigh), false);
+        AppCompatButton buttonLow = ActivityHelper.createButton(context, DialogHelper.LOW + ": " + String.format("%.1f", entryLow), false);
 
         ((ViewGroup)findViewById(R.id.content_measurement)).addView(buttonCurrent);
         ((ViewGroup)findViewById(R.id.content_measurement)).addView(buttonAverage);
@@ -138,7 +138,7 @@ public class MeasurementActivity extends AppCompatActivity implements RGFActivit
             buttonEntry.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    DialogHelper.createEditDialog(context, R.id.content_measurement, entryIndex, getTitle().toString(), SharedPreferencesHelper.ENTRY, InputType.TYPE_CLASS_NUMBER);
+                    DialogHelper.createEditDialog(context, R.id.content_measurement, entryIndex, getTitle().toString(), SharedPreferencesHelper.ENTRY, InputType.TYPE_CLASS_NUMBER|InputType.TYPE_NUMBER_FLAG_DECIMAL);
                 }
             });
             buttonEntry.setOnLongClickListener(new View.OnLongClickListener() {
@@ -159,7 +159,7 @@ public class MeasurementActivity extends AppCompatActivity implements RGFActivit
                                     dialog.dismiss();
                                     break;
                                 case DialogHelper.EDIT:
-                                    DialogHelper.createEditDialog(context, R.id.content_measurement, entryIndex, getTitle().toString(), SharedPreferencesHelper.ENTRY, InputType.TYPE_CLASS_NUMBER);
+                                    DialogHelper.createEditDialog(context, R.id.content_measurement, entryIndex, getTitle().toString(), SharedPreferencesHelper.ENTRY, InputType.TYPE_CLASS_NUMBER|InputType.TYPE_NUMBER_FLAG_DECIMAL);
                                     dialog.dismiss();
                                     break;
                                 case DialogHelper.REMOVE:

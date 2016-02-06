@@ -1,6 +1,7 @@
 package com.rgf.rippedgiantfitness;
 
 import android.content.ActivityNotFoundException;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -87,6 +88,24 @@ public class HomeActivity extends AppCompatActivity {
         });
 
         ((ViewGroup)findViewById(R.id.content_home)).addView(buttonInstagram);
+
+        AppCompatButton buttonMfp = ActivityHelper.createButton(context, SharedPreferencesHelper.MY_FITNESS_PAL, true);
+        buttonMfp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Uri uri = Uri.parse("http://www.myfitnesspal.com/food/diary");
+                try {
+                    Intent intent = new Intent();
+                    intent.setComponent(new ComponentName("com.myfitnesspal.android", "com.myfitnesspal.android.login.Welcome"));
+                    startActivity(intent);
+                } catch (ActivityNotFoundException e) {
+                    Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                    startActivity(intent);
+                }
+            }
+        });
+
+        ((ViewGroup)findViewById(R.id.content_home)).addView(buttonMfp);
 
         ((ViewGroup)findViewById(R.id.content_home)).addView(ActivityHelper.getSeparatorView(context));
 

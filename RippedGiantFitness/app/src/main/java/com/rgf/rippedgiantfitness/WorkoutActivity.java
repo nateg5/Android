@@ -43,6 +43,13 @@ public class WorkoutActivity extends AppCompatActivity implements RGFActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        final String workoutIndex = getIntent().getStringExtra(SharedPreferencesHelper.WORKOUTS);
+        final String workoutName = SharedPreferencesHelper.getPreference(workoutIndex, SharedPreferencesHelper.NAME);
+
+        if(workoutName.trim().length() > 0) {
+            setTitle(workoutName);
+        }
+
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         init();

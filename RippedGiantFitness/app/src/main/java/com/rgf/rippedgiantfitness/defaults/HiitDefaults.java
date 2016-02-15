@@ -1,5 +1,6 @@
 package com.rgf.rippedgiantfitness.defaults;
 
+import com.rgf.rippedgiantfitness.helper.LogHelper;
 import com.rgf.rippedgiantfitness.helper.SharedPreferencesHelper;
 
 /**
@@ -8,8 +9,14 @@ import com.rgf.rippedgiantfitness.helper.SharedPreferencesHelper;
 public class HiitDefaults {
 
     public static void create() {
-        SharedPreferencesHelper.getLocalPreferences().put(SharedPreferencesHelper.HIIT_GO, "");
-        SharedPreferencesHelper.getLocalPreferences().put(SharedPreferencesHelper.HIIT_REST, "");
-        SharedPreferencesHelper.getLocalPreferences().put(SharedPreferencesHelper.HIIT_ROUNDS, "");
+        if(SharedPreferencesHelper.getLocalPreferences().containsKey(SharedPreferencesHelper.HIIT_GO)) {
+            LogHelper.debug("HIIT Settings already exist.");
+        } else {
+            LogHelper.debug("Creating HIIT Settings defaults.");
+            SharedPreferencesHelper.getLocalPreferences().put(SharedPreferencesHelper.HIIT_GO, "");
+            SharedPreferencesHelper.getLocalPreferences().put(SharedPreferencesHelper.HIIT_REST, "");
+            SharedPreferencesHelper.getLocalPreferences().put(SharedPreferencesHelper.HIIT_ROUNDS, "");
+            SharedPreferencesHelper.commit();
+        }
     }
 }

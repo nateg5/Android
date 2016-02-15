@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 
+import com.rgf.rippedgiantfitness.defaults.SettingsDefaults;
 import com.rgf.rippedgiantfitness.helper.ActivityHelper;
 import com.rgf.rippedgiantfitness.helper.DialogHelper;
 import com.rgf.rippedgiantfitness.helper.LogHelper;
@@ -70,37 +71,39 @@ public class ExerciseActivity extends AppCompatActivity implements RGFActivity {
     }
 
     public void init() {
+        final String weightUnit = SharedPreferencesHelper.getPreference(SharedPreferencesHelper.buildPreferenceString(SharedPreferencesHelper.SETTINGS, SettingsDefaults.UNIT, SharedPreferencesHelper.SETTING));
+
         final Context context = this;
         final AppCompatActivity activity = this;
         final String exerciseIndex = getIntent().getStringExtra(SharedPreferencesHelper.EXERCISES);
 
         List<String> sets = SharedPreferencesHelper.getSets(exerciseIndex);
 
-        ActivityHelper.createEditButton(activity, R.id.content_exercise, exerciseIndex, DialogHelper.CURRENT_VOLUME, SharedPreferencesHelper.CURRENT_VOLUME, InputType.TYPE_CLASS_NUMBER, false);
-        ActivityHelper.createEditButton(activity, R.id.content_exercise, exerciseIndex, DialogHelper.FAILED_VOLUME, SharedPreferencesHelper.FAILED_VOLUME, InputType.TYPE_CLASS_NUMBER, false);
-        ActivityHelper.createEditButton(activity, R.id.content_exercise, exerciseIndex, DialogHelper.WEIGHT_INCREMENT, SharedPreferencesHelper.INCREMENT, InputType.TYPE_CLASS_NUMBER, true);
-        ActivityHelper.createEditButton(activity, R.id.content_exercise, exerciseIndex, DialogHelper.SETS_WARMUP, SharedPreferencesHelper.WARMUP_SETS, InputType.TYPE_CLASS_NUMBER, true);
-        ActivityHelper.createEditButton(activity, R.id.content_exercise, exerciseIndex, DialogHelper.NUMBER_OF_REPS, SharedPreferencesHelper.REPS, InputType.TYPE_CLASS_NUMBER, true);
-        ActivityHelper.createEditButton(activity, R.id.content_exercise, exerciseIndex, DialogHelper.REST_IN_SECONDS, SharedPreferencesHelper.REST, InputType.TYPE_CLASS_NUMBER, true);
-        ActivityHelper.createEditButton(activity, R.id.content_exercise, exerciseIndex, DialogHelper.MIN_WEIGHT, SharedPreferencesHelper.MIN_WEIGHT, InputType.TYPE_CLASS_NUMBER, true);
-        ActivityHelper.createEditButton(activity, R.id.content_exercise, exerciseIndex, DialogHelper.MAX_WEIGHT, SharedPreferencesHelper.MAX_WEIGHT, InputType.TYPE_CLASS_NUMBER, true);
+        ActivityHelper.createEditButton(activity, R.id.content_exercise, exerciseIndex, DialogHelper.CURRENT_VOLUME, weightUnit, SharedPreferencesHelper.CURRENT_VOLUME, InputType.TYPE_CLASS_NUMBER, false);
+        ActivityHelper.createEditButton(activity, R.id.content_exercise, exerciseIndex, DialogHelper.FAILED_VOLUME, weightUnit, SharedPreferencesHelper.FAILED_VOLUME, InputType.TYPE_CLASS_NUMBER, false);
+        ActivityHelper.createEditButton(activity, R.id.content_exercise, exerciseIndex, DialogHelper.WEIGHT_INCREMENT, weightUnit, SharedPreferencesHelper.INCREMENT, InputType.TYPE_CLASS_NUMBER, true);
+        ActivityHelper.createEditButton(activity, R.id.content_exercise, exerciseIndex, DialogHelper.SETS_WARMUP, "sets", SharedPreferencesHelper.WARMUP_SETS, InputType.TYPE_CLASS_NUMBER, true);
+        ActivityHelper.createEditButton(activity, R.id.content_exercise, exerciseIndex, DialogHelper.NUMBER_OF_REPS, "reps", SharedPreferencesHelper.REPS, InputType.TYPE_CLASS_NUMBER, true);
+        ActivityHelper.createEditButton(activity, R.id.content_exercise, exerciseIndex, DialogHelper.REST_IN_SECONDS, "sec", SharedPreferencesHelper.REST, InputType.TYPE_CLASS_NUMBER, true);
+        ActivityHelper.createEditButton(activity, R.id.content_exercise, exerciseIndex, DialogHelper.MIN_WEIGHT, weightUnit, SharedPreferencesHelper.MIN_WEIGHT, InputType.TYPE_CLASS_NUMBER, true);
+        ActivityHelper.createEditButton(activity, R.id.content_exercise, exerciseIndex, DialogHelper.MAX_WEIGHT, weightUnit, SharedPreferencesHelper.MAX_WEIGHT, InputType.TYPE_CLASS_NUMBER, true);
 
         int setNum = 1;
         for(String set : sets) {
             final String setIndex = set;
             final String setNumber = "Set " + String.valueOf(setNum++) + ": ";
 
-            final AppCompatButton buttonSet = ActivityHelper.createButton(context, setNumber + SharedPreferencesHelper.getPreference(setIndex, SharedPreferencesHelper.WEIGHT), true);
+            final AppCompatButton buttonSet = ActivityHelper.createButton(context, setNumber + SharedPreferencesHelper.getPreference(setIndex, SharedPreferencesHelper.WEIGHT) + " " + weightUnit, true);
             buttonSet.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    DialogHelper.createEditDialog(context, buttonSet, setIndex, DialogHelper.SET_WEIGHT, setNumber, SharedPreferencesHelper.WEIGHT, InputType.TYPE_CLASS_NUMBER);
+                    DialogHelper.createEditDialog(context, buttonSet, setIndex, DialogHelper.SET_WEIGHT, setNumber, weightUnit, SharedPreferencesHelper.WEIGHT, InputType.TYPE_CLASS_NUMBER);
                 }
             });
             buttonSet.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View v) {
-                    final AlertDialog dialog = DialogHelper.createDialog(context, setNumber + SharedPreferencesHelper.getPreference(setIndex, SharedPreferencesHelper.WEIGHT), DialogHelper.MENU);
+                    final AlertDialog dialog = DialogHelper.createDialog(context, setNumber + SharedPreferencesHelper.getPreference(setIndex, SharedPreferencesHelper.WEIGHT) + " " + weightUnit, DialogHelper.MENU);
                     dialog.getListView().setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -115,11 +118,11 @@ public class ExerciseActivity extends AppCompatActivity implements RGFActivity {
                                     dialog.dismiss();
                                     break;
                                 case DialogHelper.EDIT:
-                                    DialogHelper.createEditDialog(context, buttonSet, setIndex, DialogHelper.SET_WEIGHT, setNumber, SharedPreferencesHelper.WEIGHT, InputType.TYPE_CLASS_NUMBER);
+                                    DialogHelper.createEditDialog(context, buttonSet, setIndex, DialogHelper.SET_WEIGHT, setNumber, weightUnit, SharedPreferencesHelper.WEIGHT, InputType.TYPE_CLASS_NUMBER);
                                     dialog.dismiss();
                                     break;
                                 case DialogHelper.REMOVE:
-                                    DialogHelper.createRemoveDialog(activity, R.id.content_exercise, setIndex, setNumber, SharedPreferencesHelper.WEIGHT);
+                                    DialogHelper.createRemoveDialog(activity, R.id.content_exercise, setIndex, setNumber, weightUnit, SharedPreferencesHelper.WEIGHT);
                                     dialog.dismiss();
                                     break;
                                 default:

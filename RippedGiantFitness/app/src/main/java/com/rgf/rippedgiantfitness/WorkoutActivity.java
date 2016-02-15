@@ -19,6 +19,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 
+import com.rgf.rippedgiantfitness.defaults.SettingsDefaults;
 import com.rgf.rippedgiantfitness.helper.ActivityHelper;
 import com.rgf.rippedgiantfitness.helper.DialogHelper;
 import com.rgf.rippedgiantfitness.helper.LogHelper;
@@ -48,6 +49,8 @@ public class WorkoutActivity extends AppCompatActivity implements RGFActivity {
     }
 
     public void init() {
+        final String weightUnit = SharedPreferencesHelper.getPreference(SharedPreferencesHelper.buildPreferenceString(SharedPreferencesHelper.SETTINGS, SettingsDefaults.UNIT, SharedPreferencesHelper.SETTING));
+
         final Context context = this;
         final AppCompatActivity activity = this;
         final String workoutIndex = getIntent().getStringExtra(SharedPreferencesHelper.WORKOUTS);
@@ -92,11 +95,11 @@ public class WorkoutActivity extends AppCompatActivity implements RGFActivity {
                 double halfWeight = firstSetWeight / 2.0;
                 double warmupIncrement = halfWeight / numberOfWarmupSets;
                 int warmupWeight = (int)((warmupIncrement * i) + halfWeight);
-                warmupWeight = warmupWeight - (warmupWeight % increment);
+                warmupWeight = increment > 0 ? warmupWeight - (warmupWeight % increment) : warmupWeight;
                 warmupWeight = warmupWeight < minWeight ? minWeight : warmupWeight;
 
                 final AppCompatButton buttonWarmupSet = ActivityHelper.createButton(context, "WU " + (i + 1), false);
-                final AppCompatButton buttonWarmupWeight = ActivityHelper.createButton(context, warmupWeight + " Lbs", false);
+                final AppCompatButton buttonWarmupWeight = ActivityHelper.createButton(context, warmupWeight + " " + weightUnit, false);
 
                 final AppCompatButton buttonWarmupReps = createRepsButton(exerciseIndex, null, null);
 
@@ -120,7 +123,7 @@ public class WorkoutActivity extends AppCompatActivity implements RGFActivity {
                 setMap.put(setIndex, false);
 
                 final AppCompatButton buttonSet = ActivityHelper.createButton(context, "Set " + String.valueOf(setNum++), false);
-                final AppCompatButton buttonWeight = ActivityHelper.createButton(context, SharedPreferencesHelper.getPreference(setIndex, SharedPreferencesHelper.WEIGHT) + " Lbs", false);
+                final AppCompatButton buttonWeight = ActivityHelper.createButton(context, SharedPreferencesHelper.getPreference(setIndex, SharedPreferencesHelper.WEIGHT) + " " + weightUnit, false);
 
                 final AppCompatButton buttonReps = createRepsButton(exerciseIndex, setMap, setIndex);
 

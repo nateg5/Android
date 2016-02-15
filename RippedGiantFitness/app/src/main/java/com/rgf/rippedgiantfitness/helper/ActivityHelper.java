@@ -65,8 +65,8 @@ public class ActivityHelper {
         return editText;
     }
 
-    public static AppCompatButton createEditButton(final AppCompatActivity activity, final int resId, final String index, final String label, final String preference, final int inputType, final boolean clickable) {
-        final AppCompatButton button = createButton(activity, label + ": " + SharedPreferencesHelper.getPreference(index, preference), clickable);
+    public static AppCompatButton createEditButton(final AppCompatActivity activity, final int resId, final String index, final String label, final String unit, final String preference, final int inputType, final boolean clickable) {
+        final AppCompatButton button = createButton(activity, label + ": " + SharedPreferencesHelper.getPreference(index, preference) + " " + unit, clickable);
         if(clickable) {
             button.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -79,7 +79,7 @@ public class ActivityHelper {
                         @Override
                         public void onClick(View v) {
                             if (SharedPreferencesHelper.setPreference(index, preference, editText.getText().toString())) {
-                                button.setText(label + ": " + editText.getText().toString());
+                                button.setText(label + ": " + editText.getText().toString() + " " + unit);
                                 dialogEdit.dismiss();
                             } else {
                                 LogHelper.error("Failed to save " + SharedPreferencesHelper.buildPreferenceString(index, preference));
@@ -99,7 +99,7 @@ public class ActivityHelper {
                         @Override
                         public void onClick(View v) {
                             if (SharedPreferencesHelper.setPreference(index, preference, editText.getText().toString())) {
-                                button.setText(label + ": " + editText.getText().toString());
+                                button.setText(label + ": " + editText.getText().toString() + " " + unit);
                                 dialogEdit.dismiss();
                             } else {
                                 LogHelper.error("Failed to save " + SharedPreferencesHelper.buildPreferenceString(index, preference));

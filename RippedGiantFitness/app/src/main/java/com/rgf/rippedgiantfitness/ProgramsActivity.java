@@ -103,11 +103,11 @@ public class ProgramsActivity extends AppCompatActivity implements RGFActivity {
                                     dialog.dismiss();
                                     break;
                                 case DialogHelper.EDIT:
-                                    DialogHelper.createEditDialog(context, buttonProgram, programIndex, DialogHelper.PROGRAM_NAME, "", SharedPreferencesHelper.NAME, InputType.TYPE_CLASS_TEXT);
+                                    DialogHelper.createEditDialog(context, buttonProgram, programIndex, DialogHelper.PROGRAM_NAME, "", "", SharedPreferencesHelper.NAME, InputType.TYPE_CLASS_TEXT);
                                     dialog.dismiss();
                                     break;
                                 case DialogHelper.REMOVE:
-                                    DialogHelper.createRemoveDialog(activity, R.id.content_programs, programIndex, "", SharedPreferencesHelper.NAME);
+                                    DialogHelper.createRemoveDialog(activity, R.id.content_programs, programIndex, "", "", SharedPreferencesHelper.NAME);
                                     dialog.dismiss();
                                     break;
                                 default:

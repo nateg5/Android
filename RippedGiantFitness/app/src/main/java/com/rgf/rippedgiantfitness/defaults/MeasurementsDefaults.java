@@ -1,5 +1,6 @@
 package com.rgf.rippedgiantfitness.defaults;
 
+import com.rgf.rippedgiantfitness.helper.LogHelper;
 import com.rgf.rippedgiantfitness.helper.SharedPreferencesHelper;
 
 import java.util.ArrayList;
@@ -12,7 +13,13 @@ import java.util.Map;
  */
 public class MeasurementsDefaults {
     public static void create() {
-        create("", getMeasurementsDefaults());
+        if(SharedPreferencesHelper.getMeasurements().size() == 0) {
+            LogHelper.debug("Creating Measurements defaults.");
+            create("", getMeasurementsDefaults());
+            SharedPreferencesHelper.commit();
+        } else {
+            LogHelper.debug("Measurements already exists.");
+        }
     }
 
     private static void create(String parent, Map<String,Object> map) {

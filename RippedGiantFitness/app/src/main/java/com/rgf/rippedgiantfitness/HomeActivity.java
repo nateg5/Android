@@ -153,6 +153,17 @@ public class HomeActivity extends AppCompatActivity {
 
         ((ViewGroup)findViewById(R.id.content_home)).addView(ActivityHelper.getSeparatorView(context));
 
+        AppCompatButton buttonSettings = ActivityHelper.createButton(context, SharedPreferencesHelper.SETTINGS, true);
+        buttonSettings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, SettingsActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        ((ViewGroup)findViewById(R.id.content_home)).addView(buttonSettings);
+
         AppCompatButton buttonHelp = ActivityHelper.createButton(context, SharedPreferencesHelper.HELP, true);
         buttonHelp.setOnClickListener(new View.OnClickListener() {
             @Override

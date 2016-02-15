@@ -7,6 +7,7 @@ import android.os.Environment;
 import com.rgf.rippedgiantfitness.defaults.HiitDefaults;
 import com.rgf.rippedgiantfitness.defaults.MeasurementsDefaults;
 import com.rgf.rippedgiantfitness.defaults.ProgramsDefaults;
+import com.rgf.rippedgiantfitness.defaults.SettingsDefaults;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -64,6 +65,11 @@ public class SharedPreferencesHelper {
     public final static String BACKUP = "Data Backup";
     public final static String RESTORE = "Data Restore";
 
+    public final static String SETTINGS = "Settings";
+    public final static String SETTING = "Setting";
+    public final static String SETTING_HINT = "Setting Hint";
+    public final static String SETTING_TYPE = "Setting Type";
+
     public final static String HELP = "Help";
 
     private static Context context;
@@ -78,29 +84,10 @@ public class SharedPreferencesHelper {
         editor = sharedPreferences.edit();
         localPreferences = (Map<String, String>) sharedPreferences.getAll();
 
-        if(getPrograms().isEmpty()) {
-            LogHelper.debug("Programs are empty, creating defaults.");
-            ProgramsDefaults.create();
-            commit();
-        } else {
-            LogHelper.debug("Found " + getPrograms().size() + " existing programs.");
-        }
-
-        if(getMeasurements().isEmpty()) {
-            LogHelper.debug("Measurements are empty, creating defaults.");
-            MeasurementsDefaults.create();
-            commit();
-        } else {
-            LogHelper.debug("Found " + getMeasurements().size() + " existing measurements.");
-        }
-
-        if(localPreferences.containsKey(HIIT_GO)) {
-            LogHelper.debug("HIIT Settings already exist.");
-        } else {
-            LogHelper.debug("HIIT Settings do not exist, creating defaults.");
-            HiitDefaults.create();
-            commit();
-        }
+        ProgramsDefaults.create();
+        MeasurementsDefaults.create();
+        HiitDefaults.create();
+        SettingsDefaults.create();
     }
 
     public static Context getContext() {
@@ -111,7 +98,7 @@ public class SharedPreferencesHelper {
         return localPreferences;
     }
 
-    private static boolean commit() {
+    public static boolean commit() {
         LogHelper.debug("Committing localPreferences changes to sharedPreferences");
 
         boolean success = true;
@@ -168,7 +155,10 @@ public class SharedPreferencesHelper {
     private static boolean increaseVolumeOnePercent(String exercise) {
         boolean success = true;
 
-        double targetVolume = getVolume(exercise) * 1.01;
+        double incrementPercent = Double.valueOf(getPreference(buildPreferenceString(SETTINGS, SettingsDefaults.INCREMENT, SETTING)));
+        incrementPercent = 1 + (incrementPercent / 100);
+
+        double targetVolume = getVolume(exercise) * incrementPercent;
 
         while(getVolume(exercise) < targetVolume) {
             success = (success && increaseVolume(exercise));
@@ -180,7 +170,10 @@ public class SharedPreferencesHelper {
     private static boolean decreaseVolumeTenPercent(String exercise) {
         boolean success = true;
 
-        double targetVolume = getVolume(exercise) * 0.9;
+        double decrementPercent = Double.valueOf(getPreference(buildPreferenceString(SETTINGS, SettingsDefaults.DECREMENT, SETTING)));
+        decrementPercent = 1 - (decrementPercent / 100);
+
+        double targetVolume = getVolume(exercise) * decrementPercent;
 
         while(getVolume(exercise) > targetVolume && getVolume(exercise) > getVolumeMin(exercise)) {
             success = (success && decreaseVolume(exercise));
@@ -200,7 +193,7 @@ public class SharedPreferencesHelper {
         List<String> sets = getSets(exercise);
 
         int lastSetWeight = Integer.valueOf(getPreference(sets.get(sets.size() - 1), WEIGHT));
-        if (lastSetWeight < maxWeight) {
+        if (lastSetWeight < maxWeight && increment > 0) {
             for (int i = sets.size() - 1; i >= 0; i--) {
                 int setWeight = Integer.valueOf(getPreference(sets.get(i), WEIGHT));
                 if (i == 0 || setWeight < Integer.valueOf(getPreference(sets.get(i - 1), WEIGHT))) {
@@ -216,10 +209,10 @@ public class SharedPreferencesHelper {
             if(reps < sets.size()) {
                 success = (success && setPreference(exercise, REPS, String.valueOf(reps + 1), false));
             } else if (sets.size() < reps) {
-                success = (success && addSet(exercise, String.valueOf(maxWeight)));
+                success = (success && addSet(exercise, String.valueOf(lastSetWeight)));
             } else {
                 success = (success && setPreference(exercise, REPS, String.valueOf(reps + 1), false));
-                success = (success && addSet(exercise, String.valueOf(maxWeight)));
+                success = (success && addSet(exercise, String.valueOf(lastSetWeight)));
             }
             if(minWeight < maxWeight) {
                 decreaseVolumeTenPercent(exercise);
@@ -240,7 +233,7 @@ public class SharedPreferencesHelper {
         List<String> sets = getSets(exercise);
 
         int firstSetWeight = Integer.valueOf(getPreference(sets.get(0), WEIGHT));
-        if (firstSetWeight > minWeight) {
+        if (firstSetWeight > minWeight && increment > 0) {
             for (int i = 0; i < sets.size(); i++) {
                 int setWeight = Integer.valueOf(getPreference(sets.get(i), WEIGHT));
                 if (i == (sets.size() - 1) || setWeight > Integer.valueOf(getPreference(sets.get(i + 1), WEIGHT))) {
@@ -377,6 +370,10 @@ public class SharedPreferencesHelper {
                 && setPreference(buildPreferenceString(measurement, ENTRIES, String.valueOf(entries.size())), ENTRY, entry));
     }
 
+    public static List<String> getSettings() {
+        return getList("", SETTINGS, NAME);
+    }
+
     private static List<String> getList(String parent, String child, String preference) {
         List<String> list = new ArrayList<>();
 
@@ -437,7 +434,7 @@ public class SharedPreferencesHelper {
         return setPreference(key, value, true);
     }
 
-    private static boolean setPreference(String key, String value, boolean commit) {
+    public static boolean setPreference(String key, String value, boolean commit) {
         boolean success = false;
 
         if(value.trim().length() > 0) {

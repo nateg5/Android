@@ -13,4 +13,5 @@
     <string name="title_activity_measurements">Measurements</string>
     <string name="title_activity_measurement">Measurement</string>
     <string name="title_activity_help">Help</string>
+    <string name="title_activity_settings">Settings</string>
 </resources>

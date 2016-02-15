@@ -1,5 +1,6 @@
 package com.rgf.rippedgiantfitness.defaults;
 
+import com.rgf.rippedgiantfitness.helper.LogHelper;
 import com.rgf.rippedgiantfitness.helper.SharedPreferencesHelper;
 
 import java.util.ArrayList;
@@ -13,7 +14,13 @@ import java.util.Map;
 public class ProgramsDefaults {
 
     public static void create() {
-        create("", getProgramsDefaults());
+        if(SharedPreferencesHelper.getPrograms().size() == 0) {
+            LogHelper.debug("Creating Programs defaults.");
+            create("", getProgramsDefaults());
+            SharedPreferencesHelper.commit();
+        } else {
+            LogHelper.debug("Programs already exists.");
+        }
     }
 
     private static void create(String parent, Map<String,Object> map) {

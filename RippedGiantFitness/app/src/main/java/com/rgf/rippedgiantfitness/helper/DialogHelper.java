@@ -112,7 +112,7 @@ public class DialogHelper {
         return dialog;
     }
 
-    public static AlertDialog createEditDialog(final Context context, final AppCompatButton button, final String index, final String label1, final String label2, final String preference, final int inputType) {
+    public static AlertDialog createEditDialog(final Context context, final AppCompatButton button, final String index, final String label1, final String label2, final String label3, final String preference, final int inputType) {
         final AppCompatEditText editText = createEditText(context, SharedPreferencesHelper.getPreference(index, preference), label1, inputType);
 
         final AlertDialog dialogEdit = createDialog(context, EDIT, SAVE, CANCEL, editText);
@@ -121,7 +121,7 @@ public class DialogHelper {
             @Override
             public void onClick(View v) {
                 if (SharedPreferencesHelper.setPreference(index, preference, editText.getText().toString())) {
-                    button.setText(label2 + editText.getText().toString());
+                    button.setText(label2 + editText.getText().toString() + " " + label3);
                     dialogEdit.dismiss();
                 } else {
                     LogHelper.error("Failed to save " + SharedPreferencesHelper.buildPreferenceString(index, preference));
@@ -153,8 +153,8 @@ public class DialogHelper {
         return dialogEdit;
     }
 
-    public static AlertDialog createRemoveDialog(final AppCompatActivity activity, final int resId, final String index, final String label, final String preference) {
-        String message = "Are you sure you want to permanently remove " + label + SharedPreferencesHelper.getPreference(index, preference) + "?";
+    public static AlertDialog createRemoveDialog(final AppCompatActivity activity, final int resId, final String index, final String label, final String unit, final String preference) {
+        String message = "Are you sure you want to permanently remove " + label + SharedPreferencesHelper.getPreference(index, preference) + " " + unit + "?";
 
         final AlertDialog dialogRemove = createDialog(activity, REMOVE, YES, NO, message);
 

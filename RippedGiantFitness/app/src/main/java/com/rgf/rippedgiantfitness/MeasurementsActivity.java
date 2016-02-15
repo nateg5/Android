@@ -99,11 +99,11 @@ public class MeasurementsActivity extends AppCompatActivity implements RGFActivi
                                     dialog.dismiss();
                                     break;
                                 case DialogHelper.EDIT:
-                                    DialogHelper.createEditDialog(context, buttonMeasurement, measurementIndex, DialogHelper.MEASUREMENT_NAME, "", SharedPreferencesHelper.NAME, InputType.TYPE_CLASS_TEXT);
+                                    DialogHelper.createEditDialog(context, buttonMeasurement, measurementIndex, DialogHelper.MEASUREMENT_NAME, "", "", SharedPreferencesHelper.NAME, InputType.TYPE_CLASS_TEXT);
                                     dialog.dismiss();
                                     break;
                                 case DialogHelper.REMOVE:
-                                    DialogHelper.createRemoveDialog(activity, R.id.content_measurements, measurementIndex, "", SharedPreferencesHelper.NAME);
+                                    DialogHelper.createRemoveDialog(activity, R.id.content_measurements, measurementIndex, "", "", SharedPreferencesHelper.NAME);
                                     dialog.dismiss();
                                     break;
                                 default:

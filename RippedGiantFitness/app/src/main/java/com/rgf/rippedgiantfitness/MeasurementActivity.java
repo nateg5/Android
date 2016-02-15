@@ -163,7 +163,7 @@ public class MeasurementActivity extends AppCompatActivity implements RGFActivit
                                     dialog.dismiss();
                                     break;
                                 case DialogHelper.REMOVE:
-                                    DialogHelper.createRemoveDialog(activity, R.id.content_measurement, entryIndex, date, SharedPreferencesHelper.ENTRY);
+                                    DialogHelper.createRemoveDialog(activity, R.id.content_measurement, entryIndex, date, "", SharedPreferencesHelper.ENTRY);
                                     dialog.dismiss();
                                     break;
                                 default:

@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.view.ViewGroup;
 
 import com.rgf.rippedgiantfitness.helper.ActivityHelper;
+import com.rgf.rippedgiantfitness.helper.SharedPreferencesHelper;
 import com.rgf.rippedgiantfitness.interfaces.RGFActivity;
 
 public class HelpActivity extends AppCompatActivity implements RGFActivity {
@@ -56,7 +57,7 @@ public class HelpActivity extends AppCompatActivity implements RGFActivity {
 
         AppCompatButton buttonProgramsTitle = ActivityHelper.createButton(
                 context,
-                "Programs",
+                SharedPreferencesHelper.PROGRAMS,
                 Typeface.DEFAULT_BOLD,
                 false);
 
@@ -92,7 +93,7 @@ public class HelpActivity extends AppCompatActivity implements RGFActivity {
 
         AppCompatButton buttonMeasurementsTitle = ActivityHelper.createButton(
                 context,
-                "Measurements",
+                SharedPreferencesHelper.MEASUREMENTS,
                 Typeface.DEFAULT_BOLD,
                 false);
 
@@ -112,7 +113,7 @@ public class HelpActivity extends AppCompatActivity implements RGFActivity {
 
         AppCompatButton buttonHiitTitle = ActivityHelper.createButton(
                 context,
-                "HIIT Timer",
+                SharedPreferencesHelper.HIIT_TIMER,
                 Typeface.DEFAULT_BOLD,
                 false);
 
@@ -132,7 +133,7 @@ public class HelpActivity extends AppCompatActivity implements RGFActivity {
 
         AppCompatButton buttonInstagramTitle = ActivityHelper.createButton(
                 context,
-                "Instagram",
+                SharedPreferencesHelper.INSTAGRAM,
                 Typeface.DEFAULT_BOLD,
                 false);
 
@@ -151,7 +152,7 @@ public class HelpActivity extends AppCompatActivity implements RGFActivity {
 
         AppCompatButton buttonMfpTitle = ActivityHelper.createButton(
                 context,
-                "MyFitnessPal",
+                SharedPreferencesHelper.MY_FITNESS_PAL,
                 Typeface.DEFAULT_BOLD,
                 false);
 
@@ -170,7 +171,7 @@ public class HelpActivity extends AppCompatActivity implements RGFActivity {
 
         AppCompatButton buttonDataBackupTitle = ActivityHelper.createButton(
                 context,
-                "Data Backup",
+                SharedPreferencesHelper.BACKUP,
                 Typeface.DEFAULT_BOLD,
                 false);
 
@@ -191,7 +192,7 @@ public class HelpActivity extends AppCompatActivity implements RGFActivity {
 
         AppCompatButton buttonDataRestoreTitle = ActivityHelper.createButton(
                 context,
-                "Data Restore",
+                SharedPreferencesHelper.RESTORE,
                 Typeface.DEFAULT_BOLD,
                 false);
 
@@ -208,6 +209,24 @@ public class HelpActivity extends AppCompatActivity implements RGFActivity {
                 false);
 
         ((ViewGroup)findViewById(R.id.content_help)).addView(buttonDataRestoreContent);
+
+        AppCompatButton buttonSettingsTitle = ActivityHelper.createButton(
+                context,
+                SharedPreferencesHelper.SETTINGS,
+                Typeface.DEFAULT_BOLD,
+                false);
+
+        ((ViewGroup)findViewById(R.id.content_help)).addView(buttonSettingsTitle);
+
+        ((ViewGroup)findViewById(R.id.content_help)).addView(ActivityHelper.getSeparatorView(context));
+
+        AppCompatButton buttonSettingsContent = ActivityHelper.createButton(
+                context,
+                "Settings will open the global settings for the app. The global settings will " +
+                        "apply to all Programs, Workouts and Exercises.",
+                false);
+
+        ((ViewGroup)findViewById(R.id.content_help)).addView(buttonSettingsContent);
     }
 
     @Override

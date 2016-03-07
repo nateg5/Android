@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
@@ -17,6 +18,8 @@ import com.rgf.rippedgiantfitness.helper.ActivityHelper;
 import com.rgf.rippedgiantfitness.helper.DialogHelper;
 import com.rgf.rippedgiantfitness.helper.LogHelper;
 import com.rgf.rippedgiantfitness.helper.SharedPreferencesHelper;
+
+import java.util.Random;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -174,6 +177,23 @@ public class HomeActivity extends AppCompatActivity {
         });
 
         ((ViewGroup)findViewById(R.id.content_home)).addView(buttonHelp);
+
+        ((ViewGroup)findViewById(R.id.content_home)).addView(ActivityHelper.getSeparatorView(context));
+
+        String verse = "";
+        int rand = new Random().nextInt(3);
+        if(rand == 0) {
+            verse = "\"Do you not know that you are a temple of God and that the Spirit of God dwells in you? If any man destroys the temple of God, God will destroy him, for the temple of God is holy, and that is what you are.\" - 1 Corinthians 3:16-17 (NASB)";
+        } else if(rand == 1) {
+            verse = "\"Or do you not know that your body is a temple of the Holy Spirit who is in you, whom you have from God, and that you are not your own? For you have been bought with a price: therefore glorify God in your body.\" - 1 Corinthians 6:19-20 (NASB)";
+        } else {
+            verse = "\"Therefore I run in such a way, as not without aim; I box in such a way, as not beating the air; but I discipline my body and make it my slave, so that, after I have preached to others, I myself will not be disqualified.\" - 1 Corinthians 9:26-27 (NASB)";
+        }
+
+        AppCompatButton buttonVerse = ActivityHelper.createButton(context, verse, false);
+        buttonVerse.setTextColor(ContextCompat.getColor(context, R.color.colorGray));
+
+        ((ViewGroup)findViewById(R.id.content_home)).addView(buttonVerse);
     }
 
     @Override

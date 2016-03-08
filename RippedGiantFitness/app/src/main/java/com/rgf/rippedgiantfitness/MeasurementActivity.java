@@ -158,6 +158,10 @@ public class MeasurementActivity extends AppCompatActivity implements RGFActivit
                                     ActivityHelper.moveDown(activity, R.id.content_measurement, entryIndex);
                                     dialog.dismiss();
                                     break;
+                                case DialogHelper.COPY:
+                                    ActivityHelper.copy(activity, R.id.content_measurement, entryIndex);
+                                    dialog.dismiss();
+                                    break;
                                 case DialogHelper.EDIT:
                                     DialogHelper.createEditDialog(context, R.id.content_measurement, entryIndex, getTitle().toString(), SharedPreferencesHelper.ENTRY, InputType.TYPE_CLASS_NUMBER|InputType.TYPE_NUMBER_FLAG_DECIMAL);
                                     dialog.dismiss();

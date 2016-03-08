@@ -117,6 +117,10 @@ public class ExerciseActivity extends AppCompatActivity implements RGFActivity {
                                     ActivityHelper.moveDown(activity, R.id.content_exercise, setIndex);
                                     dialog.dismiss();
                                     break;
+                                case DialogHelper.COPY:
+                                    ActivityHelper.copy(activity, R.id.content_exercise, setIndex);
+                                    dialog.dismiss();
+                                    break;
                                 case DialogHelper.EDIT:
                                     DialogHelper.createEditDialog(context, buttonSet, setIndex, DialogHelper.SET_WEIGHT, setNumber, weightUnit, SharedPreferencesHelper.WEIGHT, InputType.TYPE_CLASS_NUMBER);
                                     dialog.dismiss();

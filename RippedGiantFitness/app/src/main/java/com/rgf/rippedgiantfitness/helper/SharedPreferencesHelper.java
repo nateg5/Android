@@ -582,6 +582,51 @@ public class SharedPreferencesHelper {
         return success;
     }
 
+    public static boolean copyPreferenceTree(String parent) {
+        LogHelper.debug("Copying preference tree for " + parent);
+
+        boolean success = true;
+
+        if(parent.length() > 0 && isParentIndexValid(parent, true)) {
+            String parentRoot = parent.substring(0, parent.lastIndexOf(SEPARATOR));
+            int parentIndex = Integer.valueOf(parent.substring(parent.lastIndexOf(SEPARATOR) + 1));
+
+            for(int i = parentIndex + 1; ; i++) {
+                if (!parentExists(buildPreferenceString(parentRoot, String.valueOf(i)))) {
+                    success = (copy(buildPreferenceString(parentRoot, String.valueOf(parentIndex)), buildPreferenceString(parentRoot, String.valueOf(i)), false)
+                            && commit());
+                    break;
+                }
+            }
+        } else {
+            LogHelper.error("Failed to copy preference tree for " + parent + " because it is not an index");
+            success = false;
+        }
+
+        return success;
+    }
+
+    private static boolean copy(String fromParent, String toParent, boolean commit) {
+        LogHelper.debug("Copying " + fromParent + " to " + toParent);
+
+        boolean success = true;
+
+        if(fromParent.length() > 0 && isParentIndexValid(fromParent, true) && toParent.length() > 0 && isParentIndexValid(toParent, true)) {
+            for (Map.Entry<String, String> entry : new HashMap<>(localPreferences).entrySet()) {
+                if (entry.getKey().contains(fromParent)) {
+                    String tempKey = entry.getKey().replace(fromParent, toParent);
+                    success = (success
+                            && setPreference(tempKey, entry.getValue(), commit));
+                }
+            }
+        } else {
+            LogHelper.error("Copy aborted. Invalid parents " + fromParent + " " + toParent);
+            success = false;
+        }
+
+        return success;
+    }
+
     public static boolean isParentIndexValid(String parent, boolean reportError) {
         boolean valid = true;
 

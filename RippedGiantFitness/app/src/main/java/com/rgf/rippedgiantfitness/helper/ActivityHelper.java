@@ -133,6 +133,15 @@ public class ActivityHelper {
         }
     }
 
+    public static void copy(final AppCompatActivity activity, final int resId, final String index) {
+        if (SharedPreferencesHelper.copyPreferenceTree(index)) {
+            ((ViewGroup)activity.findViewById(resId)).removeAllViews();
+            ((RGFActivity)activity).init();
+        } else {
+            LogHelper.error("Failed to copy " + index);
+        }
+    }
+
     public static View getSeparatorView(Context context) {
         View separatorView = new View(context);
         separatorView.setBackgroundColor(ContextCompat.getColor(context, R.color.colorLightGray));

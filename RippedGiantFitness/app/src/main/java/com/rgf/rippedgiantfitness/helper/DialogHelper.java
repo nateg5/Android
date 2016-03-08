@@ -23,6 +23,7 @@ public class DialogHelper {
     public final static String START_WORKOUT = "Start Workout";
     public final static String MOVE_UP = "Move Up";
     public final static String MOVE_DOWN = "Move Down";
+    public final static String COPY = "Copy";
     public final static String EDIT = "Edit";
     public final static String REMOVE = "Remove";
     public final static String PROGRAM_NAME = "Program Name";
@@ -49,8 +50,8 @@ public class DialogHelper {
     public final static String NO = "No";
     public final static String CLOSE = "Close";
 
-    public final static String[] MENU = {MOVE_UP, MOVE_DOWN, EDIT, REMOVE};
-    public final static String[] WORKOUT_MENU = {START_WORKOUT, MOVE_UP, MOVE_DOWN, EDIT, REMOVE};
+    public final static String[] MENU = {MOVE_UP, MOVE_DOWN, COPY, EDIT, REMOVE};
+    public final static String[] WORKOUT_MENU = {START_WORKOUT, MOVE_UP, MOVE_DOWN, COPY, EDIT, REMOVE};
 
     public static AppCompatEditText createEditText(Context context, String text, String hint, int inputType) {
         AppCompatEditText editText = new AppCompatEditText(context);

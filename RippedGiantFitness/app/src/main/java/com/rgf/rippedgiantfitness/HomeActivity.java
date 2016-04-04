@@ -156,6 +156,24 @@ public class HomeActivity extends AppCompatActivity {
 
         ((ViewGroup)findViewById(R.id.content_home)).addView(ActivityHelper.getSeparatorView(context));
 
+        AppCompatButton buttonRate = ActivityHelper.createButton(context, SharedPreferencesHelper.RATE, true);
+        buttonRate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    Uri uri = Uri.parse("market://details?id=" + getPackageName());
+                    Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                    startActivity(intent);
+                } catch (ActivityNotFoundException e) {
+                    Uri uri = Uri.parse("http://play.google.com/store/apps/details?id=" + getPackageName());
+                    Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                    startActivity(intent);
+                }
+            }
+        });
+
+        ((ViewGroup)findViewById(R.id.content_home)).addView(buttonRate);
+
         AppCompatButton buttonSettings = ActivityHelper.createButton(context, SharedPreferencesHelper.SETTINGS, true);
         buttonSettings.setOnClickListener(new View.OnClickListener() {
             @Override

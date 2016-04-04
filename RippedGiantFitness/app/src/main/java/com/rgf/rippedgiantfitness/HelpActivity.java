@@ -210,6 +210,26 @@ public class HelpActivity extends AppCompatActivity implements RGFActivity {
 
         ((ViewGroup)findViewById(R.id.content_help)).addView(buttonDataRestoreContent);
 
+        AppCompatButton buttonRateTitle = ActivityHelper.createButton(
+                context,
+                SharedPreferencesHelper.RATE,
+                Typeface.DEFAULT_BOLD,
+                false);
+
+        ((ViewGroup)findViewById(R.id.content_help)).addView(buttonRateTitle);
+
+        ((ViewGroup)findViewById(R.id.content_help)).addView(ActivityHelper.getSeparatorView(context));
+
+        AppCompatButton buttonRateContent = ActivityHelper.createButton(
+                context,
+                "Rate This App will open the app page in the Google Play Store. From here you can " +
+                        "rate the app and provide a written review of the things you like and " +
+                        "dislike about the app. Feedback from reviews will be used to make future " +
+                        "changes and improvements to the app.",
+                false);
+
+        ((ViewGroup)findViewById(R.id.content_help)).addView(buttonRateContent);
+
         AppCompatButton buttonSettingsTitle = ActivityHelper.createButton(
                 context,
                 SharedPreferencesHelper.SETTINGS,

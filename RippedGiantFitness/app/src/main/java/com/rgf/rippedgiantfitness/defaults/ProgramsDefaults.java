@@ -43,12 +43,12 @@ public class ProgramsDefaults {
         Map<String,Object> programsDefaults = new HashMap<String,Object>() {{
             put(SharedPreferencesHelper.PROGRAMS, new ArrayList<Object>() {{
                 add(new HashMap<String, Object>() {{
-                    put(SharedPreferencesHelper.NAME, "10 x 10");
+                    put(SharedPreferencesHelper.NAME, "HIT");
                     put(SharedPreferencesHelper.WORKOUTS, new ArrayList<Object>() {{
-                        add(getHyperWorkout("Chest", "Bench Press", "45", "1000", "5", "2", "45", "Incline Press", "45", "1000", "5", "0", "45"));
-                        add(getHyperWorkout("Back", "Deadlift", "45", "1000", "5", "2", "45", "Bent Over Row", "45", "1000", "5", "0", "45"));
-                        add(getHyperWorkout("Shoulders", "Military Press", "45", "1000", "5", "2", "45", "Upright Row", "45", "1000", "5", "0", "45"));
-                        add(getHyperWorkout("Legs", "Squat", "45", "1000", "5", "2", "45", "Straight Leg Deadlift", "45", "1000", "5", "0", "45"));
+                        add(getHitWorkout("Chest", "Bench Press", "45", "1000", "5", "5", "45", "Incline Press", "45", "1000", "5", "5", "45"));
+                        add(getHitWorkout("Back", "Deadlift", "45", "1000", "5", "5", "45", "Bent Over Row", "45", "1000", "5", "5", "45"));
+                        add(getHitWorkout("Shoulders", "Military Press", "45", "1000", "5", "5", "45", "Upright Row", "45", "1000", "5", "5", "45"));
+                        add(getHitWorkout("Legs", "Squat", "45", "1000", "5", "5", "45", "Straight Leg Deadlift", "45", "1000", "5", "5", "45"));
                     }});
                 }});
                 add(new HashMap<String, Object>() {{
@@ -61,19 +61,19 @@ public class ProgramsDefaults {
                     }});
                 }});
                 add(new HashMap<String, Object>() {{
+                    put(SharedPreferencesHelper.NAME, "10 x 10");
+                    put(SharedPreferencesHelper.WORKOUTS, new ArrayList<Object>() {{
+                        add(getHyperWorkout("Chest", "Bench Press", "45", "1000", "5", "2", "45", "Incline Press", "45", "1000", "5", "0", "45"));
+                        add(getHyperWorkout("Back", "Deadlift", "45", "1000", "5", "2", "45", "Bent Over Row", "45", "1000", "5", "0", "45"));
+                        add(getHyperWorkout("Shoulders", "Military Press", "45", "1000", "5", "2", "45", "Upright Row", "45", "1000", "5", "0", "45"));
+                        add(getHyperWorkout("Legs", "Squat", "45", "1000", "5", "2", "45", "Straight Leg Deadlift", "45", "1000", "5", "0", "45"));
+                    }});
+                }});
+                add(new HashMap<String, Object>() {{
                     put(SharedPreferencesHelper.NAME, "Body Weight");
                     put(SharedPreferencesHelper.WORKOUTS, new ArrayList<Object>() {{
                         add(getHyperWorkout("Upper Body", "Pushup", "0", "0", "0", "0", "0", "Pullup", "0", "0", "0", "0", "0"));
                         add(getHyperWorkout("Lower Body", "Squat", "0", "0", "0", "0", "0", "Lunge", "0", "0", "0", "0", "0"));
-                    }});
-                }});
-                add(new HashMap<String, Object>() {{
-                    put(SharedPreferencesHelper.NAME, "HIT");
-                    put(SharedPreferencesHelper.WORKOUTS, new ArrayList<Object>() {{
-                        add(getHitWorkout("Chest", "Bench Press", "45", "1000", "5", "5", "45", "Incline Press", "45", "1000", "5", "5", "45"));
-                        add(getHitWorkout("Back", "Deadlift", "45", "1000", "5", "5", "45", "Bent Over Row", "45", "1000", "5", "5", "45"));
-                        add(getHitWorkout("Shoulders", "Military Press", "45", "1000", "5", "5", "45", "Upright Row", "45", "1000", "5", "5", "45"));
-                        add(getHitWorkout("Legs", "Squat", "45", "1000", "5", "5", "45", "Straight Leg Deadlift", "45", "1000", "5", "5", "45"));
                     }});
                 }});
             }});

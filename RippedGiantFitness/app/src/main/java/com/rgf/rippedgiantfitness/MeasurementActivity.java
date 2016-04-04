@@ -16,15 +16,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 
+import com.rgf.rippedgiantfitness.constants.Constants;
 import com.rgf.rippedgiantfitness.helper.ActivityHelper;
 import com.rgf.rippedgiantfitness.helper.DialogHelper;
 import com.rgf.rippedgiantfitness.helper.LogHelper;
 import com.rgf.rippedgiantfitness.helper.SharedPreferencesHelper;
 import com.rgf.rippedgiantfitness.interfaces.RGFActivity;
 
-import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -50,8 +49,7 @@ public class MeasurementActivity extends AppCompatActivity implements RGFActivit
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DateFormat dateFormat = new SimpleDateFormat("yyy/MM/dd");
-                final AppCompatEditText editTextDate = DialogHelper.createEditText(context, dateFormat.format(new Date()), SharedPreferencesHelper.DATE, InputType.TYPE_CLASS_DATETIME|InputType.TYPE_DATETIME_VARIATION_DATE);
+                final AppCompatEditText editTextDate = DialogHelper.createEditText(context, Constants.DATE_FORMAT.format(new Date()), SharedPreferencesHelper.DATE, InputType.TYPE_CLASS_DATETIME|InputType.TYPE_DATETIME_VARIATION_DATE);
                 final AppCompatEditText editTextEntry = DialogHelper.createEditText(context, "", getTitle().toString(), InputType.TYPE_CLASS_NUMBER|InputType.TYPE_NUMBER_FLAG_DECIMAL);
 
                 final AlertDialog dialog = DialogHelper.createDialog(context, DialogHelper.CREATE, DialogHelper.CREATE, DialogHelper.CANCEL, editTextDate, editTextEntry);
@@ -94,12 +92,10 @@ public class MeasurementActivity extends AppCompatActivity implements RGFActivit
             String entryDate = SharedPreferencesHelper.getPreference(entryIndex, SharedPreferencesHelper.DATE);
             String entryValue = SharedPreferencesHelper.getPreference(entryIndex, SharedPreferencesHelper.ENTRY);
 
-            DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
-
             try {
                 int oneWeek = (7 * 24 * 60 * 60 * 1000);
 
-                Date dateEntry = dateFormat.parse(entryDate);
+                Date dateEntry = Constants.DATE_FORMAT.parse(entryDate);
                 Date dateWeek = new Date(System.currentTimeMillis() - oneWeek);
 
                 if(dateEntry.after(dateWeek)) {

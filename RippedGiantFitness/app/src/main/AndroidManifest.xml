@@ -132,6 +132,26 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.rgf.rippedgiantfitness.HomeActivity" />
         </activity>
+        <activity
+            android:name=".HistoryActivity"
+            android:label="@string/title_activity_history"
+            android:parentActivityName=".WorkoutsActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.rgf.rippedgiantfitness.WorkoutsActivity" />
+        </activity>
+        <activity
+            android:name=".HistActivity"
+            android:label="@string/title_activity_hist"
+            android:parentActivityName=".HistoryActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.rgf.rippedgiantfitness.HistoryActivity" />
+        </activity>
     </application>
 
 </manifest>

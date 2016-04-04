@@ -21,6 +21,7 @@ import com.rgf.rippedgiantfitness.interfaces.RGFActivity;
 public class DialogHelper {
 
     public final static String START_WORKOUT = "Start Workout";
+    public final static String HISTORY = "History";
     public final static String MOVE_UP = "Move Up";
     public final static String MOVE_DOWN = "Move Down";
     public final static String COPY = "Copy";
@@ -51,7 +52,8 @@ public class DialogHelper {
     public final static String CLOSE = "Close";
 
     public final static String[] MENU = {MOVE_UP, MOVE_DOWN, COPY, EDIT, REMOVE};
-    public final static String[] WORKOUT_MENU = {START_WORKOUT, MOVE_UP, MOVE_DOWN, COPY, EDIT, REMOVE};
+    public final static String[] WORKOUT_MENU = {START_WORKOUT, HISTORY, MOVE_UP, MOVE_DOWN, COPY, EDIT, REMOVE};
+    public final static String[] HISTORY_MENU = {MOVE_UP, MOVE_DOWN, REMOVE};
 
     public static AppCompatEditText createEditText(Context context, String text, String hint, int inputType) {
         AppCompatEditText editText = new AppCompatEditText(context);

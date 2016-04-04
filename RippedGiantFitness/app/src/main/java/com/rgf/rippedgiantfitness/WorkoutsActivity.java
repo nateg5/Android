@@ -93,9 +93,15 @@ public class WorkoutsActivity extends AppCompatActivity implements RGFActivity {
                             String text = ((AppCompatTextView) view).getText().toString();
                             switch (text) {
                                 case DialogHelper.START_WORKOUT:
-                                    Intent intent = new Intent(context, WorkoutActivity.class);
-                                    intent.putExtra(SharedPreferencesHelper.WORKOUTS, workoutIndex);
-                                    startActivity(intent);
+                                    Intent intentWorkout = new Intent(context, WorkoutActivity.class);
+                                    intentWorkout.putExtra(SharedPreferencesHelper.WORKOUTS, workoutIndex);
+                                    startActivity(intentWorkout);
+                                    dialog.dismiss();
+                                    break;
+                                case DialogHelper.HISTORY:
+                                    Intent intentHistory = new Intent(context, HistoryActivity.class);
+                                    intentHistory.putExtra(SharedPreferencesHelper.WORKOUTS, workoutIndex);
+                                    startActivity(intentHistory);
                                     dialog.dismiss();
                                     break;
                                 case DialogHelper.MOVE_UP:

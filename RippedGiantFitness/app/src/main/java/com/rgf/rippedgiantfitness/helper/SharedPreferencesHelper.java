@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Environment;
 
+import com.rgf.rippedgiantfitness.constants.Constants;
 import com.rgf.rippedgiantfitness.defaults.HiitDefaults;
 import com.rgf.rippedgiantfitness.defaults.MeasurementsDefaults;
 import com.rgf.rippedgiantfitness.defaults.ProgramsDefaults;
@@ -14,9 +15,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -46,6 +45,8 @@ public class SharedPreferencesHelper {
     public final static String WEIGHT = "Weight";
     public final static String SEPARATOR = ".";
     public final static String SWAP = "Swap";
+
+    public final static String HISTORY = "History";
 
     public final static String MEASUREMENTS = "Measurements";
     public final static String ENTRIES = "Entries";
@@ -332,6 +333,25 @@ public class SharedPreferencesHelper {
         return setPreference(buildPreferenceString(exercise, SETS, String.valueOf(sets.size())), WEIGHT, weight);
     }
 
+    public static List<String> getHistory(String workout) {
+        return getList(workout, HISTORY, DATE);
+    }
+
+    public static boolean addHistory(String workout, Map<String, String> historyMap) {
+        List<String> history = getHistory(workout);
+
+        boolean success = true;
+
+        for(Map.Entry<String, String> entry : historyMap.entrySet()) {
+            success = (success &&
+                       setPreference(buildPreferenceString(workout, HISTORY, String.valueOf(history.size()), entry.getKey()), entry.getValue(), false));
+        }
+
+        success = (success && commit());
+
+        return success;
+    }
+
     public static List<String> getMeasurements() {
         return getList("", MEASUREMENTS, NAME);
     }
@@ -350,9 +370,8 @@ public class SharedPreferencesHelper {
         List<String> entries = getEntries(measurement);
 
         try {
-            DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
-            Date dateObj = dateFormat.parse(date);
-            if(!date.equals(dateFormat.format(dateObj))) {
+            Date dateObj = Constants.DATE_FORMAT.parse(date);
+            if(!date.equals(Constants.DATE_FORMAT.format(dateObj))) {
                 LogHelper.error("Invalid date format: " + date);
                 return false;
             }

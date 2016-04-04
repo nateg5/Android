@@ -19,6 +19,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 
+import com.rgf.rippedgiantfitness.constants.Constants;
 import com.rgf.rippedgiantfitness.defaults.SettingsDefaults;
 import com.rgf.rippedgiantfitness.helper.ActivityHelper;
 import com.rgf.rippedgiantfitness.helper.DialogHelper;
@@ -26,6 +27,7 @@ import com.rgf.rippedgiantfitness.helper.LogHelper;
 import com.rgf.rippedgiantfitness.helper.SharedPreferencesHelper;
 import com.rgf.rippedgiantfitness.interfaces.RGFActivity;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -63,6 +65,10 @@ public class WorkoutActivity extends AppCompatActivity implements RGFActivity {
         final String workoutIndex = getIntent().getStringExtra(SharedPreferencesHelper.WORKOUTS);
 
         final Map<String, Map<String, Boolean>> exerciseMap = new HashMap<>();
+        final Map<String, String> historyMap = new HashMap<>();
+
+        historyMap.put(SharedPreferencesHelper.DATE, Constants.DATE_FORMAT.format(new Date()));
+        historyMap.put(SharedPreferencesHelper.NAME, getTitle().toString());
 
         List<String> exercises = SharedPreferencesHelper.getExercises(workoutIndex);
 
@@ -71,6 +77,10 @@ public class WorkoutActivity extends AppCompatActivity implements RGFActivity {
 
             final Map<String, Boolean> setMap = new HashMap<>();
             exerciseMap.put(exerciseIndex, setMap);
+
+            final String historyExerciseIndex = exerciseIndex.substring(exerciseIndex.lastIndexOf(SharedPreferencesHelper.EXERCISES));
+
+            historyMap.put(SharedPreferencesHelper.buildPreferenceString(historyExerciseIndex, SharedPreferencesHelper.NAME), SharedPreferencesHelper.getPreference(exerciseIndex, SharedPreferencesHelper.NAME));
 
             /**
              * add exercise title
@@ -86,6 +96,8 @@ public class WorkoutActivity extends AppCompatActivity implements RGFActivity {
 
             ((ViewGroup) findViewById(R.id.content_workout)).addView(buttonExercise);
             /**/
+
+            int historySetCount = 0;
 
             //get all sets
             List<String> sets = SharedPreferencesHelper.getSets(exerciseIndex);
@@ -108,7 +120,11 @@ public class WorkoutActivity extends AppCompatActivity implements RGFActivity {
                 final AppCompatButton buttonWarmupSet = ActivityHelper.createButton(context, "WU " + (i + 1), false);
                 final AppCompatButton buttonWarmupWeight = ActivityHelper.createButton(context, warmupWeight + " " + weightUnit, false);
 
-                final AppCompatButton buttonWarmupReps = createRepsButton(exerciseIndex, null, null);
+                final String historySetIndex = SharedPreferencesHelper.buildPreferenceString(historyExerciseIndex, SharedPreferencesHelper.SETS, String.valueOf(historySetCount++));
+                historyMap.put(SharedPreferencesHelper.buildPreferenceString(historySetIndex, SharedPreferencesHelper.NAME), buttonWarmupSet.getText().toString());
+                historyMap.put(SharedPreferencesHelper.buildPreferenceString(historySetIndex, SharedPreferencesHelper.WEIGHT), buttonWarmupWeight.getText().toString());
+
+                final AppCompatButton buttonWarmupReps = createRepsButton(exerciseIndex, null, null, historyMap, historySetIndex);
 
                 final LinearLayoutCompat linearLayout = new LinearLayoutCompat(context);
                 linearLayout.setOrientation(LinearLayoutCompat.HORIZONTAL);
@@ -132,7 +148,11 @@ public class WorkoutActivity extends AppCompatActivity implements RGFActivity {
                 final AppCompatButton buttonSet = ActivityHelper.createButton(context, "Set " + String.valueOf(setNum++), false);
                 final AppCompatButton buttonWeight = ActivityHelper.createButton(context, SharedPreferencesHelper.getPreference(setIndex, SharedPreferencesHelper.WEIGHT) + " " + weightUnit, false);
 
-                final AppCompatButton buttonReps = createRepsButton(exerciseIndex, setMap, setIndex);
+                final String historySetIndex = SharedPreferencesHelper.buildPreferenceString(historyExerciseIndex, SharedPreferencesHelper.SETS, String.valueOf(historySetCount++));
+                historyMap.put(SharedPreferencesHelper.buildPreferenceString(historySetIndex, SharedPreferencesHelper.NAME), buttonSet.getText().toString());
+                historyMap.put(SharedPreferencesHelper.buildPreferenceString(historySetIndex, SharedPreferencesHelper.WEIGHT), buttonWeight.getText().toString());
+
+                final AppCompatButton buttonReps = createRepsButton(exerciseIndex, setMap, setIndex, historyMap, historySetIndex);
 
                 final LinearLayoutCompat linearLayout = new LinearLayoutCompat(context);
                 linearLayout.setOrientation(LinearLayoutCompat.HORIZONTAL);
@@ -177,6 +197,7 @@ public class WorkoutActivity extends AppCompatActivity implements RGFActivity {
                             }
                             finishWorkout = (finishWorkout && SharedPreferencesHelper.finishWorkout(exerciseIndex, success));
                         }
+                        finishWorkout = (finishWorkout && SharedPreferencesHelper.addHistory(workoutIndex, historyMap));
                         dialog.dismiss();
                         if (finishWorkout) {
                             finish();
@@ -191,11 +212,14 @@ public class WorkoutActivity extends AppCompatActivity implements RGFActivity {
         ((ViewGroup) findViewById(R.id.content_workout)).addView(buttonFinish);
     }
 
-    private AppCompatButton createRepsButton(final String exerciseIndex, final Map<String, Boolean> setMap, final String setIndex) {
+    private AppCompatButton createRepsButton(final String exerciseIndex, final Map<String, Boolean> setMap, final String setIndex, final Map<String, String> historyMap, final String historySetIndex) {
         final Context context = this;
         AppCompatButton buttonReps = ActivityHelper.createButton(context, SharedPreferencesHelper.getPreference(exerciseIndex, SharedPreferencesHelper.REPS) + " Reps", true);
         buttonReps.setLayoutParams(new LinearLayoutCompat.LayoutParams(LinearLayoutCompat.LayoutParams.WRAP_CONTENT, LinearLayoutCompat.LayoutParams.WRAP_CONTENT, 1));
         buttonReps.setBackgroundColor(ContextCompat.getColor(context, R.color.colorLightGray));
+
+        historyMap.put(SharedPreferencesHelper.buildPreferenceString(historySetIndex, SharedPreferencesHelper.REPS), "0 Reps");
+
         buttonReps.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -227,8 +251,12 @@ public class WorkoutActivity extends AppCompatActivity implements RGFActivity {
                         v.setBackgroundColor(ContextCompat.getColor(context, R.color.colorLightGray));
                         ((AppCompatButton) v).setTextColor(ActivityHelper.getButton(context).getCurrentTextColor());
                         ((AppCompatButton) v).setText(SharedPreferencesHelper.getPreference(exerciseIndex, SharedPreferencesHelper.REPS) + " Reps");
+
+                        historyMap.put(SharedPreferencesHelper.buildPreferenceString(historySetIndex, SharedPreferencesHelper.REPS), "0 Reps");
                     } else {
                         ((AppCompatButton) v).setText((reps - 1) + " Reps");
+
+                        historyMap.put(SharedPreferencesHelper.buildPreferenceString(historySetIndex, SharedPreferencesHelper.REPS), ((AppCompatButton) v).getText().toString());
                     }
                     if(setMap != null && setIndex != null) {
                         setMap.put(setIndex, false);
@@ -236,6 +264,9 @@ public class WorkoutActivity extends AppCompatActivity implements RGFActivity {
                 } else {
                     v.setBackgroundColor(ContextCompat.getColor(context, R.color.colorAccent));
                     ((AppCompatButton) v).setTextColor(ContextCompat.getColor(context, R.color.colorWhite));
+
+                    historyMap.put(SharedPreferencesHelper.buildPreferenceString(historySetIndex, SharedPreferencesHelper.REPS), ((AppCompatButton) v).getText().toString());
+
                     if(setMap != null && setIndex != null) {
                         setMap.put(setIndex, true);
                     }

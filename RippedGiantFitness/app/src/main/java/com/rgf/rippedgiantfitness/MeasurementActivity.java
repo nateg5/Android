@@ -24,6 +24,7 @@ import com.rgf.rippedgiantfitness.helper.SharedPreferencesHelper;
 import com.rgf.rippedgiantfitness.interfaces.RGFActivity;
 
 import java.text.ParseException;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -79,6 +80,8 @@ public class MeasurementActivity extends AppCompatActivity implements RGFActivit
         final String measurementIndex = getIntent().getStringExtra(SharedPreferencesHelper.MEASUREMENTS);
 
         List<String> entries = SharedPreferencesHelper.getEntries(measurementIndex);
+
+        Collections.reverse(entries);
 
         float entryCount = 0;
         float entryTotal = 0;
@@ -140,22 +143,20 @@ public class MeasurementActivity extends AppCompatActivity implements RGFActivit
             buttonEntry.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View v) {
-                    final AlertDialog dialog = DialogHelper.createDialog(context, date + SharedPreferencesHelper.getPreference(entryIndex, SharedPreferencesHelper.ENTRY), DialogHelper.MENU);
+                    final AlertDialog dialog = DialogHelper.createDialog(context, date + SharedPreferencesHelper.getPreference(entryIndex, SharedPreferencesHelper.ENTRY), DialogHelper.MEASUREMENT_MENU);
                     dialog.getListView().setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                             String text = ((AppCompatTextView) view).getText().toString();
                             switch (text) {
                                 case DialogHelper.MOVE_UP:
-                                    ActivityHelper.moveUp(activity, R.id.content_measurement, entryIndex);
-                                    dialog.dismiss();
-                                    break;
-                                case DialogHelper.MOVE_DOWN:
+                                    //call move down because history is displayed in reverse order
                                     ActivityHelper.moveDown(activity, R.id.content_measurement, entryIndex);
                                     dialog.dismiss();
                                     break;
-                                case DialogHelper.COPY:
-                                    ActivityHelper.copy(activity, R.id.content_measurement, entryIndex);
+                                case DialogHelper.MOVE_DOWN:
+                                    //call move up because history is displayed in reverse order
+                                    ActivityHelper.moveUp(activity, R.id.content_measurement, entryIndex);
                                     dialog.dismiss();
                                     break;
                                 case DialogHelper.EDIT:

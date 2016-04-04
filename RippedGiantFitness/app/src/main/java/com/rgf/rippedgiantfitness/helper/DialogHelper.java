@@ -54,6 +54,7 @@ public class DialogHelper {
     public final static String[] MENU = {MOVE_UP, MOVE_DOWN, COPY, EDIT, REMOVE};
     public final static String[] WORKOUT_MENU = {START_WORKOUT, HISTORY, MOVE_UP, MOVE_DOWN, COPY, EDIT, REMOVE};
     public final static String[] HISTORY_MENU = {MOVE_UP, MOVE_DOWN, REMOVE};
+    public final static String[] MEASUREMENT_MENU = {MOVE_UP, MOVE_DOWN, EDIT, REMOVE};
 
     public static AppCompatEditText createEditText(Context context, String text, String hint, int inputType) {
         AppCompatEditText editText = new AppCompatEditText(context);

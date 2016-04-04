@@ -66,7 +66,8 @@ public class SharedPreferencesHelper {
     public final static String BACKUP = "Data Backup";
     public final static String RESTORE = "Data Restore";
 
-    public final static String RATE = "Rate This App";
+    public final static String RATE_AMAZON = "Rate on Amazon Appstore";
+    public final static String RATE_GOOGLE = "Rate on Google Play";
 
     public final static String SETTINGS = "Settings";
     public final static String SETTING = "Setting";

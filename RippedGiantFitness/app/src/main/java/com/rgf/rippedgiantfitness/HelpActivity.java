@@ -210,25 +210,45 @@ public class HelpActivity extends AppCompatActivity implements RGFActivity {
 
         ((ViewGroup)findViewById(R.id.content_help)).addView(buttonDataRestoreContent);
 
-        AppCompatButton buttonRateTitle = ActivityHelper.createButton(
+        AppCompatButton buttonRateAmazonTitle = ActivityHelper.createButton(
                 context,
-                SharedPreferencesHelper.RATE,
+                SharedPreferencesHelper.RATE_AMAZON,
                 Typeface.DEFAULT_BOLD,
                 false);
 
-        ((ViewGroup)findViewById(R.id.content_help)).addView(buttonRateTitle);
+        ((ViewGroup)findViewById(R.id.content_help)).addView(buttonRateAmazonTitle);
 
         ((ViewGroup)findViewById(R.id.content_help)).addView(ActivityHelper.getSeparatorView(context));
 
-        AppCompatButton buttonRateContent = ActivityHelper.createButton(
+        AppCompatButton buttonRateAmazonContent = ActivityHelper.createButton(
                 context,
-                "Rate This App will open the app page in the Google Play Store. From here you can " +
+                "Rate on Amazon Appstore will open the app page in Amazon Appstore. From here you can " +
                         "rate the app and provide a written review of the things you like and " +
                         "dislike about the app. Feedback from reviews will be used to make future " +
                         "changes and improvements to the app.",
                 false);
 
-        ((ViewGroup)findViewById(R.id.content_help)).addView(buttonRateContent);
+        ((ViewGroup)findViewById(R.id.content_help)).addView(buttonRateAmazonContent);
+
+        AppCompatButton buttonRateGoogleTitle = ActivityHelper.createButton(
+                context,
+                SharedPreferencesHelper.RATE_GOOGLE,
+                Typeface.DEFAULT_BOLD,
+                false);
+
+        //((ViewGroup)findViewById(R.id.content_help)).addView(buttonRateGoogleTitle);
+
+        //((ViewGroup)findViewById(R.id.content_help)).addView(ActivityHelper.getSeparatorView(context));
+
+        AppCompatButton buttonRateGoogleContent = ActivityHelper.createButton(
+                context,
+                "Rate on Google Play will open the app page in Google Play. From here you can " +
+                        "rate the app and provide a written review of the things you like and " +
+                        "dislike about the app. Feedback from reviews will be used to make future " +
+                        "changes and improvements to the app.",
+                false);
+
+        //((ViewGroup)findViewById(R.id.content_help)).addView(buttonRateGoogleContent);
 
         AppCompatButton buttonSettingsTitle = ActivityHelper.createButton(
                 context,

@@ -156,8 +156,26 @@ public class HomeActivity extends AppCompatActivity {
 
         ((ViewGroup)findViewById(R.id.content_home)).addView(ActivityHelper.getSeparatorView(context));
 
-        AppCompatButton buttonRate = ActivityHelper.createButton(context, SharedPreferencesHelper.RATE, true);
-        buttonRate.setOnClickListener(new View.OnClickListener() {
+        AppCompatButton buttonRateAmazon = ActivityHelper.createButton(context, SharedPreferencesHelper.RATE_AMAZON, true);
+        buttonRateAmazon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    Uri uri = Uri.parse("amzn://apps/android?p=" + getPackageName());
+                    Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                    startActivity(intent);
+                } catch (ActivityNotFoundException e) {
+                    Uri uri = Uri.parse("http://www.amazon.com/gp/mas/dl/android?p=" + getPackageName());
+                    Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                    startActivity(intent);
+                }
+            }
+        });
+
+        ((ViewGroup)findViewById(R.id.content_home)).addView(buttonRateAmazon);
+
+        AppCompatButton buttonRateGoogle = ActivityHelper.createButton(context, SharedPreferencesHelper.RATE_GOOGLE, true);
+        buttonRateGoogle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 try {
@@ -172,7 +190,7 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
-        ((ViewGroup)findViewById(R.id.content_home)).addView(buttonRate);
+        //((ViewGroup)findViewById(R.id.content_home)).addView(buttonRateGoogle);
 
         AppCompatButton buttonSettings = ActivityHelper.createButton(context, SharedPreferencesHelper.SETTINGS, true);
         buttonSettings.setOnClickListener(new View.OnClickListener() {

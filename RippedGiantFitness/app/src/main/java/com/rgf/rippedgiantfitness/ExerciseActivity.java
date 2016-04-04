@@ -79,8 +79,8 @@ public class ExerciseActivity extends AppCompatActivity implements RGFActivity {
 
         List<String> sets = SharedPreferencesHelper.getSets(exerciseIndex);
 
-        ActivityHelper.createEditButton(activity, R.id.content_exercise, exerciseIndex, DialogHelper.CURRENT_VOLUME, weightUnit, SharedPreferencesHelper.CURRENT_VOLUME, InputType.TYPE_CLASS_NUMBER, false);
-        ActivityHelper.createEditButton(activity, R.id.content_exercise, exerciseIndex, DialogHelper.FAILED_VOLUME, weightUnit, SharedPreferencesHelper.FAILED_VOLUME, InputType.TYPE_CLASS_NUMBER, false);
+        //ActivityHelper.createEditButton(activity, R.id.content_exercise, exerciseIndex, DialogHelper.CURRENT_VOLUME, weightUnit, SharedPreferencesHelper.CURRENT_VOLUME, InputType.TYPE_CLASS_NUMBER, false);
+        //ActivityHelper.createEditButton(activity, R.id.content_exercise, exerciseIndex, DialogHelper.FAILED_VOLUME, weightUnit, SharedPreferencesHelper.FAILED_VOLUME, InputType.TYPE_CLASS_NUMBER, false);
         ActivityHelper.createEditButton(activity, R.id.content_exercise, exerciseIndex, DialogHelper.WEIGHT_INCREMENT, weightUnit, SharedPreferencesHelper.INCREMENT, InputType.TYPE_CLASS_NUMBER, true);
         ActivityHelper.createEditButton(activity, R.id.content_exercise, exerciseIndex, DialogHelper.SETS_WARMUP, "sets", SharedPreferencesHelper.WARMUP_SETS, InputType.TYPE_CLASS_NUMBER, true);
         ActivityHelper.createEditButton(activity, R.id.content_exercise, exerciseIndex, DialogHelper.NUMBER_OF_REPS, "reps", SharedPreferencesHelper.REPS, InputType.TYPE_CLASS_NUMBER, true);

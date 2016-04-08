@@ -2,6 +2,7 @@ package com.rgf.rippedgiantfitness;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
@@ -49,7 +50,7 @@ public class WorkoutsActivity extends AppCompatActivity implements RGFActivity {
                     @Override
                     public void onClick(View v) {
                         if (SharedPreferencesHelper.addWorkout(programIndex, editText.getText().toString())) {
-                            ((ViewGroup)findViewById(R.id.content_workouts)).removeAllViews();
+                            ((ViewGroup) findViewById(R.id.content_workouts)).removeAllViews();
                             init();
                             dialog.dismiss();
                         } else {
@@ -62,6 +63,13 @@ public class WorkoutsActivity extends AppCompatActivity implements RGFActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         init();
+
+        String firstWorkout = SharedPreferencesHelper.getPreference(SharedPreferencesHelper.FIRST_WORKOUT);
+        if(firstWorkout.equals("true")) {
+            SharedPreferencesHelper.setPreference(SharedPreferencesHelper.FIRST_WORKOUT, "false");
+
+            DialogHelper.createDialog(context, DialogHelper.HELP, DialogHelper.CLOSE, "", "To start a workout, touch and hold a workout and then select " + DialogHelper.START_WORKOUT);
+        }
     }
 
     public void init() {

@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.os.Environment;
 
 import com.rgf.rippedgiantfitness.constants.Constants;
+import com.rgf.rippedgiantfitness.defaults.FirstDefaults;
 import com.rgf.rippedgiantfitness.defaults.HiitDefaults;
 import com.rgf.rippedgiantfitness.defaults.MeasurementsDefaults;
 import com.rgf.rippedgiantfitness.defaults.ProgramsDefaults;
@@ -58,6 +59,8 @@ public class SharedPreferencesHelper {
     public final static String HIIT_REST = "HIIT Rest";
     public final static String HIIT_ROUNDS = "HIIT Rounds";
 
+    public final static String FIRST_WORKOUT = "First Workout";
+
     public final static String INSTAGRAM = "Instagram";
     public final static String MY_FITNESS_PAL = "MyFitnessPal";
 
@@ -91,6 +94,7 @@ public class SharedPreferencesHelper {
         ProgramsDefaults.create();
         MeasurementsDefaults.create();
         HiitDefaults.create();
+        FirstDefaults.create();
         SettingsDefaults.create();
     }
 

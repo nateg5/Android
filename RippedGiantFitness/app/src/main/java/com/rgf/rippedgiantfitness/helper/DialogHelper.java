@@ -50,6 +50,7 @@ public class DialogHelper {
     public final static String YES = "Yes";
     public final static String NO = "No";
     public final static String CLOSE = "Close";
+    public final static String HELP = "Help";
 
     public final static String[] MENU = {MOVE_UP, MOVE_DOWN, COPY, EDIT, REMOVE};
     public final static String[] WORKOUT_MENU = {START_WORKOUT, HISTORY, MOVE_UP, MOVE_DOWN, COPY, EDIT, REMOVE};

@@ -45,6 +45,8 @@ public class WorkoutActivity extends AppCompatActivity implements RGFActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        final Context context = this;
+
         final String workoutIndex = getIntent().getStringExtra(SharedPreferencesHelper.WORKOUTS);
         final String workoutName = SharedPreferencesHelper.getPreference(workoutIndex, SharedPreferencesHelper.NAME);
 
@@ -55,6 +57,20 @@ public class WorkoutActivity extends AppCompatActivity implements RGFActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         init();
+
+        String howToWorkout = SharedPreferencesHelper.getPreference(SharedPreferencesHelper.HOW_TO_WORKOUT);
+        if(howToWorkout.equals("true")) {
+            SharedPreferencesHelper.setPreference(SharedPreferencesHelper.HOW_TO_WORKOUT, "false");
+
+            DialogHelper.createDialog(
+                    context,
+                    DialogHelper.HOW_TO,
+                    DialogHelper.CLOSE,
+                    "",
+                    "After completing a set, touch the Reps button to enter the number of reps you completed. A rest timer will be started automatically.\n\n" +
+                            "Once you have completed the workout, touch the Finish Workout button to save the workout to the workout history."
+            );
+        }
     }
 
     public void init() {

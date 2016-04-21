@@ -64,11 +64,18 @@ public class WorkoutsActivity extends AppCompatActivity implements RGFActivity {
 
         init();
 
-        String firstWorkout = SharedPreferencesHelper.getPreference(SharedPreferencesHelper.FIRST_WORKOUT);
-        if(firstWorkout.equals("true")) {
-            SharedPreferencesHelper.setPreference(SharedPreferencesHelper.FIRST_WORKOUT, "false");
+        String howToWorkouts = SharedPreferencesHelper.getPreference(SharedPreferencesHelper.HOW_TO_WORKOUTS);
+        if(howToWorkouts.equals("true")) {
+            SharedPreferencesHelper.setPreference(SharedPreferencesHelper.HOW_TO_WORKOUTS, "false");
 
-            DialogHelper.createDialog(context, DialogHelper.HELP, DialogHelper.CLOSE, "", "To start a workout, touch and hold a workout and then select " + DialogHelper.START_WORKOUT);
+            DialogHelper.createDialog(
+                    context,
+                    DialogHelper.HOW_TO,
+                    DialogHelper.CLOSE,
+                    "",
+                    "To start a workout, touch and hold a workout and then select " + DialogHelper.START_WORKOUT + ".\n\n" +
+                    "To modify a workout, touch a workout."
+            );
         }
     }
 

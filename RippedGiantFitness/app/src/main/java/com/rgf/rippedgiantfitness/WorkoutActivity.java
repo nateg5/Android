@@ -126,9 +126,11 @@ public class WorkoutActivity extends AppCompatActivity implements RGFActivity {
             final int increment = Integer.valueOf(SharedPreferencesHelper.getPreference(exerciseIndex, SharedPreferencesHelper.INCREMENT));
             final int minWeight = Integer.valueOf(SharedPreferencesHelper.getPreference(exerciseIndex, SharedPreferencesHelper.MIN_WEIGHT));
 
+            final double warmupPercent = Double.valueOf(SharedPreferencesHelper.getPreference(SharedPreferencesHelper.buildPreferenceString(SharedPreferencesHelper.SETTINGS, SettingsDefaults.WARMUP, SharedPreferencesHelper.SETTING)));
+
             for(int i = 0; i < numberOfWarmupSets; i++) {
-                double halfWeight = firstSetWeight / 2.0;
-                double warmupIncrement = halfWeight / numberOfWarmupSets;
+                double halfWeight = firstSetWeight / (100.0 / warmupPercent);
+                double warmupIncrement = (firstSetWeight - halfWeight) / numberOfWarmupSets;
                 int warmupWeight = (int)((warmupIncrement * i) + halfWeight);
                 warmupWeight = increment > 0 ? warmupWeight - (warmupWeight % increment) : warmupWeight;
                 warmupWeight = warmupWeight < minWeight ? minWeight : warmupWeight;

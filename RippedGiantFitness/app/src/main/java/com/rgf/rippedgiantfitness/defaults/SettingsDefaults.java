@@ -18,6 +18,7 @@ public class SettingsDefaults {
     public static final String UNIT = "0";
     public static final String DECREMENT = "1";
     public static final String INCREMENT = "2";
+    public static final String WARMUP = "3";
 
     public static void create() {
         LogHelper.debug("Creating Settings defaults.");
@@ -63,6 +64,12 @@ public class SettingsDefaults {
                     put(SharedPreferencesHelper.NAME, "Weight Increment %");
                     put(SharedPreferencesHelper.SETTING, "1");
                     put(SharedPreferencesHelper.SETTING_HINT, "Weight Increment % (Recommended: 1)");
+                    put(SharedPreferencesHelper.SETTING_TYPE, String.valueOf(InputType.TYPE_CLASS_NUMBER));
+                }});
+                add(new HashMap<String, Object>() {{
+                    put(SharedPreferencesHelper.NAME, "Starting Warmup %");
+                    put(SharedPreferencesHelper.SETTING, "50");
+                    put(SharedPreferencesHelper.SETTING_HINT, "Starting Warmup % (Recommended: 50)");
                     put(SharedPreferencesHelper.SETTING_TYPE, String.valueOf(InputType.TYPE_CLASS_NUMBER));
                 }});
             }});

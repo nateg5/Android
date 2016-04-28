@@ -10,7 +10,12 @@ import java.util.Map;
 
 /**
  * Created by Nate on 1/22/2016.
+ *
+ * Ripped Giant Fitness
+ * RippedGiantFitness@gmail.com
+ * https://www.instagram.com/rippedgiantfitness/
  */
+@SuppressWarnings("unchecked")
 public class MeasurementsDefaults {
     public static void create() {
         if(SharedPreferencesHelper.getMeasurements().size() == 0) {
@@ -39,7 +44,7 @@ public class MeasurementsDefaults {
     }
 
     private static Map<String,Object> getMeasurementsDefaults() {
-        Map<String,Object> measurementsDefaults = new HashMap<String,Object>() {{
+        return new HashMap<String,Object>() {{
             put(SharedPreferencesHelper.MEASUREMENTS, new ArrayList<Object>() {{
                 add(new HashMap<String, Object>() {{
                     put(SharedPreferencesHelper.NAME, "Weight (Lbs)");
@@ -49,7 +54,5 @@ public class MeasurementsDefaults {
                 }});
             }});
         }};
-
-        return measurementsDefaults;
     }
 }

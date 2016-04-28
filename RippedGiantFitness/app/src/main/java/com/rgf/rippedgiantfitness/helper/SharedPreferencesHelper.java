@@ -18,7 +18,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -26,9 +25,14 @@ import java.util.Map;
 
 /**
  * Created by Nate on 11/22/2015.
+ *
+ * Ripped Giant Fitness
+ * RippedGiantFitness@gmail.com
+ * https://www.instagram.com/rippedgiantfitness/
  */
+@SuppressWarnings("unchecked")
 public class SharedPreferencesHelper {
-    public final static String PACKAGE = SharedPreferencesHelper.class.getName();
+    private final static String PACKAGE = SharedPreferencesHelper.class.getName();
 
     public final static String PROGRAMS = "Programs";
     public final static String WORKOUTS = "Workouts";
@@ -44,13 +48,13 @@ public class SharedPreferencesHelper {
     public final static String INCREMENT = "Increment";
     public final static String WARMUP_SETS = "Warmup Sets";
     public final static String WEIGHT = "Weight";
-    public final static String SEPARATOR = ".";
-    public final static String SWAP = "Swap";
+    private final static String SEPARATOR = ".";
+    private final static String SWAP = "Swap";
 
     public final static String HISTORY = "History";
 
     public final static String MEASUREMENTS = "Measurements";
-    public final static String ENTRIES = "Entries";
+    private final static String ENTRIES = "Entries";
     public final static String DATE = "Date";
     public final static String ENTRY = "Entry";
 
@@ -65,7 +69,7 @@ public class SharedPreferencesHelper {
     public final static String INSTAGRAM = "Instagram";
     public final static String MY_FITNESS_PAL = "MyFitnessPal";
 
-    public final static String BACKUP_FOLDER = "RippedGiantFitness";
+    private final static String BACKUP_FOLDER = "RippedGiantFitness";
     public final static String BACKUP_FILE = "RippedGiantFitness.bak";
     public final static String BACKUP = "Data Backup";
     public final static String RESTORE = "Data Restore";
@@ -81,14 +85,13 @@ public class SharedPreferencesHelper {
     public final static String HELP = "Help";
 
     private static Context context;
-    private static SharedPreferences sharedPreferences;
     private static SharedPreferences.Editor editor;
     private static Map<String, String> localPreferences;
 
 
     public static void init(Context c) {
         context = c;
-        sharedPreferences = context.getSharedPreferences(PACKAGE, Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = context.getSharedPreferences(PACKAGE, Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
         localPreferences = (Map<String, String>) sharedPreferences.getAll();
 
@@ -97,6 +100,8 @@ public class SharedPreferencesHelper {
         HiitDefaults.create();
         HowToDefaults.create();
         SettingsDefaults.create();
+
+        editor.commit();
     }
 
     public static Context getContext() {
@@ -110,10 +115,8 @@ public class SharedPreferencesHelper {
     public static boolean commit() {
         LogHelper.debug("Committing localPreferences changes to sharedPreferences");
 
-        boolean success = true;
-
         editor.clear();
-        success = (success && editor.commit());
+        boolean success = editor.commit();
 
         for(Map.Entry<String, String> entry : localPreferences.entrySet()) {
             editor.putString(entry.getKey(), entry.getValue());
@@ -144,13 +147,12 @@ public class SharedPreferencesHelper {
     }
 
     public static boolean finishWorkout(String exercise, boolean success) {
-        boolean retVal = true;
+        boolean retVal;
 
         if(success) {
-            retVal = (retVal && increaseVolumeOnePercent(exercise));
+            retVal = increaseVolumeOnePercent(exercise);
         } else {
-            retVal = (retVal
-                    && setPreference(exercise, FAILED_VOLUME, String.valueOf(getVolume(exercise)))
+            retVal = (setPreference(exercise, FAILED_VOLUME, String.valueOf(getVolume(exercise)))
                     && decreaseVolumeTenPercent(exercise));
         }
 
@@ -210,18 +212,18 @@ public class SharedPreferencesHelper {
                     if (setWeight > maxWeight) {
                         setWeight = maxWeight;
                     }
-                    success = (success && setPreference(sets.get(i), WEIGHT, String.valueOf(setWeight), false));
+                    success = setPreference(sets.get(i), WEIGHT, String.valueOf(setWeight), false);
                     break;
                 }
             }
         } else {
             if(reps < sets.size()) {
-                success = (success && setPreference(exercise, REPS, String.valueOf(reps + 1), false));
+                success = setPreference(exercise, REPS, String.valueOf(reps + 1), false);
             } else if (sets.size() < reps) {
-                success = (success && addSet(exercise, String.valueOf(lastSetWeight)));
+                success = addSet(exercise, String.valueOf(lastSetWeight));
             } else {
-                success = (success && setPreference(exercise, REPS, String.valueOf(reps + 1), false));
-                success = (success && addSet(exercise, String.valueOf(lastSetWeight)));
+                success = (setPreference(exercise, REPS, String.valueOf(reps + 1), false)
+                            && addSet(exercise, String.valueOf(lastSetWeight)));
             }
             if(minWeight < maxWeight) {
                 decreaseVolumeTenPercent(exercise);
@@ -235,7 +237,6 @@ public class SharedPreferencesHelper {
         boolean success = true;
 
         int minWeight = Integer.valueOf(getPreference(exercise, MIN_WEIGHT));
-        int maxWeight = Integer.valueOf(getPreference(exercise, MAX_WEIGHT));
         int increment = Integer.valueOf(getPreference(exercise, INCREMENT));
         int reps = Integer.valueOf(getPreference(exercise, REPS));
 
@@ -250,18 +251,18 @@ public class SharedPreferencesHelper {
                     if (setWeight < minWeight) {
                         setWeight = minWeight;
                     }
-                    success = (success && setPreference(sets.get(i), WEIGHT, String.valueOf(setWeight), false));
+                    success = setPreference(sets.get(i), WEIGHT, String.valueOf(setWeight), false);
                     break;
                 }
             }
         } else {
             if(reps > sets.size() && reps > 1) {
-                success = (success && setPreference(exercise, REPS, String.valueOf(reps - 1), false));
+                success = setPreference(exercise, REPS, String.valueOf(reps - 1), false);
             } else if (sets.size() > reps && sets.size() > 1) {
-                success = (success && removePreferenceTree(sets.get(sets.size() - 1)));
+                success = removePreferenceTree(sets.get(sets.size() - 1));
             } else {
                 if(reps > 1) {
-                    success = (success && setPreference(exercise, REPS, String.valueOf(reps - 1), false));
+                    success = setPreference(exercise, REPS, String.valueOf(reps - 1), false);
                 }
                 if(sets.size() > 1) {
                     success = (success && removePreferenceTree(sets.get(sets.size() - 1)));
@@ -483,22 +484,13 @@ public class SharedPreferencesHelper {
         return success;
     }
 
-    private static boolean removePreference(String key, boolean commit) {
+    private static boolean removePreference(String key) {
         boolean success = false;
 
         if(!isParentIndexValid(key, false)) {
             if (localPreferences.containsKey(key)) {
                 localPreferences.remove(key);
-
-                if(commit) {
-                    success = commit();
-
-                    if (!success) {
-                        LogHelper.error("Commit failed for removing preference " + key);
-                    }
-                } else {
-                    success = true;
-                }
+                success = true;
             } else {
                 LogHelper.error("Unable to remove preference that does not exist: " + key);
             }
@@ -521,13 +513,13 @@ public class SharedPreferencesHelper {
             int i;
             for(i = parentIndex; parentExists(buildPreferenceString(parentRoot, String.valueOf(i+1))); i++) {
                 success = (success
-                        && swap(buildPreferenceString(parentRoot, String.valueOf(i)), buildPreferenceString(parentRoot, String.valueOf(i + 1)), false));
+                        && swap(buildPreferenceString(parentRoot, String.valueOf(i)), buildPreferenceString(parentRoot, String.valueOf(i + 1))));
             }
 
             for(Map.Entry<String,String> entry : new HashMap<>(localPreferences).entrySet()) {
                 if(entry.getKey().contains(buildPreferenceString(parentRoot, String.valueOf(i)))) {
                     success = (success
-                            && removePreference(entry.getKey(), false));
+                            && removePreference(entry.getKey()));
                 }
             }
             success = (success
@@ -558,7 +550,7 @@ public class SharedPreferencesHelper {
             int parentIndex = Integer.valueOf(parent.substring(parent.lastIndexOf(SEPARATOR) + 1));
 
             if(parentExists(buildPreferenceString(parentRoot, String.valueOf(parentIndex + direction)))) {
-                success = (swap(buildPreferenceString(parentRoot, String.valueOf(parentIndex)), buildPreferenceString(parentRoot, String.valueOf(parentIndex + direction)), false)
+                success = (swap(buildPreferenceString(parentRoot, String.valueOf(parentIndex)), buildPreferenceString(parentRoot, String.valueOf(parentIndex + direction)))
                         && commit());
             }
         } else {
@@ -579,15 +571,15 @@ public class SharedPreferencesHelper {
         return false;
     }
 
-    private static boolean swap(String parent1, String parent2, boolean commit) {
+    private static boolean swap(String parent1, String parent2) {
         LogHelper.debug("Swapping " + parent1 + " and " + parent2);
 
-        return (move(parent1, buildPreferenceString(parent1, SWAP, "0"), commit)
-                && move(parent2, parent1, commit)
-                && move(buildPreferenceString(parent1, SWAP, "0"), parent2, commit));
+        return (move(parent1, buildPreferenceString(parent1, SWAP, "0"))
+                && move(parent2, parent1)
+                && move(buildPreferenceString(parent1, SWAP, "0"), parent2));
     }
 
-    private static boolean move(String fromParent, String toParent, boolean commit) {
+    private static boolean move(String fromParent, String toParent) {
         LogHelper.debug("Moving " + fromParent + " to " + toParent);
 
         boolean success = true;
@@ -597,8 +589,8 @@ public class SharedPreferencesHelper {
                 if (entry.getKey().contains(fromParent)) {
                     String tempKey = entry.getKey().replace(fromParent, toParent);
                     success = (success
-                            && setPreference(tempKey, entry.getValue(), commit)
-                            && removePreference(entry.getKey(), commit));
+                            && setPreference(tempKey, entry.getValue(), false)
+                            && removePreference(entry.getKey()));
                 }
             }
         } else {
@@ -612,7 +604,7 @@ public class SharedPreferencesHelper {
     public static boolean copyPreferenceTree(String parent) {
         LogHelper.debug("Copying preference tree for " + parent);
 
-        boolean success = true;
+        boolean success;
 
         if(parent.length() > 0 && isParentIndexValid(parent, true)) {
             String parentRoot = parent.substring(0, parent.lastIndexOf(SEPARATOR));
@@ -620,7 +612,7 @@ public class SharedPreferencesHelper {
 
             for(int i = parentIndex + 1; ; i++) {
                 if (!parentExists(buildPreferenceString(parentRoot, String.valueOf(i)))) {
-                    success = (copy(buildPreferenceString(parentRoot, String.valueOf(parentIndex)), buildPreferenceString(parentRoot, String.valueOf(i)), false)
+                    success = (copy(buildPreferenceString(parentRoot, String.valueOf(parentIndex)), buildPreferenceString(parentRoot, String.valueOf(i)))
                             && commit());
                     break;
                 }
@@ -633,7 +625,7 @@ public class SharedPreferencesHelper {
         return success;
     }
 
-    private static boolean copy(String fromParent, String toParent, boolean commit) {
+    private static boolean copy(String fromParent, String toParent) {
         LogHelper.debug("Copying " + fromParent + " to " + toParent);
 
         boolean success = true;
@@ -643,7 +635,7 @@ public class SharedPreferencesHelper {
                 if (entry.getKey().contains(fromParent)) {
                     String tempKey = entry.getKey().replace(fromParent, toParent);
                     success = (success
-                            && setPreference(tempKey, entry.getValue(), commit));
+                            && setPreference(tempKey, entry.getValue(), false));
                 }
             }
         } else {
@@ -654,12 +646,13 @@ public class SharedPreferencesHelper {
         return success;
     }
 
+    @SuppressWarnings("ResultOfMethodCallIgnored")
     public static boolean isParentIndexValid(String parent, boolean reportError) {
         boolean valid = true;
 
         try {
             if(parent.length() > 0) {
-                Integer.valueOf(parent.substring(parent.lastIndexOf(SEPARATOR)+1));
+                Integer.valueOf(parent.substring(parent.lastIndexOf(SEPARATOR) + 1));
             }
         } catch(NumberFormatException e) {
             if(reportError) {
@@ -673,15 +666,16 @@ public class SharedPreferencesHelper {
 
     public static String buildPreferenceString(String ... strings) {
         String preferenceString = "";
-        for(int i = 0; i < strings.length; i++) {
+        for(String string : strings) {
             if(preferenceString.length() > 0) {
                 preferenceString += SEPARATOR;
             }
-            preferenceString += strings[i];
+            preferenceString += string;
         }
         return preferenceString;
     }
 
+    @SuppressWarnings("ResultOfMethodCallIgnored")
     public static boolean backup() {
         boolean success = false;
 
@@ -706,8 +700,6 @@ public class SharedPreferencesHelper {
                 oStream.close();
 
                 success = true;
-            } catch (FileNotFoundException e) {
-                LogHelper.error(e.toString());
             } catch (IOException e) {
                 LogHelper.error(e.toString());
             }
@@ -718,6 +710,7 @@ public class SharedPreferencesHelper {
         return success;
     }
 
+    @SuppressWarnings("ResultOfMethodCallIgnored")
     public static boolean restore() {
         boolean success = false;
 
@@ -770,7 +763,7 @@ public class SharedPreferencesHelper {
         return success;
     }
 
-    public static void printSharedPreferences() {
+    /*public static void printSharedPreferences() {
         LogHelper.debug("********** Printing Shared Preferences **********");
         List<String> sharedPreferencesList = new ArrayList<String>();
         for(Map.Entry<String,String> entry : localPreferences.entrySet()) {
@@ -781,5 +774,5 @@ public class SharedPreferencesHelper {
             LogHelper.debug(sharedPreference);
         }
         LogHelper.debug("********** Finished Shared Preferences **********");
-    }
+    }*/
 }

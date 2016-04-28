@@ -2,7 +2,6 @@ package com.rgf.rippedgiantfitness;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
@@ -35,7 +34,6 @@ public class WorkoutsActivity extends AppCompatActivity implements RGFActivity {
         setSupportActionBar(toolbar);
 
         final Context context = this;
-        final AppCompatActivity activity = this;
         final String programIndex = getIntent().getStringExtra(SharedPreferencesHelper.PROGRAMS);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -44,7 +42,7 @@ public class WorkoutsActivity extends AppCompatActivity implements RGFActivity {
             public void onClick(View view) {
                 final AppCompatEditText editText = DialogHelper.createEditText(context, "", DialogHelper.WORKOUT_NAME, InputType.TYPE_CLASS_TEXT);
 
-                final AlertDialog dialog = DialogHelper.createDialog(context, DialogHelper.CREATE, DialogHelper.CREATE, DialogHelper.CANCEL, editText);
+                final AlertDialog dialog = DialogHelper.createDialog(context, DialogHelper.CREATE, DialogHelper.CREATE, editText);
 
                 dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -60,7 +58,9 @@ public class WorkoutsActivity extends AppCompatActivity implements RGFActivity {
                 });
             }
         });
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        if(getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
 
         init();
 

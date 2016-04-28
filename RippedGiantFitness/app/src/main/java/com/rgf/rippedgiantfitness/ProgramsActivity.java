@@ -34,7 +34,6 @@ public class ProgramsActivity extends AppCompatActivity implements RGFActivity {
         setSupportActionBar(toolbar);
 
         final Context context = this;
-        final AppCompatActivity activity = this;
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -42,7 +41,7 @@ public class ProgramsActivity extends AppCompatActivity implements RGFActivity {
             public void onClick(View view) {
                 final AppCompatEditText editText = DialogHelper.createEditText(context, "", DialogHelper.PROGRAM_NAME, InputType.TYPE_CLASS_TEXT);
 
-                final AlertDialog dialog = DialogHelper.createDialog(context, DialogHelper.CREATE, DialogHelper.CREATE, DialogHelper.CANCEL, editText);
+                final AlertDialog dialog = DialogHelper.createDialog(context, DialogHelper.CREATE, DialogHelper.CREATE, editText);
 
                 dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -58,7 +57,9 @@ public class ProgramsActivity extends AppCompatActivity implements RGFActivity {
                 });
             }
         });
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        if(getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
 
         init();
     }

@@ -12,7 +12,12 @@ import java.util.Map;
 
 /**
  * Created by Nate on 2/8/2016.
+ *
+ * Ripped Giant Fitness
+ * RippedGiantFitness@gmail.com
+ * https://www.instagram.com/rippedgiantfitness/
  */
+@SuppressWarnings("unchecked")
 public class SettingsDefaults {
 
     public static final String UNIT = "0";
@@ -46,7 +51,7 @@ public class SettingsDefaults {
     }
 
     private static Map<String,Object> getSettingsDefaults() {
-        Map<String,Object> settingsDefaults = new HashMap<String,Object>() {{
+        return new HashMap<String,Object>() {{
             put(SharedPreferencesHelper.SETTINGS, new ArrayList<Object>() {{
                 add(new HashMap<String, Object>() {{
                     put(SharedPreferencesHelper.NAME, "Weight Unit");
@@ -74,7 +79,5 @@ public class SettingsDefaults {
                 }});
             }});
         }};
-
-        return settingsDefaults;
     }
 }

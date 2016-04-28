@@ -1,10 +1,12 @@
 package com.rgf.rippedgiantfitness.interfaces;
 
-import android.support.v7.app.AppCompatActivity;
-
 /**
  * Created by Nate on 12/23/2015.
+ *
+ * Ripped Giant Fitness
+ * RippedGiantFitness@gmail.com
+ * https://www.instagram.com/rippedgiantfitness/
  */
 public interface RGFActivity {
-    public void init();
+    void init();
 }

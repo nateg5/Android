@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.LinearLayoutCompat;
+import android.text.InputType;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
@@ -18,6 +19,10 @@ import com.rgf.rippedgiantfitness.interfaces.RGFActivity;
 
 /**
  * Created by Nate on 11/27/2015.
+ *
+ * Ripped Giant Fitness
+ * RippedGiantFitness@gmail.com
+ * https://www.instagram.com/rippedgiantfitness/
  */
 public class ActivityHelper {
 
@@ -30,7 +35,7 @@ public class ActivityHelper {
         button.setText(text);
         button.setSupportAllCaps(false);
         button.setTypeface(typeface);
-        button.setGravity(Gravity.LEFT | Gravity.CENTER_VERTICAL);
+        button.setGravity(Gravity.START | Gravity.CENTER_VERTICAL);
         button.setBackgroundColor(ContextCompat.getColor(context, R.color.colorTransparent));
         if(clickable) {
             button.setOnTouchListener(new View.OnTouchListener() {
@@ -51,68 +56,64 @@ public class ActivityHelper {
     }
 
     public static AppCompatButton getButton(Context context) {
-        AppCompatButton button = new AppCompatButton(context);
-
-        return button;
+        return new AppCompatButton(context);
     }
 
-    public static AppCompatEditText createEditText(Context context, String text, String hint, int inputType) {
+    public static AppCompatEditText createEditText(Context context, String text, String hint) {
         AppCompatEditText editText = new AppCompatEditText(context);
         editText.setText(text);
         editText.setHint(hint);
-        editText.setInputType(inputType);
+        editText.setInputType(InputType.TYPE_CLASS_NUMBER);
 
         return editText;
     }
 
-    public static AppCompatButton createEditButton(final AppCompatActivity activity, final int resId, final String index, final String label, final String unit, final String preference, final int inputType, final boolean clickable) {
-        final AppCompatButton button = createButton(activity, label + ": " + SharedPreferencesHelper.getPreference(index, preference) + " " + unit, clickable);
-        if(clickable) {
-            button.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    final AppCompatEditText editText = DialogHelper.createEditText(activity, SharedPreferencesHelper.getPreference(index, preference), label, inputType);
+    public static void createExerciseEditButton(final AppCompatActivity activity, final String index, final String label, final String unit, final String preference) {
+        final AppCompatButton button = createButton(activity, label + ": " + SharedPreferencesHelper.getPreference(index, preference) + " " + unit, true);
 
-                    final AlertDialog dialogEdit = DialogHelper.createDialog(activity, DialogHelper.EDIT, DialogHelper.SAVE, DialogHelper.CANCEL, editText);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final AppCompatEditText editText = DialogHelper.createEditText(activity, SharedPreferencesHelper.getPreference(index, preference), label, InputType.TYPE_CLASS_NUMBER);
 
-                    dialogEdit.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            if (SharedPreferencesHelper.setPreference(index, preference, editText.getText().toString())) {
-                                button.setText(label + ": " + editText.getText().toString() + " " + unit);
-                                dialogEdit.dismiss();
-                            } else {
-                                LogHelper.error("Failed to save " + SharedPreferencesHelper.buildPreferenceString(index, preference));
-                            }
+                final AlertDialog dialogEdit = DialogHelper.createDialog(activity, DialogHelper.EDIT, DialogHelper.SAVE, editText);
+
+                dialogEdit.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (SharedPreferencesHelper.setPreference(index, preference, editText.getText().toString())) {
+                            button.setText(activity.getString(R.string.label_text_unit, label, editText.getText().toString(), unit));
+                            dialogEdit.dismiss();
+                        } else {
+                            LogHelper.error("Failed to save " + SharedPreferencesHelper.buildPreferenceString(index, preference));
                         }
-                    });
-                }
-            });
-            button.setOnLongClickListener(new View.OnLongClickListener() {
-                @Override
-                public boolean onLongClick(View v) {
-                    final AppCompatEditText editText = DialogHelper.createEditText(activity, SharedPreferencesHelper.getPreference(index, preference), label, inputType);
+                    }
+                });
+            }
+        });
+        button.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                final AppCompatEditText editText = DialogHelper.createEditText(activity, SharedPreferencesHelper.getPreference(index, preference), label, InputType.TYPE_CLASS_NUMBER);
 
-                    final AlertDialog dialogEdit = DialogHelper.createDialog(activity, DialogHelper.EDIT, DialogHelper.SAVE, DialogHelper.CANCEL, editText);
+                final AlertDialog dialogEdit = DialogHelper.createDialog(activity, DialogHelper.EDIT, DialogHelper.SAVE, editText);
 
-                    dialogEdit.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            if (SharedPreferencesHelper.setPreference(index, preference, editText.getText().toString())) {
-                                button.setText(label + ": " + editText.getText().toString() + " " + unit);
-                                dialogEdit.dismiss();
-                            } else {
-                                LogHelper.error("Failed to save " + SharedPreferencesHelper.buildPreferenceString(index, preference));
-                            }
+                dialogEdit.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (SharedPreferencesHelper.setPreference(index, preference, editText.getText().toString())) {
+                            button.setText(activity.getString(R.string.label_text_unit, label, editText.getText().toString(), unit));
+                            dialogEdit.dismiss();
+                        } else {
+                            LogHelper.error("Failed to save " + SharedPreferencesHelper.buildPreferenceString(index, preference));
                         }
-                    });
-                    return true;
-                }
-            });
-        }
-        ((ViewGroup)activity.findViewById(resId)).addView(button);
+                    }
+                });
+                return true;
+            }
+        });
 
-        return button;
+        ((ViewGroup)activity.findViewById(R.id.content_exercise)).addView(button);
     }
 
     public static void moveUp(final AppCompatActivity activity, final int resId, final String index) {

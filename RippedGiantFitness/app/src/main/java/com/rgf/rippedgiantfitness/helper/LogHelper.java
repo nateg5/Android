@@ -5,30 +5,21 @@ import android.widget.Toast;
 
 /**
  * Created by Nate on 11/22/2015.
+ *
+ * Ripped Giant Fitness
+ * RippedGiantFitness@gmail.com
+ * https://www.instagram.com/rippedgiantfitness/
  */
 public class LogHelper {
-    public final static String PREFIX = "RGF ";
+    private final static String PREFIX = "RGF ";
 
     public static void debug(String string) {
-        debug(string, false);
-    }
-
-    private static void debug(String string, boolean toast) {
         Log.d(PREFIX + "DEBUG", string);
-        if(toast) {
-            toast("DEBUG " + string);
-        }
     }
 
     public static void error(String string) {
-        error(string, true);
-    }
-
-    private static void error(String string, boolean toast) {
         Log.e(PREFIX + "ERROR", string);
-        if(toast) {
-            toast("ERROR " + string);
-        }
+        toast("ERROR " + string);
     }
 
     public static void toast(String string) {

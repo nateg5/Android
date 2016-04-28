@@ -6,6 +6,7 @@
 
     <application
         android:allowBackup="true"
+        android:fullBackupContent="@xml/full_backup_content"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
@@ -24,7 +25,6 @@
         <activity
             android:name=".ProgramsActivity"
             android:label="@string/title_activity_programs"
-            android:parentActivityName=".HomeActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" >
             <meta-data
@@ -34,7 +34,6 @@
         <activity
             android:name=".WorkoutsActivity"
             android:label="@string/title_activity_workouts"
-            android:parentActivityName=".ProgramsActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" >
             <meta-data
@@ -44,7 +43,6 @@
         <activity
             android:name=".ExercisesActivity"
             android:label="@string/title_activity_exercises"
-            android:parentActivityName=".WorkoutsActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" >
             <meta-data
@@ -54,7 +52,6 @@
         <activity
             android:name=".ExerciseActivity"
             android:label="@string/title_activity_exercise"
-            android:parentActivityName=".ExercisesActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" >
             <meta-data
@@ -64,7 +61,6 @@
         <activity
             android:name=".WorkoutActivity"
             android:label="@string/title_activity_workout"
-            android:parentActivityName=".WorkoutsActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" >
             <meta-data
@@ -74,7 +70,6 @@
         <activity
             android:name=".HiitSettingsActivity"
             android:label="@string/title_activity_hiit"
-            android:parentActivityName=".HomeActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateHidden" >
@@ -85,7 +80,6 @@
         <activity
             android:name=".HiitTimerActivity"
             android:label="@string/title_activity_hiit_timer"
-            android:parentActivityName=".HiitSettingsActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" >
             <meta-data
@@ -95,7 +89,6 @@
         <activity
             android:name=".MeasurementsActivity"
             android:label="@string/title_activity_measurements"
-            android:parentActivityName=".HomeActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" >
             <meta-data
@@ -105,7 +98,6 @@
         <activity
             android:name=".MeasurementActivity"
             android:label="@string/title_activity_measurement"
-            android:parentActivityName=".MeasurementsActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" >
             <meta-data
@@ -115,7 +107,6 @@
         <activity
             android:name=".HelpActivity"
             android:label="@string/title_activity_help"
-            android:parentActivityName=".HomeActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" >
             <meta-data
@@ -125,7 +116,6 @@
         <activity
             android:name=".SettingsActivity"
             android:label="@string/title_activity_settings"
-            android:parentActivityName=".HomeActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" >
             <meta-data
@@ -135,7 +125,6 @@
         <activity
             android:name=".HistoryActivity"
             android:label="@string/title_activity_history"
-            android:parentActivityName=".WorkoutsActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" >
             <meta-data
@@ -145,7 +134,6 @@
         <activity
             android:name=".HistActivity"
             android:label="@string/title_activity_hist"
-            android:parentActivityName=".HistoryActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" >
             <meta-data

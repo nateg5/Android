@@ -17,6 +17,10 @@ import com.rgf.rippedgiantfitness.interfaces.RGFActivity;
 
 /**
  * Created by Nate on 11/28/2015.
+ *
+ * Ripped Giant Fitness
+ * RippedGiantFitness@gmail.com
+ * https://www.instagram.com/rippedgiantfitness/
  */
 public class DialogHelper {
 
@@ -30,8 +34,8 @@ public class DialogHelper {
     public final static String PROGRAM_NAME = "Program Name";
     public final static String WORKOUT_NAME = "Workout Name";
     public final static String EXERCISE_NAME = "Exercise Name";
-    public final static String CURRENT_VOLUME = "Current Volume";
-    public final static String FAILED_VOLUME = "Failed Volume";
+    //public final static String CURRENT_VOLUME = "Current Volume";
+    //public final static String FAILED_VOLUME = "Failed Volume";
     public final static String WEIGHT_INCREMENT = "Weight Increment";
     public final static String SETS_WARMUP = "Number of Warmup Sets";
     public final static String NUMBER_OF_REPS = "Number of Reps";
@@ -46,7 +50,7 @@ public class DialogHelper {
     public final static String LOW = "7 Day Low";
     public final static String CREATE = "Create";
     public final static String SAVE = "Save";
-    public final static String CANCEL = "Cancel";
+    private final static String CANCEL = "Cancel";
     public final static String YES = "Yes";
     public final static String NO = "No";
     public final static String CLOSE = "Close";
@@ -66,7 +70,7 @@ public class DialogHelper {
         return editText;
     }
 
-    public static AlertDialog createDialog(Context context, String title, String posBtnText, String negBtnText, View ... views) {
+    public static AlertDialog createDialog(Context context, String title, String posBtnText, View ... views) {
         LinearLayoutCompat linearLayout = new LinearLayoutCompat(context);
         linearLayout.setOrientation(LinearLayoutCompat.VERTICAL);
         for(View view : views) {
@@ -79,7 +83,7 @@ public class DialogHelper {
                 .setTitle(title)
                 .setView(scrollView, getPadding(context).getPaddingLeft(), getPadding(context).getPaddingTop(), getPadding(context).getPaddingRight(), getPadding(context).getPaddingBottom())
                 .setPositiveButton(posBtnText, null)
-                .setNegativeButton(negBtnText, null)
+                .setNegativeButton(CANCEL, null)
                 .create();
 
         dialog.show();
@@ -117,48 +121,44 @@ public class DialogHelper {
         return dialog;
     }
 
-    public static AlertDialog createEditDialog(final Context context, final AppCompatButton button, final String index, final String label1, final String label2, final String label3, final String preference, final int inputType) {
+    public static void createEditDialog(final Context context, final AppCompatButton button, final String index, final String label1, final String label2, final String label3, final String preference, final int inputType) {
         final AppCompatEditText editText = createEditText(context, SharedPreferencesHelper.getPreference(index, preference), label1, inputType);
 
-        final AlertDialog dialogEdit = createDialog(context, EDIT, SAVE, CANCEL, editText);
+        final AlertDialog dialogEdit = createDialog(context, EDIT, SAVE, editText);
 
         dialogEdit.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (SharedPreferencesHelper.setPreference(index, preference, editText.getText().toString())) {
-                    button.setText(label2 + editText.getText().toString() + " " + label3);
+                    button.setText(context.getString(R.string.label_text_label, label2, editText.getText().toString(), label3));
                     dialogEdit.dismiss();
                 } else {
                     LogHelper.error("Failed to save " + SharedPreferencesHelper.buildPreferenceString(index, preference));
                 }
             }
         });
-
-        return dialogEdit;
     }
 
-    public static AlertDialog createEditDialog(final Context context, final int resId, final String index, final String hint, final String preference, final int inputType) {
-        final AppCompatEditText editText = createEditText(context, SharedPreferencesHelper.getPreference(index, preference), hint, inputType);
+    public static void createMeasurementEditDialog(final Context context, final String index, final String hint, final int inputType) {
+        final AppCompatEditText editText = createEditText(context, SharedPreferencesHelper.getPreference(index, SharedPreferencesHelper.ENTRY), hint, inputType);
 
-        final AlertDialog dialogEdit = createDialog(context, EDIT, SAVE, CANCEL, editText);
+        final AlertDialog dialogEdit = createDialog(context, EDIT, SAVE, editText);
 
         dialogEdit.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (SharedPreferencesHelper.setPreference(index, preference, editText.getText().toString())) {
-                    ((ViewGroup)((AppCompatActivity)context).findViewById(resId)).removeAllViews();
+                if (SharedPreferencesHelper.setPreference(index, SharedPreferencesHelper.ENTRY, editText.getText().toString())) {
+                    ((ViewGroup)((AppCompatActivity)context).findViewById(R.id.content_measurement)).removeAllViews();
                     ((RGFActivity)context).init();
                     dialogEdit.dismiss();
                 } else {
-                    LogHelper.error("Failed to save " + SharedPreferencesHelper.buildPreferenceString(index, preference));
+                    LogHelper.error("Failed to save " + SharedPreferencesHelper.buildPreferenceString(index, SharedPreferencesHelper.ENTRY));
                 }
             }
         });
-
-        return dialogEdit;
     }
 
-    public static AlertDialog createRemoveDialog(final AppCompatActivity activity, final int resId, final String index, final String label, final String unit, final String preference) {
+    public static void createRemoveDialog(final AppCompatActivity activity, final int resId, final String index, final String label, final String unit, final String preference) {
         String message = "Are you sure you want to permanently remove " + label + SharedPreferencesHelper.getPreference(index, preference) + " " + unit + "?";
 
         final AlertDialog dialogRemove = createDialog(activity, REMOVE, YES, NO, message);
@@ -175,8 +175,6 @@ public class DialogHelper {
                 }
             }
         });
-
-        return dialogRemove;
     }
 
     private static View getPadding(Context context) {

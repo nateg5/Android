@@ -36,7 +36,7 @@ import java.util.TimerTask;
 
 public class WorkoutActivity extends AppCompatActivity implements RGFActivity {
 
-    static ToneGenerator toneGenerator = new ToneGenerator(AudioManager.STREAM_MUSIC, ToneGenerator.MAX_VOLUME);
+    private final static ToneGenerator toneGenerator = new ToneGenerator(AudioManager.STREAM_MUSIC, ToneGenerator.MAX_VOLUME);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +54,9 @@ public class WorkoutActivity extends AppCompatActivity implements RGFActivity {
             setTitle(workoutName);
         }
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        if(getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
 
         init();
 
@@ -77,7 +79,6 @@ public class WorkoutActivity extends AppCompatActivity implements RGFActivity {
         final String weightUnit = SharedPreferencesHelper.getPreference(SharedPreferencesHelper.buildPreferenceString(SharedPreferencesHelper.SETTINGS, SettingsDefaults.UNIT, SharedPreferencesHelper.SETTING));
 
         final Context context = this;
-        final AppCompatActivity activity = this;
         final String workoutIndex = getIntent().getStringExtra(SharedPreferencesHelper.WORKOUTS);
 
         final Map<String, Map<String, Boolean>> exerciseMap = new HashMap<>();
@@ -88,9 +89,7 @@ public class WorkoutActivity extends AppCompatActivity implements RGFActivity {
 
         List<String> exercises = SharedPreferencesHelper.getExercises(workoutIndex);
 
-        for(String exercise : exercises) {
-            final String exerciseIndex = exercise;
-
+        for(String exerciseIndex : exercises) {
             final Map<String, Boolean> setMap = new HashMap<>();
             exerciseMap.put(exerciseIndex, setMap);
 
@@ -158,9 +157,7 @@ public class WorkoutActivity extends AppCompatActivity implements RGFActivity {
              * add working sets
              */
             int setNum = 1;
-            for(String set : sets) {
-                final String setIndex = set;
-
+            for(String setIndex : sets) {
                 setMap.put(setIndex, false);
 
                 final AppCompatButton buttonSet = ActivityHelper.createButton(context, "Set " + String.valueOf(setNum++), false);
@@ -232,11 +229,12 @@ public class WorkoutActivity extends AppCompatActivity implements RGFActivity {
 
     private AppCompatButton createRepsButton(final String exerciseIndex, final Map<String, Boolean> setMap, final String setIndex, final Map<String, String> historyMap, final String historySetIndex) {
         final Context context = this;
-        AppCompatButton buttonReps = ActivityHelper.createButton(context, SharedPreferencesHelper.getPreference(exerciseIndex, SharedPreferencesHelper.REPS) + " Reps", true);
+        int reps = Integer.valueOf(SharedPreferencesHelper.getPreference(exerciseIndex, SharedPreferencesHelper.REPS));
+        AppCompatButton buttonReps = ActivityHelper.createButton(context, getResources().getQuantityString(R.plurals.reps, reps, reps), true);
         buttonReps.setLayoutParams(new LinearLayoutCompat.LayoutParams(LinearLayoutCompat.LayoutParams.WRAP_CONTENT, LinearLayoutCompat.LayoutParams.WRAP_CONTENT, 1));
         buttonReps.setBackgroundColor(ContextCompat.getColor(context, R.color.colorLightGray));
 
-        historyMap.put(SharedPreferencesHelper.buildPreferenceString(historySetIndex, SharedPreferencesHelper.REPS), "0 Reps");
+        historyMap.put(SharedPreferencesHelper.buildPreferenceString(historySetIndex, SharedPreferencesHelper.REPS), getResources().getQuantityString(R.plurals.reps, 0, 0));
 
         buttonReps.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -266,13 +264,17 @@ public class WorkoutActivity extends AppCompatActivity implements RGFActivity {
 
                 if (textColor == ContextCompat.getColor(context, R.color.colorWhite)) {
                     if (reps == 0) {
+                        reps = Integer.valueOf(SharedPreferencesHelper.getPreference(exerciseIndex, SharedPreferencesHelper.REPS));
+
                         v.setBackgroundColor(ContextCompat.getColor(context, R.color.colorLightGray));
                         ((AppCompatButton) v).setTextColor(ActivityHelper.getButton(context).getCurrentTextColor());
-                        ((AppCompatButton) v).setText(SharedPreferencesHelper.getPreference(exerciseIndex, SharedPreferencesHelper.REPS) + " Reps");
+                        ((AppCompatButton) v).setText(getResources().getQuantityString(R.plurals.reps, reps, reps));
 
-                        historyMap.put(SharedPreferencesHelper.buildPreferenceString(historySetIndex, SharedPreferencesHelper.REPS), "0 Reps");
+                        historyMap.put(SharedPreferencesHelper.buildPreferenceString(historySetIndex, SharedPreferencesHelper.REPS), getResources().getQuantityString(R.plurals.reps, 0, 0));
                     } else {
-                        ((AppCompatButton) v).setText((reps - 1) + " Reps");
+                        reps = reps - 1;
+
+                        ((AppCompatButton) v).setText(getResources().getQuantityString(R.plurals.reps, reps, reps));
 
                         historyMap.put(SharedPreferencesHelper.buildPreferenceString(historySetIndex, SharedPreferencesHelper.REPS), ((AppCompatButton) v).getText().toString());
                     }

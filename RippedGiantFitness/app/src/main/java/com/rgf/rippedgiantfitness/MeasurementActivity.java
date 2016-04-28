@@ -38,7 +38,6 @@ public class MeasurementActivity extends AppCompatActivity implements RGFActivit
         setSupportActionBar(toolbar);
 
         final Context context = this;
-        final AppCompatActivity activity = this;
         final String measurementIndex = getIntent().getStringExtra(SharedPreferencesHelper.MEASUREMENTS);
         final String measurementName = SharedPreferencesHelper.getPreference(measurementIndex, SharedPreferencesHelper.NAME);
 
@@ -53,7 +52,7 @@ public class MeasurementActivity extends AppCompatActivity implements RGFActivit
                 final AppCompatEditText editTextDate = DialogHelper.createEditText(context, Constants.DATE_FORMAT.format(new Date()), SharedPreferencesHelper.DATE, InputType.TYPE_CLASS_DATETIME|InputType.TYPE_DATETIME_VARIATION_DATE);
                 final AppCompatEditText editTextEntry = DialogHelper.createEditText(context, "", getTitle().toString(), InputType.TYPE_CLASS_NUMBER|InputType.TYPE_NUMBER_FLAG_DECIMAL);
 
-                final AlertDialog dialog = DialogHelper.createDialog(context, DialogHelper.CREATE, DialogHelper.CREATE, DialogHelper.CANCEL, editTextDate, editTextEntry);
+                final AlertDialog dialog = DialogHelper.createDialog(context, DialogHelper.CREATE, DialogHelper.CREATE, editTextDate, editTextEntry);
 
                 dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -69,7 +68,9 @@ public class MeasurementActivity extends AppCompatActivity implements RGFActivit
                 });
             }
         });
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        if(getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
 
         init();
     }
@@ -90,8 +91,7 @@ public class MeasurementActivity extends AppCompatActivity implements RGFActivit
         float entryAverage = 0;
         float entryHigh = 0;
         float entryLow = 0;
-        for(String entry : entries) {
-            String entryIndex = entry;
+        for(String entryIndex : entries) {
             String entryDate = SharedPreferencesHelper.getPreference(entryIndex, SharedPreferencesHelper.DATE);
             String entryValue = SharedPreferencesHelper.getPreference(entryIndex, SharedPreferencesHelper.ENTRY);
 
@@ -137,7 +137,7 @@ public class MeasurementActivity extends AppCompatActivity implements RGFActivit
             buttonEntry.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    DialogHelper.createEditDialog(context, R.id.content_measurement, entryIndex, getTitle().toString(), SharedPreferencesHelper.ENTRY, InputType.TYPE_CLASS_NUMBER|InputType.TYPE_NUMBER_FLAG_DECIMAL);
+                    DialogHelper.createMeasurementEditDialog(context, entryIndex, getTitle().toString(), InputType.TYPE_CLASS_NUMBER|InputType.TYPE_NUMBER_FLAG_DECIMAL);
                 }
             });
             buttonEntry.setOnLongClickListener(new View.OnLongClickListener() {
@@ -160,7 +160,7 @@ public class MeasurementActivity extends AppCompatActivity implements RGFActivit
                                     dialog.dismiss();
                                     break;
                                 case DialogHelper.EDIT:
-                                    DialogHelper.createEditDialog(context, R.id.content_measurement, entryIndex, getTitle().toString(), SharedPreferencesHelper.ENTRY, InputType.TYPE_CLASS_NUMBER|InputType.TYPE_NUMBER_FLAG_DECIMAL);
+                                    DialogHelper.createMeasurementEditDialog(context, entryIndex, getTitle().toString(), InputType.TYPE_CLASS_NUMBER|InputType.TYPE_NUMBER_FLAG_DECIMAL);
                                     dialog.dismiss();
                                     break;
                                 case DialogHelper.REMOVE:

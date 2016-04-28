@@ -27,14 +27,15 @@ public class SettingsActivity extends AppCompatActivity implements RGFActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        if(getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
 
         init();
     }
 
     public void init() {
         final Context context = this;
-        final AppCompatActivity activity = this;
 
         List<String> settings =  SharedPreferencesHelper.getSettings();
 

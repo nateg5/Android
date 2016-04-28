@@ -34,7 +34,6 @@ public class ExercisesActivity extends AppCompatActivity implements RGFActivity 
         setSupportActionBar(toolbar);
 
         final Context context = this;
-        final AppCompatActivity activity = this;
         final String workoutIndex = getIntent().getStringExtra(SharedPreferencesHelper.WORKOUTS);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -49,7 +48,7 @@ public class ExercisesActivity extends AppCompatActivity implements RGFActivity 
                 final AppCompatEditText editTextMinWeight = DialogHelper.createEditText(context, "", DialogHelper.MIN_WEIGHT, InputType.TYPE_CLASS_NUMBER);
                 final AppCompatEditText editTextMaxWeight = DialogHelper.createEditText(context, "", DialogHelper.MAX_WEIGHT, InputType.TYPE_CLASS_NUMBER);
 
-                final AlertDialog dialog = DialogHelper.createDialog(context, DialogHelper.CREATE, DialogHelper.CREATE, DialogHelper.CANCEL, editTextName, editTextIncrement, editTextWarmupSets, editTextReps, editTextRest, editTextMinWeight, editTextMaxWeight);
+                final AlertDialog dialog = DialogHelper.createDialog(context, DialogHelper.CREATE, DialogHelper.CREATE, editTextName, editTextIncrement, editTextWarmupSets, editTextReps, editTextRest, editTextMinWeight, editTextMaxWeight);
 
                 dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -72,7 +71,9 @@ public class ExercisesActivity extends AppCompatActivity implements RGFActivity 
                 });
             }
         });
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        if(getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
 
         init();
     }

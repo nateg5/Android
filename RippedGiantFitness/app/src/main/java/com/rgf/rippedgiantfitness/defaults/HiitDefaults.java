@@ -9,7 +9,12 @@ import java.util.Map;
 
 /**
  * Created by Nate on 1/18/2016.
+ *
+ * Ripped Giant Fitness
+ * RippedGiantFitness@gmail.com
+ * https://www.instagram.com/rippedgiantfitness/
  */
+@SuppressWarnings("unchecked")
 public class HiitDefaults {
 
     public static void create() {
@@ -38,12 +43,10 @@ public class HiitDefaults {
     }
 
     private static Map<String,Object> getHiitDefaults() {
-        Map<String,Object> hiitDefaults = new HashMap<String,Object>() {{
+        return new HashMap<String,Object>() {{
             put(SharedPreferencesHelper.HIIT_GO, "");
             put(SharedPreferencesHelper.HIIT_REST, "");
             put(SharedPreferencesHelper.HIIT_ROUNDS, "");
         }};
-
-        return hiitDefaults;
     }
 }

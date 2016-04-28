@@ -38,7 +38,9 @@ public class HistoryActivity extends AppCompatActivity implements RGFActivity {
             setTitle(workoutName + " " + getTitle().toString());
         }
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        if(getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
 
         init();
     }
@@ -48,11 +50,11 @@ public class HistoryActivity extends AppCompatActivity implements RGFActivity {
         final AppCompatActivity activity = this;
         final String workoutIndex = getIntent().getStringExtra(SharedPreferencesHelper.WORKOUTS);
 
-        List<String> historys =  SharedPreferencesHelper.getHistory(workoutIndex);
+        List<String> histories =  SharedPreferencesHelper.getHistory(workoutIndex);
 
-        Collections.reverse(historys);
+        Collections.reverse(histories);
 
-        for(String history : historys) {
+        for(String history : histories) {
             final String historyIndex = history;
 
             final AppCompatButton buttonHistory = ActivityHelper.createButton(context, SharedPreferencesHelper.getPreference(historyIndex, SharedPreferencesHelper.DATE), true);

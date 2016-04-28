@@ -23,7 +23,9 @@ public class HelpActivity extends AppCompatActivity implements RGFActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        if(getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
 
         init();
     }
@@ -230,15 +232,15 @@ public class HelpActivity extends AppCompatActivity implements RGFActivity {
 
         ((ViewGroup)findViewById(R.id.content_help)).addView(buttonRateAmazonContent);
 
-        AppCompatButton buttonRateGoogleTitle = ActivityHelper.createButton(
+        /*AppCompatButton buttonRateGoogleTitle = ActivityHelper.createButton(
                 context,
                 SharedPreferencesHelper.RATE_GOOGLE,
                 Typeface.DEFAULT_BOLD,
                 false);
 
-        //((ViewGroup)findViewById(R.id.content_help)).addView(buttonRateGoogleTitle);
+        ((ViewGroup)findViewById(R.id.content_help)).addView(buttonRateGoogleTitle);
 
-        //((ViewGroup)findViewById(R.id.content_help)).addView(ActivityHelper.getSeparatorView(context));
+        ((ViewGroup)findViewById(R.id.content_help)).addView(ActivityHelper.getSeparatorView(context));
 
         AppCompatButton buttonRateGoogleContent = ActivityHelper.createButton(
                 context,
@@ -248,7 +250,7 @@ public class HelpActivity extends AppCompatActivity implements RGFActivity {
                         "changes and improvements to the app.",
                 false);
 
-        //((ViewGroup)findViewById(R.id.content_help)).addView(buttonRateGoogleContent);
+        ((ViewGroup)findViewById(R.id.content_help)).addView(buttonRateGoogleContent);*/
 
         AppCompatButton buttonSettingsTitle = ActivityHelper.createButton(
                 context,

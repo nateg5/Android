@@ -35,7 +35,6 @@ public class HomeActivity extends AppCompatActivity {
 
     private void init() {
         final Context context = this;
-        final AppCompatActivity activity = this;
 
         SharedPreferencesHelper.init(context);
 
@@ -216,7 +215,7 @@ public class HomeActivity extends AppCompatActivity {
 
         ((ViewGroup)findViewById(R.id.content_home)).addView(ActivityHelper.getSeparatorView(context));
 
-        String verse = "";
+        String verse;
         int rand = new Random().nextInt(3);
         if(rand == 0) {
             verse = "\"Do you not know that you are a temple of God and that the Spirit of God dwells in you? If any man destroys the temple of God, God will destroy him, for the temple of God is holy, and that is what you are.\" - 1 Corinthians 3:16-17 (NASB)";

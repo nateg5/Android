@@ -27,15 +27,13 @@ import java.util.TimerTask;
 
 public class HiitTimerActivity extends AppCompatActivity implements RGFActivity {
 
-    boolean finished = false;
-    int go;
-    int rest;
-    int rounds;
-    AppCompatButton buttonRound;
-    AppCompatButton buttonAction;
-    AppCompatButton buttonTime;
-    List<Map<String, Integer>> list = new ArrayList<>();
-    ToneGenerator toneGenerator = new ToneGenerator(AudioManager.STREAM_MUSIC, ToneGenerator.MAX_VOLUME);
+    private boolean finished = false;
+    private int rounds;
+    private AppCompatButton buttonRound;
+    private AppCompatButton buttonAction;
+    private AppCompatButton buttonTime;
+    private final List<Map<String, Integer>> list = new ArrayList<>();
+    private final ToneGenerator toneGenerator = new ToneGenerator(AudioManager.STREAM_MUSIC, ToneGenerator.MAX_VOLUME);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +42,9 @@ public class HiitTimerActivity extends AppCompatActivity implements RGFActivity 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        if(getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
 
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
@@ -54,8 +54,8 @@ public class HiitTimerActivity extends AppCompatActivity implements RGFActivity 
     public void init() {
         final Context context = this;
 
-        go = getIntent().getIntExtra(SharedPreferencesHelper.HIIT_GO, 0);
-        rest = getIntent().getIntExtra(SharedPreferencesHelper.HIIT_REST, 0);
+        int go = getIntent().getIntExtra(SharedPreferencesHelper.HIIT_GO, 0);
+        int rest = getIntent().getIntExtra(SharedPreferencesHelper.HIIT_REST, 0);
         rounds = getIntent().getIntExtra(SharedPreferencesHelper.HIIT_ROUNDS, 0);
 
         for(int i = 0; i < rounds; i++) {
@@ -86,18 +86,18 @@ public class HiitTimerActivity extends AppCompatActivity implements RGFActivity 
 
     private void continueTimer() {
         if(list.size() > 0) {
-            buttonRound.setText((rounds - list.size() + 1) + " of " + rounds);
-            int time = 0;
+            buttonRound.setText(getString(R.string.round_rounds, (rounds - list.size() + 1), rounds));
+            int time;
             if(list.get(0).get(SharedPreferencesHelper.HIIT_GO) != null) {
                 time = list.get(0).get(SharedPreferencesHelper.HIIT_GO);
                 list.get(0).remove(SharedPreferencesHelper.HIIT_GO);
-                buttonAction.setText("Go");
+                buttonAction.setText(getString(R.string.go));
                 buttonAction.setTextColor(ContextCompat.getColor(this, R.color.colorGreen));
                 buttonTime.setTextColor(ContextCompat.getColor(this, R.color.colorGreen));
             } else {
                 time = list.get(0).get(SharedPreferencesHelper.HIIT_REST);
                 list.remove(0);
-                buttonAction.setText("Rest");
+                buttonAction.setText(getString(R.string.rest));
                 buttonAction.setTextColor(ContextCompat.getColor(this, R.color.colorAccent));
                 buttonTime.setTextColor(ContextCompat.getColor(this, R.color.colorAccent));
             }

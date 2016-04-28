@@ -34,21 +34,20 @@ public class HistActivity extends AppCompatActivity implements RGFActivity {
             setTitle(historyName + " " + historyDate);
         }
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        if(getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
 
         init();
     }
 
     public void init() {
         final Context context = this;
-        final AppCompatActivity activity = this;
         final String historyIndex = getIntent().getStringExtra(SharedPreferencesHelper.HISTORY);
 
         List<String> exercises = SharedPreferencesHelper.getExercises(historyIndex);
 
-        for(String exercise : exercises) {
-            final String exerciseIndex = exercise;
-
+        for(String exerciseIndex : exercises) {
             final AppCompatButton buttonExercise = ActivityHelper.createButton(context, SharedPreferencesHelper.getPreference(exerciseIndex, SharedPreferencesHelper.NAME), false);
             buttonExercise.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimary));
             buttonExercise.setTextColor(ContextCompat.getColor(context, R.color.colorWhite));
@@ -57,9 +56,7 @@ public class HistActivity extends AppCompatActivity implements RGFActivity {
 
             List<String> sets = SharedPreferencesHelper.getSets(exerciseIndex);
 
-            for(String set : sets) {
-                final String setIndex = set;
-
+            for(String setIndex : sets) {
                 final AppCompatButton buttonSet = ActivityHelper.createButton(context, SharedPreferencesHelper.getPreference(setIndex, SharedPreferencesHelper.NAME), false);
                 final AppCompatButton buttonWeight = ActivityHelper.createButton(context, SharedPreferencesHelper.getPreference(setIndex, SharedPreferencesHelper.WEIGHT), false);
                 final AppCompatButton buttonReps = ActivityHelper.createButton(context, SharedPreferencesHelper.getPreference(setIndex, SharedPreferencesHelper.REPS), false);

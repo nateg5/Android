@@ -240,15 +240,19 @@ public class WorkoutActivity extends AppCompatActivity implements RGFActivity {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                    if (((AppCompatButton) v).getCurrentTextColor() == ContextCompat.getColor(context, R.color.colorWhite)) {
+                    if (((AppCompatButton) v).getCurrentTextColor() == ContextCompat.getColor(context, R.color.colorAccentText)) {
                         v.setBackgroundColor(ContextCompat.getColor(context, R.color.colorAccentDark));
+                    } else if (((AppCompatButton) v).getCurrentTextColor() == ContextCompat.getColor(context, R.color.colorGreenText)) {
+                        v.setBackgroundColor(ContextCompat.getColor(context, R.color.colorGreenDark));
                     } else {
                         v.setBackgroundColor(ContextCompat.getColor(context, R.color.colorGray));
                     }
                 } else if (event.getAction() == MotionEvent.ACTION_UP || event.getAction() == MotionEvent.ACTION_CANCEL) {
-                    if (((AppCompatButton) v).getCurrentTextColor() == ContextCompat.getColor(context, R.color.colorWhite)) {
+                    if (((AppCompatButton) v).getCurrentTextColor() == ContextCompat.getColor(context, R.color.colorAccentText)) {
                         v.setBackgroundColor(ContextCompat.getColor(context, R.color.colorAccent));
-                    } else {
+                    } else if (((AppCompatButton) v).getCurrentTextColor() == ContextCompat.getColor(context, R.color.colorGreenText)) {
+                        v.setBackgroundColor(ContextCompat.getColor(context, R.color.colorGreen));
+                    }else {
                         v.setBackgroundColor(ContextCompat.getColor(context, R.color.colorLightGray));
                     }
                 }
@@ -262,7 +266,7 @@ public class WorkoutActivity extends AppCompatActivity implements RGFActivity {
                 String text = ((AppCompatButton) v).getText().toString();
                 int reps = Integer.valueOf(text.substring(0, text.indexOf(" ")));
 
-                if (textColor == ContextCompat.getColor(context, R.color.colorWhite)) {
+                if (textColor == ContextCompat.getColor(context, R.color.colorAccentText) || textColor == ContextCompat.getColor(context, R.color.colorGreenText)) {
                     if (reps == 0) {
                         reps = Integer.valueOf(SharedPreferencesHelper.getPreference(exerciseIndex, SharedPreferencesHelper.REPS));
 
@@ -274,6 +278,8 @@ public class WorkoutActivity extends AppCompatActivity implements RGFActivity {
                     } else {
                         reps = reps - 1;
 
+                        v.setBackgroundColor(ContextCompat.getColor(context, R.color.colorAccent));
+                        ((AppCompatButton) v).setTextColor(ContextCompat.getColor(context, R.color.colorAccentText));
                         ((AppCompatButton) v).setText(getResources().getQuantityString(R.plurals.reps, reps, reps));
 
                         historyMap.put(SharedPreferencesHelper.buildPreferenceString(historySetIndex, SharedPreferencesHelper.REPS), ((AppCompatButton) v).getText().toString());
@@ -282,8 +288,8 @@ public class WorkoutActivity extends AppCompatActivity implements RGFActivity {
                         setMap.put(setIndex, false);
                     }
                 } else {
-                    v.setBackgroundColor(ContextCompat.getColor(context, R.color.colorAccent));
-                    ((AppCompatButton) v).setTextColor(ContextCompat.getColor(context, R.color.colorWhite));
+                    v.setBackgroundColor(ContextCompat.getColor(context, R.color.colorGreen));
+                    ((AppCompatButton) v).setTextColor(ContextCompat.getColor(context, R.color.colorGreenText));
 
                     historyMap.put(SharedPreferencesHelper.buildPreferenceString(historySetIndex, SharedPreferencesHelper.REPS), ((AppCompatButton) v).getText().toString());
 

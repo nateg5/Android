@@ -52,13 +52,13 @@ public class SettingsActivity extends AppCompatActivity implements RGFActivity {
             buttonSetting.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    DialogHelper.createEditDialog(context, buttonSetting, settingIndex, SharedPreferencesHelper.getPreference(settingIndex, SharedPreferencesHelper.SETTING_HINT), "", "", SharedPreferencesHelper.SETTING, Integer.valueOf(SharedPreferencesHelper.getPreference(settingIndex, SharedPreferencesHelper.SETTING_TYPE)));
+                    DialogHelper.createEditDialog(context, buttonSetting, settingIndex, SharedPreferencesHelper.getPreference(settingIndex, SharedPreferencesHelper.SETTING_HINT), "", "", SharedPreferencesHelper.SETTING, Integer.valueOf(SharedPreferencesHelper.getPreference(settingIndex, SharedPreferencesHelper.SETTING_TYPE)), Integer.valueOf(SharedPreferencesHelper.getPreference(settingIndex, SharedPreferencesHelper.SETTING_MIN)), Integer.valueOf(SharedPreferencesHelper.getPreference(settingIndex, SharedPreferencesHelper.SETTING_MAX)));
                 }
             });
             buttonSetting.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View v) {
-                    DialogHelper.createEditDialog(context, buttonSetting, settingIndex, SharedPreferencesHelper.getPreference(settingIndex, SharedPreferencesHelper.SETTING_HINT), "", "", SharedPreferencesHelper.SETTING, Integer.valueOf(SharedPreferencesHelper.getPreference(settingIndex, SharedPreferencesHelper.SETTING_TYPE)));
+                    DialogHelper.createEditDialog(context, buttonSetting, settingIndex, SharedPreferencesHelper.getPreference(settingIndex, SharedPreferencesHelper.SETTING_HINT), "", "", SharedPreferencesHelper.SETTING, Integer.valueOf(SharedPreferencesHelper.getPreference(settingIndex, SharedPreferencesHelper.SETTING_TYPE)), Integer.valueOf(SharedPreferencesHelper.getPreference(settingIndex, SharedPreferencesHelper.SETTING_MIN)), Integer.valueOf(SharedPreferencesHelper.getPreference(settingIndex, SharedPreferencesHelper.SETTING_MAX)));
                     return true;
                 }
             });

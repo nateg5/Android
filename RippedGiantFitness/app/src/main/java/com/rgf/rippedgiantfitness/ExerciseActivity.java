@@ -53,12 +53,20 @@ public class ExerciseActivity extends AppCompatActivity implements RGFActivity {
                 dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if (SharedPreferencesHelper.addSet(exerciseIndex, editText.getText().toString())) {
-                            ((ViewGroup) findViewById(R.id.content_exercise)).removeAllViews();
-                            init();
-                            dialog.dismiss();
+                        int value = Integer.valueOf(editText.getText().toString());
+                        int min = Integer.valueOf(SharedPreferencesHelper.getPreference(exerciseIndex, SharedPreferencesHelper.MIN_WEIGHT));
+                        int max = Integer.valueOf(SharedPreferencesHelper.getPreference(exerciseIndex, SharedPreferencesHelper.MAX_WEIGHT));
+
+                        if(value >= min && value <= max) {
+                            if (SharedPreferencesHelper.addSet(exerciseIndex, editText.getText().toString())) {
+                                ((ViewGroup) findViewById(R.id.content_exercise)).removeAllViews();
+                                init();
+                                dialog.dismiss();
+                            } else {
+                                LogHelper.error("Failed to add the set");
+                            }
                         } else {
-                            LogHelper.error("Failed to add the set");
+                            LogHelper.error("Value is out of range. Min = " + min + ", Max = " + max);
                         }
                     }
                 });
@@ -98,7 +106,7 @@ public class ExerciseActivity extends AppCompatActivity implements RGFActivity {
             buttonSet.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    DialogHelper.createEditDialog(context, buttonSet, setIndex, DialogHelper.SET_WEIGHT, setNumber, weightUnit, SharedPreferencesHelper.WEIGHT, InputType.TYPE_CLASS_NUMBER);
+                    DialogHelper.createEditDialog(context, buttonSet, setIndex, DialogHelper.SET_WEIGHT, setNumber, weightUnit, SharedPreferencesHelper.WEIGHT, InputType.TYPE_CLASS_NUMBER, Integer.valueOf(SharedPreferencesHelper.getPreference(exerciseIndex, SharedPreferencesHelper.MIN_WEIGHT)), Integer.valueOf(SharedPreferencesHelper.getPreference(exerciseIndex, SharedPreferencesHelper.MAX_WEIGHT)));
                 }
             });
             buttonSet.setOnLongClickListener(new View.OnLongClickListener() {
@@ -123,7 +131,7 @@ public class ExerciseActivity extends AppCompatActivity implements RGFActivity {
                                     dialog.dismiss();
                                     break;
                                 case DialogHelper.EDIT:
-                                    DialogHelper.createEditDialog(context, buttonSet, setIndex, DialogHelper.SET_WEIGHT, setNumber, weightUnit, SharedPreferencesHelper.WEIGHT, InputType.TYPE_CLASS_NUMBER);
+                                    DialogHelper.createEditDialog(context, buttonSet, setIndex, DialogHelper.SET_WEIGHT, setNumber, weightUnit, SharedPreferencesHelper.WEIGHT, InputType.TYPE_CLASS_NUMBER, Integer.valueOf(SharedPreferencesHelper.getPreference(exerciseIndex, SharedPreferencesHelper.MIN_WEIGHT)), Integer.valueOf(SharedPreferencesHelper.getPreference(exerciseIndex, SharedPreferencesHelper.MAX_WEIGHT)));
                                     dialog.dismiss();
                                     break;
                                 case DialogHelper.REMOVE:

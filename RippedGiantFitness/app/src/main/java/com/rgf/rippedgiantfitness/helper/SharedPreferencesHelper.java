@@ -81,6 +81,8 @@ public class SharedPreferencesHelper {
     public final static String SETTING = "Setting";
     public final static String SETTING_HINT = "Setting Hint";
     public final static String SETTING_TYPE = "Setting Type";
+    public final static String SETTING_MIN = "Setting Min";
+    public final static String SETTING_MAX = "Setting Max";
 
     public final static String HELP = "Help";
 

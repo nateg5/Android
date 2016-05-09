@@ -121,7 +121,7 @@ public class DialogHelper {
         return dialog;
     }
 
-    public static void createEditDialog(final Context context, final AppCompatButton button, final String index, final String label1, final String label2, final String label3, final String preference, final int inputType) {
+    public static void createEditDialog(final Context context, final AppCompatButton button, final String index, final String label1, final String label2, final String label3, final String preference, final int inputType, final int min, final int max) {
         final AppCompatEditText editText = createEditText(context, SharedPreferencesHelper.getPreference(index, preference), label1, inputType);
 
         final AlertDialog dialogEdit = createDialog(context, EDIT, SAVE, editText);
@@ -129,11 +129,25 @@ public class DialogHelper {
         dialogEdit.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (SharedPreferencesHelper.setPreference(index, preference, editText.getText().toString())) {
-                    button.setText(context.getString(R.string.label_text_label, label2, editText.getText().toString(), label3));
-                    dialogEdit.dismiss();
+                boolean outOfRange = false;
+
+                try {
+                    int value = Integer.valueOf(editText.getText().toString());
+
+                    if(value < min || value > max) {
+                        outOfRange = true;
+                    }
+                } catch(NumberFormatException ignored) { }
+
+                if(!outOfRange) {
+                    if (SharedPreferencesHelper.setPreference(index, preference, editText.getText().toString())) {
+                        button.setText(context.getString(R.string.label_text_label, label2, editText.getText().toString(), label3));
+                        dialogEdit.dismiss();
+                    } else {
+                        LogHelper.error("Failed to save " + SharedPreferencesHelper.buildPreferenceString(index, preference));
+                    }
                 } else {
-                    LogHelper.error("Failed to save " + SharedPreferencesHelper.buildPreferenceString(index, preference));
+                    LogHelper.error("Value is out of range. Min = " + min + ", Max = " + max);
                 }
             }
         });

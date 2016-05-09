@@ -132,7 +132,7 @@ public class WorkoutsActivity extends AppCompatActivity implements RGFActivity {
                                     dialog.dismiss();
                                     break;
                                 case DialogHelper.EDIT:
-                                    DialogHelper.createEditDialog(context, buttonWorkout, workoutIndex, DialogHelper.WORKOUT_NAME, "", "", SharedPreferencesHelper.NAME, InputType.TYPE_CLASS_TEXT);
+                                    DialogHelper.createEditDialog(context, buttonWorkout, workoutIndex, DialogHelper.WORKOUT_NAME, "", "", SharedPreferencesHelper.NAME, InputType.TYPE_CLASS_TEXT, 0, 0);
                                     dialog.dismiss();
                                     break;
                                 case DialogHelper.REMOVE:

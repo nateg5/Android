@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 
+import com.rgf.rippedgiantfitness.constants.Constants;
 import com.rgf.rippedgiantfitness.helper.ActivityHelper;
 import com.rgf.rippedgiantfitness.helper.DialogHelper;
 import com.rgf.rippedgiantfitness.helper.LogHelper;
@@ -61,7 +62,7 @@ public class ExercisesActivity extends AppCompatActivity implements RGFActivity 
                                 editTextRest.getText().toString(),
                                 editTextMinWeight.getText().toString(),
                                 editTextMaxWeight.getText().toString())) {
-                            ((ViewGroup)findViewById(R.id.content_exercises)).removeAllViews();
+                            ((ViewGroup) findViewById(R.id.content_exercises)).removeAllViews();
                             init();
                             dialog.dismiss();
                         } else {
@@ -119,7 +120,7 @@ public class ExercisesActivity extends AppCompatActivity implements RGFActivity 
                                     dialog.dismiss();
                                     break;
                                 case DialogHelper.EDIT:
-                                    DialogHelper.createEditDialog(context, buttonExercise, exerciseIndex, DialogHelper.EXERCISE_NAME, "", "", SharedPreferencesHelper.NAME, InputType.TYPE_CLASS_TEXT, 0, 0);
+                                    DialogHelper.createEditDialog(context, buttonExercise, exerciseIndex, DialogHelper.EXERCISE_NAME, "", "", SharedPreferencesHelper.NAME, InputType.TYPE_CLASS_TEXT, Constants.MIN, Constants.MAX);
                                     dialog.dismiss();
                                     break;
                                 case DialogHelper.REMOVE:

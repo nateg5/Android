@@ -62,7 +62,7 @@ public class WorkoutActivity extends AppCompatActivity implements RGFActivity {
 
         String howToWorkout = SharedPreferencesHelper.getPreference(SharedPreferencesHelper.HOW_TO_WORKOUT);
         if(howToWorkout.equals("true")) {
-            SharedPreferencesHelper.setPreference(SharedPreferencesHelper.HOW_TO_WORKOUT, "false");
+            SharedPreferencesHelper.setPreference(SharedPreferencesHelper.HOW_TO_WORKOUT, "false", Constants.MIN, Constants.MAX);
 
             DialogHelper.createDialog(
                     context,
@@ -234,7 +234,7 @@ public class WorkoutActivity extends AppCompatActivity implements RGFActivity {
         buttonReps.setLayoutParams(new LinearLayoutCompat.LayoutParams(LinearLayoutCompat.LayoutParams.WRAP_CONTENT, LinearLayoutCompat.LayoutParams.WRAP_CONTENT, 1));
         buttonReps.setBackgroundColor(ContextCompat.getColor(context, R.color.colorLightGray));
 
-        historyMap.put(SharedPreferencesHelper.buildPreferenceString(historySetIndex, SharedPreferencesHelper.REPS), getResources().getQuantityString(R.plurals.reps, 0, 0));
+        historyMap.put(SharedPreferencesHelper.buildPreferenceString(historySetIndex, SharedPreferencesHelper.REPS), getResources().getQuantityString(R.plurals.reps, Constants.MIN, Constants.MAX));
 
         buttonReps.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -274,7 +274,7 @@ public class WorkoutActivity extends AppCompatActivity implements RGFActivity {
                         ((AppCompatButton) v).setTextColor(ActivityHelper.getButton(context).getCurrentTextColor());
                         ((AppCompatButton) v).setText(getResources().getQuantityString(R.plurals.reps, reps, reps));
 
-                        historyMap.put(SharedPreferencesHelper.buildPreferenceString(historySetIndex, SharedPreferencesHelper.REPS), getResources().getQuantityString(R.plurals.reps, 0, 0));
+                        historyMap.put(SharedPreferencesHelper.buildPreferenceString(historySetIndex, SharedPreferencesHelper.REPS), getResources().getQuantityString(R.plurals.reps, Constants.MIN, Constants.MAX));
                     } else {
                         reps = reps - 1;
 

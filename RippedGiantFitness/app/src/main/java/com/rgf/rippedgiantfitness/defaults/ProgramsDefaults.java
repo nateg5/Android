@@ -1,5 +1,6 @@
 package com.rgf.rippedgiantfitness.defaults;
 
+import com.rgf.rippedgiantfitness.constants.Constants;
 import com.rgf.rippedgiantfitness.helper.LogHelper;
 import com.rgf.rippedgiantfitness.helper.SharedPreferencesHelper;
 
@@ -32,7 +33,7 @@ public class ProgramsDefaults {
         if(SharedPreferencesHelper.isParentIndexValid(parent, true)) {
             for (Map.Entry<String, Object> entry : map.entrySet()) {
                 if (entry.getValue() instanceof String) {
-                    SharedPreferencesHelper.setPreference(parent, entry.getKey(), (String) entry.getValue(), false);
+                    SharedPreferencesHelper.setPreference(parent, entry.getKey(), (String) entry.getValue(), Constants.MIN, Constants.MAX, false);
                 } else {
                     List<Object> list = (List<Object>) entry.getValue();
 

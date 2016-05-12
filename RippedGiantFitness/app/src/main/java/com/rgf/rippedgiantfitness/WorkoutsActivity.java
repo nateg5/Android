@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 
+import com.rgf.rippedgiantfitness.constants.Constants;
 import com.rgf.rippedgiantfitness.helper.ActivityHelper;
 import com.rgf.rippedgiantfitness.helper.DialogHelper;
 import com.rgf.rippedgiantfitness.helper.LogHelper;
@@ -66,7 +67,7 @@ public class WorkoutsActivity extends AppCompatActivity implements RGFActivity {
 
         String howToWorkouts = SharedPreferencesHelper.getPreference(SharedPreferencesHelper.HOW_TO_WORKOUTS);
         if(howToWorkouts.equals("true")) {
-            SharedPreferencesHelper.setPreference(SharedPreferencesHelper.HOW_TO_WORKOUTS, "false");
+            SharedPreferencesHelper.setPreference(SharedPreferencesHelper.HOW_TO_WORKOUTS, "false", Constants.MIN, Constants.MAX);
 
             DialogHelper.createDialog(
                     context,
@@ -132,7 +133,7 @@ public class WorkoutsActivity extends AppCompatActivity implements RGFActivity {
                                     dialog.dismiss();
                                     break;
                                 case DialogHelper.EDIT:
-                                    DialogHelper.createEditDialog(context, buttonWorkout, workoutIndex, DialogHelper.WORKOUT_NAME, "", "", SharedPreferencesHelper.NAME, InputType.TYPE_CLASS_TEXT, 0, 0);
+                                    DialogHelper.createEditDialog(context, buttonWorkout, workoutIndex, DialogHelper.WORKOUT_NAME, "", "", SharedPreferencesHelper.NAME, InputType.TYPE_CLASS_TEXT, Constants.MIN, Constants.MAX);
                                     dialog.dismiss();
                                     break;
                                 case DialogHelper.REMOVE:

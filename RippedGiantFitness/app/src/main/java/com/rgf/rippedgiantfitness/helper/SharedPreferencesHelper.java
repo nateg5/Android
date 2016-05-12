@@ -135,7 +135,7 @@ public class SharedPreferencesHelper {
     public static boolean addProgram(String name) {
         List<String> programs = getPrograms();
 
-        return setPreference(buildPreferenceString(PROGRAMS, String.valueOf(programs.size())), NAME, name);
+        return setPreference(buildPreferenceString(PROGRAMS, String.valueOf(programs.size())), NAME, name, Constants.MIN, Constants.MAX);
     }
 
     public static List<String> getWorkouts(String program) {
@@ -145,7 +145,7 @@ public class SharedPreferencesHelper {
     public static boolean addWorkout(String program, String name) {
         List<String> workouts = getWorkouts(program);
 
-        return setPreference(buildPreferenceString(program, WORKOUTS, String.valueOf(workouts.size())), NAME, name);
+        return setPreference(buildPreferenceString(program, WORKOUTS, String.valueOf(workouts.size())), NAME, name, Constants.MIN, Constants.MAX);
     }
 
     public static boolean finishWorkout(String exercise, boolean success) {
@@ -154,12 +154,12 @@ public class SharedPreferencesHelper {
         if(success) {
             retVal = increaseVolumeOnePercent(exercise);
         } else {
-            retVal = (setPreference(exercise, FAILED_VOLUME, String.valueOf(getVolume(exercise)))
+            retVal = (setPreference(exercise, FAILED_VOLUME, String.valueOf(getVolume(exercise)), Constants.FAILED_VOLUME_MIN, Constants.FAILED_VOLUME_MAX)
                     && decreaseVolumeTenPercent(exercise));
         }
 
         retVal = (retVal
-                && setPreference(exercise, CURRENT_VOLUME, String.valueOf(getVolume(exercise)))
+                && setPreference(exercise, CURRENT_VOLUME, String.valueOf(getVolume(exercise)), Constants.CURRENT_VOLUME_MIN, Constants.CURRENT_VOLUME_MAX)
                 && commit());
 
         return retVal;
@@ -214,18 +214,18 @@ public class SharedPreferencesHelper {
                     if (setWeight > maxWeight) {
                         setWeight = maxWeight;
                     }
-                    success = setPreference(sets.get(i), WEIGHT, String.valueOf(setWeight), false);
+                    success = setPreference(sets.get(i), WEIGHT, String.valueOf(setWeight), minWeight, maxWeight, false);
                     break;
                 }
             }
         } else {
             if(reps < sets.size()) {
-                success = setPreference(exercise, REPS, String.valueOf(reps + 1), false);
+                success = setPreference(exercise, REPS, String.valueOf(reps + 1), Constants.NUMBER_OF_REPS_MIN, Constants.NUMBER_OF_REPS_MAX, false);
             } else if (sets.size() < reps) {
-                success = addSet(exercise, String.valueOf(lastSetWeight));
+                success = addSet(exercise, String.valueOf(lastSetWeight), minWeight, maxWeight);
             } else {
-                success = (setPreference(exercise, REPS, String.valueOf(reps + 1), false)
-                            && addSet(exercise, String.valueOf(lastSetWeight)));
+                success = (setPreference(exercise, REPS, String.valueOf(reps + 1), Constants.NUMBER_OF_REPS_MIN, Constants.NUMBER_OF_REPS_MAX, false)
+                            && addSet(exercise, String.valueOf(lastSetWeight), minWeight, maxWeight));
             }
             if(minWeight < maxWeight) {
                 decreaseVolumeTenPercent(exercise);
@@ -239,6 +239,7 @@ public class SharedPreferencesHelper {
         boolean success = true;
 
         int minWeight = Integer.valueOf(getPreference(exercise, MIN_WEIGHT));
+        int maxWeight = Integer.valueOf(getPreference(exercise, MAX_WEIGHT));
         int increment = Integer.valueOf(getPreference(exercise, INCREMENT));
         int reps = Integer.valueOf(getPreference(exercise, REPS));
 
@@ -253,18 +254,18 @@ public class SharedPreferencesHelper {
                     if (setWeight < minWeight) {
                         setWeight = minWeight;
                     }
-                    success = setPreference(sets.get(i), WEIGHT, String.valueOf(setWeight), false);
+                    success = setPreference(sets.get(i), WEIGHT, String.valueOf(setWeight), minWeight, maxWeight, false);
                     break;
                 }
             }
         } else {
             if(reps > sets.size() && reps > 1) {
-                success = setPreference(exercise, REPS, String.valueOf(reps - 1), false);
+                success = setPreference(exercise, REPS, String.valueOf(reps - 1), Constants.NUMBER_OF_REPS_MIN, Constants.NUMBER_OF_REPS_MAX, false);
             } else if (sets.size() > reps && sets.size() > 1) {
                 success = removePreferenceTree(sets.get(sets.size() - 1));
             } else {
                 if(reps > 1) {
-                    success = setPreference(exercise, REPS, String.valueOf(reps - 1), false);
+                    success = setPreference(exercise, REPS, String.valueOf(reps - 1), Constants.NUMBER_OF_REPS_MIN, Constants.NUMBER_OF_REPS_MAX, false);
                 }
                 if(sets.size() > 1) {
                     success = (success && removePreferenceTree(sets.get(sets.size() - 1)));
@@ -323,25 +324,69 @@ public class SharedPreferencesHelper {
             return false;
         }
 
-        return (setPreference(buildPreferenceString(workout, EXERCISES, String.valueOf(exercises.size())), NAME, name)
-                && setPreference(buildPreferenceString(workout, EXERCISES, String.valueOf(exercises.size())), INCREMENT, increment)
-                && setPreference(buildPreferenceString(workout, EXERCISES, String.valueOf(exercises.size())), WARMUP_SETS, warmupSets)
-                && setPreference(buildPreferenceString(workout, EXERCISES, String.valueOf(exercises.size())), REPS, reps)
-                && setPreference(buildPreferenceString(workout, EXERCISES, String.valueOf(exercises.size())), REST, rest)
-                && setPreference(buildPreferenceString(workout, EXERCISES, String.valueOf(exercises.size())), MIN_WEIGHT, minWeight)
-                && setPreference(buildPreferenceString(workout, EXERCISES, String.valueOf(exercises.size())), MAX_WEIGHT, maxWeight)
-                && setPreference(buildPreferenceString(workout, EXERCISES, String.valueOf(exercises.size())), CURRENT_VOLUME, "0")
-                && setPreference(buildPreferenceString(workout, EXERCISES, String.valueOf(exercises.size())), FAILED_VOLUME, "0"));
+        String outOfRangeField = "";
+        int outOfRangeMin = 0;
+        int outOfRangeMax = 0;
+
+        try {
+            int incrementValue = Integer.valueOf(increment);
+            int warmupSetsValue = Integer.valueOf(warmupSets);
+            int repsValue = Integer.valueOf(reps);
+            int restValue = Integer.valueOf(rest);
+            int minWeightValue = Integer.valueOf(minWeight);
+            int maxWeightValue = Integer.valueOf(maxWeight);
+
+            if(incrementValue < Constants.WEIGHT_INCREMENT_MIN || incrementValue > Constants.WEIGHT_INCREMENT_MAX) {
+                outOfRangeField = DialogHelper.WEIGHT_INCREMENT;
+                outOfRangeMin = Constants.WEIGHT_INCREMENT_MIN;
+                outOfRangeMax = Constants.WEIGHT_INCREMENT_MAX;
+            } else if(warmupSetsValue < Constants.SETS_WARMUP_MIN || warmupSetsValue > Constants.SETS_WARMUP_MAX) {
+                outOfRangeField = DialogHelper.SETS_WARMUP;
+                outOfRangeMin = Constants.SETS_WARMUP_MIN;
+                outOfRangeMax = Constants.SETS_WARMUP_MAX;
+            } else if(repsValue < Constants.NUMBER_OF_REPS_MIN || repsValue > Constants.NUMBER_OF_REPS_MAX) {
+                outOfRangeField = DialogHelper.NUMBER_OF_REPS;
+                outOfRangeMin = Constants.NUMBER_OF_REPS_MIN;
+                outOfRangeMax = Constants.NUMBER_OF_REPS_MAX;
+            } else if(restValue < Constants.REST_IN_SECONDS_MIN || restValue > Constants.REST_IN_SECONDS_MAX) {
+                outOfRangeField = DialogHelper.REST_IN_SECONDS;
+                outOfRangeMin = Constants.REST_IN_SECONDS_MIN;
+                outOfRangeMax = Constants.REST_IN_SECONDS_MAX;
+            } else if(minWeightValue < Constants.MIN_WEIGHT_MIN || minWeightValue > Constants.MIN_WEIGHT_MAX) {
+                outOfRangeField = DialogHelper.MIN_WEIGHT;
+                outOfRangeMin = Constants.MIN_WEIGHT_MIN;
+                outOfRangeMax = Constants.MIN_WEIGHT_MAX;
+            } else if(maxWeightValue < Constants.MAX_WEIGHT_MIN || maxWeightValue > Constants.MAX_WEIGHT_MAX) {
+                outOfRangeField = DialogHelper.MAX_WEIGHT;
+                outOfRangeMin = Constants.MAX_WEIGHT_MIN;
+                outOfRangeMax = Constants.MAX_WEIGHT_MAX;
+            }
+
+            if(outOfRangeField.length() > 0) {
+                LogHelper.error("Value is out of range for " + outOfRangeField + ". Min = " + outOfRangeMin + ", Max = " + outOfRangeMax);
+                return false;
+            }
+        } catch(NumberFormatException ignored) { }
+
+        return (setPreference(buildPreferenceString(workout, EXERCISES, String.valueOf(exercises.size())), NAME, name, Constants.MIN, Constants.MAX)
+                && setPreference(buildPreferenceString(workout, EXERCISES, String.valueOf(exercises.size())), INCREMENT, increment, Constants.WEIGHT_INCREMENT_MIN, Constants.WEIGHT_INCREMENT_MAX)
+                && setPreference(buildPreferenceString(workout, EXERCISES, String.valueOf(exercises.size())), WARMUP_SETS, warmupSets, Constants.SETS_WARMUP_MIN, Constants.SETS_WARMUP_MAX)
+                && setPreference(buildPreferenceString(workout, EXERCISES, String.valueOf(exercises.size())), REPS, reps, Constants.NUMBER_OF_REPS_MIN, Constants.NUMBER_OF_REPS_MAX)
+                && setPreference(buildPreferenceString(workout, EXERCISES, String.valueOf(exercises.size())), REST, rest, Constants.REST_IN_SECONDS_MIN, Constants.REST_IN_SECONDS_MAX)
+                && setPreference(buildPreferenceString(workout, EXERCISES, String.valueOf(exercises.size())), MIN_WEIGHT, minWeight, Constants.MIN_WEIGHT_MIN, Constants.MIN_WEIGHT_MAX)
+                && setPreference(buildPreferenceString(workout, EXERCISES, String.valueOf(exercises.size())), MAX_WEIGHT, maxWeight, Constants.MAX_WEIGHT_MIN, Constants.MAX_WEIGHT_MAX)
+                && setPreference(buildPreferenceString(workout, EXERCISES, String.valueOf(exercises.size())), CURRENT_VOLUME, "0", Constants.CURRENT_VOLUME_MIN, Constants.CURRENT_VOLUME_MAX)
+                && setPreference(buildPreferenceString(workout, EXERCISES, String.valueOf(exercises.size())), FAILED_VOLUME, "0", Constants.FAILED_VOLUME_MIN, Constants.FAILED_VOLUME_MAX));
     }
 
     public static List<String> getSets(String exercise) {
         return getList(exercise, SETS, WEIGHT);
     }
 
-    public static boolean addSet(String exercise, String weight) {
+    public static boolean addSet(String exercise, String weight, int min, int max) {
         List<String> sets = getSets(exercise);
 
-        return setPreference(buildPreferenceString(exercise, SETS, String.valueOf(sets.size())), WEIGHT, weight);
+        return setPreference(buildPreferenceString(exercise, SETS, String.valueOf(sets.size())), WEIGHT, weight, min, max);
     }
 
     public static List<String> getHistory(String workout) {
@@ -355,7 +400,7 @@ public class SharedPreferencesHelper {
 
         for(Map.Entry<String, String> entry : historyMap.entrySet()) {
             success = (success &&
-                       setPreference(buildPreferenceString(workout, HISTORY, String.valueOf(history.size()), entry.getKey()), entry.getValue(), false));
+                       setPreference(buildPreferenceString(workout, HISTORY, String.valueOf(history.size()), entry.getKey()), entry.getValue(), Constants.MIN, Constants.MAX, false));
         }
 
         success = (success && commit());
@@ -370,7 +415,7 @@ public class SharedPreferencesHelper {
     public static boolean addMeasurement(String name) {
         List<String> measurements = getMeasurements();
 
-        return setPreference(buildPreferenceString(MEASUREMENTS, String.valueOf(measurements.size())), NAME, name);
+        return setPreference(buildPreferenceString(MEASUREMENTS, String.valueOf(measurements.size())), NAME, name, Constants.MIN, Constants.MAX);
     }
 
     public static List<String> getEntries(String measurement) {
@@ -396,8 +441,8 @@ public class SharedPreferencesHelper {
             return false;
         }
 
-        return (setPreference(buildPreferenceString(measurement, ENTRIES, String.valueOf(entries.size())), DATE, date)
-                && setPreference(buildPreferenceString(measurement, ENTRIES, String.valueOf(entries.size())), ENTRY, entry));
+        return (setPreference(buildPreferenceString(measurement, ENTRIES, String.valueOf(entries.size())), DATE, date, Constants.MIN, Constants.MAX)
+                && setPreference(buildPreferenceString(measurement, ENTRIES, String.valueOf(entries.size())), ENTRY, entry, Constants.MIN, Constants.MAX));
     }
 
     public static List<String> getSettings() {
@@ -443,44 +488,58 @@ public class SharedPreferencesHelper {
         return preference;
     }
 
-    public static boolean setPreference(String parent, String child, String value) {
-        return setPreference(parent, child, value, true);
+    public static boolean setPreference(String parent, String child, String value, int min, int max) {
+        return setPreference(parent, child, value, min, max, true);
     }
 
-    public static boolean setPreference(String parent, String child, String value, boolean commit) {
+    public static boolean setPreference(String parent, String child, String value, int min, int max, boolean commit) {
         LogHelper.debug("Setting preference " + parent + ", " + child + ", " + value);
 
         boolean success = false;
 
         if (isParentIndexValid(parent, true)) {
             String preferenceString = buildPreferenceString(parent, child);
-            success = setPreference(preferenceString, value, commit);
+            success = setPreference(preferenceString, value, min, max, commit);
         }
 
         return success;
     }
 
-    public static boolean setPreference(String key, String value) {
-        return setPreference(key, value, true);
+    public static boolean setPreference(String key, String value, int min, int max) {
+        return setPreference(key, value, min, max, true);
     }
 
-    public static boolean setPreference(String key, String value, boolean commit) {
+    public static boolean setPreference(String key, String value, int min, int max, boolean commit) {
         boolean success = false;
 
         if(value.trim().length() > 0) {
-            localPreferences.put(key, value);
+            boolean outOfRange = false;
 
-            if(commit) {
-                success = commit();
+            try {
+                int intValue = Integer.valueOf(value);
 
-                if (!success) {
-                    LogHelper.error("Commit failed for setting preference " + key);
+                if(intValue < min || intValue > max) {
+                    outOfRange = true;
+                }
+            } catch(NumberFormatException ignored) { }
+
+            if(!outOfRange) {
+                localPreferences.put(key, value);
+
+                if (commit) {
+                    success = commit();
+
+                    if (!success) {
+                        LogHelper.error("Commit failed for setting preference " + key);
+                    }
+                } else {
+                    success = true;
                 }
             } else {
-                success = true;
+                LogHelper.error("Value is out of range. Min = " + min + ", Max = " + max);
             }
         } else {
-            LogHelper.error("Value for " + key + " cannot be empty");
+            LogHelper.error("Value cannot be empty");
         }
 
         return success;
@@ -591,7 +650,7 @@ public class SharedPreferencesHelper {
                 if (entry.getKey().contains(fromParent)) {
                     String tempKey = entry.getKey().replace(fromParent, toParent);
                     success = (success
-                            && setPreference(tempKey, entry.getValue(), false)
+                            && setPreference(tempKey, entry.getValue(), Constants.MIN, Constants.MAX, false)
                             && removePreference(entry.getKey()));
                 }
             }
@@ -637,7 +696,7 @@ public class SharedPreferencesHelper {
                 if (entry.getKey().contains(fromParent)) {
                     String tempKey = entry.getKey().replace(fromParent, toParent);
                     success = (success
-                            && setPreference(tempKey, entry.getValue(), false));
+                            && setPreference(tempKey, entry.getValue(), Constants.MIN, Constants.MAX, false));
                 }
             }
         } else {

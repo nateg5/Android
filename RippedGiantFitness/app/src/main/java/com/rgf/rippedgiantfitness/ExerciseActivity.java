@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 
+import com.rgf.rippedgiantfitness.constants.Constants;
 import com.rgf.rippedgiantfitness.defaults.SettingsDefaults;
 import com.rgf.rippedgiantfitness.helper.ActivityHelper;
 import com.rgf.rippedgiantfitness.helper.DialogHelper;
@@ -53,20 +54,12 @@ public class ExerciseActivity extends AppCompatActivity implements RGFActivity {
                 dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        int value = Integer.valueOf(editText.getText().toString());
-                        int min = Integer.valueOf(SharedPreferencesHelper.getPreference(exerciseIndex, SharedPreferencesHelper.MIN_WEIGHT));
-                        int max = Integer.valueOf(SharedPreferencesHelper.getPreference(exerciseIndex, SharedPreferencesHelper.MAX_WEIGHT));
-
-                        if(value >= min && value <= max) {
-                            if (SharedPreferencesHelper.addSet(exerciseIndex, editText.getText().toString())) {
-                                ((ViewGroup) findViewById(R.id.content_exercise)).removeAllViews();
-                                init();
-                                dialog.dismiss();
-                            } else {
-                                LogHelper.error("Failed to add the set");
-                            }
+                        if (SharedPreferencesHelper.addSet(exerciseIndex, editText.getText().toString(), Integer.valueOf(SharedPreferencesHelper.getPreference(exerciseIndex, SharedPreferencesHelper.MIN_WEIGHT)), Integer.valueOf(SharedPreferencesHelper.getPreference(exerciseIndex, SharedPreferencesHelper.MAX_WEIGHT)))) {
+                            ((ViewGroup) findViewById(R.id.content_exercise)).removeAllViews();
+                            init();
+                            dialog.dismiss();
                         } else {
-                            LogHelper.error("Value is out of range. Min = " + min + ", Max = " + max);
+                            LogHelper.error("Failed to add the set");
                         }
                     }
                 });
@@ -90,12 +83,12 @@ public class ExerciseActivity extends AppCompatActivity implements RGFActivity {
 
         //ActivityHelper.createEditButton(activity, R.id.content_exercise, exerciseIndex, DialogHelper.CURRENT_VOLUME, weightUnit, SharedPreferencesHelper.CURRENT_VOLUME, InputType.TYPE_CLASS_NUMBER, false);
         //ActivityHelper.createEditButton(activity, R.id.content_exercise, exerciseIndex, DialogHelper.FAILED_VOLUME, weightUnit, SharedPreferencesHelper.FAILED_VOLUME, InputType.TYPE_CLASS_NUMBER, false);
-        ActivityHelper.createExerciseEditButton(activity, exerciseIndex, DialogHelper.WEIGHT_INCREMENT, weightUnit, SharedPreferencesHelper.INCREMENT);
-        ActivityHelper.createExerciseEditButton(activity, exerciseIndex, DialogHelper.SETS_WARMUP, "sets", SharedPreferencesHelper.WARMUP_SETS);
-        ActivityHelper.createExerciseEditButton(activity, exerciseIndex, DialogHelper.NUMBER_OF_REPS, "reps", SharedPreferencesHelper.REPS);
-        ActivityHelper.createExerciseEditButton(activity, exerciseIndex, DialogHelper.REST_IN_SECONDS, "sec", SharedPreferencesHelper.REST);
-        ActivityHelper.createExerciseEditButton(activity, exerciseIndex, DialogHelper.MIN_WEIGHT, weightUnit, SharedPreferencesHelper.MIN_WEIGHT);
-        ActivityHelper.createExerciseEditButton(activity, exerciseIndex, DialogHelper.MAX_WEIGHT, weightUnit, SharedPreferencesHelper.MAX_WEIGHT);
+        ActivityHelper.createExerciseEditButton(activity, exerciseIndex, DialogHelper.WEIGHT_INCREMENT, weightUnit, SharedPreferencesHelper.INCREMENT, Constants.WEIGHT_INCREMENT_MIN, Constants.WEIGHT_INCREMENT_MAX);
+        ActivityHelper.createExerciseEditButton(activity, exerciseIndex, DialogHelper.SETS_WARMUP, "sets", SharedPreferencesHelper.WARMUP_SETS, Constants.SETS_WARMUP_MIN, Constants.SETS_WARMUP_MAX);
+        ActivityHelper.createExerciseEditButton(activity, exerciseIndex, DialogHelper.NUMBER_OF_REPS, "reps", SharedPreferencesHelper.REPS, Constants.NUMBER_OF_REPS_MIN, Constants.NUMBER_OF_REPS_MAX);
+        ActivityHelper.createExerciseEditButton(activity, exerciseIndex, DialogHelper.REST_IN_SECONDS, "sec", SharedPreferencesHelper.REST, Constants.REST_IN_SECONDS_MIN, Constants.REST_IN_SECONDS_MAX);
+        ActivityHelper.createExerciseEditButton(activity, exerciseIndex, DialogHelper.MIN_WEIGHT, weightUnit, SharedPreferencesHelper.MIN_WEIGHT, Constants.MIN_WEIGHT_MIN, Constants.MIN_WEIGHT_MAX);
+        ActivityHelper.createExerciseEditButton(activity, exerciseIndex, DialogHelper.MAX_WEIGHT, weightUnit, SharedPreferencesHelper.MAX_WEIGHT, Constants.MAX_WEIGHT_MIN, Constants.MAX_WEIGHT_MAX);
 
         int setNum = 1;
         for(String set : sets) {

@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.ScrollView;
 
 import com.rgf.rippedgiantfitness.R;
+import com.rgf.rippedgiantfitness.constants.Constants;
 import com.rgf.rippedgiantfitness.interfaces.RGFActivity;
 
 /**
@@ -129,25 +130,11 @@ public class DialogHelper {
         dialogEdit.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                boolean outOfRange = false;
-
-                try {
-                    int value = Integer.valueOf(editText.getText().toString());
-
-                    if(value < min || value > max) {
-                        outOfRange = true;
-                    }
-                } catch(NumberFormatException ignored) { }
-
-                if(!outOfRange) {
-                    if (SharedPreferencesHelper.setPreference(index, preference, editText.getText().toString())) {
-                        button.setText(context.getString(R.string.label_text_label, label2, editText.getText().toString(), label3));
-                        dialogEdit.dismiss();
-                    } else {
-                        LogHelper.error("Failed to save " + SharedPreferencesHelper.buildPreferenceString(index, preference));
-                    }
+                if (SharedPreferencesHelper.setPreference(index, preference, editText.getText().toString(), min, max)) {
+                    button.setText(context.getString(R.string.label_text_label, label2, editText.getText().toString(), label3));
+                    dialogEdit.dismiss();
                 } else {
-                    LogHelper.error("Value is out of range. Min = " + min + ", Max = " + max);
+                    LogHelper.error("Failed to save " + label2);
                 }
             }
         });
@@ -161,12 +148,12 @@ public class DialogHelper {
         dialogEdit.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (SharedPreferencesHelper.setPreference(index, SharedPreferencesHelper.ENTRY, editText.getText().toString())) {
+                if (SharedPreferencesHelper.setPreference(index, SharedPreferencesHelper.ENTRY, editText.getText().toString(), Constants.MIN, Constants.MAX)) {
                     ((ViewGroup)((AppCompatActivity)context).findViewById(R.id.content_measurement)).removeAllViews();
                     ((RGFActivity)context).init();
                     dialogEdit.dismiss();
                 } else {
-                    LogHelper.error("Failed to save " + SharedPreferencesHelper.buildPreferenceString(index, SharedPreferencesHelper.ENTRY));
+                    LogHelper.error("Failed to save " + hint);
                 }
             }
         });

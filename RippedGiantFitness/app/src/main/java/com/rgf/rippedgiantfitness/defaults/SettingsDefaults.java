@@ -2,6 +2,7 @@ package com.rgf.rippedgiantfitness.defaults;
 
 import android.text.InputType;
 
+import com.rgf.rippedgiantfitness.constants.Constants;
 import com.rgf.rippedgiantfitness.helper.LogHelper;
 import com.rgf.rippedgiantfitness.helper.SharedPreferencesHelper;
 
@@ -37,7 +38,7 @@ public class SettingsDefaults {
                 if (entry.getValue() instanceof String) {
                     String preferenceString = SharedPreferencesHelper.buildPreferenceString(parent, entry.getKey());
                     if(!SharedPreferencesHelper.getLocalPreferences().containsKey(preferenceString)) {
-                        SharedPreferencesHelper.setPreference(preferenceString, (String) entry.getValue(), false);
+                        SharedPreferencesHelper.setPreference(preferenceString, (String) entry.getValue(), Constants.MIN, Constants.MAX, false);
                     }
                 } else {
                     List<Object> list = (List<Object>) entry.getValue();

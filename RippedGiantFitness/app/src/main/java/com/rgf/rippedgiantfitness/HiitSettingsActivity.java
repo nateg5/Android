@@ -14,6 +14,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.rgf.rippedgiantfitness.constants.Constants;
 import com.rgf.rippedgiantfitness.helper.ActivityHelper;
 import com.rgf.rippedgiantfitness.helper.LogHelper;
 import com.rgf.rippedgiantfitness.helper.SharedPreferencesHelper;
@@ -71,9 +72,9 @@ public class HiitSettingsActivity extends AppCompatActivity implements RGFActivi
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, HiitTimerActivity.class);
-                if(SharedPreferencesHelper.setPreference(SharedPreferencesHelper.HIIT_GO, editTextGo.getText().toString())
-                        && SharedPreferencesHelper.setPreference(SharedPreferencesHelper.HIIT_REST, editTextRest.getText().toString())
-                        && SharedPreferencesHelper.setPreference(SharedPreferencesHelper.HIIT_ROUNDS, editTextRounds.getText().toString())) {
+                if(SharedPreferencesHelper.setPreference(SharedPreferencesHelper.HIIT_GO, editTextGo.getText().toString(), Constants.HIIT_GO_MIN, Constants.HIIT_GO_MAX)
+                        && SharedPreferencesHelper.setPreference(SharedPreferencesHelper.HIIT_REST, editTextRest.getText().toString(), Constants.HIIT_REST_MIN, Constants.HIIT_REST_MAX)
+                        && SharedPreferencesHelper.setPreference(SharedPreferencesHelper.HIIT_ROUNDS, editTextRounds.getText().toString(), Constants.HIIT_ROUNDS_MIN, Constants.HIIT_ROUNDS_MAX)) {
                     int go = editTextGo.getText().toString().trim().length() > 0 ? Integer.valueOf(editTextGo.getText().toString()) : 0;
                     int rest = editTextRest.getText().toString().trim().length() > 0 ? Integer.valueOf(editTextRest.getText().toString()) : 0;
                     int rounds = editTextRounds.getText().toString().trim().length() > 0 ? Integer.valueOf(editTextRounds.getText().toString()) : 0;

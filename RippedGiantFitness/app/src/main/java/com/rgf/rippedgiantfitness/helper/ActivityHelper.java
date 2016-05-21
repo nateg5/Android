@@ -59,11 +59,11 @@ public class ActivityHelper {
         return new AppCompatButton(context);
     }
 
-    public static AppCompatEditText createEditText(Context context, String text, String hint) {
+    public static AppCompatEditText createEditText(Context context, String text, String hint, int inputType) {
         AppCompatEditText editText = new AppCompatEditText(context);
         editText.setText(text);
         editText.setHint(hint);
-        editText.setInputType(InputType.TYPE_CLASS_NUMBER);
+        editText.setInputType(inputType);
 
         return editText;
     }

@@ -48,6 +48,7 @@ public class SharedPreferencesHelper {
     public final static String INCREMENT = "Increment";
     public final static String WARMUP_SETS = "Warmup Sets";
     public final static String WEIGHT = "Weight";
+    public final static String NOTES = "Notes";
     private final static String SEPARATOR = ".";
     private final static String SWAP = "Swap";
 
@@ -512,7 +513,7 @@ public class SharedPreferencesHelper {
     public static boolean setPreference(String key, String value, int min, int max, boolean commit) {
         boolean success = false;
 
-        if(value.trim().length() > 0) {
+        if(value.trim().length() > 0 || key.contains(NOTES)) {
             boolean outOfRange = false;
 
             try {

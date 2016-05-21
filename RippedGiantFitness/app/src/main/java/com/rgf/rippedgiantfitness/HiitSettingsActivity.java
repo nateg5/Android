@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.Toolbar;
+import android.text.InputType;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -43,13 +44,13 @@ public class HiitSettingsActivity extends AppCompatActivity implements RGFActivi
         String rest = SharedPreferencesHelper.getPreference(SharedPreferencesHelper.HIIT_REST);
         String rounds = SharedPreferencesHelper.getPreference(SharedPreferencesHelper.HIIT_ROUNDS);
 
-        final AppCompatEditText editTextGo = ActivityHelper.createEditText(context, go, "Go Time in Seconds");
+        final AppCompatEditText editTextGo = ActivityHelper.createEditText(context, go, "Go Time in Seconds", InputType.TYPE_CLASS_NUMBER);
         ((ViewGroup)findViewById(R.id.content_hiit_settings)).addView(editTextGo);
 
-        final AppCompatEditText editTextRest = ActivityHelper.createEditText(context, rest, "Rest Time in Seconds");
+        final AppCompatEditText editTextRest = ActivityHelper.createEditText(context, rest, "Rest Time in Seconds", InputType.TYPE_CLASS_NUMBER);
         ((ViewGroup)findViewById(R.id.content_hiit_settings)).addView(editTextRest);
 
-        final AppCompatEditText editTextRounds = ActivityHelper.createEditText(context, rounds, "Number of Rounds");
+        final AppCompatEditText editTextRounds = ActivityHelper.createEditText(context, rounds, "Number of Rounds", InputType.TYPE_CLASS_NUMBER);
         ((ViewGroup)findViewById(R.id.content_hiit_settings)).addView(editTextRounds);
 
         AppCompatButton button = ActivityHelper.createButton(context, "Start", true);

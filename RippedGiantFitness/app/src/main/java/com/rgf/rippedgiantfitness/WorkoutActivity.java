@@ -10,8 +10,12 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
+import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.LinearLayoutCompat;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.InputType;
+import android.text.TextWatcher;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -86,6 +90,7 @@ public class WorkoutActivity extends AppCompatActivity implements RGFActivity {
 
         historyMap.put(SharedPreferencesHelper.DATE, Constants.DATE_FORMAT.format(new Date()));
         historyMap.put(SharedPreferencesHelper.NAME, getTitle().toString());
+        historyMap.put(SharedPreferencesHelper.NOTES, "");
 
         List<String> exercises = SharedPreferencesHelper.getExercises(workoutIndex);
 
@@ -180,6 +185,32 @@ public class WorkoutActivity extends AppCompatActivity implements RGFActivity {
             /**/
         }
 
+        final AppCompatButton buttonNotes = ActivityHelper.createButton(context, SharedPreferencesHelper.NOTES, false);
+        buttonNotes.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimary));
+        buttonNotes.setTextColor(ContextCompat.getColor(context, R.color.colorWhite));
+
+        ((ViewGroup) findViewById(R.id.content_workout)).addView(buttonNotes);
+
+        final AppCompatEditText editTextNotes = ActivityHelper.createEditText(context, "", "Add notes", InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_MULTI_LINE);
+        editTextNotes.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                //do nothing
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                //do nothing
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                historyMap.put(SharedPreferencesHelper.NOTES, s.toString());
+            }
+        });
+
+        ((ViewGroup) findViewById(R.id.content_workout)).addView(editTextNotes);
+
         final AppCompatButton buttonFinish = ActivityHelper.createButton(context, "Finish Workout", true);
         buttonFinish.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimary));
         buttonFinish.setTextColor(ContextCompat.getColor(context, R.color.colorWhite));
@@ -234,7 +265,7 @@ public class WorkoutActivity extends AppCompatActivity implements RGFActivity {
         buttonReps.setLayoutParams(new LinearLayoutCompat.LayoutParams(LinearLayoutCompat.LayoutParams.WRAP_CONTENT, LinearLayoutCompat.LayoutParams.WRAP_CONTENT, 1));
         buttonReps.setBackgroundColor(ContextCompat.getColor(context, R.color.colorLightGray));
 
-        historyMap.put(SharedPreferencesHelper.buildPreferenceString(historySetIndex, SharedPreferencesHelper.REPS), getResources().getQuantityString(R.plurals.reps, Constants.MIN, Constants.MAX));
+        historyMap.put(SharedPreferencesHelper.buildPreferenceString(historySetIndex, SharedPreferencesHelper.REPS), getResources().getQuantityString(R.plurals.reps, 0, 0));
 
         buttonReps.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -274,7 +305,7 @@ public class WorkoutActivity extends AppCompatActivity implements RGFActivity {
                         ((AppCompatButton) v).setTextColor(ActivityHelper.getButton(context).getCurrentTextColor());
                         ((AppCompatButton) v).setText(getResources().getQuantityString(R.plurals.reps, reps, reps));
 
-                        historyMap.put(SharedPreferencesHelper.buildPreferenceString(historySetIndex, SharedPreferencesHelper.REPS), getResources().getQuantityString(R.plurals.reps, Constants.MIN, Constants.MAX));
+                        historyMap.put(SharedPreferencesHelper.buildPreferenceString(historySetIndex, SharedPreferencesHelper.REPS), getResources().getQuantityString(R.plurals.reps, 0, 0));
                     } else {
                         reps = reps - 1;
 

@@ -70,6 +70,16 @@ public class HistActivity extends AppCompatActivity implements RGFActivity {
                 ((ViewGroup) findViewById(R.id.content_hist)).addView(linearLayout);
             }
         }
+
+        final AppCompatButton buttonNotes = ActivityHelper.createButton(context, SharedPreferencesHelper.NOTES, false);
+        buttonNotes.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimary));
+        buttonNotes.setTextColor(ContextCompat.getColor(context, R.color.colorWhite));
+
+        ((ViewGroup) findViewById(R.id.content_hist)).addView(buttonNotes);
+
+        final AppCompatButton buttonNotesText = ActivityHelper.createButton(context, SharedPreferencesHelper.getPreference(historyIndex, SharedPreferencesHelper.NOTES), false);
+
+        ((ViewGroup) findViewById(R.id.content_hist)).addView(buttonNotesText);
     }
 
     @Override

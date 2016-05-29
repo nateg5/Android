@@ -15,7 +15,7 @@
             android:name=".HomeActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateUnchanged"
+            android:windowSoftInputMode="stateHidden"
             android:theme="@style/AppTheme.NoActionBar" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -27,7 +27,7 @@
             android:name=".ProgramsActivity"
             android:label="@string/title_activity_programs"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateUnchanged"
+            android:windowSoftInputMode="stateHidden"
             android:theme="@style/AppTheme.NoActionBar" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -37,7 +37,7 @@
             android:name=".WorkoutsActivity"
             android:label="@string/title_activity_workouts"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateUnchanged"
+            android:windowSoftInputMode="stateHidden"
             android:theme="@style/AppTheme.NoActionBar" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -47,7 +47,7 @@
             android:name=".ExercisesActivity"
             android:label="@string/title_activity_exercises"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateUnchanged"
+            android:windowSoftInputMode="stateHidden"
             android:theme="@style/AppTheme.NoActionBar" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -57,7 +57,7 @@
             android:name=".ExerciseActivity"
             android:label="@string/title_activity_exercise"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateUnchanged"
+            android:windowSoftInputMode="stateHidden"
             android:theme="@style/AppTheme.NoActionBar" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -67,7 +67,7 @@
             android:name=".WorkoutActivity"
             android:label="@string/title_activity_workout"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateUnchanged"
+            android:windowSoftInputMode="stateHidden"
             android:theme="@style/AppTheme.NoActionBar" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -77,7 +77,7 @@
             android:name=".HiitSettingsActivity"
             android:label="@string/title_activity_hiit"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateUnchanged"
+            android:windowSoftInputMode="stateHidden"
             android:theme="@style/AppTheme.NoActionBar" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -87,7 +87,7 @@
             android:name=".HiitTimerActivity"
             android:label="@string/title_activity_hiit_timer"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateUnchanged"
+            android:windowSoftInputMode="stateHidden"
             android:theme="@style/AppTheme.NoActionBar" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -97,7 +97,7 @@
             android:name=".MeasurementsActivity"
             android:label="@string/title_activity_measurements"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateUnchanged"
+            android:windowSoftInputMode="stateHidden"
             android:theme="@style/AppTheme.NoActionBar" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -107,7 +107,7 @@
             android:name=".MeasurementActivity"
             android:label="@string/title_activity_measurement"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateUnchanged"
+            android:windowSoftInputMode="stateHidden"
             android:theme="@style/AppTheme.NoActionBar" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -117,7 +117,7 @@
             android:name=".HelpActivity"
             android:label="@string/title_activity_help"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateUnchanged"
+            android:windowSoftInputMode="stateHidden"
             android:theme="@style/AppTheme.NoActionBar" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -127,7 +127,7 @@
             android:name=".SettingsActivity"
             android:label="@string/title_activity_settings"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateUnchanged"
+            android:windowSoftInputMode="stateHidden"
             android:theme="@style/AppTheme.NoActionBar" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -137,7 +137,7 @@
             android:name=".HistoryActivity"
             android:label="@string/title_activity_history"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateUnchanged"
+            android:windowSoftInputMode="stateHidden"
             android:theme="@style/AppTheme.NoActionBar" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -147,7 +147,7 @@
             android:name=".HistActivity"
             android:label="@string/title_activity_hist"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateUnchanged"
+            android:windowSoftInputMode="stateHidden"
             android:theme="@style/AppTheme.NoActionBar" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

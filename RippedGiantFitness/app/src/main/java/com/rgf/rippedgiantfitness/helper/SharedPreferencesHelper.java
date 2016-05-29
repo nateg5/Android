@@ -220,14 +220,8 @@ public class SharedPreferencesHelper {
                 }
             }
         } else {
-            if(reps < sets.size()) {
-                success = setPreference(exercise, REPS, String.valueOf(reps + 1), Constants.NUMBER_OF_REPS_MIN, Constants.NUMBER_OF_REPS_MAX, false);
-            } else if (sets.size() < reps) {
-                success = addSet(exercise, String.valueOf(lastSetWeight), minWeight, maxWeight);
-            } else {
-                success = (setPreference(exercise, REPS, String.valueOf(reps + 1), Constants.NUMBER_OF_REPS_MIN, Constants.NUMBER_OF_REPS_MAX, false)
-                            && addSet(exercise, String.valueOf(lastSetWeight), minWeight, maxWeight));
-            }
+            success = setPreference(exercise, REPS, String.valueOf(reps + 1), Constants.NUMBER_OF_REPS_MIN, Constants.NUMBER_OF_REPS_MAX, false);
+
             if(minWeight < maxWeight) {
                 decreaseVolumeTenPercent(exercise);
             }
@@ -260,17 +254,8 @@ public class SharedPreferencesHelper {
                 }
             }
         } else {
-            if(reps > sets.size() && reps > 1) {
+            if(reps > 1) {
                 success = setPreference(exercise, REPS, String.valueOf(reps - 1), Constants.NUMBER_OF_REPS_MIN, Constants.NUMBER_OF_REPS_MAX, false);
-            } else if (sets.size() > reps && sets.size() > 1) {
-                success = removePreferenceTree(sets.get(sets.size() - 1));
-            } else {
-                if(reps > 1) {
-                    success = setPreference(exercise, REPS, String.valueOf(reps - 1), Constants.NUMBER_OF_REPS_MIN, Constants.NUMBER_OF_REPS_MAX, false);
-                }
-                if(sets.size() > 1) {
-                    success = (success && removePreferenceTree(sets.get(sets.size() - 1)));
-                }
             }
         }
 

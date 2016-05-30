@@ -71,23 +71,24 @@ public class HelpActivity extends AppCompatActivity implements RGFActivity {
                 context,
                 "Programs store all of you Workout and Exercise information. You can create, remove " +
                         "and reorder Programs. Each Program can have multiple Workouts, and each " +
-                        "Workout can have multiple Exercises. The Exercise setting allow you to " +
+                        "Workout can have multiple Exercises. The Exercise settings allow you to " +
                         "create a custom workout that fits your specific needs.\n\n" +
                         "To start a Workout you will touch and hold a Workout to bring up the action " +
                         "menu and then select Start Workout. After each set touch the Reps button " +
                         "for that set to select how many reps you completed. A rest timer will " +
                         "automatically be started between each set. Once you have completed all sets " +
                         "touch the Finish Workout button. This will auto increment or decrement your " +
-                        "sets, reps and weights based on how many sets and reps you completed.\n\n" +
-                        "All Workouts will use a 10/1 progressive overload approach for auto " +
+                        "weights and reps based on how many sets and reps you completed.\n\n" +
+                        "By default, all Workouts will use a 10/1 progressive overload approach for auto " +
                         "decrementing and " +
-                        "incrementing the sets, reps and weights. This means that if you fail to " +
+                        "incrementing the weights and reps. This means that if you fail to " +
                         "complete " +
                         "all of the sets and reps on an Exercise the total volume (sets * reps * " +
-                        "weight) of that Exercise will be decreased by 10%. If you succeed at " +
+                        "weights) of that Exercise will be decreased by 10%. If you succeed at " +
                         "completing all of the " +
                         "sets and reps on an Exercise the total volume of that Exercise will be " +
-                        "increased by 1%. This will prevent overtraining plateaus and allow for " +
+                        "increased by 1%. The auto increment and decrement percentages can be modified " +
+                        "in the Settings. This will prevent overtraining plateaus and allow for " +
                         "continuous progression.",
                 false);
 

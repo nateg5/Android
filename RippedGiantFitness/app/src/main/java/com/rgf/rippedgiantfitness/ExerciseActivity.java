@@ -99,7 +99,7 @@ public class ExerciseActivity extends AppCompatActivity implements RGFActivity {
             buttonSet.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    DialogHelper.createEditDialog(context, buttonSet, setIndex, DialogHelper.SET_WEIGHT, setNumber, weightUnit, SharedPreferencesHelper.WEIGHT, InputType.TYPE_CLASS_NUMBER, Integer.valueOf(SharedPreferencesHelper.getPreference(exerciseIndex, SharedPreferencesHelper.MIN_WEIGHT)), Integer.valueOf(SharedPreferencesHelper.getPreference(exerciseIndex, SharedPreferencesHelper.MAX_WEIGHT)));
+                    DialogHelper.createEditDialog(context, buttonSet, setIndex, setNumber, DialogHelper.SET_WEIGHT, setNumber, weightUnit, SharedPreferencesHelper.WEIGHT, InputType.TYPE_CLASS_NUMBER, Integer.valueOf(SharedPreferencesHelper.getPreference(exerciseIndex, SharedPreferencesHelper.MIN_WEIGHT)), Integer.valueOf(SharedPreferencesHelper.getPreference(exerciseIndex, SharedPreferencesHelper.MAX_WEIGHT)));
                 }
             });
             buttonSet.setOnLongClickListener(new View.OnLongClickListener() {
@@ -121,10 +121,6 @@ public class ExerciseActivity extends AppCompatActivity implements RGFActivity {
                                     break;
                                 case DialogHelper.COPY:
                                     ActivityHelper.copy(activity, R.id.content_exercise, setIndex);
-                                    dialog.dismiss();
-                                    break;
-                                case DialogHelper.EDIT:
-                                    DialogHelper.createEditDialog(context, buttonSet, setIndex, DialogHelper.SET_WEIGHT, setNumber, weightUnit, SharedPreferencesHelper.WEIGHT, InputType.TYPE_CLASS_NUMBER, Integer.valueOf(SharedPreferencesHelper.getPreference(exerciseIndex, SharedPreferencesHelper.MIN_WEIGHT)), Integer.valueOf(SharedPreferencesHelper.getPreference(exerciseIndex, SharedPreferencesHelper.MAX_WEIGHT)));
                                     dialog.dismiss();
                                     break;
                                 case DialogHelper.REMOVE:

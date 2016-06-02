@@ -73,8 +73,8 @@ public class WorkoutActivity extends AppCompatActivity implements RGFActivity {
                     DialogHelper.HOW_TO,
                     DialogHelper.CLOSE,
                     "",
-                    "After completing a set, touch the Reps button to enter the number of reps you completed. A rest timer will be started automatically.\n\n" +
-                            "Once you have completed the workout, touch the Finish Workout button to save the workout to the workout history."
+                    "After completing a set touch the Reps button to enter the number of reps you completed. A rest timer will be started automatically.\n\n" +
+                            "Once you have completed the workout touch the Finish Workout button to save it to the History."
             );
         }
     }

@@ -45,6 +45,7 @@ public class HowToDefaults {
 
     private static Map<String,Object> getHowToDefaults() {
         return new HashMap<String,Object>() {{
+            put(SharedPreferencesHelper.HOW_TO_HOME, "true");
             put(SharedPreferencesHelper.HOW_TO_WORKOUTS, "true");
             put(SharedPreferencesHelper.HOW_TO_WORKOUT, "true");
         }};

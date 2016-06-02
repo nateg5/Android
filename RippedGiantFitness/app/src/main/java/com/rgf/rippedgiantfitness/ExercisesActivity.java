@@ -101,7 +101,7 @@ public class ExercisesActivity extends AppCompatActivity implements RGFActivity 
             buttonExercise.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View v) {
-                    final AlertDialog dialog = DialogHelper.createDialog(context, SharedPreferencesHelper.getPreference(exerciseIndex, SharedPreferencesHelper.NAME), DialogHelper.MENU);
+                    final AlertDialog dialog = DialogHelper.createDialog(context, SharedPreferencesHelper.getPreference(exerciseIndex, SharedPreferencesHelper.NAME), DialogHelper.RENAME_MENU);
                     dialog.getListView().setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -119,8 +119,8 @@ public class ExercisesActivity extends AppCompatActivity implements RGFActivity 
                                     ActivityHelper.copy(activity, R.id.content_exercises, exerciseIndex);
                                     dialog.dismiss();
                                     break;
-                                case DialogHelper.EDIT:
-                                    DialogHelper.createEditDialog(context, buttonExercise, exerciseIndex, DialogHelper.EXERCISE_NAME, "", "", SharedPreferencesHelper.NAME, InputType.TYPE_CLASS_TEXT, Constants.MIN, Constants.MAX);
+                                case DialogHelper.RENAME:
+                                    DialogHelper.createEditDialog(context, buttonExercise, exerciseIndex, DialogHelper.RENAME, DialogHelper.EXERCISE_NAME, "", "", SharedPreferencesHelper.NAME, InputType.TYPE_CLASS_TEXT, Constants.MIN, Constants.MAX);
                                     dialog.dismiss();
                                     break;
                                 case DialogHelper.REMOVE:

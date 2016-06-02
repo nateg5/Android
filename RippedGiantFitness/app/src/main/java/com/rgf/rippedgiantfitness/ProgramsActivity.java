@@ -86,7 +86,7 @@ public class ProgramsActivity extends AppCompatActivity implements RGFActivity {
             buttonProgram.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View v) {
-                    final AlertDialog dialog = DialogHelper.createDialog(context, SharedPreferencesHelper.getPreference(programIndex, SharedPreferencesHelper.NAME), DialogHelper.MENU);
+                    final AlertDialog dialog = DialogHelper.createDialog(context, SharedPreferencesHelper.getPreference(programIndex, SharedPreferencesHelper.NAME), DialogHelper.RENAME_MENU);
                     dialog.getListView().setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -104,8 +104,8 @@ public class ProgramsActivity extends AppCompatActivity implements RGFActivity {
                                     ActivityHelper.copy(activity, R.id.content_programs, programIndex);
                                     dialog.dismiss();
                                     break;
-                                case DialogHelper.EDIT:
-                                    DialogHelper.createEditDialog(context, buttonProgram, programIndex, DialogHelper.PROGRAM_NAME, "", "", SharedPreferencesHelper.NAME, InputType.TYPE_CLASS_TEXT, Constants.MIN, Constants.MAX);
+                                case DialogHelper.RENAME:
+                                    DialogHelper.createEditDialog(context, buttonProgram, programIndex, DialogHelper.RENAME, DialogHelper.PROGRAM_NAME, "", "", SharedPreferencesHelper.NAME, InputType.TYPE_CLASS_TEXT, Constants.MIN, Constants.MAX);
                                     dialog.dismiss();
                                     break;
                                 case DialogHelper.REMOVE:

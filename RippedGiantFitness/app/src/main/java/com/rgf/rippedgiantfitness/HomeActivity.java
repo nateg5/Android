@@ -14,6 +14,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.rgf.rippedgiantfitness.constants.Constants;
 import com.rgf.rippedgiantfitness.helper.ActivityHelper;
 import com.rgf.rippedgiantfitness.helper.DialogHelper;
 import com.rgf.rippedgiantfitness.helper.LogHelper;
@@ -30,7 +31,23 @@ public class HomeActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        final Context context = this;
+
         init();
+
+        String howToHome = SharedPreferencesHelper.getPreference(SharedPreferencesHelper.HOW_TO_HOME);
+        if(howToHome.equals("true")) {
+            SharedPreferencesHelper.setPreference(SharedPreferencesHelper.HOW_TO_HOME, "false", Constants.MIN, Constants.MAX);
+
+            DialogHelper.createDialog(
+                    context,
+                    DialogHelper.HOW_TO,
+                    DialogHelper.CLOSE,
+                    "",
+                    "To get started touch Programs. You can use one of the default programs or create your own.\n\n" +
+                            "For more information touch Help."
+            );
+        }
     }
 
     private void init() {

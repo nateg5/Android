@@ -64,6 +64,7 @@ public class SharedPreferencesHelper {
     public final static String HIIT_REST = "HIIT Rest";
     public final static String HIIT_ROUNDS = "HIIT Rounds";
 
+    public final static String HOW_TO_HOME = "How To Home";
     public final static String HOW_TO_WORKOUTS = "How To Workouts";
     public final static String HOW_TO_WORKOUT = "How To Workout";
 

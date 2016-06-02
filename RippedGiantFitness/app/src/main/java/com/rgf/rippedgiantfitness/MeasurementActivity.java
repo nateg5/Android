@@ -137,7 +137,7 @@ public class MeasurementActivity extends AppCompatActivity implements RGFActivit
             buttonEntry.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    DialogHelper.createMeasurementEditDialog(context, entryIndex, getTitle().toString(), InputType.TYPE_CLASS_NUMBER|InputType.TYPE_NUMBER_FLAG_DECIMAL);
+                    DialogHelper.createMeasurementEditDialog(context, entryIndex, getTitle().toString(), date, InputType.TYPE_CLASS_NUMBER|InputType.TYPE_NUMBER_FLAG_DECIMAL);
                 }
             });
             buttonEntry.setOnLongClickListener(new View.OnLongClickListener() {
@@ -157,10 +157,6 @@ public class MeasurementActivity extends AppCompatActivity implements RGFActivit
                                 case DialogHelper.MOVE_DOWN:
                                     //call move up because history is displayed in reverse order
                                     ActivityHelper.moveUp(activity, R.id.content_measurement, entryIndex);
-                                    dialog.dismiss();
-                                    break;
-                                case DialogHelper.EDIT:
-                                    DialogHelper.createMeasurementEditDialog(context, entryIndex, getTitle().toString(), InputType.TYPE_CLASS_NUMBER|InputType.TYPE_NUMBER_FLAG_DECIMAL);
                                     dialog.dismiss();
                                     break;
                                 case DialogHelper.REMOVE:

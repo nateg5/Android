@@ -69,12 +69,11 @@ public class HelpActivity extends AppCompatActivity implements RGFActivity {
 
         AppCompatButton buttonProgramsContent = ActivityHelper.createButton(
                 context,
-                "Programs store all of you Workout and Exercise information. You can create, remove " +
+                "Programs store all of your Workout and Exercise information. You can create, remove " +
                         "and reorder Programs. Each Program can have multiple Workouts, and each " +
                         "Workout can have multiple Exercises. The Exercise settings allow you to " +
                         "create a custom workout that fits your specific needs.\n\n" +
-                        "To start a Workout you will touch and hold a Workout to bring up the action " +
-                        "menu and then select Start Workout. After each set touch the Reps button " +
+                        "To begin a Workout you will touch a start button. After each set touch the Reps button " +
                         "for that set to select how many reps you completed. A rest timer will " +
                         "automatically be started between each set. Once you have completed all sets " +
                         "touch the Finish Workout button. This will auto increment or decrement your " +

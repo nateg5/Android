@@ -25,12 +25,11 @@ import com.rgf.rippedgiantfitness.interfaces.RGFActivity;
  */
 public class DialogHelper {
 
-    public final static String START_WORKOUT = "Start Workout";
     public final static String HISTORY = "History";
     public final static String MOVE_UP = "Move Up";
     public final static String MOVE_DOWN = "Move Down";
     public final static String COPY = "Copy";
-    public final static String EDIT = "Edit";
+    public final static String RENAME = "Rename";
     public final static String REMOVE = "Remove";
     public final static String PROGRAM_NAME = "Program Name";
     public final static String WORKOUT_NAME = "Workout Name";
@@ -57,10 +56,11 @@ public class DialogHelper {
     public final static String CLOSE = "Close";
     public final static String HOW_TO = "How To";
 
-    public final static String[] MENU = {MOVE_UP, MOVE_DOWN, COPY, EDIT, REMOVE};
-    public final static String[] WORKOUT_MENU = {START_WORKOUT, HISTORY, MOVE_UP, MOVE_DOWN, COPY, EDIT, REMOVE};
+    public final static String[] MENU = {MOVE_UP, MOVE_DOWN, COPY, REMOVE};
+    public final static String[] RENAME_MENU = {MOVE_UP, MOVE_DOWN, COPY, RENAME, REMOVE};
+    public final static String[] WORKOUT_MENU = {HISTORY, MOVE_UP, MOVE_DOWN, COPY, RENAME, REMOVE};
     public final static String[] HISTORY_MENU = {MOVE_UP, MOVE_DOWN, REMOVE};
-    public final static String[] MEASUREMENT_MENU = {MOVE_UP, MOVE_DOWN, EDIT, REMOVE};
+    public final static String[] MEASUREMENT_MENU = {MOVE_UP, MOVE_DOWN, REMOVE};
 
     public static AppCompatEditText createEditText(Context context, String text, String hint, int inputType) {
         AppCompatEditText editText = new AppCompatEditText(context);
@@ -122,28 +122,28 @@ public class DialogHelper {
         return dialog;
     }
 
-    public static void createEditDialog(final Context context, final AppCompatButton button, final String index, final String label1, final String label2, final String label3, final String preference, final int inputType, final int min, final int max) {
-        final AppCompatEditText editText = createEditText(context, SharedPreferencesHelper.getPreference(index, preference), label1, inputType);
+    public static void createEditDialog(final Context context, final AppCompatButton button, final String index, final String title, final String hint, final String label, final String unit, final String preference, final int inputType, final int min, final int max) {
+        final AppCompatEditText editText = createEditText(context, SharedPreferencesHelper.getPreference(index, preference), hint, inputType);
 
-        final AlertDialog dialogEdit = createDialog(context, EDIT, SAVE, editText);
+        final AlertDialog dialogEdit = createDialog(context, title, SAVE, editText);
 
         dialogEdit.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (SharedPreferencesHelper.setPreference(index, preference, editText.getText().toString(), min, max)) {
-                    button.setText(context.getString(R.string.label_text_label, label2, editText.getText().toString(), label3));
+                    button.setText(context.getString(R.string.label_text_label, label, editText.getText().toString(), unit));
                     dialogEdit.dismiss();
                 } else {
-                    LogHelper.error("Failed to save " + label2);
+                    LogHelper.error("Failed to save " + label);
                 }
             }
         });
     }
 
-    public static void createMeasurementEditDialog(final Context context, final String index, final String hint, final int inputType) {
+    public static void createMeasurementEditDialog(final Context context, final String index, final String hint, final String label, final int inputType) {
         final AppCompatEditText editText = createEditText(context, SharedPreferencesHelper.getPreference(index, SharedPreferencesHelper.ENTRY), hint, inputType);
 
-        final AlertDialog dialogEdit = createDialog(context, EDIT, SAVE, editText);
+        final AlertDialog dialogEdit = createDialog(context, label, SAVE, editText);
 
         dialogEdit.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
             @Override

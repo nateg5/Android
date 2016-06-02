@@ -8,7 +8,9 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatEditText;
+import android.support.v7.widget.AppCompatImageButton;
 import android.support.v7.widget.AppCompatTextView;
+import android.support.v7.widget.LinearLayoutCompat;
 import android.support.v7.widget.Toolbar;
 import android.text.InputType;
 import android.view.MenuItem;
@@ -74,8 +76,8 @@ public class WorkoutsActivity extends AppCompatActivity implements RGFActivity {
                     DialogHelper.HOW_TO,
                     DialogHelper.CLOSE,
                     "",
-                    "To start a workout, touch and hold a workout and then select " + DialogHelper.START_WORKOUT + ".\n\n" +
-                    "To modify a workout, touch a workout."
+                    "Touch a start button to begin a workout.\n\n" +
+                    "Touch a workout to make changes."
             );
         }
     }
@@ -90,7 +92,18 @@ public class WorkoutsActivity extends AppCompatActivity implements RGFActivity {
         for(String workout : workouts) {
             final String workoutIndex = workout;
 
+            final AppCompatImageButton buttonStart = ActivityHelper.createImageButton(context);
+            buttonStart.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intentWorkout = new Intent(context, WorkoutActivity.class);
+                    intentWorkout.putExtra(SharedPreferencesHelper.WORKOUTS, workoutIndex);
+                    startActivity(intentWorkout);
+                }
+            });
+
             final AppCompatButton buttonWorkout = ActivityHelper.createButton(context, SharedPreferencesHelper.getPreference(workoutIndex, SharedPreferencesHelper.NAME), true);
+            buttonWorkout.setLayoutParams(new LinearLayoutCompat.LayoutParams(LinearLayoutCompat.LayoutParams.WRAP_CONTENT, LinearLayoutCompat.LayoutParams.WRAP_CONTENT, 1));
             buttonWorkout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -108,12 +121,6 @@ public class WorkoutsActivity extends AppCompatActivity implements RGFActivity {
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                             String text = ((AppCompatTextView) view).getText().toString();
                             switch (text) {
-                                case DialogHelper.START_WORKOUT:
-                                    Intent intentWorkout = new Intent(context, WorkoutActivity.class);
-                                    intentWorkout.putExtra(SharedPreferencesHelper.WORKOUTS, workoutIndex);
-                                    startActivity(intentWorkout);
-                                    dialog.dismiss();
-                                    break;
                                 case DialogHelper.HISTORY:
                                     Intent intentHistory = new Intent(context, HistoryActivity.class);
                                     intentHistory.putExtra(SharedPreferencesHelper.WORKOUTS, workoutIndex);
@@ -132,8 +139,8 @@ public class WorkoutsActivity extends AppCompatActivity implements RGFActivity {
                                     ActivityHelper.copy(activity, R.id.content_workouts, workoutIndex);
                                     dialog.dismiss();
                                     break;
-                                case DialogHelper.EDIT:
-                                    DialogHelper.createEditDialog(context, buttonWorkout, workoutIndex, DialogHelper.WORKOUT_NAME, "", "", SharedPreferencesHelper.NAME, InputType.TYPE_CLASS_TEXT, Constants.MIN, Constants.MAX);
+                                case DialogHelper.RENAME:
+                                    DialogHelper.createEditDialog(context, buttonWorkout, workoutIndex, DialogHelper.RENAME, DialogHelper.WORKOUT_NAME, "", "", SharedPreferencesHelper.NAME, InputType.TYPE_CLASS_TEXT, Constants.MIN, Constants.MAX);
                                     dialog.dismiss();
                                     break;
                                 case DialogHelper.REMOVE:
@@ -149,7 +156,12 @@ public class WorkoutsActivity extends AppCompatActivity implements RGFActivity {
                 }
             });
 
-            ((ViewGroup)findViewById(R.id.content_workouts)).addView(buttonWorkout);
+            final LinearLayoutCompat linearLayout = new LinearLayoutCompat(context);
+            linearLayout.setOrientation(LinearLayoutCompat.HORIZONTAL);
+            linearLayout.addView(buttonStart);
+            linearLayout.addView(buttonWorkout);
+
+            ((ViewGroup) findViewById(R.id.content_workouts)).addView(linearLayout);
         }
     }
 

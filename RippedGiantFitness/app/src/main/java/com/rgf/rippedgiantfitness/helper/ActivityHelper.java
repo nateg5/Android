@@ -2,6 +2,7 @@ package com.rgf.rippedgiantfitness.helper;
 
 import android.content.Context;
 import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -9,6 +10,7 @@ import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.AppCompatImageButton;
 import android.support.v7.widget.LinearLayoutCompat;
+import android.text.Html;
 import android.text.InputType;
 import android.view.Gravity;
 import android.view.MotionEvent;
@@ -53,7 +55,17 @@ public class ActivityHelper {
 
     public static AppCompatButton createButton(final Context context, String text, Typeface typeface, boolean clickable) {
         AppCompatButton button = new AppCompatButton(context);
-        button.setText(text);
+        button.setText(Html.fromHtml(
+                text,
+                new Html.ImageGetter() {
+                    @Override
+                    public Drawable getDrawable(String source) {
+                        Drawable drawable = ContextCompat.getDrawable(context, Integer.valueOf(source));
+                        drawable.setBounds(0, 0, drawable.getIntrinsicWidth() / 3, drawable.getIntrinsicHeight() / 3);
+                        return drawable;
+                    }
+                },
+                null));
         button.setSupportAllCaps(false);
         button.setTypeface(typeface);
         button.setGravity(Gravity.START | Gravity.CENTER_VERTICAL);

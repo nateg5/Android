@@ -76,7 +76,7 @@ public class WorkoutsActivity extends AppCompatActivity implements RGFActivity {
                     DialogHelper.HOW_TO,
                     DialogHelper.CLOSE,
                     "",
-                    "Touch a start button to begin a workout.\n\n" +
+                    "Touch <img src='" + R.drawable.ic_message_play + "'> to start a workout.<br><br>" +
                     "Touch a workout to make changes."
             );
         }

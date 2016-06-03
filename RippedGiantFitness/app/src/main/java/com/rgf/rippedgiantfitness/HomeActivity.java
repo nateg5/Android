@@ -44,7 +44,7 @@ public class HomeActivity extends AppCompatActivity {
                     DialogHelper.HOW_TO,
                     DialogHelper.CLOSE,
                     "",
-                    "To get started touch Programs. You can use one of the default programs or create your own.\n\n" +
+                    "To get started touch Programs. You can use one of the default programs or create your own.<br><br>" +
                             "For more information touch Help."
             );
         }

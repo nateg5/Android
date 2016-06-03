@@ -2,12 +2,14 @@ package com.rgf.rippedgiantfitness.helper;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.drawable.Drawable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.LinearLayoutCompat;
+import android.text.Html;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ScrollView;
@@ -94,10 +96,20 @@ public class DialogHelper {
         return dialog;
     }
 
-    public static AlertDialog createDialog(Context context, String title, String posBtnText, String negBtnText, String message) {
+    public static AlertDialog createDialog(final Context context, String title, String posBtnText, String negBtnText, String message) {
         AlertDialog dialog = new AlertDialog.Builder(context)
                 .setTitle(title)
-                .setMessage(message)
+                .setMessage(Html.fromHtml(
+                        message,
+                        new Html.ImageGetter() {
+                            @Override
+                            public Drawable getDrawable(String source) {
+                                Drawable drawable = ContextCompat.getDrawable(context, Integer.valueOf(source));
+                                drawable.setBounds(0, 0, drawable.getIntrinsicWidth() / 2, drawable.getIntrinsicHeight() / 2);
+                                return drawable;
+                            }
+                        },
+                        null))
                 .setPositiveButton(posBtnText, null)
                 .setNegativeButton(negBtnText, null)
                 .create();

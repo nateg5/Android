@@ -47,7 +47,7 @@ public class HelpActivity extends AppCompatActivity implements RGFActivity {
                 context,
                 "On any screen you can touch an item to select it. On most screens you can also " +
                         "touch and hold an item to bring up a menu of actions that can be performed " +
-                        "on that item.\n\n" +
+                        "on that item.<br><br>" +
                         "The first time the app is started default Programs and Measurements are " +
                         "created. These can be modified, removed or used as is. The default Programs " +
                         "are intended to be used in an \"N on 1 off\" schedule, where N is the number " +
@@ -72,12 +72,12 @@ public class HelpActivity extends AppCompatActivity implements RGFActivity {
                 "Programs store all of your Workout and Exercise information. You can create, remove " +
                         "and reorder Programs. Each Program can have multiple Workouts, and each " +
                         "Workout can have multiple Exercises. The Exercise settings allow you to " +
-                        "create a custom workout that fits your specific needs.\n\n" +
-                        "To begin a Workout you will touch a start button. After each set touch the Reps button " +
+                        "create a custom workout that fits your specific needs.<br><br>" +
+                        "Touch <img src='" + R.drawable.ic_message_play + "'> to start a workout. After each set touch the Reps button " +
                         "for that set to select how many reps you completed. A rest timer will " +
                         "automatically be started between each set. Once you have completed all sets " +
                         "touch the Finish Workout button. This will auto increment or decrement your " +
-                        "weights and reps based on how many sets and reps you completed.\n\n" +
+                        "weights and reps based on how many sets and reps you completed.<br><br>" +
                         "By default, all Workouts will use a 10/1 progressive overload approach for auto " +
                         "decrementing and " +
                         "incrementing the weights and reps. This means that if you fail to " +

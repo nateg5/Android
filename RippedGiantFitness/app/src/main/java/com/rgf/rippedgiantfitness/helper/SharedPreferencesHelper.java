@@ -284,7 +284,15 @@ public class SharedPreferencesHelper {
     }
 
     private static int getVolumeMin(String exercise) {
-        int volumeMin = Integer.valueOf(getPreference(exercise, MIN_WEIGHT));
+        int minWeight = Integer.valueOf(getPreference(exercise, MIN_WEIGHT));
+
+        if(minWeight <= 0) {
+            minWeight = 1;
+        }
+
+        List<String> sets = getSets(exercise);
+
+        int volumeMin = minWeight * sets.size();
 
         if(volumeMin <= 0) {
             volumeMin = 1;

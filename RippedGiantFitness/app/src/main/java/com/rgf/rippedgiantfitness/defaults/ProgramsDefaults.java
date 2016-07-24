@@ -1,6 +1,7 @@
 package com.rgf.rippedgiantfitness.defaults;
 
 import com.rgf.rippedgiantfitness.constants.Constants;
+import com.rgf.rippedgiantfitness.helper.DialogHelper;
 import com.rgf.rippedgiantfitness.helper.LogHelper;
 import com.rgf.rippedgiantfitness.helper.SharedPreferencesHelper;
 
@@ -69,17 +70,17 @@ public class ProgramsDefaults {
                 add(new HashMap<String, Object>() {{
                     put(SharedPreferencesHelper.NAME, "10 x 10");
                     put(SharedPreferencesHelper.WORKOUTS, new ArrayList<Object>() {{
-                        add(getHyperWorkout("Chest", "Bench Press", "45", "1000", "5", "2", "45", "Incline Press", "45", "1000", "5", "45"));
-                        add(getHyperWorkout("Back", "Deadlift", "45", "1000", "5", "2", "45", "Bent Over Row", "45", "1000", "5", "45"));
-                        add(getHyperWorkout("Shoulders", "Military Press", "45", "1000", "5", "2", "45", "Upright Row", "45", "1000", "5", "45"));
-                        add(getHyperWorkout("Legs", "Squat", "45", "1000", "5", "2", "45", "Straight Leg Deadlift", "45", "1000", "5", "45"));
+                        add(getHyperWorkout("Chest", "Bench Press", "45", "1000", "5", "2", "45", DialogHelper.FREE_WEIGHT, "Incline Press", "45", "1000", "5", "45", DialogHelper.FREE_WEIGHT));
+                        add(getHyperWorkout("Back", "Deadlift", "45", "1000", "5", "2", "45", DialogHelper.FREE_WEIGHT, "Bent Over Row", "45", "1000", "5", "45", DialogHelper.FREE_WEIGHT));
+                        add(getHyperWorkout("Shoulders", "Military Press", "45", "1000", "5", "2", "45", DialogHelper.FREE_WEIGHT, "Upright Row", "45", "1000", "5", "45", DialogHelper.FREE_WEIGHT));
+                        add(getHyperWorkout("Legs", "Squat", "45", "1000", "5", "2", "45", DialogHelper.FREE_WEIGHT, "Straight Leg Deadlift", "45", "1000", "5", "45", DialogHelper.FREE_WEIGHT));
                     }});
                 }});
                 add(new HashMap<String, Object>() {{
                     put(SharedPreferencesHelper.NAME, "Body Weight");
                     put(SharedPreferencesHelper.WORKOUTS, new ArrayList<Object>() {{
-                        add(getHyperWorkout("Upper Body", "Pushup", "0", "0", "0", "0", "0", "Pullup", "0", "0", "0", "0"));
-                        add(getHyperWorkout("Lower Body", "Squat", "0", "0", "0", "0", "0", "Lunge", "0", "0", "0", "0"));
+                        add(getHyperWorkout("Upper Body", "Pushup", "0", "0", "0", "0", "0", DialogHelper.BODY_WEIGHT, "Pullup", "0", "0", "0", "0", DialogHelper.BODY_WEIGHT));
+                        add(getHyperWorkout("Lower Body", "Squat", "0", "0", "0", "0", "0", DialogHelper.BODY_WEIGHT, "Lunge", "0", "0", "0", "0", DialogHelper.BODY_WEIGHT));
                     }});
                 }});
             }});
@@ -87,18 +88,18 @@ public class ProgramsDefaults {
     }
 
     private static Map<String,Object> getHyperWorkout(final String workoutName,
-                                                     final String exerciseName1, final String minWeight1, final String maxWeight1, final String increment1, final String warmupSets1, final String weight1,
-                                                     final String exerciseName2, final String minWeight2, final String maxWeight2, final String increment2, final String weight2) {
+                                                     final String exerciseName1, final String minWeight1, final String maxWeight1, final String increment1, final String warmupSets1, final String weight1, final String exerciseType1,
+                                                     final String exerciseName2, final String minWeight2, final String maxWeight2, final String increment2, final String weight2, final String exerciseType2) {
         return new HashMap<String, Object>() {{
             put(SharedPreferencesHelper.NAME, workoutName);
             put(SharedPreferencesHelper.EXERCISES, new ArrayList<Object>() {{
-                add(getHyperExercise(exerciseName1, minWeight1, maxWeight1, increment1, warmupSets1, weight1));
-                add(getHyperExercise(exerciseName2, minWeight2, maxWeight2, increment2, "0", weight2));
+                add(getHyperExercise(exerciseName1, minWeight1, maxWeight1, increment1, warmupSets1, weight1, exerciseType1));
+                add(getHyperExercise(exerciseName2, minWeight2, maxWeight2, increment2, "0", weight2, exerciseType2));
             }});
         }};
     }
 
-    private static Map<String,Object> getHyperExercise(final String exerciseName, final String minWeight, final String maxWeight, final String increment, final String warmupSets, final String weight) {
+    private static Map<String,Object> getHyperExercise(final String exerciseName, final String minWeight, final String maxWeight, final String increment, final String warmupSets, final String weight, final String exerciseType) {
         return new HashMap<String, Object>() {{
             put(SharedPreferencesHelper.NAME, exerciseName);
             put(SharedPreferencesHelper.MIN_WEIGHT, minWeight);
@@ -109,38 +110,75 @@ public class ProgramsDefaults {
             put(SharedPreferencesHelper.WARMUP_SETS, warmupSets);
             put(SharedPreferencesHelper.REPS, "10");
             put(SharedPreferencesHelper.REST, "60");
-            put(SharedPreferencesHelper.SETS, new ArrayList<Object>() {{
-                add(new HashMap<String, Object>() {{
-                    put(SharedPreferencesHelper.WEIGHT, weight);
+            put(SharedPreferencesHelper.EXERCISE_TYPE, exerciseType);
+
+            if(exerciseType.equals(DialogHelper.FREE_WEIGHT)) {
+                put(SharedPreferencesHelper.SETS, new ArrayList<Object>() {{
+                    add(new HashMap<String, Object>() {{
+                        put(SharedPreferencesHelper.WEIGHT, weight);
+                    }});
+                    add(new HashMap<String, Object>() {{
+                        put(SharedPreferencesHelper.WEIGHT, weight);
+                    }});
+                    add(new HashMap<String, Object>() {{
+                        put(SharedPreferencesHelper.WEIGHT, weight);
+                    }});
+                    add(new HashMap<String, Object>() {{
+                        put(SharedPreferencesHelper.WEIGHT, weight);
+                    }});
+                    add(new HashMap<String, Object>() {{
+                        put(SharedPreferencesHelper.WEIGHT, weight);
+                    }});
+                    add(new HashMap<String, Object>() {{
+                        put(SharedPreferencesHelper.WEIGHT, weight);
+                    }});
+                    add(new HashMap<String, Object>() {{
+                        put(SharedPreferencesHelper.WEIGHT, weight);
+                    }});
+                    add(new HashMap<String, Object>() {{
+                        put(SharedPreferencesHelper.WEIGHT, weight);
+                    }});
+                    add(new HashMap<String, Object>() {{
+                        put(SharedPreferencesHelper.WEIGHT, weight);
+                    }});
+                    add(new HashMap<String, Object>() {{
+                        put(SharedPreferencesHelper.WEIGHT, weight);
+                    }});
                 }});
-                add(new HashMap<String, Object>() {{
-                    put(SharedPreferencesHelper.WEIGHT, weight);
+            } else {
+                put(SharedPreferencesHelper.SETS, new ArrayList<Object>() {{
+                    add(new HashMap<String, Object>() {{
+                        put(SharedPreferencesHelper.REPS, "10");
+                    }});
+                    add(new HashMap<String, Object>() {{
+                        put(SharedPreferencesHelper.REPS, "10");
+                    }});
+                    add(new HashMap<String, Object>() {{
+                        put(SharedPreferencesHelper.REPS, "10");
+                    }});
+                    add(new HashMap<String, Object>() {{
+                        put(SharedPreferencesHelper.REPS, "10");
+                    }});
+                    add(new HashMap<String, Object>() {{
+                        put(SharedPreferencesHelper.REPS, "10");
+                    }});
+                    add(new HashMap<String, Object>() {{
+                        put(SharedPreferencesHelper.REPS, "10");
+                    }});
+                    add(new HashMap<String, Object>() {{
+                        put(SharedPreferencesHelper.REPS, "10");
+                    }});
+                    add(new HashMap<String, Object>() {{
+                        put(SharedPreferencesHelper.REPS, "10");
+                    }});
+                    add(new HashMap<String, Object>() {{
+                        put(SharedPreferencesHelper.REPS, "10");
+                    }});
+                    add(new HashMap<String, Object>() {{
+                        put(SharedPreferencesHelper.REPS, "10");
+                    }});
                 }});
-                add(new HashMap<String, Object>() {{
-                    put(SharedPreferencesHelper.WEIGHT, weight);
-                }});
-                add(new HashMap<String, Object>() {{
-                    put(SharedPreferencesHelper.WEIGHT, weight);
-                }});
-                add(new HashMap<String, Object>() {{
-                    put(SharedPreferencesHelper.WEIGHT, weight);
-                }});
-                add(new HashMap<String, Object>() {{
-                    put(SharedPreferencesHelper.WEIGHT, weight);
-                }});
-                add(new HashMap<String, Object>() {{
-                    put(SharedPreferencesHelper.WEIGHT, weight);
-                }});
-                add(new HashMap<String, Object>() {{
-                    put(SharedPreferencesHelper.WEIGHT, weight);
-                }});
-                add(new HashMap<String, Object>() {{
-                    put(SharedPreferencesHelper.WEIGHT, weight);
-                }});
-                add(new HashMap<String, Object>() {{
-                    put(SharedPreferencesHelper.WEIGHT, weight);
-                }});
-            }});
+            }
         }};
     }
 
@@ -167,6 +205,7 @@ public class ProgramsDefaults {
             put(SharedPreferencesHelper.WARMUP_SETS, warmupSets);
             put(SharedPreferencesHelper.REPS, "5");
             put(SharedPreferencesHelper.REST, "120");
+            put(SharedPreferencesHelper.EXERCISE_TYPE, DialogHelper.FREE_WEIGHT);
             put(SharedPreferencesHelper.SETS, new ArrayList<Object>() {{
                 add(new HashMap<String, Object>() {{
                     put(SharedPreferencesHelper.WEIGHT, "45");
@@ -210,6 +249,7 @@ public class ProgramsDefaults {
             put(SharedPreferencesHelper.WARMUP_SETS, "5");
             put(SharedPreferencesHelper.REPS, "10");
             put(SharedPreferencesHelper.REST, "120");
+            put(SharedPreferencesHelper.EXERCISE_TYPE, DialogHelper.FREE_WEIGHT);
             put(SharedPreferencesHelper.SETS, new ArrayList<Object>() {{
                 add(new HashMap<String, Object>() {{
                     put(SharedPreferencesHelper.WEIGHT, "45");

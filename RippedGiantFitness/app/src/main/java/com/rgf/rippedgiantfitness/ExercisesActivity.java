@@ -49,24 +49,70 @@ public class ExercisesActivity extends AppCompatActivity implements RGFActivity 
                 final AppCompatEditText editTextMinWeight = DialogHelper.createEditText(context, "", DialogHelper.MIN_WEIGHT, InputType.TYPE_CLASS_NUMBER);
                 final AppCompatEditText editTextMaxWeight = DialogHelper.createEditText(context, "", DialogHelper.MAX_WEIGHT, InputType.TYPE_CLASS_NUMBER);
 
-                final AlertDialog dialog = DialogHelper.createDialog(context, DialogHelper.CREATE, DialogHelper.CREATE, editTextName, editTextIncrement, editTextWarmupSets, editTextReps, editTextRest, editTextMinWeight, editTextMaxWeight);
-
-                dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
+                final AlertDialog exerciseTypeDialog = DialogHelper.createDialog(context, DialogHelper.EXERCISE_TYPE, DialogHelper.EXERCISE_TYPE_MENU);
+                exerciseTypeDialog.getListView().setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
-                    public void onClick(View v) {
-                        if (SharedPreferencesHelper.addExercise(workoutIndex,
-                                editTextName.getText().toString(),
-                                editTextIncrement.getText().toString(),
-                                editTextWarmupSets.getText().toString(),
-                                editTextReps.getText().toString(),
-                                editTextRest.getText().toString(),
-                                editTextMinWeight.getText().toString(),
-                                editTextMaxWeight.getText().toString())) {
-                            ((ViewGroup) findViewById(R.id.content_exercises)).removeAllViews();
-                            init();
-                            dialog.dismiss();
-                        } else {
-                            LogHelper.error("Failed to add the exercise");
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        String text = ((AppCompatTextView) view).getText().toString();
+                        switch (text) {
+                            case DialogHelper.FREE_WEIGHT:
+                                final AlertDialog dialogFreeWeight = DialogHelper.createDialog(context, DialogHelper.CREATE, DialogHelper.CREATE, editTextName, editTextIncrement, editTextWarmupSets, editTextReps, editTextRest, editTextMinWeight, editTextMaxWeight);
+
+                                dialogFreeWeight.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        if (SharedPreferencesHelper.addExercise(workoutIndex,
+                                                editTextName.getText().toString(),
+                                                editTextIncrement.getText().toString(),
+                                                editTextWarmupSets.getText().toString(),
+                                                editTextReps.getText().toString(),
+                                                editTextRest.getText().toString(),
+                                                editTextMinWeight.getText().toString(),
+                                                editTextMaxWeight.getText().toString(),
+                                                DialogHelper.FREE_WEIGHT)) {
+                                            ((ViewGroup) findViewById(R.id.content_exercises)).removeAllViews();
+                                            init();
+                                            dialogFreeWeight.dismiss();
+                                        } else {
+                                            LogHelper.error("Failed to add the exercise");
+                                        }
+                                    }
+                                });
+                                exerciseTypeDialog.dismiss();
+                                break;
+                            case DialogHelper.BODY_WEIGHT:
+                                final AlertDialog dialogBodyWeight = DialogHelper.createDialog(context, DialogHelper.CREATE, DialogHelper.CREATE, editTextName, editTextRest);
+
+                                editTextIncrement.setText(String.valueOf(Constants.WEIGHT_INCREMENT_MIN));
+                                editTextWarmupSets.setText(String.valueOf(Constants.SETS_WARMUP_MIN));
+                                editTextReps.setText(String.valueOf(Constants.NUMBER_OF_REPS_MIN));
+                                editTextMinWeight.setText(String.valueOf(Constants.MIN_WEIGHT_MIN));
+                                editTextMaxWeight.setText(String.valueOf(Constants.MAX_WEIGHT_MIN));
+
+                                dialogBodyWeight.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        if (SharedPreferencesHelper.addExercise(workoutIndex,
+                                                editTextName.getText().toString(),
+                                                editTextIncrement.getText().toString(),
+                                                editTextWarmupSets.getText().toString(),
+                                                editTextReps.getText().toString(),
+                                                editTextRest.getText().toString(),
+                                                editTextMinWeight.getText().toString(),
+                                                editTextMaxWeight.getText().toString(),
+                                                DialogHelper.BODY_WEIGHT)) {
+                                            ((ViewGroup) findViewById(R.id.content_exercises)).removeAllViews();
+                                            init();
+                                            dialogBodyWeight.dismiss();
+                                        } else {
+                                            LogHelper.error("Failed to add the exercise");
+                                        }
+                                    }
+                                });
+                                exerciseTypeDialog.dismiss();
+                                break;
+                            default:
+                                LogHelper.error("Received unknown menu selection: " + text);
                         }
                     }
                 });

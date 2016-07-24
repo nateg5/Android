@@ -95,12 +95,14 @@ public class WorkoutActivity extends AppCompatActivity implements RGFActivity {
         List<String> exercises = SharedPreferencesHelper.getExercises(workoutIndex);
 
         for(String exerciseIndex : exercises) {
+            final String exerciseType = SharedPreferencesHelper.getPreference(exerciseIndex, SharedPreferencesHelper.EXERCISE_TYPE);
             final Map<String, Boolean> setMap = new HashMap<>();
             exerciseMap.put(exerciseIndex, setMap);
 
             final String historyExerciseIndex = exerciseIndex.substring(exerciseIndex.lastIndexOf(SharedPreferencesHelper.EXERCISES));
 
             historyMap.put(SharedPreferencesHelper.buildPreferenceString(historyExerciseIndex, SharedPreferencesHelper.NAME), SharedPreferencesHelper.getPreference(exerciseIndex, SharedPreferencesHelper.NAME));
+            historyMap.put(SharedPreferencesHelper.buildPreferenceString(historyExerciseIndex, SharedPreferencesHelper.EXERCISE_TYPE), SharedPreferencesHelper.getPreference(exerciseIndex, SharedPreferencesHelper.EXERCISE_TYPE));
 
             /**
              * add exercise title
@@ -125,36 +127,38 @@ public class WorkoutActivity extends AppCompatActivity implements RGFActivity {
             /**
              * add warm-up sets
              */
-            final int numberOfWarmupSets = Integer.valueOf(SharedPreferencesHelper.getPreference(exerciseIndex, SharedPreferencesHelper.WARMUP_SETS));
-            final int firstSetWeight = Integer.valueOf(SharedPreferencesHelper.getPreference(sets.get(0), SharedPreferencesHelper.WEIGHT));
-            final int increment = Integer.valueOf(SharedPreferencesHelper.getPreference(exerciseIndex, SharedPreferencesHelper.INCREMENT));
-            final int minWeight = Integer.valueOf(SharedPreferencesHelper.getPreference(exerciseIndex, SharedPreferencesHelper.MIN_WEIGHT));
+            if(exerciseType.equals(DialogHelper.FREE_WEIGHT)) {
+                final int numberOfWarmupSets = Integer.valueOf(SharedPreferencesHelper.getPreference(exerciseIndex, SharedPreferencesHelper.WARMUP_SETS));
+                final int firstSetWeight = Integer.valueOf(SharedPreferencesHelper.getPreference(sets.get(0), SharedPreferencesHelper.WEIGHT));
+                final int increment = Integer.valueOf(SharedPreferencesHelper.getPreference(exerciseIndex, SharedPreferencesHelper.INCREMENT));
+                final int minWeight = Integer.valueOf(SharedPreferencesHelper.getPreference(exerciseIndex, SharedPreferencesHelper.MIN_WEIGHT));
 
-            final double warmupPercent = Double.valueOf(SharedPreferencesHelper.getPreference(SharedPreferencesHelper.buildPreferenceString(SharedPreferencesHelper.SETTINGS, SettingsDefaults.WARMUP, SharedPreferencesHelper.SETTING)));
+                final double warmupPercent = Double.valueOf(SharedPreferencesHelper.getPreference(SharedPreferencesHelper.buildPreferenceString(SharedPreferencesHelper.SETTINGS, SettingsDefaults.WARMUP, SharedPreferencesHelper.SETTING)));
 
-            for(int i = 0; i < numberOfWarmupSets; i++) {
-                double halfWeight = firstSetWeight / (100.0 / warmupPercent);
-                double warmupIncrement = (firstSetWeight - halfWeight) / numberOfWarmupSets;
-                int warmupWeight = (int)((warmupIncrement * i) + halfWeight);
-                warmupWeight = increment > 0 ? warmupWeight - (warmupWeight % increment) : warmupWeight;
-                warmupWeight = warmupWeight < minWeight ? minWeight : warmupWeight;
+                for (int i = 0; i < numberOfWarmupSets; i++) {
+                    double halfWeight = firstSetWeight / (100.0 / warmupPercent);
+                    double warmupIncrement = (firstSetWeight - halfWeight) / numberOfWarmupSets;
+                    int warmupWeight = (int) ((warmupIncrement * i) + halfWeight);
+                    warmupWeight = increment > 0 ? warmupWeight - (warmupWeight % increment) : warmupWeight;
+                    warmupWeight = warmupWeight < minWeight ? minWeight : warmupWeight;
 
-                final AppCompatButton buttonWarmupSet = ActivityHelper.createButton(context, "WU " + (i + 1), false);
-                final AppCompatButton buttonWarmupWeight = ActivityHelper.createButton(context, warmupWeight + " " + weightUnit, false);
+                    final AppCompatButton buttonWarmupSet = ActivityHelper.createButton(context, "WU " + (i + 1), false);
+                    final AppCompatButton buttonWarmupWeight = ActivityHelper.createButton(context, warmupWeight + " " + weightUnit, false);
 
-                final String historySetIndex = SharedPreferencesHelper.buildPreferenceString(historyExerciseIndex, SharedPreferencesHelper.SETS, String.valueOf(historySetCount++));
-                historyMap.put(SharedPreferencesHelper.buildPreferenceString(historySetIndex, SharedPreferencesHelper.NAME), buttonWarmupSet.getText().toString());
-                historyMap.put(SharedPreferencesHelper.buildPreferenceString(historySetIndex, SharedPreferencesHelper.WEIGHT), buttonWarmupWeight.getText().toString());
+                    final String historySetIndex = SharedPreferencesHelper.buildPreferenceString(historyExerciseIndex, SharedPreferencesHelper.SETS, String.valueOf(historySetCount++));
+                    historyMap.put(SharedPreferencesHelper.buildPreferenceString(historySetIndex, SharedPreferencesHelper.NAME), buttonWarmupSet.getText().toString());
+                    historyMap.put(SharedPreferencesHelper.buildPreferenceString(historySetIndex, SharedPreferencesHelper.WEIGHT), buttonWarmupWeight.getText().toString());
 
-                final AppCompatButton buttonWarmupReps = createRepsButton(exerciseIndex, null, null, historyMap, historySetIndex);
+                    final AppCompatButton buttonWarmupReps = createRepsButton(exerciseIndex, null, null, historyMap, historySetIndex);
 
-                final LinearLayoutCompat linearLayout = new LinearLayoutCompat(context);
-                linearLayout.setOrientation(LinearLayoutCompat.HORIZONTAL);
-                linearLayout.addView(buttonWarmupSet);
-                linearLayout.addView(buttonWarmupWeight);
-                linearLayout.addView(buttonWarmupReps);
+                    final LinearLayoutCompat linearLayout = new LinearLayoutCompat(context);
+                    linearLayout.setOrientation(LinearLayoutCompat.HORIZONTAL);
+                    linearLayout.addView(buttonWarmupSet);
+                    linearLayout.addView(buttonWarmupWeight);
+                    linearLayout.addView(buttonWarmupReps);
 
-                ((ViewGroup) findViewById(R.id.content_workout)).addView(linearLayout);
+                    ((ViewGroup) findViewById(R.id.content_workout)).addView(linearLayout);
+                }
             }
             /**/
 
@@ -162,11 +166,17 @@ public class WorkoutActivity extends AppCompatActivity implements RGFActivity {
              * add working sets
              */
             int setNum = 1;
-            for(String setIndex : sets) {
+            for (String setIndex : sets) {
                 setMap.put(setIndex, false);
 
                 final AppCompatButton buttonSet = ActivityHelper.createButton(context, "Set " + String.valueOf(setNum++), false);
-                final AppCompatButton buttonWeight = ActivityHelper.createButton(context, SharedPreferencesHelper.getPreference(setIndex, SharedPreferencesHelper.WEIGHT) + " " + weightUnit, false);
+
+                AppCompatButton buttonWeight;
+                if(exerciseType.equals(DialogHelper.FREE_WEIGHT)) {
+                    buttonWeight = ActivityHelper.createButton(context, SharedPreferencesHelper.getPreference(setIndex, SharedPreferencesHelper.WEIGHT) + " " + weightUnit, false);
+                } else {
+                    buttonWeight = ActivityHelper.createButton(context, "- " + weightUnit, false);
+                }
 
                 final String historySetIndex = SharedPreferencesHelper.buildPreferenceString(historyExerciseIndex, SharedPreferencesHelper.SETS, String.valueOf(historySetCount++));
                 historyMap.put(SharedPreferencesHelper.buildPreferenceString(historySetIndex, SharedPreferencesHelper.NAME), buttonSet.getText().toString());
@@ -260,7 +270,13 @@ public class WorkoutActivity extends AppCompatActivity implements RGFActivity {
 
     private AppCompatButton createRepsButton(final String exerciseIndex, final Map<String, Boolean> setMap, final String setIndex, final Map<String, String> historyMap, final String historySetIndex) {
         final Context context = this;
-        int reps = Integer.valueOf(SharedPreferencesHelper.getPreference(exerciseIndex, SharedPreferencesHelper.REPS));
+        String exerciseType = SharedPreferencesHelper.getPreference(exerciseIndex, SharedPreferencesHelper.EXERCISE_TYPE);
+        int reps;
+        if(exerciseType.equals(DialogHelper.FREE_WEIGHT)) {
+            reps = Integer.valueOf(SharedPreferencesHelper.getPreference(exerciseIndex, SharedPreferencesHelper.REPS));
+        } else {
+            reps = Integer.valueOf(SharedPreferencesHelper.getPreference(setIndex, SharedPreferencesHelper.REPS));
+        }
         AppCompatButton buttonReps = ActivityHelper.createButton(context, getResources().getQuantityString(R.plurals.reps, reps, reps), true);
         buttonReps.setLayoutParams(new LinearLayoutCompat.LayoutParams(LinearLayoutCompat.LayoutParams.WRAP_CONTENT, LinearLayoutCompat.LayoutParams.WRAP_CONTENT, 1));
         buttonReps.setBackgroundColor(ContextCompat.getColor(context, R.color.colorLightGray));

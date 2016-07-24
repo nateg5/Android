@@ -33,6 +33,9 @@ public class DialogHelper {
     public final static String COPY = "Copy";
     public final static String RENAME = "Rename";
     public final static String REMOVE = "Remove";
+    public final static String EXERCISE_TYPE = "Exercise Type";
+    public final static String FREE_WEIGHT = "Free Weight";
+    public final static String BODY_WEIGHT = "Body Weight";
     public final static String PROGRAM_NAME = "Program Name";
     public final static String WORKOUT_NAME = "Workout Name";
     public final static String EXERCISE_NAME = "Exercise Name";
@@ -45,6 +48,7 @@ public class DialogHelper {
     public final static String MIN_WEIGHT = "Minimum Weight";
     public final static String MAX_WEIGHT = "Maximum Weight";
     public final static String SET_WEIGHT = "New Set Weight";
+    public final static String SET_REPS = "New Set Reps";
     public final static String MEASUREMENT_NAME = "Measurement Name";
     public final static String CURRENT = "Current";
     public final static String AVERAGE = "7 Day Average";
@@ -63,6 +67,7 @@ public class DialogHelper {
     public final static String[] WORKOUT_MENU = {HISTORY, MOVE_UP, MOVE_DOWN, COPY, RENAME, REMOVE};
     public final static String[] HISTORY_MENU = {MOVE_UP, MOVE_DOWN, REMOVE};
     public final static String[] MEASUREMENT_MENU = {MOVE_UP, MOVE_DOWN, REMOVE};
+    public final static String[] EXERCISE_TYPE_MENU = {FREE_WEIGHT, BODY_WEIGHT};
 
     public static AppCompatEditText createEditText(Context context, String text, String hint, int inputType) {
         AppCompatEditText editText = new AppCompatEditText(context);

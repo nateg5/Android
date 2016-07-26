@@ -1,7 +1,6 @@
 package com.rgf.rippedgiantfitness;
 
 import android.content.ActivityNotFoundException;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -108,7 +107,7 @@ public class HomeActivity extends AppCompatActivity {
 
         ((ViewGroup)findViewById(R.id.content_home)).addView(buttonInstagram);
 
-        AppCompatButton buttonMfp = ActivityHelper.createButton(context, SharedPreferencesHelper.MY_FITNESS_PAL, true);
+        /*AppCompatButton buttonMfp = ActivityHelper.createButton(context, SharedPreferencesHelper.MY_FITNESS_PAL, true);
         buttonMfp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -124,7 +123,7 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
-        ((ViewGroup)findViewById(R.id.content_home)).addView(buttonMfp);
+        ((ViewGroup)findViewById(R.id.content_home)).addView(buttonMfp);*/
 
         ((ViewGroup)findViewById(R.id.content_home)).addView(ActivityHelper.getSeparatorView(context));
 

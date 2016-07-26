@@ -51,6 +51,11 @@ public class ProgramsActivity extends AppCompatActivity implements RGFActivity {
                             ((ViewGroup)findViewById(R.id.content_programs)).removeAllViews();
                             init();
                             dialog.dismiss();
+
+                            List<String> programs =  SharedPreferencesHelper.getPrograms();
+                            Intent intent = new Intent(context, WorkoutsActivity.class);
+                            intent.putExtra(SharedPreferencesHelper.PROGRAMS, programs.get(programs.size()-1));
+                            startActivity(intent);
                         } else {
                             LogHelper.error("Failed to add the program");
                         }

@@ -36,6 +36,11 @@ public class ExercisesActivity extends AppCompatActivity implements RGFActivity 
 
         final Context context = this;
         final String workoutIndex = getIntent().getStringExtra(SharedPreferencesHelper.WORKOUTS);
+        final String workoutName = SharedPreferencesHelper.getPreference(workoutIndex, SharedPreferencesHelper.NAME);
+
+        if(workoutName.trim().length() > 0) {
+            setTitle(workoutName + " " + getTitle());
+        }
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -73,6 +78,11 @@ public class ExercisesActivity extends AppCompatActivity implements RGFActivity 
                                             ((ViewGroup) findViewById(R.id.content_exercises)).removeAllViews();
                                             init();
                                             dialogFreeWeight.dismiss();
+
+                                            List<String> exercises =  SharedPreferencesHelper.getExercises(workoutIndex);
+                                            Intent intent = new Intent(context, ExerciseActivity.class);
+                                            intent.putExtra(SharedPreferencesHelper.EXERCISES, exercises.get(exercises.size()-1));
+                                            startActivity(intent);
                                         } else {
                                             LogHelper.error("Failed to add the exercise");
                                         }
@@ -104,6 +114,11 @@ public class ExercisesActivity extends AppCompatActivity implements RGFActivity 
                                             ((ViewGroup) findViewById(R.id.content_exercises)).removeAllViews();
                                             init();
                                             dialogBodyWeight.dismiss();
+
+                                            List<String> exercises =  SharedPreferencesHelper.getExercises(workoutIndex);
+                                            Intent intent = new Intent(context, ExerciseActivity.class);
+                                            intent.putExtra(SharedPreferencesHelper.EXERCISES, exercises.get(exercises.size() - 1));
+                                            startActivity(intent);
                                         } else {
                                             LogHelper.error("Failed to add the exercise");
                                         }

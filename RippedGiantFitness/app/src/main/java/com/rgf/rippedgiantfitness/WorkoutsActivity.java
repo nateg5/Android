@@ -38,6 +38,11 @@ public class WorkoutsActivity extends AppCompatActivity implements RGFActivity {
 
         final Context context = this;
         final String programIndex = getIntent().getStringExtra(SharedPreferencesHelper.PROGRAMS);
+        final String programName = SharedPreferencesHelper.getPreference(programIndex, SharedPreferencesHelper.NAME);
+
+        if(programName.trim().length() > 0) {
+            setTitle(programName + " " + getTitle());
+        }
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -54,6 +59,11 @@ public class WorkoutsActivity extends AppCompatActivity implements RGFActivity {
                             ((ViewGroup) findViewById(R.id.content_workouts)).removeAllViews();
                             init();
                             dialog.dismiss();
+
+                            List<String> workouts =  SharedPreferencesHelper.getWorkouts(programIndex);
+                            Intent intent = new Intent(context, ExercisesActivity.class);
+                            intent.putExtra(SharedPreferencesHelper.WORKOUTS, workouts.get(workouts.size()-1));
+                            startActivity(intent);
                         } else {
                             LogHelper.error("Failed to add the workout");
                         }

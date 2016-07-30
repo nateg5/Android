@@ -36,8 +36,8 @@ public class Constants {
     public final static int CURRENT_VOLUME_MIN = 0;
     public final static int CURRENT_VOLUME_MAX = 1000000;
 
-    public final static int FAILED_VOLUME_MIN = 0;
-    public final static int FAILED_VOLUME_MAX = 1000000;
+    public final static int SUCCESS_VOLUME_MIN = 0;
+    public final static int SUCCESS_VOLUME_MAX = 1000000;
 
     public final static int MIN = -1000000000;
     public final static int MAX = 1000000000;

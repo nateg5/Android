@@ -108,7 +108,7 @@ public class WorkoutActivity extends AppCompatActivity implements RGFActivity {
              * add exercise title
              */
             String PR = "";
-            if(SharedPreferencesHelper.getVolume(exerciseIndex) >= Integer.valueOf(SharedPreferencesHelper.getPreference(exerciseIndex, SharedPreferencesHelper.FAILED_VOLUME))) {
+            if(SharedPreferencesHelper.getVolume(exerciseIndex) > Integer.valueOf(SharedPreferencesHelper.getPreference(exerciseIndex, SharedPreferencesHelper.SUCCESS_VOLUME))) {
                 PR = " PR";
             }
 

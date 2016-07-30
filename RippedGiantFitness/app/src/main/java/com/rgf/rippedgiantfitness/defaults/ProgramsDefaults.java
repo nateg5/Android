@@ -105,7 +105,7 @@ public class ProgramsDefaults {
             put(SharedPreferencesHelper.MIN_WEIGHT, minWeight);
             put(SharedPreferencesHelper.MAX_WEIGHT, maxWeight);
             put(SharedPreferencesHelper.CURRENT_VOLUME, "0");
-            put(SharedPreferencesHelper.FAILED_VOLUME, "0");
+            put(SharedPreferencesHelper.SUCCESS_VOLUME, "0");
             put(SharedPreferencesHelper.INCREMENT, increment);
             put(SharedPreferencesHelper.WARMUP_SETS, warmupSets);
             put(SharedPreferencesHelper.REPS, "10");
@@ -200,7 +200,7 @@ public class ProgramsDefaults {
             put(SharedPreferencesHelper.MIN_WEIGHT, "45");
             put(SharedPreferencesHelper.MAX_WEIGHT, "1000");
             put(SharedPreferencesHelper.CURRENT_VOLUME, "0");
-            put(SharedPreferencesHelper.FAILED_VOLUME, "0");
+            put(SharedPreferencesHelper.SUCCESS_VOLUME, "0");
             put(SharedPreferencesHelper.INCREMENT, "5");
             put(SharedPreferencesHelper.WARMUP_SETS, warmupSets);
             put(SharedPreferencesHelper.REPS, "5");
@@ -244,7 +244,7 @@ public class ProgramsDefaults {
             put(SharedPreferencesHelper.MIN_WEIGHT, "45");
             put(SharedPreferencesHelper.MAX_WEIGHT, "1000");
             put(SharedPreferencesHelper.CURRENT_VOLUME, "0");
-            put(SharedPreferencesHelper.FAILED_VOLUME, "0");
+            put(SharedPreferencesHelper.SUCCESS_VOLUME, "0");
             put(SharedPreferencesHelper.INCREMENT, "5");
             put(SharedPreferencesHelper.WARMUP_SETS, "5");
             put(SharedPreferencesHelper.REPS, "10");

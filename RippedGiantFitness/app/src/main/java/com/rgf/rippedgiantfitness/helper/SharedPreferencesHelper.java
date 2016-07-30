@@ -44,7 +44,7 @@ public class SharedPreferencesHelper {
     public final static String MIN_WEIGHT = "Min Weight";
     public final static String MAX_WEIGHT = "Max Weight";
     public final static String CURRENT_VOLUME = "Current Volume";
-    public final static String FAILED_VOLUME = "Failed Volume";
+    public final static String SUCCESS_VOLUME = "Success Volume";
     public final static String INCREMENT = "Increment";
     public final static String WARMUP_SETS = "Warmup Sets";
     public final static String EXERCISE_TYPE = "Exercise Type";
@@ -117,8 +117,13 @@ public class SharedPreferencesHelper {
             if(entry.getKey().contains(exercisesSearchString)) {
                 String exercisesIndex = entry.getKey().substring(0, entry.getKey().lastIndexOf(exercisesSearchString)+exercisesSearchString.length()+1);
                 if(!localPreferences.containsKey(buildPreferenceString(exercisesIndex, EXERCISE_TYPE))) {
-                    LogHelper.debug("********* " + exercisesIndex);
+                    LogHelper.debug("********* Creating exercise type for " + exercisesIndex);
                     localPreferences.put(buildPreferenceString(exercisesIndex, EXERCISE_TYPE), DialogHelper.FREE_WEIGHT);
+                }
+                if(!localPreferences.containsKey(buildPreferenceString(exercisesIndex, SUCCESS_VOLUME))) {
+                    LogHelper.debug("********* Creating success volume for " + exercisesIndex);
+                    String failedVolume = localPreferences.get(buildPreferenceString(exercisesIndex, "Failed Volume"));
+                    localPreferences.put(buildPreferenceString(exercisesIndex, SUCCESS_VOLUME), failedVolume);
                 }
             }
         }
@@ -169,13 +174,19 @@ public class SharedPreferencesHelper {
     }
 
     public static boolean finishWorkout(String exercise, boolean success) {
-        boolean retVal;
+        boolean retVal = true;
 
         if(success) {
-            retVal = increaseVolumeOnePercent(exercise);
+            int volume = getVolume(exercise);
+            int successVolume = Integer.valueOf(getPreference(exercise, SUCCESS_VOLUME));
+
+            if(volume > successVolume) {
+                retVal = setPreference(exercise, SUCCESS_VOLUME, String.valueOf(volume), Constants.SUCCESS_VOLUME_MIN, Constants.SUCCESS_VOLUME_MAX);
+            }
+            retVal = (retVal
+                    && increaseVolumeOnePercent(exercise));
         } else {
-            retVal = (setPreference(exercise, FAILED_VOLUME, String.valueOf(getVolume(exercise)), Constants.FAILED_VOLUME_MIN, Constants.FAILED_VOLUME_MAX)
-                    && decreaseVolumeTenPercent(exercise));
+            retVal = decreaseVolumeTenPercent(exercise);
         }
 
         retVal = (retVal
@@ -454,7 +465,7 @@ public class SharedPreferencesHelper {
                 && setPreference(buildPreferenceString(workout, EXERCISES, String.valueOf(exercises.size())), MIN_WEIGHT, minWeight, Constants.MIN_WEIGHT_MIN, Constants.MIN_WEIGHT_MAX)
                 && setPreference(buildPreferenceString(workout, EXERCISES, String.valueOf(exercises.size())), MAX_WEIGHT, maxWeight, Constants.MAX_WEIGHT_MIN, Constants.MAX_WEIGHT_MAX)
                 && setPreference(buildPreferenceString(workout, EXERCISES, String.valueOf(exercises.size())), CURRENT_VOLUME, "0", Constants.CURRENT_VOLUME_MIN, Constants.CURRENT_VOLUME_MAX)
-                && setPreference(buildPreferenceString(workout, EXERCISES, String.valueOf(exercises.size())), FAILED_VOLUME, "0", Constants.FAILED_VOLUME_MIN, Constants.FAILED_VOLUME_MAX)
+                && setPreference(buildPreferenceString(workout, EXERCISES, String.valueOf(exercises.size())), SUCCESS_VOLUME, "0", Constants.SUCCESS_VOLUME_MIN, Constants.SUCCESS_VOLUME_MAX)
                 && setPreference(buildPreferenceString(workout, EXERCISES, String.valueOf(exercises.size())), EXERCISE_TYPE, exerciseType, Constants.MIN, Constants.MAX));
     }
 

@@ -103,7 +103,7 @@ public class ExerciseActivity extends AppCompatActivity implements RGFActivity {
         List<String> sets = SharedPreferencesHelper.getSets(exerciseIndex);
 
         //ActivityHelper.createEditButton(activity, R.id.content_exercise, exerciseIndex, DialogHelper.CURRENT_VOLUME, weightUnit, SharedPreferencesHelper.CURRENT_VOLUME, InputType.TYPE_CLASS_NUMBER, false);
-        //ActivityHelper.createEditButton(activity, R.id.content_exercise, exerciseIndex, DialogHelper.FAILED_VOLUME, weightUnit, SharedPreferencesHelper.FAILED_VOLUME, InputType.TYPE_CLASS_NUMBER, false);
+        //ActivityHelper.createEditButton(activity, R.id.content_exercise, exerciseIndex, DialogHelper.SUCCESS_VOLUME, weightUnit, SharedPreferencesHelper.SUCCESS_VOLUME, InputType.TYPE_CLASS_NUMBER, false);
         if(exerciseType.equals(DialogHelper.FREE_WEIGHT)) {
             ActivityHelper.createExerciseEditButton(activity, exerciseIndex, DialogHelper.WEIGHT_INCREMENT, weightUnit, SharedPreferencesHelper.INCREMENT, Constants.WEIGHT_INCREMENT_MIN, Constants.WEIGHT_INCREMENT_MAX);
             ActivityHelper.createExerciseEditButton(activity, exerciseIndex, DialogHelper.SETS_WARMUP, "sets", SharedPreferencesHelper.WARMUP_SETS, Constants.SETS_WARMUP_MIN, Constants.SETS_WARMUP_MAX);

@@ -40,7 +40,7 @@ public class DialogHelper {
     public final static String WORKOUT_NAME = "Workout Name";
     public final static String EXERCISE_NAME = "Exercise Name";
     //public final static String CURRENT_VOLUME = "Current Volume";
-    //public final static String FAILED_VOLUME = "Failed Volume";
+    //public final static String SUCCESS_VOLUME = "Success Volume";
     public final static String WEIGHT_INCREMENT = "Weight Increment";
     public final static String SETS_WARMUP = "Number of Warmup Sets";
     public final static String NUMBER_OF_REPS = "Number of Reps";

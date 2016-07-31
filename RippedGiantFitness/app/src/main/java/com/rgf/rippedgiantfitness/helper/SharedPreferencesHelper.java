@@ -123,6 +123,7 @@ public class SharedPreferencesHelper {
                 if(!localPreferences.containsKey(buildPreferenceString(exercisesIndex, SUCCESS_VOLUME))) {
                     LogHelper.debug("********* Creating success volume for " + exercisesIndex);
                     String failedVolume = localPreferences.get(buildPreferenceString(exercisesIndex, "Failed Volume"));
+                    failedVolume = failedVolume == null ? "0" : failedVolume;
                     localPreferences.put(buildPreferenceString(exercisesIndex, SUCCESS_VOLUME), failedVolume);
                 }
             }
@@ -855,7 +856,8 @@ public class SharedPreferencesHelper {
                 for (Map.Entry<String, String> entry : localPreferences.entrySet()) {
                     oStream.write(entry.getKey().getBytes());
                     oStream.write("\n".getBytes());
-                    oStream.write(entry.getValue().getBytes());
+                    String value = entry.getValue() == null ? "" : entry.getValue();
+                    oStream.write(value.getBytes());
                     oStream.write("\n".getBytes());
                 }
 

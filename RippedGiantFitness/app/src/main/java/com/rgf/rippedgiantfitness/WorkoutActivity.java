@@ -270,7 +270,7 @@ public class WorkoutActivity extends AppCompatActivity implements RGFActivity {
 
     private AppCompatButton createRepsButton(final String exerciseIndex, final Map<String, Boolean> setMap, final String setIndex, final Map<String, String> historyMap, final String historySetIndex) {
         final Context context = this;
-        String exerciseType = SharedPreferencesHelper.getPreference(exerciseIndex, SharedPreferencesHelper.EXERCISE_TYPE);
+        final String exerciseType = SharedPreferencesHelper.getPreference(exerciseIndex, SharedPreferencesHelper.EXERCISE_TYPE);
         int reps;
         if(exerciseType.equals(DialogHelper.FREE_WEIGHT)) {
             reps = Integer.valueOf(SharedPreferencesHelper.getPreference(exerciseIndex, SharedPreferencesHelper.REPS));
@@ -315,7 +315,11 @@ public class WorkoutActivity extends AppCompatActivity implements RGFActivity {
 
                 if (textColor == ContextCompat.getColor(context, R.color.colorAccentText) || textColor == ContextCompat.getColor(context, R.color.colorGreenText)) {
                     if (reps == 0) {
-                        reps = Integer.valueOf(SharedPreferencesHelper.getPreference(exerciseIndex, SharedPreferencesHelper.REPS));
+                        if(exerciseType.equals(DialogHelper.FREE_WEIGHT)) {
+                            reps = Integer.valueOf(SharedPreferencesHelper.getPreference(exerciseIndex, SharedPreferencesHelper.REPS));
+                        } else {
+                            reps = Integer.valueOf(SharedPreferencesHelper.getPreference(setIndex, SharedPreferencesHelper.REPS));
+                        }
 
                         v.setBackgroundColor(ContextCompat.getColor(context, R.color.colorLightGray));
                         ((AppCompatButton) v).setTextColor(ActivityHelper.getButton(context).getCurrentTextColor());

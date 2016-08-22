@@ -8,7 +8,7 @@
     android:paddingBottom="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:showIn="@layout/activity_history"
-    tools:context="com.rgf.rippedgiantfitness.HistoryActivity">
+    tools:context="com.aff.allformfitness.HistoryActivity">
 
     <LinearLayout android:id="@+id/content_history"
         android:layout_width="match_parent"

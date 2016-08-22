@@ -8,7 +8,7 @@
     android:paddingBottom="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:showIn="@layout/activity_help"
-    tools:context="com.rgf.rippedgiantfitness.HelpActivity">
+    tools:context="com.aff.allformfitness.HelpActivity">
 
     <LinearLayout android:id="@+id/content_help"
         android:layout_width="match_parent"

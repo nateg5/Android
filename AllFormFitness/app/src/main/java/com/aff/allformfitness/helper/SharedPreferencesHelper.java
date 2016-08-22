@@ -70,7 +70,7 @@ public class SharedPreferencesHelper {
     public final static String HOW_TO_WORKOUT = "How To Workout";
 
     public final static String INSTAGRAM = "Instagram";
-    public final static String MY_FITNESS_PAL = "MyFitnessPal";
+    //public final static String MY_FITNESS_PAL = "MyFitnessPal";
 
     private final static String BACKUP_FOLDER = "AllFormFitness";
     public final static String BACKUP_FILE = "AllFormFitness.bak";

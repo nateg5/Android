@@ -152,7 +152,7 @@ public class HelpActivity extends AppCompatActivity implements AFFActivity {
 
         ((ViewGroup)findViewById(R.id.content_help)).addView(buttonInstagramContent);
 
-        AppCompatButton buttonMfpTitle = ActivityHelper.createButton(
+        /*AppCompatButton buttonMfpTitle = ActivityHelper.createButton(
                 context,
                 SharedPreferencesHelper.MY_FITNESS_PAL,
                 Typeface.DEFAULT_BOLD,
@@ -169,7 +169,7 @@ public class HelpActivity extends AppCompatActivity implements AFFActivity {
                         "web browser.",
                 false);
 
-        ((ViewGroup)findViewById(R.id.content_help)).addView(buttonMfpContent);
+        ((ViewGroup)findViewById(R.id.content_help)).addView(buttonMfpContent);*/
 
         AppCompatButton buttonDataBackupTitle = ActivityHelper.createButton(
                 context,

@@ -54,7 +54,7 @@ public class ProgramsDefaults {
                     put(SharedPreferencesHelper.WORKOUTS, new ArrayList<Object>() {{
                         add(getHitWorkout("Chest", "Bench Press", "Incline Press"));
                         add(getHitWorkout("Back", "Deadlift", "Bent Over Row"));
-                        add(getHitWorkout("Shoulders", "Military Press", "Upright Row"));
+                        add(getHitWorkout("Shoulders", "Overhead Press", "Upright Row"));
                         add(getHitWorkout("Legs", "Squat", "Straight Leg Deadlift"));
                     }});
                 }});
@@ -63,7 +63,7 @@ public class ProgramsDefaults {
                     put(SharedPreferencesHelper.WORKOUTS, new ArrayList<Object>() {{
                         add(getStrengthWorkout("Chest", "Bench Press", "Incline Press"));
                         add(getStrengthWorkout("Back", "Deadlift", "Bent Over Row"));
-                        add(getStrengthWorkout("Shoulders", "Military Press", "Upright Row"));
+                        add(getStrengthWorkout("Shoulders", "Overhead Press", "Upright Row"));
                         add(getStrengthWorkout("Legs", "Squat", "Straight Leg Deadlift"));
                     }});
                 }});
@@ -72,7 +72,7 @@ public class ProgramsDefaults {
                     put(SharedPreferencesHelper.WORKOUTS, new ArrayList<Object>() {{
                         add(getHyperWorkout("Chest", "Bench Press", "45", "1000", "5", "2", "45", DialogHelper.FREE_WEIGHT, "Incline Press", "45", "1000", "5", "45", DialogHelper.FREE_WEIGHT));
                         add(getHyperWorkout("Back", "Deadlift", "45", "1000", "5", "2", "45", DialogHelper.FREE_WEIGHT, "Bent Over Row", "45", "1000", "5", "45", DialogHelper.FREE_WEIGHT));
-                        add(getHyperWorkout("Shoulders", "Military Press", "45", "1000", "5", "2", "45", DialogHelper.FREE_WEIGHT, "Upright Row", "45", "1000", "5", "45", DialogHelper.FREE_WEIGHT));
+                        add(getHyperWorkout("Shoulders", "Overhead Press", "45", "1000", "5", "2", "45", DialogHelper.FREE_WEIGHT, "Upright Row", "45", "1000", "5", "45", DialogHelper.FREE_WEIGHT));
                         add(getHyperWorkout("Legs", "Squat", "45", "1000", "5", "2", "45", DialogHelper.FREE_WEIGHT, "Straight Leg Deadlift", "45", "1000", "5", "45", DialogHelper.FREE_WEIGHT));
                     }});
                 }});

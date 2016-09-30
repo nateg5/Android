@@ -70,17 +70,17 @@ public class ProgramsDefaults {
                 add(new HashMap<String, Object>() {{
                     put(SharedPreferencesHelper.NAME, "10 x 10");
                     put(SharedPreferencesHelper.WORKOUTS, new ArrayList<Object>() {{
-                        add(getHyperWorkout("Chest", "Bench Press", "45", "1000", "5", "2", "45", DialogHelper.FREE_WEIGHT, "Incline Press", "45", "1000", "5", "45", DialogHelper.FREE_WEIGHT));
-                        add(getHyperWorkout("Back", "Deadlift", "45", "1000", "5", "2", "45", DialogHelper.FREE_WEIGHT, "Bent Over Row", "45", "1000", "5", "45", DialogHelper.FREE_WEIGHT));
-                        add(getHyperWorkout("Shoulders", "Overhead Press", "45", "1000", "5", "2", "45", DialogHelper.FREE_WEIGHT, "Upright Row", "45", "1000", "5", "45", DialogHelper.FREE_WEIGHT));
-                        add(getHyperWorkout("Legs", "Squat", "45", "1000", "5", "2", "45", DialogHelper.FREE_WEIGHT, "Straight Leg Deadlift", "45", "1000", "5", "45", DialogHelper.FREE_WEIGHT));
+                        add(getHyperWorkout("Chest", "Bench Press", "45", "1000", "5", "3", "45", DialogHelper.FREE_WEIGHT, "Incline Press", "45", "1000", "5", "3", "45", DialogHelper.FREE_WEIGHT));
+                        add(getHyperWorkout("Back", "Deadlift", "45", "1000", "5", "3", "45", DialogHelper.FREE_WEIGHT, "Bent Over Row", "45", "1000", "5", "3", "45", DialogHelper.FREE_WEIGHT));
+                        add(getHyperWorkout("Shoulders", "Overhead Press", "45", "1000", "5", "3", "45", DialogHelper.FREE_WEIGHT, "Upright Row", "45", "1000", "5", "3", "45", DialogHelper.FREE_WEIGHT));
+                        add(getHyperWorkout("Legs", "Squat", "45", "1000", "5", "3", "45", DialogHelper.FREE_WEIGHT, "Straight Leg Deadlift", "45", "1000", "5", "3", "45", DialogHelper.FREE_WEIGHT));
                     }});
                 }});
                 add(new HashMap<String, Object>() {{
                     put(SharedPreferencesHelper.NAME, "Body Weight");
                     put(SharedPreferencesHelper.WORKOUTS, new ArrayList<Object>() {{
-                        add(getHyperWorkout("Upper Body", "Pushup", "0", "0", "0", "0", "0", DialogHelper.BODY_WEIGHT, "Pullup", "0", "0", "0", "0", DialogHelper.BODY_WEIGHT));
-                        add(getHyperWorkout("Lower Body", "Squat", "0", "0", "0", "0", "0", DialogHelper.BODY_WEIGHT, "Lunge", "0", "0", "0", "0", DialogHelper.BODY_WEIGHT));
+                        add(getHyperWorkout("Upper Body", "Pushup", "0", "0", "0", "0", "0", DialogHelper.BODY_WEIGHT, "Pullup", "0", "0", "0", "0", "0", DialogHelper.BODY_WEIGHT));
+                        add(getHyperWorkout("Lower Body", "Squat", "0", "0", "0", "0", "0", DialogHelper.BODY_WEIGHT, "Lunge", "0", "0", "0", "0", "0", DialogHelper.BODY_WEIGHT));
                     }});
                 }});
             }});
@@ -89,12 +89,12 @@ public class ProgramsDefaults {
 
     private static Map<String,Object> getHyperWorkout(final String workoutName,
                                                      final String exerciseName1, final String minWeight1, final String maxWeight1, final String increment1, final String warmupSets1, final String weight1, final String exerciseType1,
-                                                     final String exerciseName2, final String minWeight2, final String maxWeight2, final String increment2, final String weight2, final String exerciseType2) {
+                                                     final String exerciseName2, final String minWeight2, final String maxWeight2, final String increment2, final String warmupSets2, final String weight2, final String exerciseType2) {
         return new HashMap<String, Object>() {{
             put(SharedPreferencesHelper.NAME, workoutName);
             put(SharedPreferencesHelper.EXERCISES, new ArrayList<Object>() {{
                 add(getHyperExercise(exerciseName1, minWeight1, maxWeight1, increment1, warmupSets1, weight1, exerciseType1));
-                add(getHyperExercise(exerciseName2, minWeight2, maxWeight2, increment2, "0", weight2, exerciseType2));
+                add(getHyperExercise(exerciseName2, minWeight2, maxWeight2, increment2, warmupSets2, weight2, exerciseType2));
             }});
         }};
     }
@@ -189,7 +189,7 @@ public class ProgramsDefaults {
             put(SharedPreferencesHelper.NAME, workoutName);
             put(SharedPreferencesHelper.EXERCISES, new ArrayList<Object>() {{
                 add(getStrengthExercise(exerciseName1, "3"));
-                add(getStrengthExercise(exerciseName2, "1"));
+                add(getStrengthExercise(exerciseName2, "3"));
             }});
         }};
     }
@@ -246,7 +246,7 @@ public class ProgramsDefaults {
             put(SharedPreferencesHelper.CURRENT_VOLUME, "0");
             put(SharedPreferencesHelper.SUCCESS_VOLUME, "0");
             put(SharedPreferencesHelper.INCREMENT, "5");
-            put(SharedPreferencesHelper.WARMUP_SETS, "5");
+            put(SharedPreferencesHelper.WARMUP_SETS, "3");
             put(SharedPreferencesHelper.REPS, "10");
             put(SharedPreferencesHelper.REST, "120");
             put(SharedPreferencesHelper.EXERCISE_TYPE, DialogHelper.FREE_WEIGHT);

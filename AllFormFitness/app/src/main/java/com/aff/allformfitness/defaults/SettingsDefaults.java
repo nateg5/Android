@@ -80,7 +80,7 @@ public class SettingsDefaults {
                 }});
                 add(new HashMap<String, Object>() {{
                     put(SharedPreferencesHelper.NAME, "Starting Warmup %");
-                    put(SharedPreferencesHelper.SETTING, "50");
+                    put(SharedPreferencesHelper.SETTING, "25");
                     put(SharedPreferencesHelper.SETTING_HINT, "Starting Warmup % (Recommended: 50)");
                     put(SharedPreferencesHelper.SETTING_TYPE, String.valueOf(InputType.TYPE_CLASS_NUMBER));
                     put(SharedPreferencesHelper.SETTING_MIN, "1");

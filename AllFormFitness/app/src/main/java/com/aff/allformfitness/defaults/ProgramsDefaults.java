@@ -188,13 +188,13 @@ public class ProgramsDefaults {
         return new HashMap<String, Object>() {{
             put(SharedPreferencesHelper.NAME, workoutName);
             put(SharedPreferencesHelper.EXERCISES, new ArrayList<Object>() {{
-                add(getStrengthExercise(exerciseName1, "3"));
-                add(getStrengthExercise(exerciseName2, "3"));
+                add(getStrengthExercise(exerciseName1));
+                add(getStrengthExercise(exerciseName2));
             }});
         }};
     }
 
-    private static Map<String,Object> getStrengthExercise(final String exerciseName, final String warmupSets) {
+    private static Map<String,Object> getStrengthExercise(final String exerciseName) {
         return new HashMap<String, Object>() {{
             put(SharedPreferencesHelper.NAME, exerciseName);
             put(SharedPreferencesHelper.MIN_WEIGHT, "45");
@@ -202,7 +202,7 @@ public class ProgramsDefaults {
             put(SharedPreferencesHelper.CURRENT_VOLUME, "0");
             put(SharedPreferencesHelper.SUCCESS_VOLUME, "0");
             put(SharedPreferencesHelper.INCREMENT, "5");
-            put(SharedPreferencesHelper.WARMUP_SETS, warmupSets);
+            put(SharedPreferencesHelper.WARMUP_SETS, "3");
             put(SharedPreferencesHelper.REPS, "5");
             put(SharedPreferencesHelper.REST, "120");
             put(SharedPreferencesHelper.EXERCISE_TYPE, DialogHelper.FREE_WEIGHT);

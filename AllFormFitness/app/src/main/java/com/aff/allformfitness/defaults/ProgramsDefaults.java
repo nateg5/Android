@@ -50,209 +50,146 @@ public class ProgramsDefaults {
         return new HashMap<String,Object>() {{
             put(SharedPreferencesHelper.PROGRAMS, new ArrayList<Object>() {{
                 add(new HashMap<String, Object>() {{
-                    put(SharedPreferencesHelper.NAME, "HIT");
+                    put(SharedPreferencesHelper.NAME, "Light Free Weight");
                     put(SharedPreferencesHelper.WORKOUTS, new ArrayList<Object>() {{
-                        add(getHitWorkout("Chest", "Bench Press", "Incline Press"));
-                        add(getHitWorkout("Back", "Deadlift", "Bent Over Row"));
-                        add(getHitWorkout("Shoulders", "Overhead Press", "Upright Row"));
-                        add(getHitWorkout("Legs", "Squat", "Straight Leg Deadlift"));
+                        add(getFreeWeightWorkout("Chest", "Bench Press", "45", "Incline Press", "45"));
+                        add(getFreeWeightWorkout("Back", "Deadlift", "45", "Bent Over Row", "45"));
+                        add(getFreeWeightWorkout("Shoulders", "Overhead Press", "45", "Upright Row", "45"));
+                        add(getFreeWeightWorkout("Legs", "Squat", "45", "Straight Leg Deadlift", "45"));
                     }});
                 }});
                 add(new HashMap<String, Object>() {{
-                    put(SharedPreferencesHelper.NAME, "5 x 5");
+                    put(SharedPreferencesHelper.NAME, "Moderate Free Weight");
                     put(SharedPreferencesHelper.WORKOUTS, new ArrayList<Object>() {{
-                        add(getStrengthWorkout("Chest", "Bench Press", "Incline Press"));
-                        add(getStrengthWorkout("Back", "Deadlift", "Bent Over Row"));
-                        add(getStrengthWorkout("Shoulders", "Overhead Press", "Upright Row"));
-                        add(getStrengthWorkout("Legs", "Squat", "Straight Leg Deadlift"));
+                        add(getFreeWeightWorkout("Chest", "Bench Press", "135", "Incline Press", "95"));
+                        add(getFreeWeightWorkout("Back", "Deadlift", "225", "Bent Over Row", "135"));
+                        add(getFreeWeightWorkout("Shoulders", "Overhead Press", "95", "Upright Row", "65"));
+                        add(getFreeWeightWorkout("Legs", "Squat", "185", "Straight Leg Deadlift", "115"));
                     }});
                 }});
                 add(new HashMap<String, Object>() {{
-                    put(SharedPreferencesHelper.NAME, "10 x 10");
+                    put(SharedPreferencesHelper.NAME, "Heavy Free Weight");
                     put(SharedPreferencesHelper.WORKOUTS, new ArrayList<Object>() {{
-                        add(getHyperWorkout("Chest", "Bench Press", "45", "1000", "5", "3", "45", DialogHelper.FREE_WEIGHT, "Incline Press", "45", "1000", "5", "3", "45", DialogHelper.FREE_WEIGHT));
-                        add(getHyperWorkout("Back", "Deadlift", "45", "1000", "5", "3", "45", DialogHelper.FREE_WEIGHT, "Bent Over Row", "45", "1000", "5", "3", "45", DialogHelper.FREE_WEIGHT));
-                        add(getHyperWorkout("Shoulders", "Overhead Press", "45", "1000", "5", "3", "45", DialogHelper.FREE_WEIGHT, "Upright Row", "45", "1000", "5", "3", "45", DialogHelper.FREE_WEIGHT));
-                        add(getHyperWorkout("Legs", "Squat", "45", "1000", "5", "3", "45", DialogHelper.FREE_WEIGHT, "Straight Leg Deadlift", "45", "1000", "5", "3", "45", DialogHelper.FREE_WEIGHT));
+                        add(getFreeWeightWorkout("Chest", "Bench Press", "225", "Incline Press", "135"));
+                        add(getFreeWeightWorkout("Back", "Deadlift", "405", "Bent Over Row", "225"));
+                        add(getFreeWeightWorkout("Shoulders", "Overhead Press", "135", "Upright Row", "95"));
+                        add(getFreeWeightWorkout("Legs", "Squat", "315", "Straight Leg Deadlift", "185"));
                     }});
                 }});
                 add(new HashMap<String, Object>() {{
                     put(SharedPreferencesHelper.NAME, "Body Weight");
                     put(SharedPreferencesHelper.WORKOUTS, new ArrayList<Object>() {{
-                        add(getHyperWorkout("Upper Body", "Pushup", "0", "0", "0", "0", "0", DialogHelper.BODY_WEIGHT, "Pullup", "0", "0", "0", "0", "0", DialogHelper.BODY_WEIGHT));
-                        add(getHyperWorkout("Lower Body", "Squat", "0", "0", "0", "0", "0", DialogHelper.BODY_WEIGHT, "Lunge", "0", "0", "0", "0", "0", DialogHelper.BODY_WEIGHT));
+                        add(getBodyWeightWorkout("Upper Body", "Pushup", "Pullup"));
+                        add(getBodyWeightWorkout("Lower Body", "Squat", "Lunge"));
                     }});
                 }});
             }});
         }};
     }
 
-    private static Map<String,Object> getHyperWorkout(final String workoutName,
-                                                     final String exerciseName1, final String minWeight1, final String maxWeight1, final String increment1, final String warmupSets1, final String weight1, final String exerciseType1,
-                                                     final String exerciseName2, final String minWeight2, final String maxWeight2, final String increment2, final String warmupSets2, final String weight2, final String exerciseType2) {
+    private static Map<String,Object> getFreeWeightWorkout(final String workoutName,
+                                                           final String exerciseName1, final String weight1,
+                                                           final String exerciseName2, final String weight2) {
         return new HashMap<String, Object>() {{
             put(SharedPreferencesHelper.NAME, workoutName);
             put(SharedPreferencesHelper.EXERCISES, new ArrayList<Object>() {{
-                add(getHyperExercise(exerciseName1, minWeight1, maxWeight1, increment1, warmupSets1, weight1, exerciseType1));
-                add(getHyperExercise(exerciseName2, minWeight2, maxWeight2, increment2, warmupSets2, weight2, exerciseType2));
+                add(getFreeWeightExercise(exerciseName1, weight1));
+                add(getFreeWeightExercise(exerciseName2, weight2));
             }});
         }};
     }
 
-    private static Map<String,Object> getHyperExercise(final String exerciseName, final String minWeight, final String maxWeight, final String increment, final String warmupSets, final String weight, final String exerciseType) {
+    private static Map<String,Object> getFreeWeightExercise(final String exerciseName, final String weight) {
         return new HashMap<String, Object>() {{
             put(SharedPreferencesHelper.NAME, exerciseName);
-            put(SharedPreferencesHelper.MIN_WEIGHT, minWeight);
-            put(SharedPreferencesHelper.MAX_WEIGHT, maxWeight);
+            put(SharedPreferencesHelper.MIN_WEIGHT, "45");
+            put(SharedPreferencesHelper.MAX_WEIGHT, "1000");
             put(SharedPreferencesHelper.CURRENT_VOLUME, "0");
             put(SharedPreferencesHelper.SUCCESS_VOLUME, "0");
-            put(SharedPreferencesHelper.INCREMENT, increment);
-            put(SharedPreferencesHelper.WARMUP_SETS, warmupSets);
+            put(SharedPreferencesHelper.INCREMENT, "10");
+            put(SharedPreferencesHelper.WARMUP_SETS, "4");
             put(SharedPreferencesHelper.REPS, "10");
             put(SharedPreferencesHelper.REST, "60");
-            put(SharedPreferencesHelper.EXERCISE_TYPE, exerciseType);
-
-            if(exerciseType.equals(DialogHelper.FREE_WEIGHT)) {
-                put(SharedPreferencesHelper.SETS, new ArrayList<Object>() {{
-                    add(new HashMap<String, Object>() {{
-                        put(SharedPreferencesHelper.WEIGHT, weight);
-                    }});
-                    add(new HashMap<String, Object>() {{
-                        put(SharedPreferencesHelper.WEIGHT, weight);
-                    }});
-                    add(new HashMap<String, Object>() {{
-                        put(SharedPreferencesHelper.WEIGHT, weight);
-                    }});
-                    add(new HashMap<String, Object>() {{
-                        put(SharedPreferencesHelper.WEIGHT, weight);
-                    }});
-                    add(new HashMap<String, Object>() {{
-                        put(SharedPreferencesHelper.WEIGHT, weight);
-                    }});
-                    add(new HashMap<String, Object>() {{
-                        put(SharedPreferencesHelper.WEIGHT, weight);
-                    }});
-                    add(new HashMap<String, Object>() {{
-                        put(SharedPreferencesHelper.WEIGHT, weight);
-                    }});
-                    add(new HashMap<String, Object>() {{
-                        put(SharedPreferencesHelper.WEIGHT, weight);
-                    }});
-                    add(new HashMap<String, Object>() {{
-                        put(SharedPreferencesHelper.WEIGHT, weight);
-                    }});
-                    add(new HashMap<String, Object>() {{
-                        put(SharedPreferencesHelper.WEIGHT, weight);
-                    }});
-                }});
-            } else {
-                put(SharedPreferencesHelper.SETS, new ArrayList<Object>() {{
-                    add(new HashMap<String, Object>() {{
-                        put(SharedPreferencesHelper.REPS, "10");
-                    }});
-                    add(new HashMap<String, Object>() {{
-                        put(SharedPreferencesHelper.REPS, "10");
-                    }});
-                    add(new HashMap<String, Object>() {{
-                        put(SharedPreferencesHelper.REPS, "10");
-                    }});
-                    add(new HashMap<String, Object>() {{
-                        put(SharedPreferencesHelper.REPS, "10");
-                    }});
-                    add(new HashMap<String, Object>() {{
-                        put(SharedPreferencesHelper.REPS, "10");
-                    }});
-                    add(new HashMap<String, Object>() {{
-                        put(SharedPreferencesHelper.REPS, "10");
-                    }});
-                    add(new HashMap<String, Object>() {{
-                        put(SharedPreferencesHelper.REPS, "10");
-                    }});
-                    add(new HashMap<String, Object>() {{
-                        put(SharedPreferencesHelper.REPS, "10");
-                    }});
-                    add(new HashMap<String, Object>() {{
-                        put(SharedPreferencesHelper.REPS, "10");
-                    }});
-                    add(new HashMap<String, Object>() {{
-                        put(SharedPreferencesHelper.REPS, "10");
-                    }});
-                }});
-            }
-        }};
-    }
-
-    private static Map<String,Object> getStrengthWorkout(final String workoutName,
-                                                     final String exerciseName1,
-                                                     final String exerciseName2) {
-        return new HashMap<String, Object>() {{
-            put(SharedPreferencesHelper.NAME, workoutName);
-            put(SharedPreferencesHelper.EXERCISES, new ArrayList<Object>() {{
-                add(getStrengthExercise(exerciseName1));
-                add(getStrengthExercise(exerciseName2));
-            }});
-        }};
-    }
-
-    private static Map<String,Object> getStrengthExercise(final String exerciseName) {
-        return new HashMap<String, Object>() {{
-            put(SharedPreferencesHelper.NAME, exerciseName);
-            put(SharedPreferencesHelper.MIN_WEIGHT, "45");
-            put(SharedPreferencesHelper.MAX_WEIGHT, "1000");
-            put(SharedPreferencesHelper.CURRENT_VOLUME, "0");
-            put(SharedPreferencesHelper.SUCCESS_VOLUME, "0");
-            put(SharedPreferencesHelper.INCREMENT, "5");
-            put(SharedPreferencesHelper.WARMUP_SETS, "3");
-            put(SharedPreferencesHelper.REPS, "5");
-            put(SharedPreferencesHelper.REST, "120");
             put(SharedPreferencesHelper.EXERCISE_TYPE, DialogHelper.FREE_WEIGHT);
+
             put(SharedPreferencesHelper.SETS, new ArrayList<Object>() {{
                 add(new HashMap<String, Object>() {{
-                    put(SharedPreferencesHelper.WEIGHT, "45");
+                    put(SharedPreferencesHelper.WEIGHT, weight);
                 }});
                 add(new HashMap<String, Object>() {{
-                    put(SharedPreferencesHelper.WEIGHT, "45");
+                    put(SharedPreferencesHelper.WEIGHT, weight);
                 }});
                 add(new HashMap<String, Object>() {{
-                    put(SharedPreferencesHelper.WEIGHT, "45");
+                    put(SharedPreferencesHelper.WEIGHT, weight);
                 }});
                 add(new HashMap<String, Object>() {{
-                    put(SharedPreferencesHelper.WEIGHT, "45");
+                    put(SharedPreferencesHelper.WEIGHT, weight);
                 }});
                 add(new HashMap<String, Object>() {{
-                    put(SharedPreferencesHelper.WEIGHT, "45");
+                    put(SharedPreferencesHelper.WEIGHT, weight);
+                }});
+                add(new HashMap<String, Object>() {{
+                    put(SharedPreferencesHelper.WEIGHT, weight);
                 }});
             }});
         }};
     }
 
-    private static Map<String,Object> getHitWorkout(final String workoutName,
-                                                      final String exerciseName1,
-                                                      final String exerciseName2) {
+    private static Map<String,Object> getBodyWeightWorkout(final String workoutName,
+                                                           final String exerciseName1,
+                                                           final String exerciseName2) {
         return new HashMap<String, Object>() {{
             put(SharedPreferencesHelper.NAME, workoutName);
             put(SharedPreferencesHelper.EXERCISES, new ArrayList<Object>() {{
-                add(getHitExercise(exerciseName1));
-                add(getHitExercise(exerciseName2));
+                add(getBodyWeightExercise(exerciseName1));
+                add(getBodyWeightExercise(exerciseName2));
             }});
         }};
     }
 
-    private static Map<String,Object> getHitExercise(final String exerciseName) {
+    private static Map<String,Object> getBodyWeightExercise(final String exerciseName) {
         return new HashMap<String, Object>() {{
             put(SharedPreferencesHelper.NAME, exerciseName);
-            put(SharedPreferencesHelper.MIN_WEIGHT, "45");
-            put(SharedPreferencesHelper.MAX_WEIGHT, "1000");
+            put(SharedPreferencesHelper.MIN_WEIGHT, "0");
+            put(SharedPreferencesHelper.MAX_WEIGHT, "0");
             put(SharedPreferencesHelper.CURRENT_VOLUME, "0");
             put(SharedPreferencesHelper.SUCCESS_VOLUME, "0");
-            put(SharedPreferencesHelper.INCREMENT, "5");
-            put(SharedPreferencesHelper.WARMUP_SETS, "3");
+            put(SharedPreferencesHelper.INCREMENT, "0");
+            put(SharedPreferencesHelper.WARMUP_SETS, "0");
             put(SharedPreferencesHelper.REPS, "10");
-            put(SharedPreferencesHelper.REST, "120");
-            put(SharedPreferencesHelper.EXERCISE_TYPE, DialogHelper.FREE_WEIGHT);
+            put(SharedPreferencesHelper.REST, "60");
+            put(SharedPreferencesHelper.EXERCISE_TYPE, DialogHelper.BODY_WEIGHT);
+
             put(SharedPreferencesHelper.SETS, new ArrayList<Object>() {{
                 add(new HashMap<String, Object>() {{
-                    put(SharedPreferencesHelper.WEIGHT, "45");
+                    put(SharedPreferencesHelper.REPS, "10");
+                }});
+                add(new HashMap<String, Object>() {{
+                    put(SharedPreferencesHelper.REPS, "10");
+                }});
+                add(new HashMap<String, Object>() {{
+                    put(SharedPreferencesHelper.REPS, "10");
+                }});
+                add(new HashMap<String, Object>() {{
+                    put(SharedPreferencesHelper.REPS, "10");
+                }});
+                add(new HashMap<String, Object>() {{
+                    put(SharedPreferencesHelper.REPS, "10");
+                }});
+                add(new HashMap<String, Object>() {{
+                    put(SharedPreferencesHelper.REPS, "10");
+                }});
+                add(new HashMap<String, Object>() {{
+                    put(SharedPreferencesHelper.REPS, "10");
+                }});
+                add(new HashMap<String, Object>() {{
+                    put(SharedPreferencesHelper.REPS, "10");
+                }});
+                add(new HashMap<String, Object>() {{
+                    put(SharedPreferencesHelper.REPS, "10");
+                }});
+                add(new HashMap<String, Object>() {{
+                    put(SharedPreferencesHelper.REPS, "10");
                 }});
             }});
         }};

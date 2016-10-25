@@ -138,9 +138,11 @@ public class WorkoutActivity extends AppCompatActivity implements AFFActivity {
                 for (int i = 0; i < numberOfWarmupSets; i++) {
                     double halfWeight = firstSetWeight / (100.0 / warmupPercent);
                     double warmupIncrement = (firstSetWeight - halfWeight) / numberOfWarmupSets;
-                    int warmupWeight = (int) ((warmupIncrement * i) + halfWeight);
-                    warmupWeight = increment > 0 ? warmupWeight - (warmupWeight % increment) : warmupWeight;
-                    warmupWeight = warmupWeight < minWeight ? minWeight : warmupWeight;
+                    int targetWarmupWeight = (int) ((warmupIncrement * i) + halfWeight);
+                    int warmupWeight = minWeight;
+                    while(warmupWeight <= (targetWarmupWeight - increment)) {
+                        warmupWeight += increment;
+                    }
 
                     final AppCompatButton buttonWarmupSet = ActivityHelper.createButton(context, "WU " + (i + 1), false);
                     final AppCompatButton buttonWarmupWeight = ActivityHelper.createButton(context, warmupWeight + " " + weightUnit, false);

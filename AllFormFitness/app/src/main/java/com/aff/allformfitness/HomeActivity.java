@@ -176,7 +176,7 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 try {
-                    Uri uri = Uri.parse("amzn://apps/android?p=" + getPackageName());
+                    Uri uri = Uri.parse("amzn://apps/android?p=" + getPackageName() + "&showAll=1");
                     Intent intent = new Intent(Intent.ACTION_VIEW, uri);
                     startActivity(intent);
                 } catch (ActivityNotFoundException e) {

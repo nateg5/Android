@@ -23,6 +23,6 @@ public class LogHelper {
     }
 
     public static void toast(String string) {
-        Toast.makeText(SharedPreferencesHelper.getContext(), string, Toast.LENGTH_LONG).show();
+        Toast.makeText(SharedPreferencesHelper.instance.getContext(), string, Toast.LENGTH_LONG).show();
     }
 }

@@ -34,9 +34,9 @@ public class HomeActivity extends AppCompatActivity {
 
         init();
 
-        String howToHome = SharedPreferencesHelper.getPreference(SharedPreferencesHelper.HOW_TO_HOME);
+        String howToHome = SharedPreferencesHelper.instance.getPreference(SharedPreferencesHelper.HOW_TO_HOME);
         if(howToHome.equals("true")) {
-            SharedPreferencesHelper.setPreference(SharedPreferencesHelper.HOW_TO_HOME, "false", Constants.MIN, Constants.MAX);
+            SharedPreferencesHelper.instance.setPreference(SharedPreferencesHelper.HOW_TO_HOME, "false", Constants.MIN, Constants.MAX);
 
             DialogHelper.createDialog(
                     context,
@@ -52,7 +52,7 @@ public class HomeActivity extends AppCompatActivity {
     private void init() {
         final Context context = this;
 
-        SharedPreferencesHelper.init(context);
+        SharedPreferencesHelper.instance.init(context);
 
         AppCompatButton buttonPrograms = ActivityHelper.createButton(context, SharedPreferencesHelper.PROGRAMS, true);
         buttonPrograms.setOnClickListener(new View.OnClickListener() {
@@ -135,7 +135,7 @@ public class HomeActivity extends AppCompatActivity {
                 dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if (SharedPreferencesHelper.backup()) {
+                        if (SharedPreferencesHelper.instance.backup()) {
                             LogHelper.toast("Data backup complete!");
                             dialog.dismiss();
                         } else {
@@ -156,7 +156,7 @@ public class HomeActivity extends AppCompatActivity {
                 dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if(SharedPreferencesHelper.restore()) {
+                        if(SharedPreferencesHelper.instance.restore()) {
                             LogHelper.toast("Data restore complete!");
                             dialog.dismiss();
                         } else {

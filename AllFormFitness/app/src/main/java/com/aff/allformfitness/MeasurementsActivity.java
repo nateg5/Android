@@ -47,7 +47,7 @@ public class MeasurementsActivity extends AppCompatActivity implements AFFActivi
                 dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if (SharedPreferencesHelper.addMeasurement(editText.getText().toString())) {
+                        if (SharedPreferencesHelper.instance.addMeasurement(editText.getText().toString())) {
                             ((ViewGroup) findViewById(R.id.content_measurements)).removeAllViews();
                             init();
                             dialog.dismiss();
@@ -69,12 +69,12 @@ public class MeasurementsActivity extends AppCompatActivity implements AFFActivi
         final Context context = this;
         final AppCompatActivity activity = this;
 
-        List<String> measurements =  SharedPreferencesHelper.getMeasurements();
+        List<String> measurements =  SharedPreferencesHelper.instance.getMeasurements();
 
         for(String measurement : measurements) {
             final String measurementIndex = measurement;
 
-            final AppCompatButton buttonMeasurement = ActivityHelper.createButton(context, SharedPreferencesHelper.getPreference(measurementIndex, SharedPreferencesHelper.NAME), true);
+            final AppCompatButton buttonMeasurement = ActivityHelper.createButton(context, SharedPreferencesHelper.instance.getPreference(measurementIndex, SharedPreferencesHelper.NAME), true);
             buttonMeasurement.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -86,7 +86,7 @@ public class MeasurementsActivity extends AppCompatActivity implements AFFActivi
             buttonMeasurement.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View v) {
-                    final AlertDialog dialog = DialogHelper.createDialog(context, SharedPreferencesHelper.getPreference(measurementIndex, SharedPreferencesHelper.NAME), DialogHelper.RENAME_MENU);
+                    final AlertDialog dialog = DialogHelper.createDialog(context, SharedPreferencesHelper.instance.getPreference(measurementIndex, SharedPreferencesHelper.NAME), DialogHelper.RENAME_MENU);
                     dialog.getListView().setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

@@ -89,12 +89,14 @@ public class SharedPreferencesHelper {
 
     public final static String HELP = "Help";
 
-    private static Context context;
-    private static SharedPreferences.Editor editor;
-    private static Map<String, String> localPreferences;
+    public final static SharedPreferencesHelper instance = new SharedPreferencesHelper();
+
+    private Context context;
+    private SharedPreferences.Editor editor;
+    private Map<String, String> localPreferences;
 
 
-    public static void init(Context c) {
+    public void init(Context c) {
         context = c;
         SharedPreferences sharedPreferences = context.getSharedPreferences(PACKAGE, Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
@@ -106,11 +108,11 @@ public class SharedPreferencesHelper {
         HowToDefaults.create();
         SettingsDefaults.create();
 
-        editor.commit();
+        if(!editor.commit()) {
+            LogHelper.error("Failed to commit shared preferences.");
+        }
 
-        /**
-         * Temporary code for adding exercise type on upgrade. Can be removed later.
-         */
+        /* Temporary code for adding exercise type on upgrade. Can be removed later. */
         Map<String, String> tempPreferences = new HashMap<>(localPreferences);
         for(Map.Entry<String, String> entry : tempPreferences.entrySet()) {
             String exercisesSearchString = SEPARATOR + EXERCISES + SEPARATOR;
@@ -132,15 +134,15 @@ public class SharedPreferencesHelper {
         /**/
     }
 
-    public static Context getContext() {
+    public Context getContext() {
         return context;
     }
 
-    public static Map<String,String> getLocalPreferences() {
+    public Map<String,String> getLocalPreferences() {
         return localPreferences;
     }
 
-    public static boolean commit() {
+    public boolean commit() {
         LogHelper.debug("Committing localPreferences changes to sharedPreferences");
 
         editor.clear();
@@ -154,27 +156,27 @@ public class SharedPreferencesHelper {
         return success;
     }
 
-    public static List<String> getPrograms() {
+    public List<String> getPrograms() {
         return getList("", PROGRAMS, NAME);
     }
 
-    public static boolean addProgram(String name) {
+    public boolean addProgram(String name) {
         List<String> programs = getPrograms();
 
         return setPreference(buildPreferenceString(PROGRAMS, String.valueOf(programs.size())), NAME, name, Constants.MIN, Constants.MAX);
     }
 
-    public static List<String> getWorkouts(String program) {
+    public List<String> getWorkouts(String program) {
         return getList(program, WORKOUTS, NAME);
     }
 
-    public static boolean addWorkout(String program, String name) {
+    public boolean addWorkout(String program, String name) {
         List<String> workouts = getWorkouts(program);
 
         return setPreference(buildPreferenceString(program, WORKOUTS, String.valueOf(workouts.size())), NAME, name, Constants.MIN, Constants.MAX);
     }
 
-    public static boolean finishWorkout(String exercise, boolean success) {
+    public boolean finishWorkout(String exercise, boolean success) {
         boolean retVal = true;
 
         if(success) {
@@ -197,7 +199,7 @@ public class SharedPreferencesHelper {
         return retVal;
     }
 
-    private static boolean increaseVolumeOnePercent(String exercise) {
+    private boolean increaseVolumeOnePercent(String exercise) {
         boolean success = true;
 
         double incrementPercent = Double.valueOf(getPreference(buildPreferenceString(SETTINGS, SettingsDefaults.INCREMENT, SETTING)));
@@ -212,7 +214,7 @@ public class SharedPreferencesHelper {
         return success;
     }
 
-    private static boolean decreaseVolumeTenPercent(String exercise) {
+    private boolean decreaseVolumeTenPercent(String exercise) {
         boolean success = true;
 
         double decrementPercent = Double.valueOf(getPreference(buildPreferenceString(SETTINGS, SettingsDefaults.DECREMENT, SETTING)));
@@ -227,7 +229,7 @@ public class SharedPreferencesHelper {
         return success;
     }
 
-    private static boolean increaseVolume(String exercise) {
+    private boolean increaseVolume(String exercise) {
         boolean success = true;
 
         String exerciseType = getPreference(exercise, EXERCISE_TYPE);
@@ -286,7 +288,7 @@ public class SharedPreferencesHelper {
         return success;
     }
 
-    private static boolean decreaseVolume(String exercise) {
+    private boolean decreaseVolume(String exercise) {
         boolean success = true;
 
         String exerciseType = getPreference(exercise, EXERCISE_TYPE);
@@ -343,7 +345,7 @@ public class SharedPreferencesHelper {
         return success;
     }
 
-    public static int getVolume(String exercise) {
+    public int getVolume(String exercise) {
         String exerciseType = getPreference(exercise, EXERCISE_TYPE);
 
         int volume = 0;
@@ -371,7 +373,7 @@ public class SharedPreferencesHelper {
         return volume;
     }
 
-    private static int getVolumeMin(String exercise) {
+    private int getVolumeMin(String exercise) {
         String exerciseType = getPreference(exercise, EXERCISE_TYPE);
 
         int minWeight = 1;
@@ -395,11 +397,11 @@ public class SharedPreferencesHelper {
         return volumeMin;
     }
 
-    public static List<String> getExercises(String workout) {
+    public List<String> getExercises(String workout) {
         return getList(workout, EXERCISES, NAME);
     }
 
-    public static boolean addExercise(String workout, String name, String increment, String warmupSets, String reps, String rest, String minWeight, String maxWeight, String exerciseType) {
+    public boolean addExercise(String workout, String name, String increment, String warmupSets, String reps, String rest, String minWeight, String maxWeight, String exerciseType) {
         List<String> exercises = getExercises(workout);
 
         if(name.trim().length() == 0
@@ -470,7 +472,7 @@ public class SharedPreferencesHelper {
                 && setPreference(buildPreferenceString(workout, EXERCISES, String.valueOf(exercises.size())), EXERCISE_TYPE, exerciseType, Constants.MIN, Constants.MAX));
     }
 
-    public static List<String> getSets(String exercise) {
+    public List<String> getSets(String exercise) {
         String exerciseType = getPreference(exercise, EXERCISE_TYPE);
 
         if(exerciseType.equals(DialogHelper.FREE_WEIGHT)) {
@@ -480,7 +482,7 @@ public class SharedPreferencesHelper {
         }
     }
 
-    public static boolean addSet(String exercise, String value, int min, int max) {
+    public boolean addSet(String exercise, String value, int min, int max) {
         List<String> sets = getSets(exercise);
         String exerciseType = getPreference(exercise, EXERCISE_TYPE);
 
@@ -491,11 +493,11 @@ public class SharedPreferencesHelper {
         }
     }
 
-    public static List<String> getHistory(String workout) {
+    public List<String> getHistory(String workout) {
         return getList(workout, HISTORY, DATE);
     }
 
-    public static boolean addHistory(String workout, Map<String, String> historyMap) {
+    public boolean addHistory(String workout, Map<String, String> historyMap) {
         List<String> history = getHistory(workout);
 
         boolean success = true;
@@ -510,21 +512,21 @@ public class SharedPreferencesHelper {
         return success;
     }
 
-    public static List<String> getMeasurements() {
+    public List<String> getMeasurements() {
         return getList("", MEASUREMENTS, NAME);
     }
 
-    public static boolean addMeasurement(String name) {
+    public boolean addMeasurement(String name) {
         List<String> measurements = getMeasurements();
 
         return setPreference(buildPreferenceString(MEASUREMENTS, String.valueOf(measurements.size())), NAME, name, Constants.MIN, Constants.MAX);
     }
 
-    public static List<String> getEntries(String measurement) {
+    public List<String> getEntries(String measurement) {
         return getList(measurement, ENTRIES, DATE);
     }
 
-    public static boolean addEntry(String measurement, String date, String entry) {
+    public boolean addEntry(String measurement, String date, String entry) {
         List<String> entries = getEntries(measurement);
 
         try {
@@ -547,11 +549,11 @@ public class SharedPreferencesHelper {
                 && setPreference(buildPreferenceString(measurement, ENTRIES, String.valueOf(entries.size())), ENTRY, entry, Constants.MIN, Constants.MAX));
     }
 
-    public static List<String> getSettings() {
+    public List<String> getSettings() {
         return getList("", SETTINGS, NAME);
     }
 
-    private static List<String> getList(String parent, String child, String preference) {
+    private List<String> getList(String parent, String child, String preference) {
         List<String> list = new ArrayList<>();
 
         if(isParentIndexValid(parent, true)) {
@@ -567,7 +569,7 @@ public class SharedPreferencesHelper {
         return list;
     }
 
-    public static String getPreference(String parent, String child) {
+    public String getPreference(String parent, String child) {
         String preference = "";
 
         if(isParentIndexValid(parent, true)) {
@@ -578,7 +580,7 @@ public class SharedPreferencesHelper {
         return preference;
     }
 
-    public static String getPreference(String key) {
+    public String getPreference(String key) {
         String preference = "";
 
         if (localPreferences.containsKey(key)) {
@@ -590,11 +592,11 @@ public class SharedPreferencesHelper {
         return preference;
     }
 
-    public static boolean setPreference(String parent, String child, String value, int min, int max) {
+    public boolean setPreference(String parent, String child, String value, int min, int max) {
         return setPreference(parent, child, value, min, max, true);
     }
 
-    public static boolean setPreference(String parent, String child, String value, int min, int max, boolean commit) {
+    public boolean setPreference(String parent, String child, String value, int min, int max, boolean commit) {
         LogHelper.debug("Setting preference " + parent + ", " + child + ", " + value);
 
         boolean success = false;
@@ -607,11 +609,11 @@ public class SharedPreferencesHelper {
         return success;
     }
 
-    public static boolean setPreference(String key, String value, int min, int max) {
+    public boolean setPreference(String key, String value, int min, int max) {
         return setPreference(key, value, min, max, true);
     }
 
-    public static boolean setPreference(String key, String value, int min, int max, boolean commit) {
+    public boolean setPreference(String key, String value, int min, int max, boolean commit) {
         boolean success = false;
 
         if(value.trim().length() > 0 || key.contains(NOTES)) {
@@ -647,7 +649,7 @@ public class SharedPreferencesHelper {
         return success;
     }
 
-    private static boolean removePreference(String key) {
+    private boolean removePreference(String key) {
         boolean success = false;
 
         if(!isParentIndexValid(key, false)) {
@@ -664,7 +666,7 @@ public class SharedPreferencesHelper {
         return success;
     }
 
-    public static boolean removePreferenceTree(String parent) {
+    public boolean removePreferenceTree(String parent) {
         LogHelper.debug("Removing preference tree for " + parent);
 
         boolean success = true;
@@ -695,15 +697,15 @@ public class SharedPreferencesHelper {
         return success;
     }
 
-    public static boolean movePreferenceTreeUp(String parent) {
+    public boolean movePreferenceTreeUp(String parent) {
         return movePreferenceTree(parent, -1);
     }
 
-    public static boolean movePreferenceTreeDown(String parent) {
+    public boolean movePreferenceTreeDown(String parent) {
         return movePreferenceTree(parent, 1);
     }
 
-    private static boolean movePreferenceTree(String parent, int direction) {
+    private boolean movePreferenceTree(String parent, int direction) {
         LogHelper.debug("Moving preference tree for " + parent);
 
         boolean success = true;
@@ -724,7 +726,7 @@ public class SharedPreferencesHelper {
         return success;
     }
 
-    private static boolean parentExists(String parent) {
+    private boolean parentExists(String parent) {
         for(Map.Entry<String,String> entry : localPreferences.entrySet()) {
             if(entry.getKey().contains(parent)) {
                 return true;
@@ -734,7 +736,7 @@ public class SharedPreferencesHelper {
         return false;
     }
 
-    private static boolean swap(String parent1, String parent2) {
+    private boolean swap(String parent1, String parent2) {
         LogHelper.debug("Swapping " + parent1 + " and " + parent2);
 
         return (move(parent1, buildPreferenceString(parent1, SWAP, "0"))
@@ -742,7 +744,7 @@ public class SharedPreferencesHelper {
                 && move(buildPreferenceString(parent1, SWAP, "0"), parent2));
     }
 
-    private static boolean move(String fromParent, String toParent) {
+    private boolean move(String fromParent, String toParent) {
         LogHelper.debug("Moving " + fromParent + " to " + toParent);
 
         boolean success = true;
@@ -764,7 +766,7 @@ public class SharedPreferencesHelper {
         return success;
     }
 
-    public static boolean copyPreferenceTree(String parent) {
+    public boolean copyPreferenceTree(String parent) {
         LogHelper.debug("Copying preference tree for " + parent);
 
         boolean success;
@@ -788,7 +790,7 @@ public class SharedPreferencesHelper {
         return success;
     }
 
-    private static boolean copy(String fromParent, String toParent) {
+    private boolean copy(String fromParent, String toParent) {
         LogHelper.debug("Copying " + fromParent + " to " + toParent);
 
         boolean success = true;
@@ -810,7 +812,7 @@ public class SharedPreferencesHelper {
     }
 
     @SuppressWarnings("ResultOfMethodCallIgnored")
-    public static boolean isParentIndexValid(String parent, boolean reportError) {
+    public boolean isParentIndexValid(String parent, boolean reportError) {
         boolean valid = true;
 
         try {
@@ -827,7 +829,7 @@ public class SharedPreferencesHelper {
         return valid;
     }
 
-    public static String buildPreferenceString(String ... strings) {
+    public String buildPreferenceString(String ... strings) {
         String preferenceString = "";
         for(String string : strings) {
             if(preferenceString.length() > 0) {
@@ -839,7 +841,7 @@ public class SharedPreferencesHelper {
     }
 
     @SuppressWarnings("ResultOfMethodCallIgnored")
-    public static boolean backup() {
+    public boolean backup() {
         boolean success = false;
 
         if(Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
@@ -875,7 +877,7 @@ public class SharedPreferencesHelper {
     }
 
     @SuppressWarnings("ResultOfMethodCallIgnored")
-    public static boolean restore() {
+    public boolean restore() {
         boolean success = false;
 
         if(Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
@@ -927,7 +929,7 @@ public class SharedPreferencesHelper {
         return success;
     }
 
-    /*public static void printSharedPreferences() {
+    /*public void printSharedPreferences() {
         LogHelper.debug("********** Printing Shared Preferences **********");
         List<String> sharedPreferencesList = new ArrayList<String>();
         for(Map.Entry<String,String> entry : localPreferences.entrySet()) {

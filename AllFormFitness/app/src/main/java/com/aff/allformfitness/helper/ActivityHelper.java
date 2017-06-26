@@ -102,19 +102,19 @@ public class ActivityHelper {
     }
 
     public static void createExerciseEditButton(final AppCompatActivity activity, final String index, final String label, final String unit, final String preference, final int min, final int max) {
-        final AppCompatButton button = createButton(activity, label + ": " + SharedPreferencesHelper.getPreference(index, preference) + " " + unit, true);
+        final AppCompatButton button = createButton(activity, label + ": " + SharedPreferencesHelper.instance.getPreference(index, preference) + " " + unit, true);
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final AppCompatEditText editText = DialogHelper.createEditText(activity, SharedPreferencesHelper.getPreference(index, preference), label, InputType.TYPE_CLASS_NUMBER);
+                final AppCompatEditText editText = DialogHelper.createEditText(activity, SharedPreferencesHelper.instance.getPreference(index, preference), label, InputType.TYPE_CLASS_NUMBER);
 
                 final AlertDialog dialogEdit = DialogHelper.createDialog(activity, label, DialogHelper.SAVE, editText);
 
                 dialogEdit.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if (SharedPreferencesHelper.setPreference(index, preference, editText.getText().toString(), min, max)) {
+                        if (SharedPreferencesHelper.instance.setPreference(index, preference, editText.getText().toString(), min, max)) {
                             button.setText(activity.getString(R.string.label_text_unit, label, editText.getText().toString(), unit));
                             dialogEdit.dismiss();
                         } else {
@@ -129,7 +129,7 @@ public class ActivityHelper {
     }
 
     public static void moveUp(final AppCompatActivity activity, final int resId, final String index) {
-        if (SharedPreferencesHelper.movePreferenceTreeUp(index)) {
+        if (SharedPreferencesHelper.instance.movePreferenceTreeUp(index)) {
             ((ViewGroup)activity.findViewById(resId)).removeAllViews();
             ((AFFActivity)activity).init();
         } else {
@@ -138,7 +138,7 @@ public class ActivityHelper {
     }
 
     public static void moveDown(final AppCompatActivity activity, final int resId, final String index) {
-        if (SharedPreferencesHelper.movePreferenceTreeDown(index)) {
+        if (SharedPreferencesHelper.instance.movePreferenceTreeDown(index)) {
             ((ViewGroup)activity.findViewById(resId)).removeAllViews();
             ((AFFActivity)activity).init();
         } else {
@@ -147,7 +147,7 @@ public class ActivityHelper {
     }
 
     public static void copy(final AppCompatActivity activity, final int resId, final String index) {
-        if (SharedPreferencesHelper.copyPreferenceTree(index)) {
+        if (SharedPreferencesHelper.instance.copyPreferenceTree(index)) {
             ((ViewGroup)activity.findViewById(resId)).removeAllViews();
             ((AFFActivity)activity).init();
         } else {

@@ -36,7 +36,7 @@ public class ExercisesActivity extends AppCompatActivity implements AFFActivity 
 
         final Context context = this;
         final String workoutIndex = getIntent().getStringExtra(SharedPreferencesHelper.WORKOUTS);
-        final String workoutName = SharedPreferencesHelper.getPreference(workoutIndex, SharedPreferencesHelper.NAME);
+        final String workoutName = SharedPreferencesHelper.instance.getPreference(workoutIndex, SharedPreferencesHelper.NAME);
 
         if(workoutName.trim().length() > 0) {
             setTitle(workoutName + " " + getTitle());
@@ -66,7 +66,7 @@ public class ExercisesActivity extends AppCompatActivity implements AFFActivity 
                                 dialogFreeWeight.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View v) {
-                                        if (SharedPreferencesHelper.addExercise(workoutIndex,
+                                        if (SharedPreferencesHelper.instance.addExercise(workoutIndex,
                                                 editTextName.getText().toString(),
                                                 editTextIncrement.getText().toString(),
                                                 editTextWarmupSets.getText().toString(),
@@ -79,7 +79,7 @@ public class ExercisesActivity extends AppCompatActivity implements AFFActivity 
                                             init();
                                             dialogFreeWeight.dismiss();
 
-                                            List<String> exercises =  SharedPreferencesHelper.getExercises(workoutIndex);
+                                            List<String> exercises =  SharedPreferencesHelper.instance.getExercises(workoutIndex);
                                             Intent intent = new Intent(context, ExerciseActivity.class);
                                             intent.putExtra(SharedPreferencesHelper.EXERCISES, exercises.get(exercises.size()-1));
                                             startActivity(intent);
@@ -102,7 +102,7 @@ public class ExercisesActivity extends AppCompatActivity implements AFFActivity 
                                 dialogBodyWeight.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View v) {
-                                        if (SharedPreferencesHelper.addExercise(workoutIndex,
+                                        if (SharedPreferencesHelper.instance.addExercise(workoutIndex,
                                                 editTextName.getText().toString(),
                                                 editTextIncrement.getText().toString(),
                                                 editTextWarmupSets.getText().toString(),
@@ -115,7 +115,7 @@ public class ExercisesActivity extends AppCompatActivity implements AFFActivity 
                                             init();
                                             dialogBodyWeight.dismiss();
 
-                                            List<String> exercises =  SharedPreferencesHelper.getExercises(workoutIndex);
+                                            List<String> exercises =  SharedPreferencesHelper.instance.getExercises(workoutIndex);
                                             Intent intent = new Intent(context, ExerciseActivity.class);
                                             intent.putExtra(SharedPreferencesHelper.EXERCISES, exercises.get(exercises.size() - 1));
                                             startActivity(intent);
@@ -145,12 +145,12 @@ public class ExercisesActivity extends AppCompatActivity implements AFFActivity 
         final AppCompatActivity activity = this;
         final String workoutIndex = getIntent().getStringExtra(SharedPreferencesHelper.WORKOUTS);
 
-        List<String> exercises =  SharedPreferencesHelper.getExercises(workoutIndex);
+        List<String> exercises =  SharedPreferencesHelper.instance.getExercises(workoutIndex);
 
         for(String exercise : exercises) {
             final String exerciseIndex = exercise;
 
-            final AppCompatButton buttonExercise = ActivityHelper.createButton(context, SharedPreferencesHelper.getPreference(exerciseIndex, SharedPreferencesHelper.NAME), true);
+            final AppCompatButton buttonExercise = ActivityHelper.createButton(context, SharedPreferencesHelper.instance.getPreference(exerciseIndex, SharedPreferencesHelper.NAME), true);
             buttonExercise.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -162,7 +162,7 @@ public class ExercisesActivity extends AppCompatActivity implements AFFActivity 
             buttonExercise.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View v) {
-                    final AlertDialog dialog = DialogHelper.createDialog(context, SharedPreferencesHelper.getPreference(exerciseIndex, SharedPreferencesHelper.NAME), DialogHelper.RENAME_MENU);
+                    final AlertDialog dialog = DialogHelper.createDialog(context, SharedPreferencesHelper.instance.getPreference(exerciseIndex, SharedPreferencesHelper.NAME), DialogHelper.RENAME_MENU);
                     dialog.getListView().setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

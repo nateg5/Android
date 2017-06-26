@@ -52,7 +52,7 @@ public class WorkoutActivity extends AppCompatActivity implements AFFActivity {
         final Context context = this;
 
         final String workoutIndex = getIntent().getStringExtra(SharedPreferencesHelper.WORKOUTS);
-        final String workoutName = SharedPreferencesHelper.getPreference(workoutIndex, SharedPreferencesHelper.NAME);
+        final String workoutName = SharedPreferencesHelper.instance.getPreference(workoutIndex, SharedPreferencesHelper.NAME);
 
         if(workoutName.trim().length() > 0) {
             setTitle(workoutName);
@@ -64,9 +64,9 @@ public class WorkoutActivity extends AppCompatActivity implements AFFActivity {
 
         init();
 
-        String howToWorkout = SharedPreferencesHelper.getPreference(SharedPreferencesHelper.HOW_TO_WORKOUT);
+        String howToWorkout = SharedPreferencesHelper.instance.getPreference(SharedPreferencesHelper.HOW_TO_WORKOUT);
         if(howToWorkout.equals("true")) {
-            SharedPreferencesHelper.setPreference(SharedPreferencesHelper.HOW_TO_WORKOUT, "false", Constants.MIN, Constants.MAX);
+            SharedPreferencesHelper.instance.setPreference(SharedPreferencesHelper.HOW_TO_WORKOUT, "false", Constants.MIN, Constants.MAX);
 
             DialogHelper.createDialog(
                     context,
@@ -80,7 +80,7 @@ public class WorkoutActivity extends AppCompatActivity implements AFFActivity {
     }
 
     public void init() {
-        final String weightUnit = SharedPreferencesHelper.getPreference(SharedPreferencesHelper.buildPreferenceString(SharedPreferencesHelper.SETTINGS, SettingsDefaults.UNIT, SharedPreferencesHelper.SETTING));
+        final String weightUnit = SharedPreferencesHelper.instance.getPreference(SharedPreferencesHelper.instance.buildPreferenceString(SharedPreferencesHelper.SETTINGS, SettingsDefaults.UNIT, SharedPreferencesHelper.SETTING));
 
         final Context context = this;
         final String workoutIndex = getIntent().getStringExtra(SharedPreferencesHelper.WORKOUTS);
@@ -92,27 +92,25 @@ public class WorkoutActivity extends AppCompatActivity implements AFFActivity {
         historyMap.put(SharedPreferencesHelper.NAME, getTitle().toString());
         historyMap.put(SharedPreferencesHelper.NOTES, "");
 
-        List<String> exercises = SharedPreferencesHelper.getExercises(workoutIndex);
+        List<String> exercises = SharedPreferencesHelper.instance.getExercises(workoutIndex);
 
         for(String exerciseIndex : exercises) {
-            final String exerciseType = SharedPreferencesHelper.getPreference(exerciseIndex, SharedPreferencesHelper.EXERCISE_TYPE);
+            final String exerciseType = SharedPreferencesHelper.instance.getPreference(exerciseIndex, SharedPreferencesHelper.EXERCISE_TYPE);
             final Map<String, Boolean> setMap = new HashMap<>();
             exerciseMap.put(exerciseIndex, setMap);
 
             final String historyExerciseIndex = exerciseIndex.substring(exerciseIndex.lastIndexOf(SharedPreferencesHelper.EXERCISES));
 
-            historyMap.put(SharedPreferencesHelper.buildPreferenceString(historyExerciseIndex, SharedPreferencesHelper.NAME), SharedPreferencesHelper.getPreference(exerciseIndex, SharedPreferencesHelper.NAME));
-            historyMap.put(SharedPreferencesHelper.buildPreferenceString(historyExerciseIndex, SharedPreferencesHelper.EXERCISE_TYPE), SharedPreferencesHelper.getPreference(exerciseIndex, SharedPreferencesHelper.EXERCISE_TYPE));
+            historyMap.put(SharedPreferencesHelper.instance.buildPreferenceString(historyExerciseIndex, SharedPreferencesHelper.NAME), SharedPreferencesHelper.instance.getPreference(exerciseIndex, SharedPreferencesHelper.NAME));
+            historyMap.put(SharedPreferencesHelper.instance.buildPreferenceString(historyExerciseIndex, SharedPreferencesHelper.EXERCISE_TYPE), SharedPreferencesHelper.instance.getPreference(exerciseIndex, SharedPreferencesHelper.EXERCISE_TYPE));
 
-            /**
-             * add exercise title
-             */
+            /* add exercise title */
             String PR = "";
-            if(SharedPreferencesHelper.getVolume(exerciseIndex) > Integer.valueOf(SharedPreferencesHelper.getPreference(exerciseIndex, SharedPreferencesHelper.SUCCESS_VOLUME))) {
+            if(SharedPreferencesHelper.instance.getVolume(exerciseIndex) > Integer.valueOf(SharedPreferencesHelper.instance.getPreference(exerciseIndex, SharedPreferencesHelper.SUCCESS_VOLUME))) {
                 PR = " PR";
             }
 
-            final AppCompatButton buttonExercise = ActivityHelper.createButton(context, SharedPreferencesHelper.getPreference(exerciseIndex, SharedPreferencesHelper.NAME) + PR, false);
+            final AppCompatButton buttonExercise = ActivityHelper.createButton(context, SharedPreferencesHelper.instance.getPreference(exerciseIndex, SharedPreferencesHelper.NAME) + PR, false);
             buttonExercise.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimary));
             buttonExercise.setTextColor(ContextCompat.getColor(context, R.color.colorWhite));
 
@@ -122,18 +120,16 @@ public class WorkoutActivity extends AppCompatActivity implements AFFActivity {
             int historySetCount = 0;
 
             //get all sets
-            List<String> sets = SharedPreferencesHelper.getSets(exerciseIndex);
+            List<String> sets = SharedPreferencesHelper.instance.getSets(exerciseIndex);
 
-            /**
-             * add warm-up sets
-             */
+            /* add warm-up sets */
             if(exerciseType.equals(DialogHelper.FREE_WEIGHT)) {
-                final int numberOfWarmupSets = Integer.valueOf(SharedPreferencesHelper.getPreference(exerciseIndex, SharedPreferencesHelper.WARMUP_SETS));
-                final int firstSetWeight = Integer.valueOf(SharedPreferencesHelper.getPreference(sets.get(0), SharedPreferencesHelper.WEIGHT));
-                final int increment = Integer.valueOf(SharedPreferencesHelper.getPreference(exerciseIndex, SharedPreferencesHelper.INCREMENT));
-                final int minWeight = Integer.valueOf(SharedPreferencesHelper.getPreference(exerciseIndex, SharedPreferencesHelper.MIN_WEIGHT));
+                final int numberOfWarmupSets = Integer.valueOf(SharedPreferencesHelper.instance.getPreference(exerciseIndex, SharedPreferencesHelper.WARMUP_SETS));
+                final int firstSetWeight = Integer.valueOf(SharedPreferencesHelper.instance.getPreference(sets.get(0), SharedPreferencesHelper.WEIGHT));
+                final int increment = Integer.valueOf(SharedPreferencesHelper.instance.getPreference(exerciseIndex, SharedPreferencesHelper.INCREMENT));
+                final int minWeight = Integer.valueOf(SharedPreferencesHelper.instance.getPreference(exerciseIndex, SharedPreferencesHelper.MIN_WEIGHT));
 
-                final double warmupPercent = Double.valueOf(SharedPreferencesHelper.getPreference(SharedPreferencesHelper.buildPreferenceString(SharedPreferencesHelper.SETTINGS, SettingsDefaults.WARMUP, SharedPreferencesHelper.SETTING)));
+                final double warmupPercent = Double.valueOf(SharedPreferencesHelper.instance.getPreference(SharedPreferencesHelper.instance.buildPreferenceString(SharedPreferencesHelper.SETTINGS, SettingsDefaults.WARMUP, SharedPreferencesHelper.SETTING)));
 
                 for (int i = 0; i < numberOfWarmupSets; i++) {
                     double halfWeight = firstSetWeight / (100.0 / warmupPercent);
@@ -147,9 +143,9 @@ public class WorkoutActivity extends AppCompatActivity implements AFFActivity {
                     final AppCompatButton buttonWarmupSet = ActivityHelper.createButton(context, "WU " + (i + 1), false);
                     final AppCompatButton buttonWarmupWeight = ActivityHelper.createButton(context, warmupWeight + " " + weightUnit, false);
 
-                    final String historySetIndex = SharedPreferencesHelper.buildPreferenceString(historyExerciseIndex, SharedPreferencesHelper.SETS, String.valueOf(historySetCount++));
-                    historyMap.put(SharedPreferencesHelper.buildPreferenceString(historySetIndex, SharedPreferencesHelper.NAME), buttonWarmupSet.getText().toString());
-                    historyMap.put(SharedPreferencesHelper.buildPreferenceString(historySetIndex, SharedPreferencesHelper.WEIGHT), buttonWarmupWeight.getText().toString());
+                    final String historySetIndex = SharedPreferencesHelper.instance.buildPreferenceString(historyExerciseIndex, SharedPreferencesHelper.SETS, String.valueOf(historySetCount++));
+                    historyMap.put(SharedPreferencesHelper.instance.buildPreferenceString(historySetIndex, SharedPreferencesHelper.NAME), buttonWarmupSet.getText().toString());
+                    historyMap.put(SharedPreferencesHelper.instance.buildPreferenceString(historySetIndex, SharedPreferencesHelper.WEIGHT), buttonWarmupWeight.getText().toString());
 
                     final AppCompatButton buttonWarmupReps = createRepsButton(exerciseIndex, null, null, historyMap, historySetIndex);
 
@@ -164,9 +160,7 @@ public class WorkoutActivity extends AppCompatActivity implements AFFActivity {
             }
             /**/
 
-            /**
-             * add working sets
-             */
+            /* add working sets */
             int setNum = 1;
             for (String setIndex : sets) {
                 setMap.put(setIndex, false);
@@ -175,14 +169,14 @@ public class WorkoutActivity extends AppCompatActivity implements AFFActivity {
 
                 AppCompatButton buttonWeight;
                 if(exerciseType.equals(DialogHelper.FREE_WEIGHT)) {
-                    buttonWeight = ActivityHelper.createButton(context, SharedPreferencesHelper.getPreference(setIndex, SharedPreferencesHelper.WEIGHT) + " " + weightUnit, false);
+                    buttonWeight = ActivityHelper.createButton(context, SharedPreferencesHelper.instance.getPreference(setIndex, SharedPreferencesHelper.WEIGHT) + " " + weightUnit, false);
                 } else {
                     buttonWeight = ActivityHelper.createButton(context, "- " + weightUnit, false);
                 }
 
-                final String historySetIndex = SharedPreferencesHelper.buildPreferenceString(historyExerciseIndex, SharedPreferencesHelper.SETS, String.valueOf(historySetCount++));
-                historyMap.put(SharedPreferencesHelper.buildPreferenceString(historySetIndex, SharedPreferencesHelper.NAME), buttonSet.getText().toString());
-                historyMap.put(SharedPreferencesHelper.buildPreferenceString(historySetIndex, SharedPreferencesHelper.WEIGHT), buttonWeight.getText().toString());
+                final String historySetIndex = SharedPreferencesHelper.instance.buildPreferenceString(historyExerciseIndex, SharedPreferencesHelper.SETS, String.valueOf(historySetCount++));
+                historyMap.put(SharedPreferencesHelper.instance.buildPreferenceString(historySetIndex, SharedPreferencesHelper.NAME), buttonSet.getText().toString());
+                historyMap.put(SharedPreferencesHelper.instance.buildPreferenceString(historySetIndex, SharedPreferencesHelper.WEIGHT), buttonWeight.getText().toString());
 
                 final AppCompatButton buttonReps = createRepsButton(exerciseIndex, setMap, setIndex, historyMap, historySetIndex);
 
@@ -253,9 +247,9 @@ public class WorkoutActivity extends AppCompatActivity implements AFFActivity {
                             for (Map.Entry<String, Boolean> setEntry : exerciseEntry.getValue().entrySet()) {
                                 success = (success && setEntry.getValue());
                             }
-                            finishWorkout = (finishWorkout && SharedPreferencesHelper.finishWorkout(exerciseIndex, success));
+                            finishWorkout = (finishWorkout && SharedPreferencesHelper.instance.finishWorkout(exerciseIndex, success));
                         }
-                        finishWorkout = (finishWorkout && SharedPreferencesHelper.addHistory(workoutIndex, historyMap));
+                        finishWorkout = (finishWorkout && SharedPreferencesHelper.instance.addHistory(workoutIndex, historyMap));
                         dialog.dismiss();
                         if (finishWorkout) {
                             finish();
@@ -272,18 +266,18 @@ public class WorkoutActivity extends AppCompatActivity implements AFFActivity {
 
     private AppCompatButton createRepsButton(final String exerciseIndex, final Map<String, Boolean> setMap, final String setIndex, final Map<String, String> historyMap, final String historySetIndex) {
         final Context context = this;
-        final String exerciseType = SharedPreferencesHelper.getPreference(exerciseIndex, SharedPreferencesHelper.EXERCISE_TYPE);
+        final String exerciseType = SharedPreferencesHelper.instance.getPreference(exerciseIndex, SharedPreferencesHelper.EXERCISE_TYPE);
         int reps;
         if(exerciseType.equals(DialogHelper.FREE_WEIGHT)) {
-            reps = Integer.valueOf(SharedPreferencesHelper.getPreference(exerciseIndex, SharedPreferencesHelper.REPS));
+            reps = Integer.valueOf(SharedPreferencesHelper.instance.getPreference(exerciseIndex, SharedPreferencesHelper.REPS));
         } else {
-            reps = Integer.valueOf(SharedPreferencesHelper.getPreference(setIndex, SharedPreferencesHelper.REPS));
+            reps = Integer.valueOf(SharedPreferencesHelper.instance.getPreference(setIndex, SharedPreferencesHelper.REPS));
         }
         AppCompatButton buttonReps = ActivityHelper.createButton(context, getResources().getQuantityString(R.plurals.reps, reps, reps), true);
         buttonReps.setLayoutParams(new LinearLayoutCompat.LayoutParams(LinearLayoutCompat.LayoutParams.WRAP_CONTENT, LinearLayoutCompat.LayoutParams.WRAP_CONTENT, 1));
         buttonReps.setBackgroundColor(ContextCompat.getColor(context, R.color.colorLightGray));
 
-        historyMap.put(SharedPreferencesHelper.buildPreferenceString(historySetIndex, SharedPreferencesHelper.REPS), getResources().getQuantityString(R.plurals.reps, 0, 0));
+        historyMap.put(SharedPreferencesHelper.instance.buildPreferenceString(historySetIndex, SharedPreferencesHelper.REPS), getResources().getQuantityString(R.plurals.reps, 0, 0));
 
         buttonReps.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -318,16 +312,16 @@ public class WorkoutActivity extends AppCompatActivity implements AFFActivity {
                 if (textColor == ContextCompat.getColor(context, R.color.colorAccentText) || textColor == ContextCompat.getColor(context, R.color.colorGreenText)) {
                     if (reps == 0) {
                         if(exerciseType.equals(DialogHelper.FREE_WEIGHT)) {
-                            reps = Integer.valueOf(SharedPreferencesHelper.getPreference(exerciseIndex, SharedPreferencesHelper.REPS));
+                            reps = Integer.valueOf(SharedPreferencesHelper.instance.getPreference(exerciseIndex, SharedPreferencesHelper.REPS));
                         } else {
-                            reps = Integer.valueOf(SharedPreferencesHelper.getPreference(setIndex, SharedPreferencesHelper.REPS));
+                            reps = Integer.valueOf(SharedPreferencesHelper.instance.getPreference(setIndex, SharedPreferencesHelper.REPS));
                         }
 
                         v.setBackgroundColor(ContextCompat.getColor(context, R.color.colorLightGray));
                         ((AppCompatButton) v).setTextColor(ActivityHelper.getButton(context).getCurrentTextColor());
                         ((AppCompatButton) v).setText(getResources().getQuantityString(R.plurals.reps, reps, reps));
 
-                        historyMap.put(SharedPreferencesHelper.buildPreferenceString(historySetIndex, SharedPreferencesHelper.REPS), getResources().getQuantityString(R.plurals.reps, 0, 0));
+                        historyMap.put(SharedPreferencesHelper.instance.buildPreferenceString(historySetIndex, SharedPreferencesHelper.REPS), getResources().getQuantityString(R.plurals.reps, 0, 0));
                     } else {
                         reps = reps - 1;
 
@@ -335,7 +329,7 @@ public class WorkoutActivity extends AppCompatActivity implements AFFActivity {
                         ((AppCompatButton) v).setTextColor(ContextCompat.getColor(context, R.color.colorAccentText));
                         ((AppCompatButton) v).setText(getResources().getQuantityString(R.plurals.reps, reps, reps));
 
-                        historyMap.put(SharedPreferencesHelper.buildPreferenceString(historySetIndex, SharedPreferencesHelper.REPS), ((AppCompatButton) v).getText().toString());
+                        historyMap.put(SharedPreferencesHelper.instance.buildPreferenceString(historySetIndex, SharedPreferencesHelper.REPS), ((AppCompatButton) v).getText().toString());
                     }
                     if(setMap != null && setIndex != null) {
                         setMap.put(setIndex, false);
@@ -344,14 +338,14 @@ public class WorkoutActivity extends AppCompatActivity implements AFFActivity {
                     v.setBackgroundColor(ContextCompat.getColor(context, R.color.colorGreen));
                     ((AppCompatButton) v).setTextColor(ContextCompat.getColor(context, R.color.colorGreenText));
 
-                    historyMap.put(SharedPreferencesHelper.buildPreferenceString(historySetIndex, SharedPreferencesHelper.REPS), ((AppCompatButton) v).getText().toString());
+                    historyMap.put(SharedPreferencesHelper.instance.buildPreferenceString(historySetIndex, SharedPreferencesHelper.REPS), ((AppCompatButton) v).getText().toString());
 
                     if(setMap != null && setIndex != null) {
                         setMap.put(setIndex, true);
                     }
                 }
 
-                final Snackbar snackbar = Snackbar.make(v, "Rest Time: " + SharedPreferencesHelper.getPreference(exerciseIndex, SharedPreferencesHelper.REST), Snackbar.LENGTH_INDEFINITE);
+                final Snackbar snackbar = Snackbar.make(v, "Rest Time: " + SharedPreferencesHelper.instance.getPreference(exerciseIndex, SharedPreferencesHelper.REST), Snackbar.LENGTH_INDEFINITE);
 
                 snackbar.setAction("Dismiss", new View.OnClickListener() {
                     @Override
@@ -362,7 +356,7 @@ public class WorkoutActivity extends AppCompatActivity implements AFFActivity {
                 });
 
                 snackbar.show();
-                snackbarTimer(snackbar, Integer.valueOf(SharedPreferencesHelper.getPreference(exerciseIndex, SharedPreferencesHelper.REST)));
+                snackbarTimer(snackbar, Integer.valueOf(SharedPreferencesHelper.instance.getPreference(exerciseIndex, SharedPreferencesHelper.REST)));
                 getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
             }
         });

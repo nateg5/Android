@@ -32,7 +32,7 @@ public class HistoryActivity extends AppCompatActivity implements AFFActivity {
         setSupportActionBar(toolbar);
 
         final String workoutIndex = getIntent().getStringExtra(SharedPreferencesHelper.WORKOUTS);
-        final String workoutName = SharedPreferencesHelper.getPreference(workoutIndex, SharedPreferencesHelper.NAME);
+        final String workoutName = SharedPreferencesHelper.instance.getPreference(workoutIndex, SharedPreferencesHelper.NAME);
 
         if(workoutName.trim().length() > 0) {
             setTitle(workoutName + " " + getTitle().toString());
@@ -50,14 +50,14 @@ public class HistoryActivity extends AppCompatActivity implements AFFActivity {
         final AppCompatActivity activity = this;
         final String workoutIndex = getIntent().getStringExtra(SharedPreferencesHelper.WORKOUTS);
 
-        List<String> histories =  SharedPreferencesHelper.getHistory(workoutIndex);
+        List<String> histories =  SharedPreferencesHelper.instance.getHistory(workoutIndex);
 
         Collections.reverse(histories);
 
         for(String history : histories) {
             final String historyIndex = history;
 
-            final AppCompatButton buttonHistory = ActivityHelper.createButton(context, SharedPreferencesHelper.getPreference(historyIndex, SharedPreferencesHelper.DATE), true);
+            final AppCompatButton buttonHistory = ActivityHelper.createButton(context, SharedPreferencesHelper.instance.getPreference(historyIndex, SharedPreferencesHelper.DATE), true);
             buttonHistory.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -69,7 +69,7 @@ public class HistoryActivity extends AppCompatActivity implements AFFActivity {
             buttonHistory.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View v) {
-                    final AlertDialog dialog = DialogHelper.createDialog(context, SharedPreferencesHelper.getPreference(historyIndex, SharedPreferencesHelper.DATE), DialogHelper.HISTORY_MENU);
+                    final AlertDialog dialog = DialogHelper.createDialog(context, SharedPreferencesHelper.instance.getPreference(historyIndex, SharedPreferencesHelper.DATE), DialogHelper.HISTORY_MENU);
                     dialog.getListView().setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

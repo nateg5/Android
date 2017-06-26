@@ -47,12 +47,12 @@ public class ProgramsActivity extends AppCompatActivity implements AFFActivity {
                 dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if (SharedPreferencesHelper.addProgram(editText.getText().toString())) {
+                        if (SharedPreferencesHelper.instance.addProgram(editText.getText().toString())) {
                             ((ViewGroup)findViewById(R.id.content_programs)).removeAllViews();
                             init();
                             dialog.dismiss();
 
-                            List<String> programs =  SharedPreferencesHelper.getPrograms();
+                            List<String> programs =  SharedPreferencesHelper.instance.getPrograms();
                             Intent intent = new Intent(context, WorkoutsActivity.class);
                             intent.putExtra(SharedPreferencesHelper.PROGRAMS, programs.get(programs.size()-1));
                             startActivity(intent);
@@ -74,12 +74,12 @@ public class ProgramsActivity extends AppCompatActivity implements AFFActivity {
         final Context context = this;
         final AppCompatActivity activity = this;
 
-        List<String> programs =  SharedPreferencesHelper.getPrograms();
+        List<String> programs =  SharedPreferencesHelper.instance.getPrograms();
 
         for(String program : programs) {
             final String programIndex = program;
 
-            final AppCompatButton buttonProgram = ActivityHelper.createButton(context, SharedPreferencesHelper.getPreference(programIndex, SharedPreferencesHelper.NAME), true);
+            final AppCompatButton buttonProgram = ActivityHelper.createButton(context, SharedPreferencesHelper.instance.getPreference(programIndex, SharedPreferencesHelper.NAME), true);
             buttonProgram.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -91,7 +91,7 @@ public class ProgramsActivity extends AppCompatActivity implements AFFActivity {
             buttonProgram.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View v) {
-                    final AlertDialog dialog = DialogHelper.createDialog(context, SharedPreferencesHelper.getPreference(programIndex, SharedPreferencesHelper.NAME), DialogHelper.RENAME_MENU);
+                    final AlertDialog dialog = DialogHelper.createDialog(context, SharedPreferencesHelper.instance.getPreference(programIndex, SharedPreferencesHelper.NAME), DialogHelper.RENAME_MENU);
                     dialog.getListView().setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

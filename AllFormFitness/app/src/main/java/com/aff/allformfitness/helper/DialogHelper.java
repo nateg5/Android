@@ -140,14 +140,14 @@ public class DialogHelper {
     }
 
     public static void createEditDialog(final Context context, final AppCompatButton button, final String index, final String title, final String hint, final String label, final String unit, final String preference, final int inputType, final int min, final int max) {
-        final AppCompatEditText editText = createEditText(context, SharedPreferencesHelper.getPreference(index, preference), hint, inputType);
+        final AppCompatEditText editText = createEditText(context, SharedPreferencesHelper.instance.getPreference(index, preference), hint, inputType);
 
         final AlertDialog dialogEdit = createDialog(context, title, SAVE, editText);
 
         dialogEdit.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (SharedPreferencesHelper.setPreference(index, preference, editText.getText().toString(), min, max)) {
+                if (SharedPreferencesHelper.instance.setPreference(index, preference, editText.getText().toString(), min, max)) {
                     button.setText(context.getString(R.string.label_text_label, label, editText.getText().toString(), unit));
                     dialogEdit.dismiss();
                 } else {
@@ -158,14 +158,14 @@ public class DialogHelper {
     }
 
     public static void createMeasurementEditDialog(final Context context, final String index, final String hint, final String label, final int inputType) {
-        final AppCompatEditText editText = createEditText(context, SharedPreferencesHelper.getPreference(index, SharedPreferencesHelper.ENTRY), hint, inputType);
+        final AppCompatEditText editText = createEditText(context, SharedPreferencesHelper.instance.getPreference(index, SharedPreferencesHelper.ENTRY), hint, inputType);
 
         final AlertDialog dialogEdit = createDialog(context, label, SAVE, editText);
 
         dialogEdit.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (SharedPreferencesHelper.setPreference(index, SharedPreferencesHelper.ENTRY, editText.getText().toString(), Constants.MIN, Constants.MAX)) {
+                if (SharedPreferencesHelper.instance.setPreference(index, SharedPreferencesHelper.ENTRY, editText.getText().toString(), Constants.MIN, Constants.MAX)) {
                     ((ViewGroup)((AppCompatActivity)context).findViewById(R.id.content_measurement)).removeAllViews();
                     ((AFFActivity)context).init();
                     dialogEdit.dismiss();
@@ -177,19 +177,19 @@ public class DialogHelper {
     }
 
     public static void createRemoveDialog(final AppCompatActivity activity, final int resId, final String index, final String label, final String unit, final String preference) {
-        String message = "Are you sure you want to permanently remove " + label + SharedPreferencesHelper.getPreference(index, preference) + " " + unit + "?";
+        String message = "Are you sure you want to permanently remove " + label + SharedPreferencesHelper.instance.getPreference(index, preference) + " " + unit + "?";
 
         final AlertDialog dialogRemove = createDialog(activity, REMOVE, YES, NO, message);
 
         dialogRemove.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (SharedPreferencesHelper.removePreferenceTree(index)) {
+                if (SharedPreferencesHelper.instance.removePreferenceTree(index)) {
                     ((ViewGroup)activity.findViewById(resId)).removeAllViews();
                     ((AFFActivity)activity).init();
                     dialogRemove.dismiss();
                 } else {
-                    LogHelper.error("Failed to remove " + SharedPreferencesHelper. buildPreferenceString(index, preference));
+                    LogHelper.error("Failed to remove " + SharedPreferencesHelper.instance. buildPreferenceString(index, preference));
                 }
             }
         });

@@ -20,22 +20,22 @@ public class HiitDefaults {
     public static void create() {
         LogHelper.debug("Creating HIIT defaults.");
         create("", getHiitDefaults());
-        SharedPreferencesHelper.commit();
+        SharedPreferencesHelper.instance.commit();
     }
 
     private static void create(String parent, Map<String,Object> map) {
-        if(SharedPreferencesHelper.isParentIndexValid(parent, true)) {
+        if(SharedPreferencesHelper.instance.isParentIndexValid(parent, true)) {
             for (Map.Entry<String, Object> entry : map.entrySet()) {
                 if (entry.getValue() instanceof String) {
-                    String preferenceString = SharedPreferencesHelper.buildPreferenceString(parent, entry.getKey());
-                    if(!SharedPreferencesHelper.getLocalPreferences().containsKey(preferenceString)) {
-                        SharedPreferencesHelper.getLocalPreferences().put(preferenceString, (String) entry.getValue());
+                    String preferenceString = SharedPreferencesHelper.instance.buildPreferenceString(parent, entry.getKey());
+                    if(!SharedPreferencesHelper.instance.getLocalPreferences().containsKey(preferenceString)) {
+                        SharedPreferencesHelper.instance.getLocalPreferences().put(preferenceString, (String) entry.getValue());
                     }
                 } else {
                     List<Object> list = (List<Object>) entry.getValue();
 
                     for (int i = 0; i < list.size(); i++) {
-                        create(SharedPreferencesHelper.buildPreferenceString(parent, entry.getKey(), String.valueOf(i)), (Map<String, Object>) list.get(i));
+                        create(SharedPreferencesHelper.instance.buildPreferenceString(parent, entry.getKey(), String.valueOf(i)), (Map<String, Object>) list.get(i));
                     }
                 }
             }

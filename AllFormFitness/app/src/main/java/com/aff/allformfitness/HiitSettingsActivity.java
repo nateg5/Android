@@ -40,9 +40,9 @@ public class HiitSettingsActivity extends AppCompatActivity implements AFFActivi
     public void init() {
         final Context context = this;
 
-        String go = SharedPreferencesHelper.getPreference(SharedPreferencesHelper.HIIT_GO);
-        String rest = SharedPreferencesHelper.getPreference(SharedPreferencesHelper.HIIT_REST);
-        String rounds = SharedPreferencesHelper.getPreference(SharedPreferencesHelper.HIIT_ROUNDS);
+        String go = SharedPreferencesHelper.instance.getPreference(SharedPreferencesHelper.HIIT_GO);
+        String rest = SharedPreferencesHelper.instance.getPreference(SharedPreferencesHelper.HIIT_REST);
+        String rounds = SharedPreferencesHelper.instance.getPreference(SharedPreferencesHelper.HIIT_ROUNDS);
 
         final AppCompatEditText editTextGo = ActivityHelper.createEditText(context, go, "Go Time in Seconds", InputType.TYPE_CLASS_NUMBER);
         ((ViewGroup)findViewById(R.id.content_hiit_settings)).addView(editTextGo);
@@ -73,9 +73,9 @@ public class HiitSettingsActivity extends AppCompatActivity implements AFFActivi
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, HiitTimerActivity.class);
-                if(SharedPreferencesHelper.setPreference(SharedPreferencesHelper.HIIT_GO, editTextGo.getText().toString(), Constants.HIIT_GO_MIN, Constants.HIIT_GO_MAX)
-                        && SharedPreferencesHelper.setPreference(SharedPreferencesHelper.HIIT_REST, editTextRest.getText().toString(), Constants.HIIT_REST_MIN, Constants.HIIT_REST_MAX)
-                        && SharedPreferencesHelper.setPreference(SharedPreferencesHelper.HIIT_ROUNDS, editTextRounds.getText().toString(), Constants.HIIT_ROUNDS_MIN, Constants.HIIT_ROUNDS_MAX)) {
+                if(SharedPreferencesHelper.instance.setPreference(SharedPreferencesHelper.HIIT_GO, editTextGo.getText().toString(), Constants.HIIT_GO_MIN, Constants.HIIT_GO_MAX)
+                        && SharedPreferencesHelper.instance.setPreference(SharedPreferencesHelper.HIIT_REST, editTextRest.getText().toString(), Constants.HIIT_REST_MIN, Constants.HIIT_REST_MAX)
+                        && SharedPreferencesHelper.instance.setPreference(SharedPreferencesHelper.HIIT_ROUNDS, editTextRounds.getText().toString(), Constants.HIIT_ROUNDS_MIN, Constants.HIIT_ROUNDS_MAX)) {
                     int go = editTextGo.getText().toString().trim().length() > 0 ? Integer.valueOf(editTextGo.getText().toString()) : 0;
                     int rest = editTextRest.getText().toString().trim().length() > 0 ? Integer.valueOf(editTextRest.getText().toString()) : 0;
                     int rounds = editTextRounds.getText().toString().trim().length() > 0 ? Integer.valueOf(editTextRounds.getText().toString()) : 0;

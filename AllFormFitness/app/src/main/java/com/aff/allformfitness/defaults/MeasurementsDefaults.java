@@ -19,25 +19,25 @@ import java.util.Map;
 @SuppressWarnings("unchecked")
 public class MeasurementsDefaults {
     public static void create() {
-        if(SharedPreferencesHelper.getMeasurements().size() == 0) {
+        if(SharedPreferencesHelper.instance.getMeasurements().size() == 0) {
             LogHelper.debug("Creating Measurements defaults.");
             create("", getMeasurementsDefaults());
-            SharedPreferencesHelper.commit();
+            SharedPreferencesHelper.instance.commit();
         } else {
             LogHelper.debug("Measurements already exists.");
         }
     }
 
     private static void create(String parent, Map<String,Object> map) {
-        if(SharedPreferencesHelper.isParentIndexValid(parent, true)) {
+        if(SharedPreferencesHelper.instance.isParentIndexValid(parent, true)) {
             for (Map.Entry<String, Object> entry : map.entrySet()) {
                 if (entry.getValue() instanceof String) {
-                    SharedPreferencesHelper.setPreference(parent, entry.getKey(), (String) entry.getValue(), Constants.MIN, Constants.MAX, false);
+                    SharedPreferencesHelper.instance.setPreference(parent, entry.getKey(), (String) entry.getValue(), Constants.MIN, Constants.MAX, false);
                 } else {
                     List<Object> list = (List<Object>) entry.getValue();
 
                     for (int i = 0; i < list.size(); i++) {
-                        create(SharedPreferencesHelper.buildPreferenceString(parent, entry.getKey(), String.valueOf(i)), (Map<String, Object>) list.get(i));
+                        create(SharedPreferencesHelper.instance.buildPreferenceString(parent, entry.getKey(), String.valueOf(i)), (Map<String, Object>) list.get(i));
                     }
                 }
             }

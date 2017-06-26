@@ -27,8 +27,8 @@ public class HistActivity extends AppCompatActivity implements AFFActivity {
         setSupportActionBar(toolbar);
 
         final String historyIndex = getIntent().getStringExtra(SharedPreferencesHelper.HISTORY);
-        final String historyName = SharedPreferencesHelper.getPreference(historyIndex, SharedPreferencesHelper.NAME);
-        final String historyDate = SharedPreferencesHelper.getPreference(historyIndex, SharedPreferencesHelper.DATE);
+        final String historyName = SharedPreferencesHelper.instance.getPreference(historyIndex, SharedPreferencesHelper.NAME);
+        final String historyDate = SharedPreferencesHelper.instance.getPreference(historyIndex, SharedPreferencesHelper.DATE);
 
         if(historyName.trim().length() > 0 && historyDate.trim().length() > 0) {
             setTitle(historyName + " " + historyDate);
@@ -45,21 +45,21 @@ public class HistActivity extends AppCompatActivity implements AFFActivity {
         final Context context = this;
         final String historyIndex = getIntent().getStringExtra(SharedPreferencesHelper.HISTORY);
 
-        List<String> exercises = SharedPreferencesHelper.getExercises(historyIndex);
+        List<String> exercises = SharedPreferencesHelper.instance.getExercises(historyIndex);
 
         for(String exerciseIndex : exercises) {
-            final AppCompatButton buttonExercise = ActivityHelper.createButton(context, SharedPreferencesHelper.getPreference(exerciseIndex, SharedPreferencesHelper.NAME), false);
+            final AppCompatButton buttonExercise = ActivityHelper.createButton(context, SharedPreferencesHelper.instance.getPreference(exerciseIndex, SharedPreferencesHelper.NAME), false);
             buttonExercise.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimary));
             buttonExercise.setTextColor(ContextCompat.getColor(context, R.color.colorWhite));
 
             ((ViewGroup) findViewById(R.id.content_hist)).addView(buttonExercise);
 
-            List<String> sets = SharedPreferencesHelper.getSets(exerciseIndex);
+            List<String> sets = SharedPreferencesHelper.instance.getSets(exerciseIndex);
 
             for(String setIndex : sets) {
-                final AppCompatButton buttonSet = ActivityHelper.createButton(context, SharedPreferencesHelper.getPreference(setIndex, SharedPreferencesHelper.NAME), false);
-                final AppCompatButton buttonWeight = ActivityHelper.createButton(context, SharedPreferencesHelper.getPreference(setIndex, SharedPreferencesHelper.WEIGHT), false);
-                final AppCompatButton buttonReps = ActivityHelper.createButton(context, SharedPreferencesHelper.getPreference(setIndex, SharedPreferencesHelper.REPS), false);
+                final AppCompatButton buttonSet = ActivityHelper.createButton(context, SharedPreferencesHelper.instance.getPreference(setIndex, SharedPreferencesHelper.NAME), false);
+                final AppCompatButton buttonWeight = ActivityHelper.createButton(context, SharedPreferencesHelper.instance.getPreference(setIndex, SharedPreferencesHelper.WEIGHT), false);
+                final AppCompatButton buttonReps = ActivityHelper.createButton(context, SharedPreferencesHelper.instance.getPreference(setIndex, SharedPreferencesHelper.REPS), false);
 
                 final LinearLayoutCompat linearLayout = new LinearLayoutCompat(context);
                 linearLayout.setOrientation(LinearLayoutCompat.HORIZONTAL);
@@ -77,7 +77,7 @@ public class HistActivity extends AppCompatActivity implements AFFActivity {
 
         ((ViewGroup) findViewById(R.id.content_hist)).addView(buttonNotes);
 
-        final AppCompatButton buttonNotesText = ActivityHelper.createButton(context, SharedPreferencesHelper.getPreference(historyIndex, SharedPreferencesHelper.NOTES), false);
+        final AppCompatButton buttonNotesText = ActivityHelper.createButton(context, SharedPreferencesHelper.instance.getPreference(historyIndex, SharedPreferencesHelper.NOTES), false);
 
         ((ViewGroup) findViewById(R.id.content_hist)).addView(buttonNotesText);
     }

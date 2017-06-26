@@ -27,6 +27,7 @@ import java.text.ParseException;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class MeasurementActivity extends AppCompatActivity implements AFFActivity {
 
@@ -39,7 +40,7 @@ public class MeasurementActivity extends AppCompatActivity implements AFFActivit
 
         final Context context = this;
         final String measurementIndex = getIntent().getStringExtra(SharedPreferencesHelper.MEASUREMENTS);
-        final String measurementName = SharedPreferencesHelper.getPreference(measurementIndex, SharedPreferencesHelper.NAME);
+        final String measurementName = SharedPreferencesHelper.instance.getPreference(measurementIndex, SharedPreferencesHelper.NAME);
 
         if(measurementName.trim().length() > 0) {
             setTitle(measurementName);
@@ -57,7 +58,7 @@ public class MeasurementActivity extends AppCompatActivity implements AFFActivit
                 dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if (SharedPreferencesHelper.addEntry(measurementIndex, editTextDate.getText().toString(), editTextEntry.getText().toString())) {
+                        if (SharedPreferencesHelper.instance.addEntry(measurementIndex, editTextDate.getText().toString(), editTextEntry.getText().toString())) {
                             ((ViewGroup) findViewById(R.id.content_measurement)).removeAllViews();
                             init();
                             dialog.dismiss();
@@ -80,7 +81,7 @@ public class MeasurementActivity extends AppCompatActivity implements AFFActivit
         final AppCompatActivity activity = this;
         final String measurementIndex = getIntent().getStringExtra(SharedPreferencesHelper.MEASUREMENTS);
 
-        List<String> entries = SharedPreferencesHelper.getEntries(measurementIndex);
+        List<String> entries = SharedPreferencesHelper.instance.getEntries(measurementIndex);
 
         Collections.reverse(entries);
 
@@ -92,8 +93,8 @@ public class MeasurementActivity extends AppCompatActivity implements AFFActivit
         float entryHigh = 0;
         float entryLow = 0;
         for(String entryIndex : entries) {
-            String entryDate = SharedPreferencesHelper.getPreference(entryIndex, SharedPreferencesHelper.DATE);
-            String entryValue = SharedPreferencesHelper.getPreference(entryIndex, SharedPreferencesHelper.ENTRY);
+            String entryDate = SharedPreferencesHelper.instance.getPreference(entryIndex, SharedPreferencesHelper.DATE);
+            String entryValue = SharedPreferencesHelper.instance.getPreference(entryIndex, SharedPreferencesHelper.ENTRY);
 
             try {
                 int oneWeek = (7 * 24 * 60 * 60 * 1000);
@@ -119,10 +120,10 @@ public class MeasurementActivity extends AppCompatActivity implements AFFActivit
         }
         entryAverage = entryCount > 0 ? entryTotal / entryCount : entryAverage;
 
-        AppCompatButton buttonCurrent = ActivityHelper.createButton(context, DialogHelper.CURRENT + ": " + String.format("%.1f", entryCurrent), false);
-        AppCompatButton buttonAverage = ActivityHelper.createButton(context, DialogHelper.AVERAGE + ": " + String.format("%.1f", entryAverage), false);
-        AppCompatButton buttonHigh = ActivityHelper.createButton(context, DialogHelper.HIGH + ": " + String.format("%.1f", entryHigh), false);
-        AppCompatButton buttonLow = ActivityHelper.createButton(context, DialogHelper.LOW + ": " + String.format("%.1f", entryLow), false);
+        AppCompatButton buttonCurrent = ActivityHelper.createButton(context, DialogHelper.CURRENT + ": " + String.format(Locale.getDefault(), "%.1f", entryCurrent), false);
+        AppCompatButton buttonAverage = ActivityHelper.createButton(context, DialogHelper.AVERAGE + ": " + String.format(Locale.getDefault(), "%.1f", entryAverage), false);
+        AppCompatButton buttonHigh = ActivityHelper.createButton(context, DialogHelper.HIGH + ": " + String.format(Locale.getDefault(), "%.1f", entryHigh), false);
+        AppCompatButton buttonLow = ActivityHelper.createButton(context, DialogHelper.LOW + ": " + String.format(Locale.getDefault(), "%.1f", entryLow), false);
 
         ((ViewGroup)findViewById(R.id.content_measurement)).addView(buttonCurrent);
         ((ViewGroup)findViewById(R.id.content_measurement)).addView(buttonAverage);
@@ -131,9 +132,9 @@ public class MeasurementActivity extends AppCompatActivity implements AFFActivit
 
         for(String entry : entries) {
             final String entryIndex = entry;
-            final String date = SharedPreferencesHelper.getPreference(entryIndex, SharedPreferencesHelper.DATE) + ": ";
+            final String date = SharedPreferencesHelper.instance.getPreference(entryIndex, SharedPreferencesHelper.DATE) + ": ";
 
-            final AppCompatButton buttonEntry = ActivityHelper.createButton(context, date + SharedPreferencesHelper.getPreference(entryIndex, SharedPreferencesHelper.ENTRY), true);
+            final AppCompatButton buttonEntry = ActivityHelper.createButton(context, date + SharedPreferencesHelper.instance.getPreference(entryIndex, SharedPreferencesHelper.ENTRY), true);
             buttonEntry.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -143,7 +144,7 @@ public class MeasurementActivity extends AppCompatActivity implements AFFActivit
             buttonEntry.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View v) {
-                    final AlertDialog dialog = DialogHelper.createDialog(context, date + SharedPreferencesHelper.getPreference(entryIndex, SharedPreferencesHelper.ENTRY), DialogHelper.MEASUREMENT_MENU);
+                    final AlertDialog dialog = DialogHelper.createDialog(context, date + SharedPreferencesHelper.instance.getPreference(entryIndex, SharedPreferencesHelper.ENTRY), DialogHelper.MEASUREMENT_MENU);
                     dialog.getListView().setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

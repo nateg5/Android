@@ -29,22 +29,22 @@ public class SettingsDefaults {
     public static void create() {
         LogHelper.debug("Creating Settings defaults.");
         create("", getSettingsDefaults());
-        SharedPreferencesHelper.commit();
+        SharedPreferencesHelper.instance.commit();
     }
 
     private static void create(String parent, Map<String,Object> map) {
-        if(SharedPreferencesHelper.isParentIndexValid(parent, true)) {
+        if(SharedPreferencesHelper.instance.isParentIndexValid(parent, true)) {
             for (Map.Entry<String, Object> entry : map.entrySet()) {
                 if (entry.getValue() instanceof String) {
-                    String preferenceString = SharedPreferencesHelper.buildPreferenceString(parent, entry.getKey());
-                    if(!SharedPreferencesHelper.getLocalPreferences().containsKey(preferenceString)) {
-                        SharedPreferencesHelper.setPreference(preferenceString, (String) entry.getValue(), Constants.MIN, Constants.MAX, false);
+                    String preferenceString = SharedPreferencesHelper.instance.buildPreferenceString(parent, entry.getKey());
+                    if(!SharedPreferencesHelper.instance.getLocalPreferences().containsKey(preferenceString)) {
+                        SharedPreferencesHelper.instance.setPreference(preferenceString, (String) entry.getValue(), Constants.MIN, Constants.MAX, false);
                     }
                 } else {
                     List<Object> list = (List<Object>) entry.getValue();
 
                     for (int i = 0; i < list.size(); i++) {
-                        create(SharedPreferencesHelper.buildPreferenceString(parent, entry.getKey(), String.valueOf(i)), (Map<String, Object>) list.get(i));
+                        create(SharedPreferencesHelper.instance.buildPreferenceString(parent, entry.getKey(), String.valueOf(i)), (Map<String, Object>) list.get(i));
                     }
                 }
             }

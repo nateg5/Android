@@ -21,6 +21,15 @@
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
+
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="http"
+                    android:host="play.google.com"
+                    android:pathPrefix="/store/apps/details?id=com.aff.allformfitness" />
+                <data android:scheme="http"
+                    android:host="www.amazon.com"
+                    android:pathPrefix="/gp/mas/dl/android?p=com.aff.allformfitness" />
             </intent-filter>
         </activity>
         <activity

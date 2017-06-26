@@ -6,6 +6,7 @@ android {
     defaultConfig {
         applicationId "com.aff.allformfitness"
         minSdkVersion 9
+        //noinspection OldTargetApi
         targetSdkVersion 23
         versionCode 2
         versionName '0.2'
@@ -21,6 +22,8 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
+    //noinspection GradleDependency
     compile 'com.android.support:appcompat-v7:23.1.1'
+    //noinspection GradleDependency
     compile 'com.android.support:design:23.1.1'
 }

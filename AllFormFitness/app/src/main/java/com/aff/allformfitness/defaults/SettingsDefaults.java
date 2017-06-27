@@ -64,7 +64,7 @@ public class SettingsDefaults {
                 }});
                 add(new HashMap<String, Object>() {{
                     put(SharedPreferencesHelper.NAME, "Weight Decrement %");
-                    put(SharedPreferencesHelper.SETTING, "10");
+                    put(SharedPreferencesHelper.SETTING, "20");
                     put(SharedPreferencesHelper.SETTING_HINT, "Weight Decrement % (Recommended: 10)");
                     put(SharedPreferencesHelper.SETTING_TYPE, String.valueOf(InputType.TYPE_CLASS_NUMBER));
                     put(SharedPreferencesHelper.SETTING_MIN, "1");

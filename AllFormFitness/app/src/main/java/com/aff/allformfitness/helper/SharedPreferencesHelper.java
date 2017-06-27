@@ -184,7 +184,7 @@ public class SharedPreferencesHelper {
             int successVolume = Integer.valueOf(getPreference(exercise, SUCCESS_VOLUME));
 
             if(volume > successVolume) {
-                retVal = setPreference(exercise, SUCCESS_VOLUME, String.valueOf(volume), Constants.SUCCESS_VOLUME_MIN, Constants.SUCCESS_VOLUME_MAX);
+                retVal = setPreference(exercise, SUCCESS_VOLUME, String.valueOf(volume), Constants.SUCCESS_VOLUME_MIN, Constants.SUCCESS_VOLUME_MAX, false);
             }
             retVal = (retVal
                     && increaseVolumeOnePercent(exercise));
@@ -193,8 +193,7 @@ public class SharedPreferencesHelper {
         }
 
         retVal = (retVal
-                && setPreference(exercise, CURRENT_VOLUME, String.valueOf(getVolume(exercise)), Constants.CURRENT_VOLUME_MIN, Constants.CURRENT_VOLUME_MAX)
-                && commit());
+                && setPreference(exercise, CURRENT_VOLUME, String.valueOf(getVolume(exercise)), Constants.CURRENT_VOLUME_MIN, Constants.CURRENT_VOLUME_MAX, false));
 
         return retVal;
     }

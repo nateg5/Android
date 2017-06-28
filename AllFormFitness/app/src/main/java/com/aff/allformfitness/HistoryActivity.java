@@ -57,7 +57,14 @@ public class HistoryActivity extends AppCompatActivity implements AFFActivity {
         for(String history : histories) {
             final String historyIndex = history;
 
-            final AppCompatButton buttonHistory = ActivityHelper.createButton(context, SharedPreferencesHelper.instance.getPreference(historyIndex, SharedPreferencesHelper.DATE), true);
+            String notes = SharedPreferencesHelper.instance.getPreference(historyIndex, SharedPreferencesHelper.NOTES).trim();
+
+            if(notes.length() > 0) {
+                int notesMaxLength = notes.length() > 20 ? 20 : notes.length();
+                notes = " - " + notes.substring(0, notesMaxLength) + (notes.length() > notesMaxLength ? "..." : "");
+            }
+
+            final AppCompatButton buttonHistory = ActivityHelper.createButton(context, SharedPreferencesHelper.instance.getPreference(historyIndex, SharedPreferencesHelper.DATE) + notes, true);
             buttonHistory.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

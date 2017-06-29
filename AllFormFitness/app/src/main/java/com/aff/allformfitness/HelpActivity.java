@@ -51,7 +51,7 @@ public class HelpActivity extends AppCompatActivity implements AFFActivity {
                         "The first time the app is started default Programs and Measurements are " +
                         "created. These can be modified, removed or used as is. The default Programs " +
                         "are intended to be used in an \"N on 1 off\" schedule, where N is the number " +
-                        "of Workouts in the Programs. For example, the \"10 x 10\" Program would be " +
+                        "of Workouts in the Programs. For example, the \"Free Weight\" Programs would be " +
                         "schedule 4 days on and 1 day off.",
                 false);
 
@@ -78,12 +78,12 @@ public class HelpActivity extends AppCompatActivity implements AFFActivity {
                         "automatically be started between each set. Once you have completed all sets " +
                         "touch the Finish Workout button. This will auto increment or decrement your " +
                         "weights and reps based on how many sets and reps you completed.<br><br>" +
-                        "By default, all Workouts will use a 10/1 progressive overload approach for auto " +
+                        "By default, all Workouts will use a 20/1 progressive overload approach for auto " +
                         "decrementing and " +
                         "incrementing the weights and reps. This means that if you fail to " +
                         "complete " +
                         "all of the sets and reps on an Exercise the total volume (sets * reps * " +
-                        "weights) of that Exercise will be decreased by 10%. If you succeed at " +
+                        "weights) of that Exercise will be decreased by 20%. If you succeed at " +
                         "completing all of the " +
                         "sets and reps on an Exercise the total volume of that Exercise will be " +
                         "increased by 1%. The auto increment and decrement percentages can be modified " +

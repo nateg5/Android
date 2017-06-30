@@ -19,9 +19,15 @@ import java.util.Map;
 public class HowToDefaults {
 
     public static void create() {
-        LogHelper.debug("Creating How To defaults.");
-        create("", getHowToDefaults());
-        SharedPreferencesHelper.instance.commit();
+        if(!SharedPreferencesHelper.instance.getLocalPreferences().containsKey(SharedPreferencesHelper.HOW_TO_HOME) ||
+                !SharedPreferencesHelper.instance.getLocalPreferences().containsKey(SharedPreferencesHelper.HOW_TO_WORKOUTS) ||
+                !SharedPreferencesHelper.instance.getLocalPreferences().containsKey(SharedPreferencesHelper.HOW_TO_WORKOUT)) {
+            LogHelper.debug("Creating How To defaults.");
+            create("", getHowToDefaults());
+            SharedPreferencesHelper.instance.commit();
+        } else {
+            LogHelper.debug("How To already exists.");
+        }
     }
 
     private static void create(String parent, Map<String,Object> map) {

@@ -27,9 +27,13 @@ public class SettingsDefaults {
     public static final String WARMUP = "3";
 
     public static void create() {
-        LogHelper.debug("Creating Settings defaults.");
-        create("", getSettingsDefaults());
-        SharedPreferencesHelper.instance.commit();
+        if(SharedPreferencesHelper.instance.getSettings().size() == 0) {
+            LogHelper.debug("Creating Settings defaults.");
+            create("", getSettingsDefaults());
+            SharedPreferencesHelper.instance.commit();
+        } else {
+            LogHelper.debug("Settings already exists.");
+        }
     }
 
     private static void create(String parent, Map<String,Object> map) {

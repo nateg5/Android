@@ -18,9 +18,15 @@ import java.util.Map;
 public class HiitDefaults {
 
     public static void create() {
-        LogHelper.debug("Creating HIIT defaults.");
-        create("", getHiitDefaults());
-        SharedPreferencesHelper.instance.commit();
+        if(!SharedPreferencesHelper.instance.getLocalPreferences().containsKey(SharedPreferencesHelper.HIIT_GO) ||
+                !SharedPreferencesHelper.instance.getLocalPreferences().containsKey(SharedPreferencesHelper.HIIT_REST) ||
+                !SharedPreferencesHelper.instance.getLocalPreferences().containsKey(SharedPreferencesHelper.HIIT_ROUNDS)) {
+            LogHelper.debug("Creating HIIT defaults.");
+            create("", getHiitDefaults());
+            SharedPreferencesHelper.instance.commit();
+        } else {
+            LogHelper.debug("HIIT already exists.");
+        }
     }
 
     private static void create(String parent, Map<String,Object> map) {

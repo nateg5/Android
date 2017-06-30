@@ -113,31 +113,37 @@ public class SharedPreferencesHelper {
         }
 
         /* Temporary code for adding exercise type on upgrade. Can be removed later. */
+        boolean needCommit = false;
+        String exercisesSearchString = SEPARATOR + EXERCISES + SEPARATOR;
+        String historySearchString = SEPARATOR + HISTORY + SEPARATOR;
         Map<String, String> tempPreferences = new HashMap<>(localPreferences);
         for(Map.Entry<String, String> entry : tempPreferences.entrySet()) {
-            String exercisesSearchString = SEPARATOR + EXERCISES + SEPARATOR;
-            String historySearchString = SEPARATOR + HISTORY + SEPARATOR;
             if(entry.getKey().contains(exercisesSearchString)) {
                 String exercisesIndex = entry.getKey().substring(0, entry.getKey().lastIndexOf(exercisesSearchString) + exercisesSearchString.length() + 1);
                 if(!localPreferences.containsKey(buildPreferenceString(exercisesIndex, EXERCISE_TYPE))) {
                     LogHelper.debug("********* Creating exercise type for " + exercisesIndex);
                     localPreferences.put(buildPreferenceString(exercisesIndex, EXERCISE_TYPE), DialogHelper.FREE_WEIGHT);
+                    needCommit = true;
                 }
                 if(!localPreferences.containsKey(buildPreferenceString(exercisesIndex, SUCCESS_VOLUME))) {
                     LogHelper.debug("********* Creating success volume for " + exercisesIndex);
                     String failedVolume = localPreferences.get(buildPreferenceString(exercisesIndex, "Failed Volume"));
                     failedVolume = failedVolume == null ? "0" : failedVolume;
                     localPreferences.put(buildPreferenceString(exercisesIndex, SUCCESS_VOLUME), failedVolume);
+                    needCommit = true;
                 }
             } else if(entry.getKey().contains(historySearchString)) {
                 String historyIndex = entry.getKey().substring(0, entry.getKey().lastIndexOf(historySearchString) + historySearchString.length() + 1);
                 if(!localPreferences.containsKey(buildPreferenceString(historyIndex, NOTES))) {
                     LogHelper.debug("********** Creating notes for " + historyIndex);
                     localPreferences.put(buildPreferenceString(historyIndex, NOTES), "");
+                    needCommit = true;
                 }
             }
         }
-        commit();
+        if(needCommit) {
+            commit();
+        }
         /**/
     }
 

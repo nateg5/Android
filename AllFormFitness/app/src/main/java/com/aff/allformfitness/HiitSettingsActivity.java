@@ -2,6 +2,7 @@ package com.aff.allformfitness;
 
 import android.content.Context;
 import android.content.Intent;
+import android.media.AudioManager;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -29,6 +30,7 @@ public class HiitSettingsActivity extends AppCompatActivity implements AFFActivi
         setContentView(R.layout.activity_hiit_settings);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        setVolumeControlStream(AudioManager.STREAM_MUSIC);
 
         if(getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -73,9 +75,10 @@ public class HiitSettingsActivity extends AppCompatActivity implements AFFActivi
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, HiitTimerActivity.class);
-                if(SharedPreferencesHelper.instance.setPreference(SharedPreferencesHelper.HIIT_GO, editTextGo.getText().toString(), Constants.HIIT_GO_MIN, Constants.HIIT_GO_MAX)
-                        && SharedPreferencesHelper.instance.setPreference(SharedPreferencesHelper.HIIT_REST, editTextRest.getText().toString(), Constants.HIIT_REST_MIN, Constants.HIIT_REST_MAX)
-                        && SharedPreferencesHelper.instance.setPreference(SharedPreferencesHelper.HIIT_ROUNDS, editTextRounds.getText().toString(), Constants.HIIT_ROUNDS_MIN, Constants.HIIT_ROUNDS_MAX)) {
+                if(SharedPreferencesHelper.instance.setPreference(SharedPreferencesHelper.HIIT_GO, editTextGo.getText().toString(), Constants.HIIT_GO_MIN, Constants.HIIT_GO_MAX, false)
+                        && SharedPreferencesHelper.instance.setPreference(SharedPreferencesHelper.HIIT_REST, editTextRest.getText().toString(), Constants.HIIT_REST_MIN, Constants.HIIT_REST_MAX, false)
+                        && SharedPreferencesHelper.instance.setPreference(SharedPreferencesHelper.HIIT_ROUNDS, editTextRounds.getText().toString(), Constants.HIIT_ROUNDS_MIN, Constants.HIIT_ROUNDS_MAX, false)
+                        && SharedPreferencesHelper.instance.commit()) {
                     int go = editTextGo.getText().toString().trim().length() > 0 ? Integer.valueOf(editTextGo.getText().toString()) : 0;
                     int rest = editTextRest.getText().toString().trim().length() > 0 ? Integer.valueOf(editTextRest.getText().toString()) : 0;
                     int rounds = editTextRounds.getText().toString().trim().length() > 0 ? Integer.valueOf(editTextRounds.getText().toString()) : 0;

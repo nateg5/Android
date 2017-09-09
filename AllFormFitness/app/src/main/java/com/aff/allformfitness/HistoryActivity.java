@@ -2,6 +2,7 @@ package com.aff.allformfitness;
 
 import android.content.Context;
 import android.content.Intent;
+import android.media.AudioManager;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -30,6 +31,7 @@ public class HistoryActivity extends AppCompatActivity implements AFFActivity {
         setContentView(R.layout.activity_history);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        setVolumeControlStream(AudioManager.STREAM_MUSIC);
 
         final String workoutIndex = getIntent().getStringExtra(SharedPreferencesHelper.WORKOUTS);
         final String workoutName = SharedPreferencesHelper.instance.getPreference(workoutIndex, SharedPreferencesHelper.NAME);

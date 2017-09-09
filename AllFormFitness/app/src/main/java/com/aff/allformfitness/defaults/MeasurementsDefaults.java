@@ -29,7 +29,7 @@ public class MeasurementsDefaults {
     }
 
     private static void create(String parent, Map<String,Object> map) {
-        if(SharedPreferencesHelper.instance.isParentIndexValid(parent, true)) {
+        if(SharedPreferencesHelper.instance.isParentIndexValid(parent)) {
             for (Map.Entry<String, Object> entry : map.entrySet()) {
                 if (entry.getValue() instanceof String) {
                     SharedPreferencesHelper.instance.setPreference(parent, entry.getKey(), (String) entry.getValue(), Constants.MIN, Constants.MAX, false);

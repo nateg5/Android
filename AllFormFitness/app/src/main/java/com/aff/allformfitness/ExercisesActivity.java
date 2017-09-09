@@ -2,6 +2,7 @@ package com.aff.allformfitness;
 
 import android.content.Context;
 import android.content.Intent;
+import android.media.AudioManager;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
@@ -33,6 +34,7 @@ public class ExercisesActivity extends AppCompatActivity implements AFFActivity 
         setContentView(R.layout.activity_exercises);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        setVolumeControlStream(AudioManager.STREAM_MUSIC);
 
         final Context context = this;
         final String workoutIndex = getIntent().getStringExtra(SharedPreferencesHelper.WORKOUTS);

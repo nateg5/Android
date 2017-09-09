@@ -27,7 +27,9 @@ import java.util.TimerTask;
 
 public class HiitTimerActivity extends AppCompatActivity implements AFFActivity {
 
-    private boolean finished = false;
+    private static int seconds = 0;
+    private static Timer timer = null;
+
     private int rounds;
     private AppCompatButton buttonRound;
     private AppCompatButton buttonAction;
@@ -41,6 +43,7 @@ public class HiitTimerActivity extends AppCompatActivity implements AFFActivity 
         setContentView(R.layout.activity_hiit_timer);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        setVolumeControlStream(AudioManager.STREAM_MUSIC);
 
         if(getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -103,7 +106,7 @@ public class HiitTimerActivity extends AppCompatActivity implements AFFActivity 
             }
             if(time > 0) {
                 beep(2);
-                timer(time);
+                startTimer(time);
             } else {
                 continueTimer();
             }
@@ -113,24 +116,32 @@ public class HiitTimerActivity extends AppCompatActivity implements AFFActivity 
         }
     }
 
-    private void timer(final int seconds) {
-        if(!finished) {
-            if (seconds > 0) {
-                buttonTime.setText(String.valueOf(seconds));
-                new Timer().schedule(new TimerTask() {
+    private void startTimer(final int initSeconds) {
+        stopTimer();
+        seconds = initSeconds;
+        timer = new Timer();
+        timer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                timer(seconds - 1);
-                            }
-                        });
+                        if(seconds > 0) {
+                            buttonTime.setText(String.valueOf(seconds));
+                            seconds--;
+                        } else {
+                            stopTimer();
+                            continueTimer();
+                        }
                     }
-                }, 1000);
-            } else {
-                continueTimer();
+                });
             }
+        }, 0, 1000);
+    }
+
+    private void stopTimer() {
+        if(timer != null) {
+            timer.cancel();
         }
     }
 
@@ -158,7 +169,7 @@ public class HiitTimerActivity extends AppCompatActivity implements AFFActivity 
 
     @Override
     public void finish() {
-        finished = true;
+        stopTimer();
         super.finish();
         overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
     }

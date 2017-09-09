@@ -31,7 +31,7 @@ public class HowToDefaults {
     }
 
     private static void create(String parent, Map<String,Object> map) {
-        if(SharedPreferencesHelper.instance.isParentIndexValid(parent, true)) {
+        if(SharedPreferencesHelper.instance.isParentIndexValid(parent)) {
             for (Map.Entry<String, Object> entry : map.entrySet()) {
                 if (entry.getValue() instanceof String) {
                     String preferenceString = SharedPreferencesHelper.instance.buildPreferenceString(parent, entry.getKey());

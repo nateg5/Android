@@ -3,6 +3,7 @@ package com.aff.allformfitness;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
+import android.media.AudioManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
@@ -30,6 +31,7 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        setVolumeControlStream(AudioManager.STREAM_MUSIC);
 
         final Context context = this;
 
@@ -37,7 +39,7 @@ public class HomeActivity extends AppCompatActivity {
 
         String howToHome = SharedPreferencesHelper.instance.getPreference(SharedPreferencesHelper.HOW_TO_HOME);
         if(howToHome.equals("true")) {
-            SharedPreferencesHelper.instance.setPreference(SharedPreferencesHelper.HOW_TO_HOME, "false", Constants.MIN, Constants.MAX);
+            SharedPreferencesHelper.instance.setPreference(SharedPreferencesHelper.HOW_TO_HOME, "false", Constants.MIN, Constants.MAX, true);
 
             DialogHelper.createDialog(
                     context,

@@ -25,6 +25,7 @@ public class SettingsDefaults {
     public static final String DECREMENT = "1";
     public static final String INCREMENT = "2";
     public static final String WARMUP = "3";
+    public static final String TEMPO_INTERVAL = "4";
 
     public static void create() {
         if(SharedPreferencesHelper.instance.getSettings().size() == 0) {
@@ -37,7 +38,7 @@ public class SettingsDefaults {
     }
 
     private static void create(String parent, Map<String,Object> map) {
-        if(SharedPreferencesHelper.instance.isParentIndexValid(parent, true)) {
+        if(SharedPreferencesHelper.instance.isParentIndexValid(parent)) {
             for (Map.Entry<String, Object> entry : map.entrySet()) {
                 if (entry.getValue() instanceof String) {
                     String preferenceString = SharedPreferencesHelper.instance.buildPreferenceString(parent, entry.getKey());
@@ -55,7 +56,7 @@ public class SettingsDefaults {
         }
     }
 
-    private static Map<String,Object> getSettingsDefaults() {
+    public static Map<String,Object> getSettingsDefaults() {
         return new HashMap<String,Object>() {{
             put(SharedPreferencesHelper.SETTINGS, new ArrayList<Object>() {{
                 add(new HashMap<String, Object>() {{
@@ -89,6 +90,14 @@ public class SettingsDefaults {
                     put(SharedPreferencesHelper.SETTING_TYPE, String.valueOf(InputType.TYPE_CLASS_NUMBER));
                     put(SharedPreferencesHelper.SETTING_MIN, "1");
                     put(SharedPreferencesHelper.SETTING_MAX, "100");
+                }});
+                add(new HashMap<String, Object>() {{
+                    put(SharedPreferencesHelper.NAME, "Tempo Interval Seconds");
+                    put(SharedPreferencesHelper.SETTING, "0");
+                    put(SharedPreferencesHelper.SETTING_HINT, "Tempo Interval Seconds (Recommended: 2)");
+                    put(SharedPreferencesHelper.SETTING_TYPE, String.valueOf(InputType.TYPE_CLASS_NUMBER));
+                    put(SharedPreferencesHelper.SETTING_MIN, "0");
+                    put(SharedPreferencesHelper.SETTING_MAX, "10");
                 }});
             }});
         }};

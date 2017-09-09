@@ -40,6 +40,10 @@ import java.util.TimerTask;
 
 public class WorkoutActivity extends AppCompatActivity implements AFFActivity {
 
+    private static int snackbarSeconds = 0;
+    private static Timer snackbarTimer = null;
+    private static Timer tempoTimer = null;
+
     private final static ToneGenerator toneGenerator = new ToneGenerator(AudioManager.STREAM_MUSIC, ToneGenerator.MAX_VOLUME);
 
     @Override
@@ -48,6 +52,7 @@ public class WorkoutActivity extends AppCompatActivity implements AFFActivity {
         setContentView(R.layout.activity_workout);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        setVolumeControlStream(AudioManager.STREAM_MUSIC);
 
         final Context context = this;
 
@@ -62,11 +67,13 @@ public class WorkoutActivity extends AppCompatActivity implements AFFActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
+        startTempoTimer();
+
         init();
 
         String howToWorkout = SharedPreferencesHelper.instance.getPreference(SharedPreferencesHelper.HOW_TO_WORKOUT);
         if(howToWorkout.equals("true")) {
-            SharedPreferencesHelper.instance.setPreference(SharedPreferencesHelper.HOW_TO_WORKOUT, "false", Constants.MIN, Constants.MAX);
+            SharedPreferencesHelper.instance.setPreference(SharedPreferencesHelper.HOW_TO_WORKOUT, "false", Constants.MIN, Constants.MAX, true);
 
             DialogHelper.createDialog(
                     context,
@@ -236,6 +243,7 @@ public class WorkoutActivity extends AppCompatActivity implements AFFActivity {
         buttonFinish.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                stopTempoTimer();
                 final AlertDialog dialog = DialogHelper.createDialog(context, "Finish Workout", DialogHelper.YES, DialogHelper.NO, "Finish workout and auto-update weights/reps?");
                 dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -256,6 +264,13 @@ public class WorkoutActivity extends AppCompatActivity implements AFFActivity {
                         } else {
                             LogHelper.error("Failed to save and update the workout");
                         }
+                    }
+                });
+                dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        startTempoTimer();
+                        dialog.dismiss();
                     }
                 });
             }
@@ -352,40 +367,52 @@ public class WorkoutActivity extends AppCompatActivity implements AFFActivity {
                     public void onClick(View v) {
                         snackbar.dismiss();
                         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+                        startTempoTimer();
                     }
                 });
 
                 snackbar.show();
-                snackbarTimer(snackbar, Integer.valueOf(SharedPreferencesHelper.instance.getPreference(exerciseIndex, SharedPreferencesHelper.REST)));
+                startSnackbarTimer(snackbar, Integer.valueOf(SharedPreferencesHelper.instance.getPreference(exerciseIndex, SharedPreferencesHelper.REST)));
                 getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+                stopTempoTimer();
             }
         });
 
         return buttonReps;
     }
 
-    private void snackbarTimer(final Snackbar snackbar, final int seconds) {
-        if(snackbar.isShownOrQueued()) {
-            if (seconds > 0) {
-                snackbar.setText("Rest Time: " + String.valueOf(seconds));
-                new Timer().schedule(new TimerTask() {
+    private void startSnackbarTimer(final Snackbar snackbar, final int seconds) {
+        stopSnackbarTimer();
+        snackbarSeconds = seconds;
+        snackbarTimer = new Timer();
+        snackbarTimer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                snackbarTimer(snackbar, seconds - 1);
+                        if(snackbar.isShownOrQueued()) {
+                            if(snackbarSeconds > 0) {
+                                snackbar.setText("Rest Time: " + String.valueOf(snackbarSeconds));
+                                snackbarSeconds--;
+                            } else {
+                                snackbar.dismiss();
+                                beep(2);
+                                getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+                                startTempoTimer();
                             }
-                        });
+                        } else {
+                            stopSnackbarTimer();
+                        }
                     }
-                }, 1000);
-            } else {
-                snackbar.dismiss();
-                beep(2);
-                getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+                });
             }
-        } else {
-            LogHelper.debug("snackbar is not shown");
+        }, 0, 1000);
+    }
+
+    private void stopSnackbarTimer() {
+        if(snackbarTimer != null) {
+            snackbarTimer.cancel();
         }
     }
 
@@ -401,6 +428,26 @@ public class WorkoutActivity extends AppCompatActivity implements AFFActivity {
         }
     }
 
+    private void startTempoTimer() {
+        stopTempoTimer();
+        final int interval = Integer.valueOf(SharedPreferencesHelper.instance.getPreference(SharedPreferencesHelper.instance.buildPreferenceString(SharedPreferencesHelper.SETTINGS, SettingsDefaults.TEMPO_INTERVAL, SharedPreferencesHelper.SETTING)));
+        if(interval > 0) {
+            tempoTimer = new Timer();
+            tempoTimer.scheduleAtFixedRate(new TimerTask() {
+                @Override
+                public void run() {
+                    toneGenerator.startTone(ToneGenerator.TONE_PROP_BEEP);
+                }
+            }, 2000, (interval * 1000));
+        }
+    }
+
+    private void stopTempoTimer() {
+        if(tempoTimer != null) {
+            tempoTimer.cancel();
+        }
+    }
+
     @Override
     public void startActivity(Intent intent) {
         if(intent.getComponent().getClassName().equals(WorkoutsActivity.class.getName())) {
@@ -413,6 +460,7 @@ public class WorkoutActivity extends AppCompatActivity implements AFFActivity {
 
     @Override
     public void finish() {
+        stopTempoTimer();
         super.finish();
         overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
     }

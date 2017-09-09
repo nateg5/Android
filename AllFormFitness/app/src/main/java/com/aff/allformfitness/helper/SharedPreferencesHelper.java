@@ -141,6 +141,19 @@ public class SharedPreferencesHelper {
                 }
             }
         }
+        if(!localPreferences.containsKey(buildPreferenceString(SETTINGS, SettingsDefaults.TEMPO_INTERVAL, NAME))) {
+            LogHelper.debug("********** Creating tempo interval setting");
+            Map<String,Object> map = SettingsDefaults.getSettingsDefaults();
+            List list = (List)map.get(SETTINGS);
+            Map<String, Object> tempoIntervalMap = (Map)list.get(Integer.valueOf(SettingsDefaults.TEMPO_INTERVAL));
+            localPreferences.put(buildPreferenceString(SETTINGS, SettingsDefaults.TEMPO_INTERVAL, NAME), (String)tempoIntervalMap.get(NAME));
+            localPreferences.put(buildPreferenceString(SETTINGS, SettingsDefaults.TEMPO_INTERVAL, SETTING), (String)tempoIntervalMap.get(SETTING));
+            localPreferences.put(buildPreferenceString(SETTINGS, SettingsDefaults.TEMPO_INTERVAL, SETTING_HINT), (String)tempoIntervalMap.get(SETTING_HINT));
+            localPreferences.put(buildPreferenceString(SETTINGS, SettingsDefaults.TEMPO_INTERVAL, SETTING_TYPE), (String)tempoIntervalMap.get(SETTING_TYPE));
+            localPreferences.put(buildPreferenceString(SETTINGS, SettingsDefaults.TEMPO_INTERVAL, SETTING_MIN), (String)tempoIntervalMap.get(SETTING_MIN));
+            localPreferences.put(buildPreferenceString(SETTINGS, SettingsDefaults.TEMPO_INTERVAL, SETTING_MAX), (String)tempoIntervalMap.get(SETTING_MAX));
+            needCommit = true;
+        }
         if(needCommit) {
             commit();
         }
@@ -472,16 +485,17 @@ public class SharedPreferencesHelper {
             }
         } catch(NumberFormatException ignored) { }
 
-        return (setPreference(buildPreferenceString(workout, EXERCISES, String.valueOf(exercises.size())), NAME, name, Constants.MIN, Constants.MAX)
-                && setPreference(buildPreferenceString(workout, EXERCISES, String.valueOf(exercises.size())), INCREMENT, increment, Constants.WEIGHT_INCREMENT_MIN, Constants.WEIGHT_INCREMENT_MAX)
-                && setPreference(buildPreferenceString(workout, EXERCISES, String.valueOf(exercises.size())), WARMUP_SETS, warmupSets, Constants.SETS_WARMUP_MIN, Constants.SETS_WARMUP_MAX)
-                && setPreference(buildPreferenceString(workout, EXERCISES, String.valueOf(exercises.size())), REPS, reps, Constants.NUMBER_OF_REPS_MIN, Constants.NUMBER_OF_REPS_MAX)
-                && setPreference(buildPreferenceString(workout, EXERCISES, String.valueOf(exercises.size())), REST, rest, Constants.REST_IN_SECONDS_MIN, Constants.REST_IN_SECONDS_MAX)
-                && setPreference(buildPreferenceString(workout, EXERCISES, String.valueOf(exercises.size())), MIN_WEIGHT, minWeight, Constants.MIN_WEIGHT_MIN, Constants.MIN_WEIGHT_MAX)
-                && setPreference(buildPreferenceString(workout, EXERCISES, String.valueOf(exercises.size())), MAX_WEIGHT, maxWeight, Constants.MAX_WEIGHT_MIN, Constants.MAX_WEIGHT_MAX)
-                && setPreference(buildPreferenceString(workout, EXERCISES, String.valueOf(exercises.size())), CURRENT_VOLUME, "0", Constants.CURRENT_VOLUME_MIN, Constants.CURRENT_VOLUME_MAX)
-                && setPreference(buildPreferenceString(workout, EXERCISES, String.valueOf(exercises.size())), SUCCESS_VOLUME, "0", Constants.SUCCESS_VOLUME_MIN, Constants.SUCCESS_VOLUME_MAX)
-                && setPreference(buildPreferenceString(workout, EXERCISES, String.valueOf(exercises.size())), EXERCISE_TYPE, exerciseType, Constants.MIN, Constants.MAX));
+        return (setPreference(buildPreferenceString(workout, EXERCISES, String.valueOf(exercises.size())), NAME, name, Constants.MIN, Constants.MAX, false)
+                && setPreference(buildPreferenceString(workout, EXERCISES, String.valueOf(exercises.size())), INCREMENT, increment, Constants.WEIGHT_INCREMENT_MIN, Constants.WEIGHT_INCREMENT_MAX, false)
+                && setPreference(buildPreferenceString(workout, EXERCISES, String.valueOf(exercises.size())), WARMUP_SETS, warmupSets, Constants.SETS_WARMUP_MIN, Constants.SETS_WARMUP_MAX, false)
+                && setPreference(buildPreferenceString(workout, EXERCISES, String.valueOf(exercises.size())), REPS, reps, Constants.NUMBER_OF_REPS_MIN, Constants.NUMBER_OF_REPS_MAX, false)
+                && setPreference(buildPreferenceString(workout, EXERCISES, String.valueOf(exercises.size())), REST, rest, Constants.REST_IN_SECONDS_MIN, Constants.REST_IN_SECONDS_MAX, false)
+                && setPreference(buildPreferenceString(workout, EXERCISES, String.valueOf(exercises.size())), MIN_WEIGHT, minWeight, Constants.MIN_WEIGHT_MIN, Constants.MIN_WEIGHT_MAX, false)
+                && setPreference(buildPreferenceString(workout, EXERCISES, String.valueOf(exercises.size())), MAX_WEIGHT, maxWeight, Constants.MAX_WEIGHT_MIN, Constants.MAX_WEIGHT_MAX, false)
+                && setPreference(buildPreferenceString(workout, EXERCISES, String.valueOf(exercises.size())), CURRENT_VOLUME, "0", Constants.CURRENT_VOLUME_MIN, Constants.CURRENT_VOLUME_MAX, false)
+                && setPreference(buildPreferenceString(workout, EXERCISES, String.valueOf(exercises.size())), SUCCESS_VOLUME, "0", Constants.SUCCESS_VOLUME_MIN, Constants.SUCCESS_VOLUME_MAX, false)
+                && setPreference(buildPreferenceString(workout, EXERCISES, String.valueOf(exercises.size())), EXERCISE_TYPE, exerciseType, Constants.MIN, Constants.MAX, false)
+                && commit());
     }
 
     public List<String> getSets(String exercise) {
@@ -568,7 +582,7 @@ public class SharedPreferencesHelper {
     private List<String> getList(String parent, String child, String preference) {
         List<String> list = new ArrayList<>();
 
-        if(isParentIndexValid(parent, true)) {
+        if(isParentIndexValid(parent)) {
             for (int i = 0; ; i++) {
                 if (localPreferences.containsKey(buildPreferenceString(parent, child, String.valueOf(i), preference))) {
                     list.add(buildPreferenceString(parent, child, String.valueOf(i)));
@@ -584,7 +598,7 @@ public class SharedPreferencesHelper {
     public String getPreference(String parent, String child) {
         String preference = "";
 
-        if(isParentIndexValid(parent, true)) {
+        if(isParentIndexValid(parent)) {
             String preferenceString = buildPreferenceString(parent, child);
             preference = getPreference(preferenceString);
         }
@@ -613,16 +627,12 @@ public class SharedPreferencesHelper {
 
         boolean success = false;
 
-        if (isParentIndexValid(parent, true)) {
+        if (isParentIndexValid(parent)) {
             String preferenceString = buildPreferenceString(parent, child);
             success = setPreference(preferenceString, value, min, max, commit);
         }
 
         return success;
-    }
-
-    public boolean setPreference(String key, String value, int min, int max) {
-        return setPreference(key, value, min, max, true);
     }
 
     public boolean setPreference(String key, String value, int min, int max, boolean commit) {
@@ -661,29 +671,12 @@ public class SharedPreferencesHelper {
         return success;
     }
 
-    private boolean removePreference(String key) {
-        boolean success = false;
-
-        if(!isParentIndexValid(key, false)) {
-            if (localPreferences.containsKey(key)) {
-                localPreferences.remove(key);
-                success = true;
-            } else {
-                LogHelper.error("Unable to remove preference that does not exist: " + key);
-            }
-        } else {
-            LogHelper.error("Unable to remove preference " + key + ". Try using removePreferenceTree.");
-        }
-
-        return success;
-    }
-
     public boolean removePreferenceTree(String parent) {
         LogHelper.debug("Removing preference tree for " + parent);
 
         boolean success = true;
 
-        if(parent.length() > 0 && isParentIndexValid(parent, true)) {
+        if(parent.length() > 0 && isParentIndexValid(parent)) {
             String parentRoot = parent.substring(0, parent.lastIndexOf(SEPARATOR));
             int parentIndex = Integer.valueOf(parent.substring(parent.lastIndexOf(SEPARATOR) + 1));
 
@@ -695,8 +688,7 @@ public class SharedPreferencesHelper {
 
             for(Map.Entry<String,String> entry : new HashMap<>(localPreferences).entrySet()) {
                 if(entry.getKey().contains(buildPreferenceString(parentRoot, String.valueOf(i)))) {
-                    success = (success
-                            && removePreference(entry.getKey()));
+                    localPreferences.remove(entry.getKey());
                 }
             }
             success = (success
@@ -722,7 +714,7 @@ public class SharedPreferencesHelper {
 
         boolean success = true;
 
-        if(parent.length() > 0 && isParentIndexValid(parent, true)) {
+        if(parent.length() > 0 && isParentIndexValid(parent)) {
             String parentRoot = parent.substring(0, parent.lastIndexOf(SEPARATOR));
             int parentIndex = Integer.valueOf(parent.substring(parent.lastIndexOf(SEPARATOR) + 1));
 
@@ -761,13 +753,11 @@ public class SharedPreferencesHelper {
 
         boolean success = true;
 
-        if(fromParent.length() > 0 && isParentIndexValid(fromParent, true) && toParent.length() > 0 && isParentIndexValid(toParent, true)) {
+        if(fromParent.length() > 0 && isParentIndexValid(fromParent) && toParent.length() > 0 && isParentIndexValid(toParent)) {
             for (Map.Entry<String, String> entry : new HashMap<>(localPreferences).entrySet()) {
                 if (entry.getKey().contains(fromParent)) {
-                    String tempKey = entry.getKey().replace(fromParent, toParent);
-                    success = (success
-                            && setPreference(tempKey, entry.getValue(), Constants.MIN, Constants.MAX, false)
-                            && removePreference(entry.getKey()));
+                    localPreferences.put(entry.getKey().replace(fromParent, toParent), entry.getValue());
+                    localPreferences.remove(entry.getKey());
                 }
             }
         } else {
@@ -783,7 +773,7 @@ public class SharedPreferencesHelper {
 
         boolean success;
 
-        if(parent.length() > 0 && isParentIndexValid(parent, true)) {
+        if(parent.length() > 0 && isParentIndexValid(parent)) {
             String parentRoot = parent.substring(0, parent.lastIndexOf(SEPARATOR));
             int parentIndex = Integer.valueOf(parent.substring(parent.lastIndexOf(SEPARATOR) + 1));
 
@@ -807,7 +797,7 @@ public class SharedPreferencesHelper {
 
         boolean success = true;
 
-        if(fromParent.length() > 0 && isParentIndexValid(fromParent, true) && toParent.length() > 0 && isParentIndexValid(toParent, true)) {
+        if(fromParent.length() > 0 && isParentIndexValid(fromParent) && toParent.length() > 0 && isParentIndexValid(toParent)) {
             for (Map.Entry<String, String> entry : new HashMap<>(localPreferences).entrySet()) {
                 if (entry.getKey().contains(fromParent)) {
                     String tempKey = entry.getKey().replace(fromParent, toParent);
@@ -824,7 +814,7 @@ public class SharedPreferencesHelper {
     }
 
     @SuppressWarnings("ResultOfMethodCallIgnored")
-    public boolean isParentIndexValid(String parent, boolean reportError) {
+    public boolean isParentIndexValid(String parent) {
         boolean valid = true;
 
         try {
@@ -832,9 +822,7 @@ public class SharedPreferencesHelper {
                 Integer.valueOf(parent.substring(parent.lastIndexOf(SEPARATOR) + 1));
             }
         } catch(NumberFormatException e) {
-            if(reportError) {
-                LogHelper.error("Invalid parent index " + parent + ". " + e.toString());
-            }
+            LogHelper.error("Invalid parent index " + parent + ". " + e.toString());
             valid = false;
         }
 
@@ -842,14 +830,14 @@ public class SharedPreferencesHelper {
     }
 
     public String buildPreferenceString(String ... strings) {
-        String preferenceString = "";
+        StringBuilder preferenceString = new StringBuilder("");
         for(String string : strings) {
             if(preferenceString.length() > 0) {
-                preferenceString += SEPARATOR;
+                preferenceString.append(SEPARATOR);
             }
-            preferenceString += string;
+            preferenceString.append(string);
         }
-        return preferenceString;
+        return preferenceString.toString();
     }
 
     @SuppressWarnings("ResultOfMethodCallIgnored")
@@ -868,11 +856,11 @@ public class SharedPreferencesHelper {
                 FileOutputStream oStream = new FileOutputStream(backupFile);
 
                 for (Map.Entry<String, String> entry : localPreferences.entrySet()) {
-                    oStream.write(entry.getKey().getBytes());
-                    oStream.write("\n".getBytes());
-                    String value = entry.getValue() == null ? "" : entry.getValue();
-                    oStream.write(value.getBytes());
-                    oStream.write("\n".getBytes());
+                    if(entry.getValue() == null) {
+                        oStream.write((entry.getKey() + "\n" + "\n").getBytes());
+                    } else {
+                        oStream.write((entry.getKey() + "\n" + entry.getValue() + "\n").getBytes());
+                    }
                 }
 
                 oStream.close();
@@ -907,23 +895,23 @@ public class SharedPreferencesHelper {
                 localPreferences.clear();
 
                 boolean savingKey = true;
-                String key = "";
-                String value = "";
+                StringBuilder key = new StringBuilder("");
+                StringBuilder value = new StringBuilder("");
                 for (byte b : bytes) {
                     if (b == '\n') {
                         if (savingKey) {
                             savingKey = false;
                         } else {
-                            localPreferences.put(key, value);
+                            localPreferences.put(key.toString(), value.toString());
                             savingKey = true;
-                            key = "";
-                            value = "";
+                            key = new StringBuilder("");
+                            value = new StringBuilder("");
                         }
                     } else {
                         if (savingKey) {
-                            key += (char) b;
+                            key.append((char)b);
                         } else {
-                            value += (char) b;
+                            value.append((char)b);
                         }
                     }
                 }

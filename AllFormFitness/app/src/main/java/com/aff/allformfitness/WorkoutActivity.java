@@ -1,6 +1,7 @@
 package com.aff.allformfitness;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.media.AudioManager;
 import android.media.ToneGenerator;
@@ -271,6 +272,12 @@ public class WorkoutActivity extends AppCompatActivity implements AFFActivity {
                     public void onClick(View view) {
                         startTempoTimer();
                         dialog.dismiss();
+                    }
+                });
+                dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+                    @Override
+                    public void onCancel(DialogInterface dialogInterface) {
+                        startTempoTimer();
                     }
                 });
             }

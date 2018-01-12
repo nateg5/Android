@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.nc.natecast.MainActivity">
+
+    <EditText
+        android:id="@+id/editTextIpAddress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:inputType="numberDecimal"
+        android:digits="1234567890."/>
+
+    <EditText
+        android:id="@+id/editTextUrl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:inputType="text"
+        tools:ignore="TextFields" />
+
+    <ToggleButton
+        android:id="@+id/toggleButtonFullScreen"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textOff="@string/full_screen_off"
+        android:textOn="@string/full_screen_on"
+        android:checked="true"/>
+
+    <Button
+        android:id="@+id/buttonLaunch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/launch"/>
+
+    <Button
+        android:id="@+id/buttonClose"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/close"/>
+
+</LinearLayout>

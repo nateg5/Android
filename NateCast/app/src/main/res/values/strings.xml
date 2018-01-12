@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">NateCast</string>
+    <string name="full_screen_off">Full Screen Off</string>
+    <string name="full_screen_on">Full Screen On</string>
+    <string name="launch">Launch</string>
+    <string name="close">Close</string>
+</resources>

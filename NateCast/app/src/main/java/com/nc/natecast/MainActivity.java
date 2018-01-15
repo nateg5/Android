@@ -3,14 +3,17 @@ package com.nc.natecast;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -20,6 +23,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        final Context context = this;
 
         final EditText editTextIpAddress = (EditText)findViewById(R.id.editTextIpAddress);
         final EditText editTextUrl = (EditText)findViewById(R.id.editTextUrl);
@@ -51,8 +56,7 @@ public class MainActivity extends AppCompatActivity {
                     url += "&full=true";
                 }
 
-                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-                startActivity(intent);
+                sendRequest(context, url);
             }
         });
 
@@ -67,10 +71,24 @@ public class MainActivity extends AppCompatActivity {
                 url += editTextIpAddress.getText().toString();
                 url += "?url=close";
 
-                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-                startActivity(intent);
+                sendRequest(context, url);
             }
         });
+    }
+
+    private void sendRequest(Context context, String url) {
+        try {
+            URL uRL = new URL(url);
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(uRL.openStream()));
+
+            String inputLine;
+            while((inputLine = bufferedReader.readLine()) != null) {
+                Toast.makeText(context, inputLine, Toast.LENGTH_LONG).show();
+            }
+            bufferedReader.close();
+        } catch(Exception e) {
+            Toast.makeText(context, "ERROR: " + e.toString(), Toast.LENGTH_LONG).show();
+        }
     }
 
     private String getRequestedUrl(EditText editTextUrl) {
@@ -107,6 +125,8 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
+        requestedUrl = requestedUrl.replace(":", "%3A");
+        requestedUrl = requestedUrl.replace("?", "%3F");
         requestedUrl = requestedUrl.replace("&", "%26");
 
         return requestedUrl;

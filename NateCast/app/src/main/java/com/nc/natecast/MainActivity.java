@@ -16,6 +16,8 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -76,19 +78,35 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void sendRequest(Context context, String url) {
-        try {
-            URL uRL = new URL(url);
-            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(uRL.openStream()));
+    private void sendRequest(final Context context, final String url) {
+        new Timer().schedule(new TimerTask() {
+            @Override
+            public void run() {
+                try {
+                    URL uRL = new URL(url);
+                    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(uRL.openStream()));
 
-            String inputLine;
-            while((inputLine = bufferedReader.readLine()) != null) {
-                Toast.makeText(context, inputLine, Toast.LENGTH_LONG).show();
+                    String inputLine;
+                    while((inputLine = bufferedReader.readLine()) != null) {
+                        final String message = inputLine;
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(context, message, Toast.LENGTH_LONG).show();
+                            }
+                        });
+                    }
+                    bufferedReader.close();
+                } catch(final Exception e) {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(context, "ERROR: " + e.toString(), Toast.LENGTH_LONG).show();
+                        }
+                    });
+                }
             }
-            bufferedReader.close();
-        } catch(Exception e) {
-            Toast.makeText(context, "ERROR: " + e.toString(), Toast.LENGTH_LONG).show();
-        }
+        }, 100);
     }
 
     private String getRequestedUrl(EditText editTextUrl) {

@@ -33,6 +33,11 @@ public class MainActivity extends AppCompatActivity {
         final ToggleButton toggleButtonFullScreen = (ToggleButton)findViewById(R.id.toggleButtonFullScreen);
         final Button buttonLaunch = (Button)findViewById(R.id.buttonLaunch);
         final Button buttonClose = (Button)findViewById(R.id.buttonClose);
+        final Button buttonSpace = (Button)findViewById(R.id.buttonSpace);
+        final Button buttonUp = (Button)findViewById(R.id.buttonUp);
+        final Button buttonLeft = (Button)findViewById(R.id.buttonLeft);
+        final Button buttonRight = (Button)findViewById(R.id.buttonRight);
+        final Button buttonDown = (Button)findViewById(R.id.buttonDown);
 
         final SharedPreferences sharedPreferences = getPreferences(Context.MODE_PRIVATE);
         final SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -72,6 +77,81 @@ public class MainActivity extends AppCompatActivity {
                 String url = "http://";
                 url += editTextIpAddress.getText().toString();
                 url += "?url=close";
+
+                sendRequest(context, url);
+            }
+        });
+
+        buttonSpace.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                saveSharedPreferences(editor, new HashMap<String, String>() {{
+                    put("editTextIpAddress", editTextIpAddress.getText().toString());
+                }});
+
+                String url = "http://";
+                url += editTextIpAddress.getText().toString();
+                url += "?key=space";
+
+                sendRequest(context, url);
+            }
+        });
+
+        buttonUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                saveSharedPreferences(editor, new HashMap<String, String>() {{
+                    put("editTextIpAddress", editTextIpAddress.getText().toString());
+                }});
+
+                String url = "http://";
+                url += editTextIpAddress.getText().toString();
+                url += "?key=Up";
+
+                sendRequest(context, url);
+            }
+        });
+
+        buttonLeft.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                saveSharedPreferences(editor, new HashMap<String, String>() {{
+                    put("editTextIpAddress", editTextIpAddress.getText().toString());
+                }});
+
+                String url = "http://";
+                url += editTextIpAddress.getText().toString();
+                url += "?key=Left";
+
+                sendRequest(context, url);
+            }
+        });
+
+        buttonRight.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                saveSharedPreferences(editor, new HashMap<String, String>() {{
+                    put("editTextIpAddress", editTextIpAddress.getText().toString());
+                }});
+
+                String url = "http://";
+                url += editTextIpAddress.getText().toString();
+                url += "?key=Right";
+
+                sendRequest(context, url);
+            }
+        });
+
+        buttonDown.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                saveSharedPreferences(editor, new HashMap<String, String>() {{
+                    put("editTextIpAddress", editTextIpAddress.getText().toString());
+                }});
+
+                String url = "http://";
+                url += editTextIpAddress.getText().toString();
+                url += "?key=Down";
 
                 sendRequest(context, url);
             }

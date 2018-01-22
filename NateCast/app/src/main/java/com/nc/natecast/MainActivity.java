@@ -38,6 +38,8 @@ public class MainActivity extends AppCompatActivity {
         final Button buttonLeft = (Button)findViewById(R.id.buttonLeft);
         final Button buttonRight = (Button)findViewById(R.id.buttonRight);
         final Button buttonDown = (Button)findViewById(R.id.buttonDown);
+        final ToggleButton toggleButtonX2 = (ToggleButton)findViewById(R.id.toggleButtonX2);
+        final ToggleButton toggleButtonX3 = (ToggleButton)findViewById(R.id.toggleButtonX3);
 
         final SharedPreferences sharedPreferences = getPreferences(Context.MODE_PRIVATE);
         final SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -106,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
 
                 String url = "http://";
                 url += editTextIpAddress.getText().toString();
-                url += "?key=Up";
+                url += "?key=" + getKey(toggleButtonX2, toggleButtonX3, "Up");
 
                 sendRequest(context, url);
             }
@@ -121,7 +123,7 @@ public class MainActivity extends AppCompatActivity {
 
                 String url = "http://";
                 url += editTextIpAddress.getText().toString();
-                url += "?key=Left";
+                url += "?key=" + getKey(toggleButtonX2, toggleButtonX3, "Left");
 
                 sendRequest(context, url);
             }
@@ -136,7 +138,7 @@ public class MainActivity extends AppCompatActivity {
 
                 String url = "http://";
                 url += editTextIpAddress.getText().toString();
-                url += "?key=Right";
+                url += "?key=" + getKey(toggleButtonX2, toggleButtonX3, "Right");
 
                 sendRequest(context, url);
             }
@@ -151,11 +153,22 @@ public class MainActivity extends AppCompatActivity {
 
                 String url = "http://";
                 url += editTextIpAddress.getText().toString();
-                url += "?key=Down";
+                url += "?key=" + getKey(toggleButtonX2, toggleButtonX3, "Down");
 
                 sendRequest(context, url);
             }
         });
+    }
+
+    private String getKey(ToggleButton toggleButtonX2, ToggleButton toggleButtonX3, String key) {
+        if(toggleButtonX2.isChecked()) {
+            key += "+" + key;
+        }
+        if(toggleButtonX3.isChecked()) {
+            key += "+" + key + "+" + key;
+        }
+
+        return key;
     }
 
     private void sendRequest(final Context context, final String url) {

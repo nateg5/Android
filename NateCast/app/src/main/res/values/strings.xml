@@ -9,4 +9,8 @@
     <string name="left">Left</string>
     <string name="right">Right</string>
     <string name="down">Down</string>
+    <string name="x2_off">X2 Off</string>
+    <string name="x2_on">X2 On</string>
+    <string name="x3_off">X3 Off</string>
+    <string name="x3_on">X3 On</string>
 </resources>

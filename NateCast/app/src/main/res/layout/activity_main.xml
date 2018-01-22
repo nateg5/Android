@@ -84,6 +84,30 @@
             android:layout_height="wrap_content"
             android:text="@string/down"/>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ToggleButton
+                android:id="@+id/toggleButtonX2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textOff="@string/x2_off"
+                android:textOn="@string/x2_on"
+                android:checked="false"/>
+
+            <ToggleButton
+                android:id="@+id/toggleButtonX3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textOff="@string/x3_off"
+                android:textOn="@string/x3_on"
+                android:checked="false"/>
+
+        </LinearLayout>
+
     </LinearLayout>
 
 </ScrollView>

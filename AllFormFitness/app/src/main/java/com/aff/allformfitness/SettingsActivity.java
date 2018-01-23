@@ -51,12 +51,22 @@ public class SettingsActivity extends AppCompatActivity implements AFFActivity {
             ((ViewGroup)findViewById(R.id.content_settings)).addView(ActivityHelper.getSeparatorView(context));
 
             final AppCompatButton buttonSetting = ActivityHelper.createButton(context, SharedPreferencesHelper.instance.getPreference(settingIndex, SharedPreferencesHelper.SETTING), true);
-            buttonSetting.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    DialogHelper.createEditDialog(context, buttonSetting, settingIndex, SharedPreferencesHelper.instance.getPreference(settingIndex, SharedPreferencesHelper.NAME), SharedPreferencesHelper.instance.getPreference(settingIndex, SharedPreferencesHelper.SETTING_HINT), "", "", SharedPreferencesHelper.SETTING, Integer.valueOf(SharedPreferencesHelper.instance.getPreference(settingIndex, SharedPreferencesHelper.SETTING_TYPE)), Integer.valueOf(SharedPreferencesHelper.instance.getPreference(settingIndex, SharedPreferencesHelper.SETTING_MIN)), Integer.valueOf(SharedPreferencesHelper.instance.getPreference(settingIndex, SharedPreferencesHelper.SETTING_MAX)));
-                }
-            });
+            final String settingOptions = SharedPreferencesHelper.instance.getPreference(settingIndex, SharedPreferencesHelper.SETTING_OPTIONS);
+            if(settingOptions != null && settingOptions.length() > 0) {
+                buttonSetting.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        DialogHelper.createDialog(context, buttonSetting, settingIndex, SharedPreferencesHelper.instance.getPreference(settingIndex, SharedPreferencesHelper.NAME), settingOptions.split(","));
+                    }
+                });
+            } else {
+                buttonSetting.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        DialogHelper.createEditDialog(context, buttonSetting, settingIndex, SharedPreferencesHelper.instance.getPreference(settingIndex, SharedPreferencesHelper.NAME), SharedPreferencesHelper.instance.getPreference(settingIndex, SharedPreferencesHelper.SETTING_HINT), "", "", SharedPreferencesHelper.SETTING, Integer.valueOf(SharedPreferencesHelper.instance.getPreference(settingIndex, SharedPreferencesHelper.SETTING_TYPE)), Integer.valueOf(SharedPreferencesHelper.instance.getPreference(settingIndex, SharedPreferencesHelper.SETTING_MIN)), Integer.valueOf(SharedPreferencesHelper.instance.getPreference(settingIndex, SharedPreferencesHelper.SETTING_MAX)));
+                    }
+                });
+            }
 
             ((ViewGroup)findViewById(R.id.content_settings)).addView(buttonSetting);
         }

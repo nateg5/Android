@@ -70,6 +70,11 @@ public class WorkoutActivity extends AppCompatActivity implements AFFActivity {
 
         startTempoTimer();
 
+        String keepScreenOn = SharedPreferencesHelper.instance.getPreference(SharedPreferencesHelper.instance.buildPreferenceString(SharedPreferencesHelper.SETTINGS, SettingsDefaults.KEEP_SCREEN_ON, SharedPreferencesHelper.SETTING));
+        if(keepScreenOn.equals("Enabled")) {
+            addFlagKeepScreenOn();
+        }
+
         init();
 
         String howToWorkout = SharedPreferencesHelper.instance.getPreference(SharedPreferencesHelper.HOW_TO_WORKOUT);
@@ -373,14 +378,14 @@ public class WorkoutActivity extends AppCompatActivity implements AFFActivity {
                     @Override
                     public void onClick(View v) {
                         snackbar.dismiss();
-                        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+                        clearFlagKeepScreenOn();
                         startTempoTimer();
                     }
                 });
 
                 snackbar.show();
                 startSnackbarTimer(snackbar, Integer.valueOf(SharedPreferencesHelper.instance.getPreference(exerciseIndex, SharedPreferencesHelper.REST)));
-                getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+                addFlagKeepScreenOn();
                 stopTempoTimer();
             }
         });
@@ -405,7 +410,7 @@ public class WorkoutActivity extends AppCompatActivity implements AFFActivity {
                             } else {
                                 snackbar.dismiss();
                                 beep(2);
-                                getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+                                clearFlagKeepScreenOn();
                                 startTempoTimer();
                             }
                         } else {
@@ -452,6 +457,17 @@ public class WorkoutActivity extends AppCompatActivity implements AFFActivity {
     private void stopTempoTimer() {
         if(tempoTimer != null) {
             tempoTimer.cancel();
+        }
+    }
+
+    private void addFlagKeepScreenOn() {
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+    }
+
+    private void clearFlagKeepScreenOn() {
+        String keepScreenOn = SharedPreferencesHelper.instance.getPreference(SharedPreferencesHelper.instance.buildPreferenceString(SharedPreferencesHelper.SETTINGS, SettingsDefaults.KEEP_SCREEN_ON, SharedPreferencesHelper.SETTING));
+        if(!keepScreenOn.equals("Enabled")) {
+            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         }
     }
 

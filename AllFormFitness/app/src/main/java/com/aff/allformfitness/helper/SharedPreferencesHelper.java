@@ -69,7 +69,7 @@ public class SharedPreferencesHelper {
     public final static String HOW_TO_WORKOUTS = "How To Workouts";
     public final static String HOW_TO_WORKOUT = "How To Workout";
 
-    public final static String INSTAGRAM = "Instagram";
+    //public final static String INSTAGRAM = "Instagram";
     //public final static String MY_FITNESS_PAL = "MyFitnessPal";
 
     private final static String BACKUP_FOLDER = "AllFormFitness";
@@ -86,6 +86,7 @@ public class SharedPreferencesHelper {
     public final static String SETTING_TYPE = "Setting Type";
     public final static String SETTING_MIN = "Setting Min";
     public final static String SETTING_MAX = "Setting Max";
+    public final static String SETTING_OPTIONS = "Setting Options";
 
     public final static String HELP = "Help";
 
@@ -141,18 +142,55 @@ public class SharedPreferencesHelper {
                 }
             }
         }
+        Map<String,Object> settingsMap = SettingsDefaults.getSettingsDefaults();
+        List settingsList = (List)settingsMap.get(SETTINGS);
         if(!localPreferences.containsKey(buildPreferenceString(SETTINGS, SettingsDefaults.TEMPO_INTERVAL, NAME))) {
             LogHelper.debug("********** Creating tempo interval setting");
-            Map<String,Object> map = SettingsDefaults.getSettingsDefaults();
-            List list = (List)map.get(SETTINGS);
-            Map<String, Object> tempoIntervalMap = (Map)list.get(Integer.valueOf(SettingsDefaults.TEMPO_INTERVAL));
+            Map<String, Object> tempoIntervalMap = (Map)settingsList.get(Integer.valueOf(SettingsDefaults.TEMPO_INTERVAL));
             localPreferences.put(buildPreferenceString(SETTINGS, SettingsDefaults.TEMPO_INTERVAL, NAME), (String)tempoIntervalMap.get(NAME));
             localPreferences.put(buildPreferenceString(SETTINGS, SettingsDefaults.TEMPO_INTERVAL, SETTING), (String)tempoIntervalMap.get(SETTING));
             localPreferences.put(buildPreferenceString(SETTINGS, SettingsDefaults.TEMPO_INTERVAL, SETTING_HINT), (String)tempoIntervalMap.get(SETTING_HINT));
             localPreferences.put(buildPreferenceString(SETTINGS, SettingsDefaults.TEMPO_INTERVAL, SETTING_TYPE), (String)tempoIntervalMap.get(SETTING_TYPE));
             localPreferences.put(buildPreferenceString(SETTINGS, SettingsDefaults.TEMPO_INTERVAL, SETTING_MIN), (String)tempoIntervalMap.get(SETTING_MIN));
             localPreferences.put(buildPreferenceString(SETTINGS, SettingsDefaults.TEMPO_INTERVAL, SETTING_MAX), (String)tempoIntervalMap.get(SETTING_MAX));
+            localPreferences.put(buildPreferenceString(SETTINGS, SettingsDefaults.TEMPO_INTERVAL, SETTING_OPTIONS), (String)tempoIntervalMap.get(SETTING_OPTIONS));
             needCommit = true;
+        }
+        if(!localPreferences.containsKey(buildPreferenceString(SETTINGS, SettingsDefaults.KEEP_SCREEN_ON, NAME))) {
+            LogHelper.debug("********** Creating keep screen on setting");
+            Map<String, Object> keepScreenOnMap = (Map)settingsList.get(Integer.valueOf(SettingsDefaults.KEEP_SCREEN_ON));
+            localPreferences.put(buildPreferenceString(SETTINGS, SettingsDefaults.KEEP_SCREEN_ON, NAME), (String)keepScreenOnMap.get(NAME));
+            localPreferences.put(buildPreferenceString(SETTINGS, SettingsDefaults.KEEP_SCREEN_ON, SETTING), (String)keepScreenOnMap.get(SETTING));
+            localPreferences.put(buildPreferenceString(SETTINGS, SettingsDefaults.KEEP_SCREEN_ON, SETTING_HINT), (String)keepScreenOnMap.get(SETTING_HINT));
+            localPreferences.put(buildPreferenceString(SETTINGS, SettingsDefaults.KEEP_SCREEN_ON, SETTING_TYPE), (String)keepScreenOnMap.get(SETTING_TYPE));
+            localPreferences.put(buildPreferenceString(SETTINGS, SettingsDefaults.KEEP_SCREEN_ON, SETTING_MIN), (String)keepScreenOnMap.get(SETTING_MIN));
+            localPreferences.put(buildPreferenceString(SETTINGS, SettingsDefaults.KEEP_SCREEN_ON, SETTING_MAX), (String)keepScreenOnMap.get(SETTING_MAX));
+            localPreferences.put(buildPreferenceString(SETTINGS, SettingsDefaults.KEEP_SCREEN_ON, SETTING_OPTIONS), (String)keepScreenOnMap.get(SETTING_OPTIONS));
+            needCommit = true;
+        }
+        if(!localPreferences.containsKey(buildPreferenceString(SETTINGS, SettingsDefaults.UNIT, SETTING_OPTIONS))) {
+            Map<String, Object> unitMap = (Map)settingsList.get(Integer.valueOf(SettingsDefaults.UNIT));
+            localPreferences.put(buildPreferenceString(SETTINGS, SettingsDefaults.UNIT, SETTING_OPTIONS), (String)unitMap.get(SETTING_OPTIONS));
+        }
+        if(!localPreferences.containsKey(buildPreferenceString(SETTINGS, SettingsDefaults.DECREMENT, SETTING_OPTIONS))) {
+            Map<String, Object> decrementMap = (Map)settingsList.get(Integer.valueOf(SettingsDefaults.DECREMENT));
+            localPreferences.put(buildPreferenceString(SETTINGS, SettingsDefaults.DECREMENT, SETTING_OPTIONS), (String)decrementMap.get(SETTING_OPTIONS));
+        }
+        if(!localPreferences.containsKey(buildPreferenceString(SETTINGS, SettingsDefaults.INCREMENT, SETTING_OPTIONS))) {
+            Map<String, Object> incrementMap = (Map)settingsList.get(Integer.valueOf(SettingsDefaults.INCREMENT));
+            localPreferences.put(buildPreferenceString(SETTINGS, SettingsDefaults.INCREMENT, SETTING_OPTIONS), (String)incrementMap.get(SETTING_OPTIONS));
+        }
+        if(!localPreferences.containsKey(buildPreferenceString(SETTINGS, SettingsDefaults.WARMUP, SETTING_OPTIONS))) {
+            Map<String, Object> warmupMap = (Map)settingsList.get(Integer.valueOf(SettingsDefaults.WARMUP));
+            localPreferences.put(buildPreferenceString(SETTINGS, SettingsDefaults.WARMUP, SETTING_OPTIONS), (String)warmupMap.get(SETTING_OPTIONS));
+        }
+        if(!localPreferences.containsKey(buildPreferenceString(SETTINGS, SettingsDefaults.TEMPO_INTERVAL, SETTING_OPTIONS))) {
+            Map<String, Object> tempoIntervalMap = (Map)settingsList.get(Integer.valueOf(SettingsDefaults.TEMPO_INTERVAL));
+            localPreferences.put(buildPreferenceString(SETTINGS, SettingsDefaults.TEMPO_INTERVAL, SETTING_OPTIONS), (String)tempoIntervalMap.get(SETTING_OPTIONS));
+        }
+        if(!localPreferences.containsKey(buildPreferenceString(SETTINGS, SettingsDefaults.KEEP_SCREEN_ON, SETTING_OPTIONS))) {
+            Map<String, Object> keepScreenOnMap = (Map)settingsList.get(Integer.valueOf(SettingsDefaults.KEEP_SCREEN_ON));
+            localPreferences.put(buildPreferenceString(SETTINGS, SettingsDefaults.KEEP_SCREEN_ON, SETTING_OPTIONS), (String)keepScreenOnMap.get(SETTING_OPTIONS));
         }
         if(needCommit) {
             commit();

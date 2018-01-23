@@ -8,10 +8,12 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatEditText;
+import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.LinearLayoutCompat;
 import android.text.Html;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ScrollView;
 
 import com.aff.allformfitness.R;
@@ -137,6 +139,29 @@ public class DialogHelper {
         dialog.getButton(DialogInterface.BUTTON_NEGATIVE).setTextColor(ContextCompat.getColor(context, R.color.colorPrimary));
 
         return dialog;
+    }
+
+    public static void createDialog(final Context context, final AppCompatButton button, final String index, final String title, final String[] items) {
+        final AlertDialog dialog = new AlertDialog.Builder(context)
+                .setTitle(title)
+                .setItems(items, null)
+                .setNegativeButton(CLOSE, null)
+                .create();
+
+        dialog.show();
+        dialog.getButton(DialogInterface.BUTTON_NEGATIVE).setTextColor(ContextCompat.getColor(context, R.color.colorPrimary));
+        dialog.getListView().setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String text = ((AppCompatTextView) view).getText().toString();
+                if (SharedPreferencesHelper.instance.setPreference(index, SharedPreferencesHelper.SETTING, text, Constants.MIN, Constants.MAX)) {
+                    button.setText(text);
+                    dialog.dismiss();
+                } else {
+                    LogHelper.error("Failed to save " + title);
+                }
+            }
+        });
     }
 
     public static void createEditDialog(final Context context, final AppCompatButton button, final String index, final String title, final String hint, final String label, final String unit, final String preference, final int inputType, final int min, final int max) {

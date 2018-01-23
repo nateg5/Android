@@ -26,6 +26,7 @@ public class SettingsDefaults {
     public static final String INCREMENT = "2";
     public static final String WARMUP = "3";
     public static final String TEMPO_INTERVAL = "4";
+    public static final String KEEP_SCREEN_ON = "5";
 
     public static void create() {
         if(SharedPreferencesHelper.instance.getSettings().size() == 0) {
@@ -66,6 +67,7 @@ public class SettingsDefaults {
                     put(SharedPreferencesHelper.SETTING_TYPE, String.valueOf(InputType.TYPE_CLASS_TEXT));
                     put(SharedPreferencesHelper.SETTING_MIN, "0");
                     put(SharedPreferencesHelper.SETTING_MAX, "0");
+                    put(SharedPreferencesHelper.SETTING_OPTIONS, "");
                 }});
                 add(new HashMap<String, Object>() {{
                     put(SharedPreferencesHelper.NAME, "Weight Decrement %");
@@ -74,6 +76,7 @@ public class SettingsDefaults {
                     put(SharedPreferencesHelper.SETTING_TYPE, String.valueOf(InputType.TYPE_CLASS_NUMBER));
                     put(SharedPreferencesHelper.SETTING_MIN, "1");
                     put(SharedPreferencesHelper.SETTING_MAX, "100");
+                    put(SharedPreferencesHelper.SETTING_OPTIONS, "");
                 }});
                 add(new HashMap<String, Object>() {{
                     put(SharedPreferencesHelper.NAME, "Weight Increment %");
@@ -82,6 +85,7 @@ public class SettingsDefaults {
                     put(SharedPreferencesHelper.SETTING_TYPE, String.valueOf(InputType.TYPE_CLASS_NUMBER));
                     put(SharedPreferencesHelper.SETTING_MIN, "1");
                     put(SharedPreferencesHelper.SETTING_MAX, "100");
+                    put(SharedPreferencesHelper.SETTING_OPTIONS, "");
                 }});
                 add(new HashMap<String, Object>() {{
                     put(SharedPreferencesHelper.NAME, "Starting Warmup %");
@@ -90,14 +94,25 @@ public class SettingsDefaults {
                     put(SharedPreferencesHelper.SETTING_TYPE, String.valueOf(InputType.TYPE_CLASS_NUMBER));
                     put(SharedPreferencesHelper.SETTING_MIN, "1");
                     put(SharedPreferencesHelper.SETTING_MAX, "100");
+                    put(SharedPreferencesHelper.SETTING_OPTIONS, "");
                 }});
                 add(new HashMap<String, Object>() {{
                     put(SharedPreferencesHelper.NAME, "Tempo Interval Seconds");
                     put(SharedPreferencesHelper.SETTING, "0");
-                    put(SharedPreferencesHelper.SETTING_HINT, "Tempo Interval Seconds (Recommended: 2)");
+                    put(SharedPreferencesHelper.SETTING_HINT, "Tempo Interval Seconds (Recommended: 3)");
                     put(SharedPreferencesHelper.SETTING_TYPE, String.valueOf(InputType.TYPE_CLASS_NUMBER));
                     put(SharedPreferencesHelper.SETTING_MIN, "0");
                     put(SharedPreferencesHelper.SETTING_MAX, "10");
+                    put(SharedPreferencesHelper.SETTING_OPTIONS, "");
+                }});
+                add(new HashMap<String, Object>() {{
+                    put(SharedPreferencesHelper.NAME, "Keep Screen On");
+                    put(SharedPreferencesHelper.SETTING, "Disabled");
+                    put(SharedPreferencesHelper.SETTING_HINT, "Keep Screen On (Recommended: Enabled)");
+                    put(SharedPreferencesHelper.SETTING_TYPE, String.valueOf(InputType.TYPE_CLASS_TEXT));
+                    put(SharedPreferencesHelper.SETTING_MIN, "0");
+                    put(SharedPreferencesHelper.SETTING_MAX, "0");
+                    put(SharedPreferencesHelper.SETTING_OPTIONS, "Enabled,Disabled");
                 }});
             }});
         }};

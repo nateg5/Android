@@ -130,12 +130,12 @@ public class HelpActivity extends AppCompatActivity implements AFFActivity {
                 "HIIT Timer is a simple high intensity interval training timer to be used for " +
                         "cardio. Enter the Go time, Rest time, number of Rounds and touch the Start " +
                         "button. The timer will beep at the beginning of each time interval so that " +
-                        "you can focus of you workout and not your phone.",
+                        "you can focus on your workout and not your phone.",
                 false);
 
         ((ViewGroup)findViewById(R.id.content_help)).addView(buttonHiitContent);
 
-        AppCompatButton buttonInstagramTitle = ActivityHelper.createButton(
+        /*AppCompatButton buttonInstagramTitle = ActivityHelper.createButton(
                 context,
                 SharedPreferencesHelper.INSTAGRAM,
                 Typeface.DEFAULT_BOLD,
@@ -152,7 +152,7 @@ public class HelpActivity extends AppCompatActivity implements AFFActivity {
                         "web browser.",
                 false);
 
-        ((ViewGroup)findViewById(R.id.content_help)).addView(buttonInstagramContent);
+        ((ViewGroup)findViewById(R.id.content_help)).addView(buttonInstagramContent);*/
 
         /*AppCompatButton buttonMfpTitle = ActivityHelper.createButton(
                 context,

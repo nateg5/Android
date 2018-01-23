@@ -92,7 +92,7 @@ public class HomeActivity extends AppCompatActivity {
 
         ((ViewGroup)findViewById(R.id.content_home)).addView(ActivityHelper.getSeparatorView(context));
 
-        AppCompatButton buttonInstagram = ActivityHelper.createButton(context, SharedPreferencesHelper.INSTAGRAM, true);
+        /*AppCompatButton buttonInstagram = ActivityHelper.createButton(context, SharedPreferencesHelper.INSTAGRAM, true);
         buttonInstagram.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -108,7 +108,7 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
-        ((ViewGroup)findViewById(R.id.content_home)).addView(buttonInstagram);
+        ((ViewGroup)findViewById(R.id.content_home)).addView(buttonInstagram);*/
 
         /*AppCompatButton buttonMfp = ActivityHelper.createButton(context, SharedPreferencesHelper.MY_FITNESS_PAL, true);
         buttonMfp.setOnClickListener(new View.OnClickListener() {

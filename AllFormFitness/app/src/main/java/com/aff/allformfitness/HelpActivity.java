@@ -214,7 +214,7 @@ public class HelpActivity extends AppCompatActivity implements AFFActivity {
 
         ((ViewGroup)findViewById(R.id.content_help)).addView(buttonDataRestoreContent);
 
-        /*AppCompatButton buttonRateAmazonTitle = ActivityHelper.createButton(
+        AppCompatButton buttonRateAmazonTitle = ActivityHelper.createButton(
                 context,
                 SharedPreferencesHelper.RATE_AMAZON,
                 Typeface.DEFAULT_BOLD,
@@ -232,9 +232,9 @@ public class HelpActivity extends AppCompatActivity implements AFFActivity {
                         "changes and improvements to the app.",
                 false);
 
-        ((ViewGroup)findViewById(R.id.content_help)).addView(buttonRateAmazonContent);*/
+        ((ViewGroup)findViewById(R.id.content_help)).addView(buttonRateAmazonContent);
 
-        AppCompatButton buttonRateGoogleTitle = ActivityHelper.createButton(
+        /*AppCompatButton buttonRateGoogleTitle = ActivityHelper.createButton(
                 context,
                 SharedPreferencesHelper.RATE_GOOGLE,
                 Typeface.DEFAULT_BOLD,
@@ -252,7 +252,7 @@ public class HelpActivity extends AppCompatActivity implements AFFActivity {
                         "changes and improvements to the app.",
                 false);
 
-        ((ViewGroup)findViewById(R.id.content_help)).addView(buttonRateGoogleContent);
+        ((ViewGroup)findViewById(R.id.content_help)).addView(buttonRateGoogleContent);*/
 
         AppCompatButton buttonSettingsTitle = ActivityHelper.createButton(
                 context,

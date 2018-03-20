@@ -190,7 +190,7 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
-        //((ViewGroup)findViewById(R.id.content_home)).addView(buttonRateAmazon);
+        ((ViewGroup)findViewById(R.id.content_home)).addView(buttonRateAmazon);
 
         AppCompatButton buttonRateGoogle = ActivityHelper.createButton(context, SharedPreferencesHelper.RATE_GOOGLE, true);
         buttonRateGoogle.setOnClickListener(new View.OnClickListener() {
@@ -208,7 +208,7 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
-        ((ViewGroup)findViewById(R.id.content_home)).addView(buttonRateGoogle);
+        //((ViewGroup)findViewById(R.id.content_home)).addView(buttonRateGoogle);
 
         AppCompatButton buttonSettings = ActivityHelper.createButton(context, SharedPreferencesHelper.SETTINGS, true);
         buttonSettings.setOnClickListener(new View.OnClickListener() {

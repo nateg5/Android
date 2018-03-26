@@ -7,8 +7,11 @@
 Use the instructions at https://www.novaspirit.com/2017/09/14/watch-netflix-raspberry-pi/ to install a compatible version of the Chromium browser and use the following settings for the User-Agent Switcher
 
 **Name:** Netflix
+
 **User-Agent String:** Mozilla/5.0 (X11; CrOS armv7l 6946.63.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36
+
 **Group:** Replace
+
 **Append:** IE
 
 # Install Apache on RPi

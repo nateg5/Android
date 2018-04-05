@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">P90neXt</string>
+    <string name="chest_back">Chest &amp; Back</string>
+    <string name="plyometrics">Plyometrics</string>
+    <string name="shoulders_arms">Shoulders &amp; Arms</string>
+    <string name="yoga_x">Yoga X</string>
+    <string name="legs_back">Legs &amp; Back</string>
+    <string name="kenpo_x">Kenpo X</string>
+    <string name="play">play</string>
+    <string name="finished_workout">Finished Workout</string>
+</resources>

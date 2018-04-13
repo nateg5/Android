@@ -37,3 +37,15 @@ Add the following line to the end of ~/.config/lxsession/LXDE-pi/autostart
 ```
 @/var/www/html/index.sh
 ```
+
+# Create Static IP Address on RPi
+
+Add the following lines to the end of /etc/dhcpcd.conf. You can get the routers/domain_name_servers address by running **route** from the command line. You can also use a different ip_address.
+
+```
+interface wlan0
+
+static ip_address=192.168.1.120/24
+static routers=192.168.1.1
+static domain_name_servers=192.168.1.1
+```

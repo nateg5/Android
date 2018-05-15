@@ -38,12 +38,12 @@ public class MainActivity extends AppCompatActivity {
         }};
 
         final Map<String, String> workoutMap = new HashMap<String, String>() {{
-            put(workoutList.get(0), "https://photos.app.goo.gl/CiWghgRQAxQzRmQl2");
-            put(workoutList.get(1), "https://photos.app.goo.gl/M9A8eeFVDQV00Nz43");
-            put(workoutList.get(2), "https://photos.app.goo.gl/aQBGujqV47RIxCal2");
-            put(workoutList.get(3), "https://photos.app.goo.gl/QymWg6T7rVcKL4yy2");
-            put(workoutList.get(4), "https://photos.app.goo.gl/WDmSXDpQlGU3K7EG3");
-            put(workoutList.get(5), "https://photos.app.goo.gl/lBUCQYKnAzEZupc42");
+            put(workoutList.get(0), "https://photos.app.goo.gl/kYNqYfDxFBIqMpus2");
+            put(workoutList.get(1), "https://photos.app.goo.gl/ZMLRt7kUHIzXw1di1");
+            put(workoutList.get(2), "https://photos.app.goo.gl/4Zww388Rh2oEz06i2");
+            put(workoutList.get(3), "https://photos.app.goo.gl/ZZGfW3z6jyMNd2DX2");
+            put(workoutList.get(4), "https://photos.app.goo.gl/JdRJdWsBDW9x7ASS8");
+            put(workoutList.get(5), "https://photos.app.goo.gl/BZH7LumfYrvpTBE58");
         }};
 
         final TextView textView = (TextView)findViewById(R.id.textView);

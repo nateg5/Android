@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Arrowverse</string>
+    <string name="default_episode">20171009_1_SupergirlS03E01_80065386</string>
+    <string name="title">title</string>
+    <string name="watch">watch</string>
+    <string name="finished_episode">Finished Episode</string>
+</resources>

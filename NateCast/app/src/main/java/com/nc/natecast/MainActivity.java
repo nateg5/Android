@@ -1,8 +1,10 @@
 package com.nc.natecast;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -33,6 +35,8 @@ public class MainActivity extends AppCompatActivity {
         final ToggleButton toggleButtonFullScreen = (ToggleButton)findViewById(R.id.toggleButtonFullScreen);
         final Button buttonLaunch = (Button)findViewById(R.id.buttonLaunch);
         final Button buttonClose = (Button)findViewById(R.id.buttonClose);
+        final Button buttonReboot = (Button)findViewById(R.id.buttonReboot);
+        final Button buttonMouseMove = (Button)findViewById(R.id.buttonMouseMove);
         final Button buttonSpace = (Button)findViewById(R.id.buttonSpace);
         final Button buttonUp = (Button)findViewById(R.id.buttonUp);
         final Button buttonLeft = (Button)findViewById(R.id.buttonLeft);
@@ -40,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
         final Button buttonDown = (Button)findViewById(R.id.buttonDown);
         final ToggleButton toggleButtonX2 = (ToggleButton)findViewById(R.id.toggleButtonX2);
         final ToggleButton toggleButtonX3 = (ToggleButton)findViewById(R.id.toggleButtonX3);
+        final ToggleButton toggleButtonX4 = (ToggleButton)findViewById(R.id.toggleButtonX4);
 
         final SharedPreferences sharedPreferences = getPreferences(Context.MODE_PRIVATE);
         final SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -84,6 +89,45 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        buttonReboot.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
+                alertDialog.setMessage("Are you sure you want to reboot?");
+                alertDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        saveSharedPreferences(editor, new HashMap<String, String>() {{
+                            put("editTextIpAddress", editTextIpAddress.getText().toString());
+                        }});
+
+                        String url = "http://";
+                        url += editTextIpAddress.getText().toString();
+                        url += "?url=reboot";
+
+                        sendRequest(context, url);
+                    }
+                });
+                alertDialog.setNegativeButton("No", null);
+                alertDialog.show();
+            }
+        });
+
+        buttonMouseMove.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                saveSharedPreferences(editor, new HashMap<String, String>() {{
+                    put("editTextIpAddress", editTextIpAddress.getText().toString());
+                }});
+
+                String url = "http://";
+                url += editTextIpAddress.getText().toString();
+                url += "?url=mousemove";
+
+                sendRequest(context, url);
+            }
+        });
+
         buttonSpace.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -108,7 +152,7 @@ public class MainActivity extends AppCompatActivity {
 
                 String url = "http://";
                 url += editTextIpAddress.getText().toString();
-                url += "?key=" + getKey(toggleButtonX2, toggleButtonX3, "Up");
+                url += "?key=" + getKey(toggleButtonX2, toggleButtonX3, toggleButtonX4, "Up");
 
                 sendRequest(context, url);
             }
@@ -123,7 +167,7 @@ public class MainActivity extends AppCompatActivity {
 
                 String url = "http://";
                 url += editTextIpAddress.getText().toString();
-                url += "?key=" + getKey(toggleButtonX2, toggleButtonX3, "Left");
+                url += "?key=" + getKey(toggleButtonX2, toggleButtonX3, toggleButtonX4, "Left");
 
                 sendRequest(context, url);
             }
@@ -138,7 +182,7 @@ public class MainActivity extends AppCompatActivity {
 
                 String url = "http://";
                 url += editTextIpAddress.getText().toString();
-                url += "?key=" + getKey(toggleButtonX2, toggleButtonX3, "Right");
+                url += "?key=" + getKey(toggleButtonX2, toggleButtonX3, toggleButtonX4, "Right");
 
                 sendRequest(context, url);
             }
@@ -153,19 +197,22 @@ public class MainActivity extends AppCompatActivity {
 
                 String url = "http://";
                 url += editTextIpAddress.getText().toString();
-                url += "?key=" + getKey(toggleButtonX2, toggleButtonX3, "Down");
+                url += "?key=" + getKey(toggleButtonX2, toggleButtonX3, toggleButtonX4, "Down");
 
                 sendRequest(context, url);
             }
         });
     }
 
-    private String getKey(ToggleButton toggleButtonX2, ToggleButton toggleButtonX3, String key) {
+    private String getKey(ToggleButton toggleButtonX2, ToggleButton toggleButtonX3, ToggleButton toggleButtonX4, String key) {
         if(toggleButtonX2.isChecked()) {
             key += "+" + key;
         }
         if(toggleButtonX3.isChecked()) {
             key += "+" + key + "+" + key;
+        }
+        if(toggleButtonX4.isChecked()) {
+            key += "+" + key + "+" + key + "+" + key;
         }
 
         return key;

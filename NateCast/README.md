@@ -24,7 +24,7 @@ Reference: https://www.raspberrypi.org/documentation/remote-access/web-server/ap
 
 # Update RPi Apache Install
 
-Cope the files from https://github.com/nateg5/Android/tree/master/NateCast/RPiFiles to the apahce server on the RPi at
+Cope the files from https://github.com/nateg5/Android/tree/master/NateCast/RPiFiles to the apache server on the RPi at
 
 ```
 /var/www/html

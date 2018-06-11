@@ -26,37 +26,89 @@
             android:inputType="text"
             tools:ignore="TextFields" />
 
-        <ToggleButton
-            android:id="@+id/toggleButtonFullScreen"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textOff="@string/full_screen_off"
-            android:textOn="@string/full_screen_on"
-            android:checked="true"/>
+            android:layout_height="wrap_content">
 
-        <Button
-            android:id="@+id/buttonLaunch"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/launch"/>
+            <ToggleButton
+                android:id="@+id/toggleButtonFullScreen"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textOff="@string/full_screen_off"
+                android:textOn="@string/full_screen_on"
+                android:checked="true"/>
 
-        <Button
-            android:id="@+id/buttonClose"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/close"/>
+            <Button
+                android:id="@+id/buttonReboot"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/reboot"/>
 
-        <Button
-            android:id="@+id/buttonSpace"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/space"/>
+        </LinearLayout>
 
-        <Button
-            android:id="@+id/buttonUp"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/up"/>
+            android:layout_height="wrap_content">
+
+            <Button
+                android:id="@+id/buttonLaunch"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/launch"/>
+
+            <Button
+                android:id="@+id/buttonMouseMove"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/mouse_move"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:id="@+id/buttonClose"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/close"/>
+
+            <Button
+                android:id="@+id/buttonSpace"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/space"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:id="@+id/buttonUp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/up"/>
+
+            <ToggleButton
+                android:id="@+id/toggleButtonX2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textOff="@string/x2_off"
+                android:textOn="@string/x2_on"
+                android:checked="false"/>
+
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -64,46 +116,47 @@
 
             <Button
                 android:id="@+id/buttonLeft"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/left"/>
 
             <Button
                 android:id="@+id/buttonRight"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/right"/>
 
-        </LinearLayout>
+            <ToggleButton
+                android:id="@+id/toggleButtonX3"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:textOff="@string/x3_off"
+                android:textOn="@string/x3_on"
+                android:checked="false"/>
 
-        <Button
-            android:id="@+id/buttonDown"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/down"/>
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <ToggleButton
-                android:id="@+id/toggleButtonX2"
-                android:layout_width="wrap_content"
+            <Button
+                android:id="@+id/buttonDown"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:textOff="@string/x2_off"
-                android:textOn="@string/x2_on"
-                android:checked="false"/>
+                android:text="@string/down"/>
 
             <ToggleButton
-                android:id="@+id/toggleButtonX3"
-                android:layout_width="wrap_content"
+                android:id="@+id/toggleButtonX4"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:textOff="@string/x3_off"
-                android:textOn="@string/x3_on"
+                android:textOff="@string/x4_off"
+                android:textOn="@string/x4_on"
                 android:checked="false"/>
 
         </LinearLayout>

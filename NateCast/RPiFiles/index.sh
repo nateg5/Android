@@ -26,6 +26,14 @@ while true; do
     then
         echo "pkill chromium"
         pkill chromium
+    elif [ "$url" == "reboot" ]
+    then
+        echo "reboot"
+        reboot
+    elif [ "$url" == "mousemove" ]
+    then
+        echo "mousemove"
+        xdotool mousemove 1280 720
     elif [ $url_length -gt 0 ] 
     then
         chromium-browser $url & 

@@ -4,6 +4,8 @@
     <string name="full_screen_on">Full Screen On</string>
     <string name="launch">Launch</string>
     <string name="close">Close</string>
+    <string name="reboot">Reboot</string>
+    <string name="mouse_move">Mouse Move</string>
     <string name="space">Space</string>
     <string name="up">Up</string>
     <string name="left">Left</string>
@@ -13,4 +15,6 @@
     <string name="x2_on">X2 On</string>
     <string name="x3_off">X3 Off</string>
     <string name="x3_on">X3 On</string>
+    <string name="x4_off">X4 Off</string>
+    <string name="x4_on">X4 On</string>
 </resources>

@@ -1,9 +1,28 @@
 <component name="ProjectDictionaryState">
   <dictionary name="Nate">
     <words>
+      <w>armv</w>
       <w>autoplay</w>
+      <w>autostart</w>
+      <w>dhcpcd</w>
+      <w>elif</w>
+      <w>fclose</w>
+      <w>fopen</w>
+      <w>fwrite</w>
+      <w>khtml</w>
+      <w>lxde</w>
+      <w>lxsession</w>
+      <w>mousemove</w>
+      <w>mozilla</w>
       <w>natecast</w>
       <w>netflix</w>
+      <w>pkill</w>
+      <w>strcmp</w>
+      <w>strlen</w>
+      <w>sudo</w>
+      <w>widevine</w>
+      <w>wlan</w>
+      <w>xdotool</w>
     </words>
   </dictionary>
 </component>

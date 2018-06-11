@@ -29,6 +29,12 @@
         if(strcmp($url, "close") == 0) {
             $message = "Closing Chrome";
         }
+        if(strcmp($url, "reboot") == 0) {
+            $message = "Rebooting";
+        }
+        if(strcmp($url, "mousemove") == 0) {
+            $message = "Moving Mouse";
+        }
         
         echo $message;
     }

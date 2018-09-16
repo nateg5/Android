@@ -7,14 +7,14 @@
 1. Download and Install Chromium with Widevine
 
 ```
-wget https://drive.google.com/file/d/1bCPiUDEIDbKQ0H03v3rdljQ30PknzO_G/view?usp=sharing
+wget https://github.com/nateg5/Android/releases/download/NateCast/chromium-browser_56.0.2924.84-0ubuntu0.14.04.1.1011.deb
 sudo dpkg -i chromium-browser_56.0.2924.84-0ubuntu0.14.04.1.1011.deb
 ```
 
 2. Download and extract DRM zip
 
 ```
-wget https://drive.google.com/file/d/1YV7yx6pUPCj07cqbE5Cvrq8TPWJSvP-X/view?usp=sharing
+wget https://github.com/nateg5/Android/releases/download/NateCast/drm.zip
 unzip drm.zip
 ```
 

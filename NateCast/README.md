@@ -4,15 +4,51 @@
 
 # Install Chromium with Widevine
 
-Use the instructions at https://www.novaspirit.com/2017/09/14/watch-netflix-raspberry-pi/ to install a compatible version of the Chromium browser and use the following settings for the User-Agent Switcher
+1. Download and Install Chromium with Widevine
 
-**Name:** Netflix
+```
+wget https://drive.google.com/file/d/1bCPiUDEIDbKQ0H03v3rdljQ30PknzO_G/view?usp=sharing
+sudo dpkg -i chromium-browser_56.0.2924.84-0ubuntu0.14.04.1.1011.deb
+```
 
-**User-Agent String:** Mozilla/5.0 (X11; CrOS armv7l 6946.63.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36
+2. Download and extract DRM zip
 
-**Group:** Replace
+```
+wget https://drive.google.com/file/d/1YV7yx6pUPCj07cqbE5Cvrq8TPWJSvP-X/view?usp=sharing
+unzip drm.zip
+```
 
-**Append:** IE
+3. Copy libwidevinecdm.so
+
+```
+sudo cp libwidevinecdm.so /usr/lib/chromium-browser/libwidevinecdm.so
+```
+
+4. Open Chromium
+
+5. Go to https://chrome.google.com/webstore/detail/user-agent-switcher-for-c/djflhoibgkdhkhhcedjiklpkjnoahfmg
+
+6. Install User-Agent Switcher for Chrome
+
+7. Right-click User-Agent Switcher icon then select Options
+
+8. Add a new user agent user the following information
+
+    **Name:** Netflix
+
+    **User-Agent String:** Mozilla/5.0 (X11; CrOS armv7l 9901.77.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.97 Safari/537.36
+
+    **Group:** Chrome
+
+    **Append:** Replace
+
+    **Idicator Flag:** NFX
+
+9. Left-click User-Agent Switcher icon then select Chrome > Netflix
+
+* References
+    * https://www.novaspirit.com/2017/09/14/watch-netflix-raspberry-pi/
+    * https://raspberryparanovatos.com/tutoriales/como-ver-netflix-en-raspberry-pi-usando-el-navegador-web-vivaldi/
 
 # Install Apache on RPi
 

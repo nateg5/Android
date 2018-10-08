@@ -265,6 +265,9 @@ public class MainActivity extends AppCompatActivity {
         if(index < 0) {
             index = requestedUrl.indexOf(".tv");
         }
+        if(index < 0) {
+            index = requestedUrl.indexOf(".co");
+        }
         int space = lastIndexOfWhitespace(requestedUrl, index);
         if(space >= 0) {
             requestedUrl = requestedUrl.substring(space + 1);

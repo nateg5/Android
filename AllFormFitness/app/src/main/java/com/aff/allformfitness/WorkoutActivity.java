@@ -136,7 +136,7 @@ public class WorkoutActivity extends AppCompatActivity implements AFFActivity {
             List<String> sets = SharedPreferencesHelper.instance.getSets(exerciseIndex);
 
             /* add warm-up sets */
-            if(exerciseType.equals(DialogHelper.FREE_WEIGHT)) {
+            if(exerciseType.equals(DialogHelper.FREE_WEIGHT) && sets.size() > 0) {
                 final int numberOfWarmupSets = Integer.valueOf(SharedPreferencesHelper.instance.getPreference(exerciseIndex, SharedPreferencesHelper.WARMUP_SETS));
                 final int firstSetWeight = Integer.valueOf(SharedPreferencesHelper.instance.getPreference(sets.get(0), SharedPreferencesHelper.WEIGHT));
                 final int increment = Integer.valueOf(SharedPreferencesHelper.instance.getPreference(exerciseIndex, SharedPreferencesHelper.INCREMENT));

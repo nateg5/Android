@@ -99,19 +99,13 @@ public class SharedPreferencesHelper {
 
     public void init(Context c) {
         context = c;
-        SharedPreferences sharedPreferences = context.getSharedPreferences(PACKAGE, Context.MODE_PRIVATE);
-        editor = sharedPreferences.edit();
-        localPreferences = (Map<String, String>) sharedPreferences.getAll();
+        initLocalPreferences();
 
         ProgramsDefaults.create();
         MeasurementsDefaults.create();
         HiitDefaults.create();
         HowToDefaults.create();
         SettingsDefaults.create();
-
-        if(!editor.commit()) {
-            LogHelper.error("Failed to commit shared preferences.");
-        }
 
         /* Temporary code for adding exercise type on upgrade. Can be removed later. */
         boolean needCommit = false;
@@ -196,6 +190,22 @@ public class SharedPreferencesHelper {
             commit();
         }
         /**/
+    }
+
+    private void initLocalPreferences() {
+        if(localPreferences == null) {
+            SharedPreferences sharedPreferences = context.getSharedPreferences(PACKAGE, Context.MODE_PRIVATE);
+            editor = sharedPreferences.edit();
+            localPreferences = (Map<String, String>) sharedPreferences.getAll();
+
+            if(!editor.commit()) {
+                LogHelper.error("Failed to commit shared preferences.");
+            }
+
+            if(localPreferences == null) {
+                LogHelper.error("Unable to load preferences. Please restart the app.");
+            }
+        }
     }
 
     public Context getContext() {
@@ -620,6 +630,8 @@ public class SharedPreferencesHelper {
     private List<String> getList(String parent, String child, String preference) {
         List<String> list = new ArrayList<>();
 
+        initLocalPreferences();
+
         if(isParentIndexValid(parent)) {
             for (int i = 0; ; i++) {
                 if (localPreferences.containsKey(buildPreferenceString(parent, child, String.valueOf(i), preference))) {
@@ -646,6 +658,8 @@ public class SharedPreferencesHelper {
 
     public String getPreference(String key) {
         String preference = "";
+
+        initLocalPreferences();
 
         if (localPreferences.containsKey(key)) {
             preference = localPreferences.get(key);

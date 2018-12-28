@@ -1,12 +1,10 @@
 package com.bandit.bandit;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -15,13 +13,11 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -64,6 +60,55 @@ public class MainActivity extends AppCompatActivity
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
+        mViewPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
+            @Override
+            public void onPageSelected(int i) {
+                setTitle(getString(list.get(i).getString()));
+            }
+        });
+
+        setTitle(getString(list.get(0).getString()));
+    }
+
+    private static class Content {
+
+        private int layout;
+        private int string;
+        private int nav;
+
+        Content(int layout, int string, int nav) {
+            this.layout = layout;
+            this.string = string;
+            this.nav = nav;
+        }
+
+        public int getLayout() {
+            return layout;
+        }
+
+        public int getString() {
+            return string;
+        }
+
+        public int getNav() {
+            return nav;
+        }
+    }
+
+    private static final List<Content> list = new ArrayList<Content>() {{
+        add(new Content(R.layout.content_main, R.string.content_cover, R.id.nav_cover));
+        add(new Content(R.layout.content_copyright, R.string.content_copyright, R.id.nav_copyright));
+        add(new Content(R.layout.content_letter, R.string.content_letter, R.id.nav_letter));
+    }};
+
+    private Content findContentFromNav(int nav) {
+        for(Content content : list) {
+            if(content.getNav() == nav) {
+                return content;
+            }
+        }
+
+        return null;
     }
 
     @Override
@@ -76,57 +121,21 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
+        Content content = findContentFromNav(id);
+        if(content != null) {
+            mViewPager.setCurrentItem(list.indexOf(content));
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
-        return true;
+        return false;
     }
-
-    private static final Map<Integer, Integer> map = new HashMap<Integer, Integer>() {{
-        put(1, R.layout.content_main);
-        put(2, R.layout.content_copyright);
-    }};
 
     /**
      * A placeholder fragment containing a simple view.
@@ -156,7 +165,7 @@ public class MainActivity extends AppCompatActivity
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
-            View rootView = inflater.inflate(map.get(getArguments().getInt(ARG_SECTION_NUMBER)), container, false);
+            View rootView = inflater.inflate(list.get(getArguments().getInt(ARG_SECTION_NUMBER)).getLayout(), container, false);
             return rootView;
         }
     }
@@ -175,12 +184,12 @@ public class MainActivity extends AppCompatActivity
         public Fragment getItem(int position) {
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
-            return PlaceholderFragment.newInstance(position + 1);
+            return PlaceholderFragment.newInstance(position);
         }
 
         @Override
         public int getCount() {
-            return map.size();
+            return list.size();
         }
     }
 }

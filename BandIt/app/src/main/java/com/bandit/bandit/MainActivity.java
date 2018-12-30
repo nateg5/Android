@@ -1,5 +1,7 @@
 package com.bandit.bandit;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -35,6 +37,9 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        final SharedPreferences sharedPreferences = getPreferences(Context.MODE_PRIVATE);
+        final SharedPreferences.Editor editor = sharedPreferences.edit();
+
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -65,10 +70,14 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onPageSelected(int i) {
                 setTitle(getString(list.get(i).getString()));
+                editor.putInt("currentItem", i);
+                editor.apply();
             }
         });
 
         setTitle(getString(list.get(0).getString()));
+
+        mViewPager.setCurrentItem(sharedPreferences.getInt("currentItem", 0));
     }
 
     private static class Content {

@@ -11,6 +11,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="16dp"
-        android:text="Hi Readers!\n\nDo you use a hair band to put your hair up? When your hair isn’t up, do you wear the hair band around your wrist for safe keeping until you do want to put your hair up? Then instead of just having it on your wrist, why not make it look funky and cool! This eBook will show you a few different styles for using hair bands to decorate your hand and wrist, with step-by-step guides on how to create each one.\n\nWhen you’ve mastered each style in this book you can visit our blog at BandItGuide.blogspot.com and find even more funky cool designs. You can even submit your own creative styles!\n\nHave fun, stay safe, and get to creating!\n\nSincerely,\n\nJoni Riley-Gardner"/>
+        android:text="@string/content_letter_text"/>
 
 </ScrollView>

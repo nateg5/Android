@@ -11,6 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/cover"
-        android:background="@android:color/white"/>
+        android:background="@android:color/white"
+        android:contentDescription="@string/cover_description"/>
 
 </android.support.constraint.ConstraintLayout>

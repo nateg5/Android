@@ -4,13 +4,10 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_title">BAND-IT</string>
     <string name="nav_header_subtitle">Table of Contents</string>
-    <string name="nav_header_desc">Navigation header</string>
-    <string name="action_settings">Settings</string>
-    <string name="title_activity_copyright">CopyrightActivity</string>
-    <string name="title_activity_tabbed">TabbedActivity</string>
-    <string name="section_format">Hello World from section: %1$d</string>
-    <string name="title_activity_tabbed2">Tabbed2Activity</string>
     <string name="content_cover">Cover</string>
     <string name="content_copyright">Copyright</string>
     <string name="content_letter">Letter</string>
+    <string name="cover_description">Cover Image</string>
+    <string name="content_copyright_text">Copyright © 2012\n\nAll rights reserved. No part of this book may be reproduced or transmitted in any form or by any means, electronic or mechanical, including photocopying, recording, or by any information storage or retrieval system, without written permission from the author.\n\nTrademarks are property of their respective holders. When used, trademarks are for the benefit of the trademark owner only.</string>
+    <string name="content_letter_text">Hi Readers!\n\nDo you use a hair band to put your hair up? When your hair isn’t up, do you wear the hair band around your wrist for safe keeping until you do want to put your hair up? Then instead of just having it on your wrist, why not make it look funky and cool! This eBook will show you a few different styles for using hair bands to decorate your hand and wrist, with step-by-step guides on how to create each one.\n\nWhen you’ve mastered each style in this book you can visit our blog at BandItGuide.blogspot.com and find even more funky cool designs. You can even submit your own creative styles!\n\nHave fun, stay safe, and get to creating!\n\nSincerely,\n\nJoni Riley-Gardner</string>
 </resources>

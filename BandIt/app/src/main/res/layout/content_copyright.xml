@@ -11,6 +11,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="16dp"
-        android:text="Copyright © 2012\n\nAll rights reserved. No part of this book may be reproduced or transmitted in any form or by any means, electronic or mechanical, including photocopying, recording, or by any information storage or retrieval system, without written permission from the author.\n\nTrademarks are property of their respective holders. When used, trademarks are for the benefit of the trademark owner only."/>
+        android:text="@string/content_copyright_text"/>
 
 </ScrollView>

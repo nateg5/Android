@@ -1,6 +1,7 @@
 package com.bandit.bandit;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -23,16 +24,6 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     /**
-     * The {@link android.support.v4.view.PagerAdapter} that will provide
-     * fragments for each of the sections. We use a
-     * {@link FragmentPagerAdapter} derivative, which will keep every
-     * loaded fragment in memory. If this becomes too memory intensive, it
-     * may be best to switch to a
-     * {@link android.support.v4.app.FragmentStatePagerAdapter}.
-     */
-    private SectionsPagerAdapter mSectionsPagerAdapter;
-
-    /**
      * The {@link ViewPager} that will host the section contents.
      */
     private ViewPager mViewPager;
@@ -41,24 +32,34 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        /*
+         * The {@link android.support.v4.view.PagerAdapter} that will provide
+         * fragments for each of the sections. We use a
+         * {@link FragmentPagerAdapter} derivative, which will keep every
+         * loaded fragment in memory. If this becomes too memory intensive, it
+         * may be best to switch to a
+         * {@link android.support.v4.app.FragmentStatePagerAdapter}.
+         */
+        SectionsPagerAdapter mSectionsPagerAdapter;
 
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
         // Set up the ViewPager with the sections adapter.
-        mViewPager = (ViewPager) findViewById(R.id.container);
+        mViewPager = findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
         mViewPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
             @Override
@@ -72,9 +73,9 @@ public class MainActivity extends AppCompatActivity
 
     private static class Content {
 
-        private int layout;
-        private int string;
-        private int nav;
+        final int layout;
+        final int string;
+        final int nav;
 
         Content(int layout, int string, int nav) {
             this.layout = layout;
@@ -82,15 +83,15 @@ public class MainActivity extends AppCompatActivity
             this.nav = nav;
         }
 
-        public int getLayout() {
+        int getLayout() {
             return layout;
         }
 
-        public int getString() {
+        int getString() {
             return string;
         }
 
-        public int getNav() {
+        int getNav() {
             return nav;
         }
     }
@@ -113,7 +114,7 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
@@ -123,7 +124,7 @@ public class MainActivity extends AppCompatActivity
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
@@ -132,7 +133,7 @@ public class MainActivity extends AppCompatActivity
             mViewPager.setCurrentItem(list.indexOf(content));
         }
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return false;
     }
@@ -154,7 +155,7 @@ public class MainActivity extends AppCompatActivity
          * Returns a new instance of this fragment for the given section
          * number.
          */
-        public static PlaceholderFragment newInstance(int sectionNumber) {
+        static PlaceholderFragment newInstance(int sectionNumber) {
             PlaceholderFragment fragment = new PlaceholderFragment();
             Bundle args = new Bundle();
             args.putInt(ARG_SECTION_NUMBER, sectionNumber);
@@ -163,10 +164,13 @@ public class MainActivity extends AppCompatActivity
         }
 
         @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
+        public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
-            View rootView = inflater.inflate(list.get(getArguments().getInt(ARG_SECTION_NUMBER)).getLayout(), container, false);
-            return rootView;
+            int sectionNumber = 0;
+            if(getArguments() != null && getArguments().get(ARG_SECTION_NUMBER) != null) {
+                sectionNumber = getArguments().getInt(ARG_SECTION_NUMBER);
+            }
+            return inflater.inflate(list.get(sectionNumber).getLayout(), container, false);
         }
     }
 
@@ -174,9 +178,9 @@ public class MainActivity extends AppCompatActivity
      * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
      * one of the sections/tabs/pages.
      */
-    public class SectionsPagerAdapter extends FragmentPagerAdapter {
+    class SectionsPagerAdapter extends FragmentPagerAdapter {
 
-        public SectionsPagerAdapter(FragmentManager fm) {
+        SectionsPagerAdapter(FragmentManager fm) {
             super(fm);
         }
 

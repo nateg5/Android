@@ -13,6 +13,12 @@
         <item
             android:id="@+id/nav_letter"
             android:title="@string/content_letter" />
+        <item
+            android:id="@+id/nav_safety"
+            android:title="@string/content_safety" />
+        <item
+            android:id="@+id/nav_basic"
+            android:title="@string/content_basic" />
     </group>
 
 </menu>

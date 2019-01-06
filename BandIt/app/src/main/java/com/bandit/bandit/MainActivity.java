@@ -109,6 +109,8 @@ public class MainActivity extends AppCompatActivity
         add(new Content(R.layout.content_main, R.string.content_cover, R.id.nav_cover));
         add(new Content(R.layout.content_copyright, R.string.content_copyright, R.id.nav_copyright));
         add(new Content(R.layout.content_letter, R.string.content_letter, R.id.nav_letter));
+        add(new Content(R.layout.content_safety, R.string.content_safety, R.id.nav_safety));
+        add(new Content(R.layout.content_basic, R.string.content_basic, R.id.nav_basic));
     }};
 
     private Content findContentFromNav(int nav) {

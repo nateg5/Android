@@ -10,8 +10,8 @@
 
 ```
 cd /usr/lib/chromium-browser
-wget https://github.com/nateg5/Android/releases/download/NateCast/libwidevinecdm.so_.zip
-unzip libwidevinecdm.so_.zip
+sudo wget https://github.com/nateg5/Android/releases/download/NateCast/libwidevinecdm.so_.zip
+sudo unzip libwidevinecdm.so_.zip
 ```
 
 3. Open Chromium

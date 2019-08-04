@@ -1,4 +1,6 @@
 <?php
+    $ping = $_GET["ping"];
+
     $url = $_GET["url"];
     if(strlen($url) > 0) {
         $file = fopen("url.txt", "w");
@@ -18,6 +20,10 @@
         $file = fopen("key.txt", "w");
         fwrite($file, $key);
         fclose($file);
+    }
+
+    if(strlen($ping) > 0) {
+        echo "ping";
     }
 
     if(strlen($url) > 0) {

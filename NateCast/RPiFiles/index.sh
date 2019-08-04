@@ -33,13 +33,15 @@ while true; do
     elif [ "$url" == "mousemove" ]
     then
         echo "mousemove"
-        xdotool mousemove 1280 720
+        xdotool mousemove 1920 1080
     elif [ $url_length -gt 0 ] 
     then
+        chromium-browser &
+        sleep 10
         chromium-browser $url & 
         if [ "$full" == "true" ]
         then
-            sleep 5
+            sleep 10
             xdotool key F11 & 
         fi
     fi

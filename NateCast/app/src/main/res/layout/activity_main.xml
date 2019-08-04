@@ -16,7 +16,8 @@
             android:layout_height="wrap_content"
             android:text=""
             android:inputType="numberDecimal"
-            android:digits="1234567890."/>
+            android:digits="1234567890."
+            android:hint="@string/ipaddressHint"/>
 
         <EditText
             android:id="@+id/editTextUrl"
@@ -24,7 +25,8 @@
             android:layout_height="wrap_content"
             android:text=""
             android:inputType="text"
-            tools:ignore="TextFields" />
+            tools:ignore="TextFields"
+            android:hint="@string/urlHint"/>
 
         <LinearLayout
             android:layout_width="match_parent"

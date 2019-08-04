@@ -4,9 +4,11 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.wifi.WifiManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.format.Formatter;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -202,6 +204,8 @@ public class MainActivity extends AppCompatActivity {
                 sendRequest(context, url);
             }
         });
+
+        findPi(editTextIpAddress);
     }
 
     private String getKey(ToggleButton toggleButtonX2, ToggleButton toggleButtonX3, ToggleButton toggleButtonX4, String key) {
@@ -216,6 +220,46 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return key;
+    }
+
+    private void findPi(final EditText editTextIpAddress) {
+        WifiManager wm = (WifiManager) getApplicationContext().getSystemService(WIFI_SERVICE);
+        String ip = "192.168.0,0";
+        if(wm != null) {
+            ip = Formatter.formatIpAddress(wm.getConnectionInfo().getIpAddress());
+        }
+        if(ip.equals("0.0.0.0")) {
+            ip = "192.168.0.0";
+        }
+        ip = ip.substring(0, ip.lastIndexOf(".") + 1);
+        for(int i = 0; i < 256; i++) {
+            final String url = "http://" + ip + i + "?ping=true";
+
+            new Timer().schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    try {
+                        URL uRL = new URL(url);
+                        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(uRL.openStream()));
+
+                        String inputLine;
+                        while ((inputLine = bufferedReader.readLine()) != null) {
+                            if(inputLine.equals("ping")) {
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        editTextIpAddress.setText(url.substring(7, url.indexOf("?")));
+                                    }
+                                });
+                            }
+                        }
+                        bufferedReader.close();
+                    } catch(final Exception e) {
+                        // do nothing
+                    }
+                }
+            }, 100);
+        }
     }
 
     private void sendRequest(final Context context, final String url) {

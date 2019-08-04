@@ -42,7 +42,7 @@ sudo cp libwidevinecdm.so /usr/lib/chromium-browser/libwidevinecdm.so
 
     **Append:** Replace
 
-    **Idicator Flag:** NFX
+    **Indicator Flag:** NFX
 
 9. Left-click User-Agent Switcher icon then select Chrome > Netflix
 

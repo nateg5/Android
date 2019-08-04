@@ -17,4 +17,6 @@
     <string name="x3_on">X3 On</string>
     <string name="x4_off">X4 Off</string>
     <string name="x4_on">X4 On</string>
+    <string name="ipaddressHint">RPi IP Address</string>
+    <string name="urlHint">URL</string>
 </resources>

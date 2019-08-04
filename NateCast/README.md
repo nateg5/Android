@@ -4,27 +4,17 @@
 
 # Install Chromium with Widevine
 
-1. Download and Install Chromium with Widevine
+1. Ensure your RPi is on the latest Raspbian distribution (Buster).
+
+2. Download and extract libwidevinecdm
 
 ```
-wget https://github.com/nateg5/Android/releases/download/NateCast/chromium-browser_56.0.2924.84-0ubuntu0.14.04.1.1011.deb
-sudo dpkg -i chromium-browser_56.0.2924.84-0ubuntu0.14.04.1.1011.deb
+cd /usr/lib/chromium-browser
+wget https://github.com/nateg5/Android/releases/download/NateCast/libwidevinecdm.so_.zip
+unzip libwidevinecdm.so_.zip
 ```
 
-2. Download and extract DRM zip
-
-```
-wget https://github.com/nateg5/Android/releases/download/NateCast/drm.zip
-unzip drm.zip
-```
-
-3. Copy libwidevinecdm.so
-
-```
-sudo cp libwidevinecdm.so /usr/lib/chromium-browser/libwidevinecdm.so
-```
-
-4. Open Chromium
+3. Open Chromium
 
 5. Go to https://chrome.google.com/webstore/detail/user-agent-switcher-for-c/djflhoibgkdhkhhcedjiklpkjnoahfmg
 
@@ -36,7 +26,7 @@ sudo cp libwidevinecdm.so /usr/lib/chromium-browser/libwidevinecdm.so
 
     **Name:** Netflix
 
-    **User-Agent String:** Mozilla/5.0 (X11; CrOS armv7l 9901.77.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/72.0.3626.81 Safari/537.36
+    **User-Agent String:** Mozilla/5.0 (X11; CrOS x86_64 11895.95.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.125 Safari/537.36
 
     **Group:** Chrome
 
@@ -47,41 +37,40 @@ sudo cp libwidevinecdm.so /usr/lib/chromium-browser/libwidevinecdm.so
 9. Left-click User-Agent Switcher icon then select Chrome > Netflix
 
 * References
+    * https://blog.vpetkov.net/2019/07/12/netflix-and-spotify-on-a-raspberry-pi-4-with-latest-default-chromium/
     * https://www.novaspirit.com/2017/09/14/watch-netflix-raspberry-pi/
     * https://raspberryparanovatos.com/tutoriales/como-ver-netflix-en-raspberry-pi-usando-el-navegador-web-vivaldi/
 
-# Install Apache on RPi
+# Install Apache, PHP and XDOTool on RPi
 
 ```
 sudo apt-get install apache2 -y
+sudo apt-get install php libapache2-mod-php -y
+sudo mv /var/www/html/index.html /var/www/html/index.html.bak
+sudo apt-get install xdotool -y
 ```
 
 Reference: https://www.raspberrypi.org/documentation/remote-access/web-server/apache.md
 
 # Update RPi Apache Install
 
-Cope the files from https://github.com/nateg5/Android/tree/master/NateCast/RPiFiles to the apache server on the RPi at
+Copy the files from https://github.com/nateg5/Android/tree/master/NateCast/RPiFiles to the apache server on the RPi at
 
 ```
-/var/www/html
+cd /var/www/html
+sudo wget https://raw.githubusercontent.com/nateg5/Android/master/NateCast/RPiFiles/full.txt
+sudo wget https://raw.githubusercontent.com/nateg5/Android/master/NateCast/RPiFiles/index.php
+sudo wget https://raw.githubusercontent.com/nateg5/Android/master/NateCast/RPiFiles/index.sh
+sudo wget https://raw.githubusercontent.com/nateg5/Android/master/NateCast/RPiFiles/key.txt
+sudo wget https://raw.githubusercontent.com/nateg5/Android/master/NateCast/RPiFiles/url.txt
+sudo chmod 777 *
 ```
 
 # Update RPi Autostart
 
-Add the following line to the end of ~/.config/lxsession/LXDE-pi/autostart
+Add the following line to the end of ~/.config/lxsession/LXDE-pi/autostart (or /etc/xdg/lxsession/LXDE-pi/autostart)
 
 ```
 @/var/www/html/index.sh
 ```
 
-# Create Static IP Address on RPi
-
-Add the following lines to the end of /etc/dhcpcd.conf. You can get the routers/domain_name_servers address by running **route** from the command line. You can also use a different ip_address.
-
-```
-interface wlan0
-
-static ip_address=192.168.1.120/24
-static routers=192.168.1.1
-static domain_name_servers=192.168.1.1
-```

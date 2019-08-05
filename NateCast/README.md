@@ -76,7 +76,13 @@ Add the following line to the end of ~/.config/lxsession/LXDE-pi/autostart (or /
 
 # Update Chrome Sound Settings
 
-Go to chrome://settings/content/sound and add Netflix and Amazon to the Allow section.
+Go to
+
+```
+chrome://settings/content/sound 
+```
+
+and add Netflix and Amazon to the Allow section.
 
 ```
 https://www.netflix.com:443

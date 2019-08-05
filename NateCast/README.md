@@ -2,7 +2,7 @@
 
 [Download NateCast App](https://github.com/nateg5/Android/raw/master/NateCast/app/app-release.apk)
 
-# Install Chromium with Widevine
+# Install Widevine and User Agent Switcher
 
 1. Ensure your RPi is on the latest Raspbian distribution (Buster).
 
@@ -74,3 +74,11 @@ Add the following line to the end of ~/.config/lxsession/LXDE-pi/autostart (or /
 @/var/www/html/index.sh
 ```
 
+# Update Chrome Sound Settings
+
+Go to chrome://settings/content/sound and add Netflix and Amazon to the Allow section.
+
+```
+https://www.netflix.com:443
+https://www.amazon.com:443
+```

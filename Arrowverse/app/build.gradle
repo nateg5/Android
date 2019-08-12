@@ -2,11 +2,13 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 25
+    //noinspection GradleDependency
     buildToolsVersion "26.0.0"
     defaultConfig {
         applicationId "com.arrowverse.arrowverse"
+        //noinspection MinSdkTooLow
         minSdkVersion 9
-        //noinspection OldTargetApi
+        //noinspection ExpiredTargetSdkVersion,OldTargetApi
         targetSdkVersion 25
         versionCode 1
         versionName "1.0"
@@ -25,7 +27,9 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
+    //noinspection GradleDependency
     compile 'com.android.support:appcompat-v7:25.3.1'
+    //noinspection GradleDependency
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     testCompile 'junit:junit:4.12'
 }

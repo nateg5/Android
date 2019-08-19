@@ -36,12 +36,10 @@ while true; do
         xdotool mousemove 1920 1080
     elif [ $url_length -gt 0 ] 
     then
-        chromium-browser &
-        sleep 10
-        chromium-browser $url & 
+        chromium-browser "http://127.0.0.1/loading.php?time=15&url=$url" &
         if [ "$full" == "true" ]
         then
-            sleep 10
+            sleep 30
             xdotool key F11 & 
         fi
     fi

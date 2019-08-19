@@ -62,6 +62,7 @@ sudo wget https://raw.githubusercontent.com/nateg5/Android/master/NateCast/RPiFi
 sudo wget https://raw.githubusercontent.com/nateg5/Android/master/NateCast/RPiFiles/index.php
 sudo wget https://raw.githubusercontent.com/nateg5/Android/master/NateCast/RPiFiles/index.sh
 sudo wget https://raw.githubusercontent.com/nateg5/Android/master/NateCast/RPiFiles/key.txt
+sudo wget https://raw.githubusercontent.com/nateg5/Android/master/NateCast/RPiFiles/loading.php
 sudo wget https://raw.githubusercontent.com/nateg5/Android/master/NateCast/RPiFiles/url.txt
 sudo chmod 777 *
 ```

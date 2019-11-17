@@ -85,12 +85,14 @@ public class MainActivity extends AppCompatActivity
         navigationView.getMenu().findItem(list.get(mViewPager.getCurrentItem()).getNav()).setChecked(true);
     }
 
+    @SuppressWarnings("unused")
     public void goToBasicSetup(View view) {
         NavigationView navigationView = findViewById(R.id.nav_view);
 
         onNavigationItemSelected(navigationView.getMenu().findItem(R.id.nav_basic));
     }
 
+    @SuppressWarnings("unused")
     public void openBandItBlog(View view) {
         String url = "http://banditguide.blogspot.com";
         Intent intent = new Intent(Intent.ACTION_VIEW);
@@ -172,6 +174,7 @@ public class MainActivity extends AppCompatActivity
     /**
      * A placeholder fragment containing a simple view.
      */
+    @SuppressWarnings("WeakerAccess")
     public static class PlaceholderFragment extends Fragment {
         /**
          * The fragment argument representing the section number for this

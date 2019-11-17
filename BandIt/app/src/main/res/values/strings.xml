@@ -9,6 +9,8 @@
     <string name="content_letter">Intro</string>
     <string name="content_safety">Safety First</string>
     <string name="content_basic">Basic Set Up</string>
+    <string name="content_styles_using_two_bands">Styles Using 2 Bands</string>
+    <string name="content_bridge">Crossing the Bridge</string>
     <string name="content_copyright_text_1">Copyright © 2012</string>
     <string name="content_copyright_text_2">All rights reserved. No part of this book may be reproduced or transmitted in any form or by any means, electronic or mechanical, including photocopying, recording, or by any information storage or retrieval system, without written permission from the author.</string>
     <string name="content_copyright_text_3">Trademarks are property of their respective holders. When used, trademarks are for the benefit of the trademark owner only.</string>
@@ -25,13 +27,17 @@
     <string name="content_basic_text_4"><b>Step 3:</b> Grab the band on the right by the loop on top and pull it under the bottom loop.</string>
     <string name="content_basic_text_5"><b>Step 4:</b> Pull the loop all the way through until the right band is snug around the left band.</string>
     <string name="content_basic_text_6">If you flip it over, it will look like this:</string>
-    <string name="content_basic_text_7">* If you pull the right band too much it will change the look of the knot. Throughout this book we will use the knot above, however feel free to use whichever look you like best! You can also visit our blog at BandItGuide.blogspot.com to check out other styles of knots that you can use.</string>
-    <string name="ic_launcher_orange">Orange Icon</string>
-    <string name="cover_description">Cover Image</string>
-    <string name="hand_diagram_left_description">Hand Diagram</string>
+    <string name="content_basic_text_7">* If you pull the right band too much it will change the look of the knot. Throughout this book we will use the knot above, however feel free to use whichever look you like best! You can also visit our blog at <a href="">BandItGuide.blogspot.com</a> to check out other styles of knots that you can use.</string>
     <string name="basic_1_description">Basic 1</string>
     <string name="basic_2_description">Basic 2</string>
     <string name="basic_3_description">Basic 3</string>
     <string name="basic_4_description">Basic 4</string>
     <string name="basic_5_description">Basic 5</string>
+    <string name="content_bridge_text_1">For this style you would follow <b>Steps 1-4</b> of the <a href="">Basic Set Up</a>.</string>
+    <string name="content_bridge_text_2"><b>Step 5:</b> Loop one of the bands over your pinky.</string>
+    <string name="content_bridge_text_3"><b>Step 6:</b> Loop the other band around your thumb.</string>
+    <string name="bridge_1_description">Bridge 1</string>
+    <string name="ic_launcher_orange">Orange Icon</string>
+    <string name="cover_description">Cover Image</string>
+    <string name="hand_diagram_left_description">Hand Diagram</string>
 </resources>

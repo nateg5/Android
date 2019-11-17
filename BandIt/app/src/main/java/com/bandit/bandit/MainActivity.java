@@ -1,7 +1,9 @@
 package com.bandit.bandit;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -46,7 +48,7 @@ public class MainActivity extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = findViewById(R.id.nav_view);
+        final NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
         /*
@@ -69,6 +71,7 @@ public class MainActivity extends AppCompatActivity
         mViewPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
             @Override
             public void onPageSelected(int i) {
+                navigationView.getMenu().findItem(list.get(i).getNav()).setChecked(true);
                 setTitle(getString(list.get(i).getString()));
                 editor.putInt("currentItem", i);
                 editor.apply();
@@ -78,6 +81,21 @@ public class MainActivity extends AppCompatActivity
         setTitle(getString(list.get(0).getString()));
 
         mViewPager.setCurrentItem(sharedPreferences.getInt("currentItem", 0));
+
+        navigationView.getMenu().findItem(list.get(mViewPager.getCurrentItem()).getNav()).setChecked(true);
+    }
+
+    public void goToBasicSetup(View view) {
+        NavigationView navigationView = findViewById(R.id.nav_view);
+
+        onNavigationItemSelected(navigationView.getMenu().findItem(R.id.nav_basic));
+    }
+
+    public void openBandItBlog(View view) {
+        String url = "http://banditguide.blogspot.com";
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setData(Uri.parse(url));
+        startActivity(intent);
     }
 
     private static class Content {
@@ -111,6 +129,7 @@ public class MainActivity extends AppCompatActivity
         add(new Content(R.layout.content_letter, R.string.content_letter, R.id.nav_letter));
         add(new Content(R.layout.content_safety, R.string.content_safety, R.id.nav_safety));
         add(new Content(R.layout.content_basic, R.string.content_basic, R.id.nav_basic));
+        add(new Content(R.layout.content_bridge, R.string.content_bridge, R.id.nav_bridge));
     }};
 
     private Content findContentFromNav(int nav) {
@@ -133,9 +152,10 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        item.setChecked(true);
+
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 

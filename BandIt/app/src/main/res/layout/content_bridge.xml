@@ -14,9 +14,29 @@
         android:padding="16dp">
 
         <TextView
+            android:id="@+id/content_bridge_text_1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/content_safety_text"/>
+            android:onClick="goToBasicSetup"
+            android:text="@string/content_bridge_text_1" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/content_bridge_text_2"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/content_bridge_text_3"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -25,8 +45,8 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/hand_diagram_left"
-            android:contentDescription="@string/hand_diagram_left_description"
+            android:src="@drawable/bridge"
+            android:contentDescription="@string/bridge_1_description"
             android:adjustViewBounds="true"/>
 
     </LinearLayout>

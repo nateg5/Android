@@ -132,6 +132,7 @@ public class MainActivity extends AppCompatActivity
         add(new Content(R.layout.content_safety, R.string.content_safety, R.id.nav_safety));
         add(new Content(R.layout.content_basic, R.string.content_basic, R.id.nav_basic));
         add(new Content(R.layout.content_bridge, R.string.content_bridge, R.id.nav_bridge));
+        add(new Content(R.layout.content_xmarks, R.string.content_xmarks, R.id.nav_xmarks));
     }};
 
     private Content findContentFromNav(int nav) {
@@ -215,9 +216,10 @@ public class MainActivity extends AppCompatActivity
     class SectionsPagerAdapter extends FragmentPagerAdapter {
 
         SectionsPagerAdapter(FragmentManager fm) {
-            super(fm);
+            super(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         }
 
+        @NonNull
         @Override
         public Fragment getItem(int position) {
             // getItem is called to instantiate the fragment for the given page.

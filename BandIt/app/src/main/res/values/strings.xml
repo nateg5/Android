@@ -11,6 +11,7 @@
     <string name="content_basic">Basic Set Up</string>
     <string name="content_styles_using_two_bands">Styles Using 2 Bands</string>
     <string name="content_bridge">Crossing the Bridge</string>
+    <string name="content_xmarks">X Marks the Spot</string>
     <string name="content_copyright_text_1">Copyright © 2012</string>
     <string name="content_copyright_text_2">All rights reserved. No part of this book may be reproduced or transmitted in any form or by any means, electronic or mechanical, including photocopying, recording, or by any information storage or retrieval system, without written permission from the author.</string>
     <string name="content_copyright_text_3">Trademarks are property of their respective holders. When used, trademarks are for the benefit of the trademark owner only.</string>
@@ -37,6 +38,12 @@
     <string name="content_bridge_text_2"><b>Step 5:</b> Loop one of the bands over your pinky.</string>
     <string name="content_bridge_text_3"><b>Step 6:</b> Loop the other band around your thumb.</string>
     <string name="bridge_1_description">Bridge 1</string>
+    <string name="content_xmarks_text_1">Follow <b>Steps 1-4</b> of the <a href="">Basic Set Up</a>. Then:</string>
+    <string name="content_xmarks_text_2"><b>Step 5:</b> Take one of the bands and wrap it around your wrist so that the knot is on top of your arm and the other band is lying on top of your hand.</string>
+    <string name="content_xmarks_text_3"><b>Step 6:</b> Loop the other band around your wrist as well.</string>
+    <string name="content_xmarks_text_4"><b>Step 7:</b> Spread the bands out to your desired length. Easy peasy!</string>
+    <string name="xmarks_1_description">XMarks 1</string>
+    <string name="xmarks_2_description">XMarks 2</string>
     <string name="ic_launcher_orange">Orange Icon</string>
     <string name="cover_description">Cover Image</string>
     <string name="hand_diagram_left_description">Hand Diagram</string>

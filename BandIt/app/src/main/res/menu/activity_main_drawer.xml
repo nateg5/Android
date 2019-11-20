@@ -28,6 +28,9 @@
         <item
             android:id="@+id/nav_bridge"
             android:title="@string/content_bridge" />
+        <item
+            android:id="@+id/nav_xmarks"
+            android:title="@string/content_xmarks" />
     </group>
 
 </menu>

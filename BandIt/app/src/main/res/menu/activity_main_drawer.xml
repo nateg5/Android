@@ -31,6 +31,12 @@
         <item
             android:id="@+id/nav_xmarks"
             android:title="@string/content_xmarks" />
+        <item
+            android:id="@+id/nav_wrestler"
+            android:title="@string/content_wrestler" />
+        <item
+            android:id="@+id/nav_trapped"
+            android:title="@string/content_trapped" />
     </group>
 
 </menu>

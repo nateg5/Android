@@ -143,6 +143,7 @@ public class MainActivity extends AppCompatActivity
         add(new Content(R.layout.content_wrestler, R.string.content_wrestler, R.id.nav_wrestler));
         add(new Content(R.layout.content_trapped, R.string.content_trapped, R.id.nav_trapped));
         add(new Content(R.layout.content_twisted, R.string.content_twisted, R.id.nav_twisted));
+        add(new Content(R.layout.content_ring, R.string.content_ring, R.id.nav_ring));
     }};
 
     private Content findContentFromNav(int nav) {

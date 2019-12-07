@@ -47,5 +47,14 @@
             android:id="@+id/nav_bowtie"
             android:title="@string/content_bowtie" />
     </group>
+    <group android:checkableBehavior="single" android:id="@+id/group3">
+        <item
+            android:id="@+id/nav_style_three_bands"
+            android:enabled="false"
+            android:title="@string/content_styles_using_three_bands" />
+        <item
+            android:id="@+id/nav_tower"
+            android:title="@string/content_tower" />
+    </group>
 
 </menu>

@@ -12,6 +12,8 @@
         <ignore path="src/main/res/drawable/cover.jpg" />
         <ignore path="src/main/res/drawable/hand_diagram_left.jpg" />
         <ignore path="src/main/res/drawable/ring.jpg" />
+        <ignore path="src/main/res/drawable/tower_1.jpg" />
+        <ignore path="src/main/res/drawable/tower_2.jpg" />
         <ignore path="src/main/res/drawable/trapped.jpg" />
         <ignore path="src/main/res/drawable/twisted.jpg" />
         <ignore path="src/main/res/drawable/wrestler.jpg" />

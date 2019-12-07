@@ -16,17 +16,18 @@
     <string name="content_trapped">Trapped Two</string>
     <string name="content_twisted">Simply Twisted</string>
     <string name="content_ring">Ring Thing</string>
+    <string name="content_bowtie">Bow Tie</string>
     <string name="content_copyright_text_1">Copyright © 2012</string>
     <string name="content_copyright_text_2">All rights reserved. No part of this book may be reproduced or transmitted in any form or by any means, electronic or mechanical, including photocopying, recording, or by any information storage or retrieval system, without written permission from the author.</string>
     <string name="content_copyright_text_3">Trademarks are property of their respective holders. When used, trademarks are for the benefit of the trademark owner only.</string>
     <string name="content_letter_text_1">Hi Readers!</string>
-    <string name="content_letter_text_2">Do you use a hair band to put your hair up? When your hair isn’t up, do you wear the hair band around your wrist for safe keeping until you do want to put your hair up? Then instead of just having it on your wrist, why not make it look funky and cool! This eBook will show you a few different styles for using hair bands to decorate your hand and wrist, with step-by-step guides on how to create each one.</string>
-    <string name="content_letter_text_3">When you’ve mastered each style in this book you can visit our blog at BandItGuide.blogspot.com and find even more funky cool designs. You can even submit your own creative styles!</string>
+    <string name="content_letter_text_2">Do you use a hair band to put your hair up? When your hair isn\'t up, do you wear the hair band around your wrist for safe keeping until you do want to put your hair up? Then instead of just having it on your wrist, why not make it look funky and cool! This eBook will show you a few different styles for using hair bands to decorate your hand and wrist, with step-by-step guides on how to create each one.</string>
+    <string name="content_letter_text_3">When you\'ve mastered each style in this book you can visit our blog at BandItGuide.blogspot.com and find even more funky cool designs. You can even submit your own creative styles!</string>
     <string name="content_letter_text_4">Have fun, stay safe, and get to creating!</string>
     <string name="content_letter_text_5">Sincerely,</string>
     <string name="content_letter_text_6">Joni Riley-Gardner</string>
     <string name="content_safety_text">Always make sure your bands are never too tight and cut off circulation. If they do this, please remove the band immediately and choose a different band that is a little looser. When wearing these styles also be aware that they can catch on things, just like when you wear them around your wrist. Now, throughout the book we will use this diagram to help explain the process for making each style: (all instructions are written for creating designs on your left hand)</string>
-    <string name="content_basic_text_1">First, we’ll start out showing you how to connect two bands. (You’ll use this process a lot when creating most of the styles.)</string>
+    <string name="content_basic_text_1">First, we\'ll start out showing you how to connect two bands. (You\'ll use this process a lot when creating most of the styles.)</string>
     <string name="content_basic_text_2"><b>Step 1:</b> Lay both bands so that they are overlapping.</string>
     <string name="content_basic_text_3"><b>Step 2:</b> Pinch together the opposite sides of the band on bottom so that it curves around the other band.</string>
     <string name="content_basic_text_4"><b>Step 3:</b> Grab the band on the right by the loop on top and pull it under the bottom loop.</string>
@@ -48,14 +49,14 @@
     <string name="content_xmarks_text_4"><b>Step 7:</b> Spread the bands out to your desired length. Easy peasy!</string>
     <string name="xmarks_1_description">XMarks 1</string>
     <string name="xmarks_2_description">XMarks 2</string>
-    <string name="content_wrestler_text_1">If you’ve already done the <b>X Marks the Spot</b> style this one will be easy too! Just follow <b>Steps 1-4</b> of the <a href="">Basic Set Up</a>.</string>
+    <string name="content_wrestler_text_1">If you\'ve already done the <b>X Marks the Spot</b> style this one will be easy too! Just follow <b>Steps 1-4</b> of the <a href="">Basic Set Up</a>.</string>
     <string name="content_wrestler_text_2"><b>Step 5:</b> Wrap one of the bands around your wrist.</string>
     <string name="content_wrestler_text_3"><b>Step 6:</b> Take the other band and wrap it around your thumb, or any of your other fingers.</string>
     <string name="wrestler_1_description">Wrestler 1</string>
     <string name="content_trapped_text_1">This is a continuation of our previous style. Start by following <b>Steps 1-5</b> of <a href="">Thumb Wrestler</a>.</string>
     <string name="content_trapped_text_2"><b>Step 6:</b> Take the other band and wrap it around any two fingers.</string>
     <string name="trapped_1_description">Trapped 1</string>
-    <string name="content_twisted_text_1">Here’s another easy one using the <a href="">Basic Set Up</a>, just follow <b>Steps 1-4</b>.</string>
+    <string name="content_twisted_text_1">Here\'s another easy one using the <a href="">Basic Set Up</a>, just follow <b>Steps 1-4</b>.</string>
     <string name="content_twisted_text_2"><b>Step 5:</b> Wrap one of the bands around your wrist.</string>
     <string name="content_twisted_text_3"><b>Step 6:</b> Take the other band and twist it a couple of times, then wrap it around one of your fingers.</string>
     <string name="twisted_1_description">Twisted 1</string>
@@ -63,6 +64,13 @@
     <string name="content_ring_text_2"><b>Step 5:</b> Wrap one of the bands around your wrist so that the other band lies on the palm side of your hand (instead of the back of your hand).</string>
     <string name="content_ring_text_3"><b>Step 6:</b> Wrap the other band around your middle finger, and done! (You can also wrap the band around any of your other fingers to slightly change up the look.)</string>
     <string name="ring_1_description">Ring 1</string>
+    <string name="content_bowtie_text_1">Let\'s make a cute bow! First, use <b>Step 1</b> and <b>Step 2</b> of the <a href="">Basic Set Up</a>.</string>
+    <string name="content_bowtie_text_2"><b>Step 3:</b> Grasp the opposite sides of the band on the right and create two \'bunny ears\'. (Yep, we\'re going to use the kindergarten version of tying shoelaces to get our bow tied!)</string>
+    <string name="content_bowtie_text_3"><b>Step 4:</b> Overlap the two bunny ears (to make an \'X\').</string>
+    <string name="content_bowtie_text_4"><b>Step 5:</b> Take one of the ears and wrap it around the other, then pull it through the hole (or bottom of the \'X\').</string>
+    <string name="content_bowtie_text_5"><b>Step 6:</b> Pull the bow tight so you don\'t lose it! Then place the band (the one now holding the bow tie) on your wrist.</string>
+    <string name="bowtie_1_description">Bow Tie 1</string>
+    <string name="bowtie_2_description">Bow Tie 2</string>
     <string name="ic_launcher_orange">Orange Icon</string>
     <string name="cover_description">Cover Image</string>
     <string name="hand_diagram_left_description">Hand Diagram</string>

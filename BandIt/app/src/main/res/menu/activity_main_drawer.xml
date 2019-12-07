@@ -55,6 +55,9 @@
         <item
             android:id="@+id/nav_tower"
             android:title="@string/content_tower" />
+        <item
+            android:id="@+id/nav_thew"
+            android:title="@string/content_thew" />
     </group>
 
 </menu>

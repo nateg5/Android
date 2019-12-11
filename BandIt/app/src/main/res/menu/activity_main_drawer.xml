@@ -58,6 +58,12 @@
         <item
             android:id="@+id/nav_thew"
             android:title="@string/content_thew" />
+        <item
+            android:id="@+id/nav_flanked"
+            android:title="@string/content_flanked" />
+        <item
+            android:id="@+id/nav_closing"
+            android:title="@string/content_closing" />
     </group>
 
 </menu>

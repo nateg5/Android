@@ -107,6 +107,13 @@ public class MainActivity extends AppCompatActivity
     }
 
     @SuppressWarnings("unused")
+    public void goToFlanked(View view) {
+        NavigationView navigationView = findViewById(R.id.nav_view);
+
+        onNavigationItemSelected(navigationView.getMenu().findItem(R.id.nav_flanked));
+    }
+
+    @SuppressWarnings("unused")
     public void openBandItBlog(View view) {
         String url = "http://banditguide.blogspot.com";
         Intent intent = new Intent(Intent.ACTION_VIEW);
@@ -154,6 +161,8 @@ public class MainActivity extends AppCompatActivity
         add(new Content(R.layout.content_bowtie, R.string.content_bowtie, R.id.nav_bowtie));
         add(new Content(R.layout.content_tower, R.string.content_tower, R.id.nav_tower));
         add(new Content(R.layout.content_thew, R.string.content_thew, R.id.nav_thew));
+        add(new Content(R.layout.content_flanked, R.string.content_flanked, R.id.nav_flanked));
+        add(new Content(R.layout.content_closing, R.string.content_closing, R.id.nav_closing));
     }};
 
     private Content findContentFromNav(int nav) {

@@ -9,7 +9,10 @@
         <ignore path="src/main/res/drawable/bowtie_1.jpg" />
         <ignore path="src/main/res/drawable/bowtie_2.jpg" />
         <ignore path="src/main/res/drawable/bridge.jpg" />
+        <ignore path="src/main/res/drawable/closing.jpg" />
         <ignore path="src/main/res/drawable/cover.jpg" />
+        <ignore path="src/main/res/drawable/flanked_1.jpg" />
+        <ignore path="src/main/res/drawable/flanked_2.jpg" />
         <ignore path="src/main/res/drawable/hand_diagram_left.jpg" />
         <ignore path="src/main/res/drawable/ring.jpg" />
         <ignore path="src/main/res/drawable/thew.jpg" />

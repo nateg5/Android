@@ -15,6 +15,9 @@
         <ignore path="src/main/res/drawable/bridge.jpg" />
         <ignore path="src/main/res/drawable/closing.jpg" />
         <ignore path="src/main/res/drawable/cover.jpg" />
+        <ignore path="src/main/res/drawable/crowd_1.jpg" />
+        <ignore path="src/main/res/drawable/crowd_2.jpg" />
+        <ignore path="src/main/res/drawable/crowdtwist.jpg" />
         <ignore path="src/main/res/drawable/flanked_1.jpg" />
         <ignore path="src/main/res/drawable/flanked_2.jpg" />
         <ignore path="src/main/res/drawable/hand_diagram_left.jpg" />

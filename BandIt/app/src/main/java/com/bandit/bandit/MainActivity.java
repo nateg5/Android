@@ -114,6 +114,13 @@ public class MainActivity extends AppCompatActivity
     }
 
     @SuppressWarnings("unused")
+    public void goToCrowd(View view) {
+        NavigationView navigationView = findViewById(R.id.nav_view);
+
+        onNavigationItemSelected(navigationView.getMenu().findItem(R.id.nav_crowd));
+    }
+
+    @SuppressWarnings("unused")
     public void openBandItBlog(View view) {
         String url = "http://banditguide.blogspot.com";
         Intent intent = new Intent(Intent.ACTION_VIEW);
@@ -164,6 +171,8 @@ public class MainActivity extends AppCompatActivity
         add(new Content(R.layout.content_flanked, R.string.content_flanked, R.id.nav_flanked));
         add(new Content(R.layout.content_closing, R.string.content_closing, R.id.nav_closing));
         add(new Content(R.layout.content_two, R.string.content_two, R.id.nav_two));
+        add(new Content(R.layout.content_crowd, R.string.content_crowd, R.id.nav_crowd));
+        add(new Content(R.layout.content_crowdtwist, R.string.content_crowdtwist, R.id.nav_crowdtwist));
     }};
 
     private Content findContentFromNav(int nav) {

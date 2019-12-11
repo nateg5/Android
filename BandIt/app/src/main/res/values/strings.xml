@@ -23,6 +23,8 @@
     <string name="content_flanked">Flanked</string>
     <string name="content_closing">Closing In</string>
     <string name="content_two">Two Too Twisted</string>
+    <string name="content_crowd">3\'s A Crowd</string>
+    <string name="content_crowdtwist">3\'s A Crowd, and One\'s Twisted</string>
     <string name="content_copyright_text_1">Copyright © 2012</string>
     <string name="content_copyright_text_2">All rights reserved. No part of this book may be reproduced or transmitted in any form or by any means, electronic or mechanical, including photocopying, recording, or by any information storage or retrieval system, without written permission from the author.</string>
     <string name="content_copyright_text_3">Trademarks are property of their respective holders. When used, trademarks are for the benefit of the trademark owner only.</string>
@@ -107,6 +109,16 @@
     <string name="content_two_text_6">(You can change this one up too! Just move bands 2 and 3 to different fingers, or wear them on the same finger.)</string>
     <string name="two_1_description">Two 1</string>
     <string name="two_2_description">Two 2</string>
+    <string name="content_crowd_text_1">This is one of my favorites! Again, you will use <b>Steps 1-4</b> of the <a href="">Basic Set Up</a>.</string>
+    <string name="content_crowd_text_2"><b>Step 5:</b> Loop band 3 around band 2 using the same method as when you looped band 2 around band 1.</string>
+    <string name="content_crowd_text_3"><b>Step 6:</b> Wrap band 1 around your wrist so that band 2 and 3 lay on the top of your hand.</string>
+    <string name="content_crowd_text_4"><b>Step 7:</b> Wrap band 2 around your index finger.</string>
+    <string name="content_crowd_text_5"><b>Step 8:</b> Wrap band 3 around your pinky finger.</string>
+    <string name="crowd_1_description">Crowd 1</string>
+    <string name="crowd_2_description">Crowd 2</string>
+    <string name="content_crowdtwist_text_1">Let\'s get twisted with this one too! Follow <b>Steps 1-7</b> of <a href="">3\'s A Crowd</a>.</string>
+    <string name="content_crowdtwist_text_2"><b>Step 8:</b> Twist band 3 and wrap it around your pinky finger.</string>
+    <string name="crowdtwist_1_description">Crowd Twist 1</string>
     <string name="ic_launcher_orange">Orange Icon</string>
     <string name="cover_description">Cover Image</string>
     <string name="hand_diagram_left_description">Hand Diagram</string>

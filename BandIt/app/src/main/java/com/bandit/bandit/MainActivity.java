@@ -163,6 +163,7 @@ public class MainActivity extends AppCompatActivity
         add(new Content(R.layout.content_thew, R.string.content_thew, R.id.nav_thew));
         add(new Content(R.layout.content_flanked, R.string.content_flanked, R.id.nav_flanked));
         add(new Content(R.layout.content_closing, R.string.content_closing, R.id.nav_closing));
+        add(new Content(R.layout.content_two, R.string.content_two, R.id.nav_two));
     }};
 
     private Content findContentFromNav(int nav) {

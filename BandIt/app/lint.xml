@@ -22,6 +22,8 @@
         <ignore path="src/main/res/drawable/flanked_2.jpg" />
         <ignore path="src/main/res/drawable/hand_diagram_left.jpg" />
         <ignore path="src/main/res/drawable/ring.jpg" />
+        <ignore path="src/main/res/drawable/spider_1.jpg" />
+        <ignore path="src/main/res/drawable/spider_2.jpg" />
         <ignore path="src/main/res/drawable/thew.jpg" />
         <ignore path="src/main/res/drawable/tower_1.jpg" />
         <ignore path="src/main/res/drawable/tower_2.jpg" />
@@ -29,6 +31,7 @@
         <ignore path="src/main/res/drawable/twisted.jpg" />
         <ignore path="src/main/res/drawable/two_1.jpg" />
         <ignore path="src/main/res/drawable/two_2.jpg" />
+        <ignore path="src/main/res/drawable/webbed.jpg" />
         <ignore path="src/main/res/drawable/wrestler.jpg" />
         <ignore path="src/main/res/drawable/xmarks_1.jpg" />
         <ignore path="src/main/res/drawable/xmarks_2.jpg" />

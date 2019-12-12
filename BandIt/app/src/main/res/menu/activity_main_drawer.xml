@@ -73,6 +73,12 @@
         <item
             android:id="@+id/nav_crowdtwist"
             android:title="@string/content_crowdtwist" />
+        <item
+            android:id="@+id/nav_spider"
+            android:title="@string/content_spider" />
+        <item
+            android:id="@+id/nav_webbed"
+            android:title="@string/content_webbed" />
     </group>
 
 </menu>

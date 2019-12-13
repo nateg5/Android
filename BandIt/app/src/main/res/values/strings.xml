@@ -144,6 +144,11 @@
     <string name="content_ccuff_text_5"><b>Step 8:</b> Let band 2 be around your wrist and band 3 be farther down your forearm so that band 1 is stretched out.</string>
     <string name="ccuff_1_description">Chic Cuff 1</string>
     <string name="ccuff_2_description">Chic Cuff 2</string>
+    <string name="content_tcuff_text_1">Time to get twisted again! Create this style by following <b>Steps 1-6</b> of the <a href="">Chic Cuff</a>.</string>
+    <string name="content_tcuff_text_2"><b>Step 7:</b> Twist band 1 a few times, then wrap band 2 around your wrist as well.</string>
+    <string name="content_tcuff_text_3"><b>Step 8:</b> Let band 2 be around your wrist and band 3 be farther down your forearm so that band 1 is stretched out.</string>
+    <string name="content_tcuff_text_4">Make sure your bands are tight enough that they hold in place (but remember: not too tight that they cut off circulation!)</string>
+    <string name="tcuff_1_description">Twisted Cuff 1</string>
     <string name="ic_launcher_orange">Orange Icon</string>
     <string name="cover_description">Cover Image</string>
     <string name="hand_diagram_left_description">Hand Diagram</string>

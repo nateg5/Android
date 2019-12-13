@@ -135,6 +135,13 @@ public class MainActivity extends AppCompatActivity
     }
 
     @SuppressWarnings("unused")
+    public void goToButterfly(View view) {
+        NavigationView navigationView = findViewById(R.id.nav_view);
+
+        onNavigationItemSelected(navigationView.getMenu().findItem(R.id.nav_butterfly));
+    }
+
+    @SuppressWarnings("unused")
     public void openBandItBlog(View view) {
         String url = "http://banditguide.blogspot.com";
         Intent intent = new Intent(Intent.ACTION_VIEW);
@@ -192,6 +199,7 @@ public class MainActivity extends AppCompatActivity
         add(new Content(R.layout.content_ccuff, R.string.content_ccuff, R.id.nav_ccuff));
         add(new Content(R.layout.content_tcuff, R.string.content_tcuff, R.id.nav_tcuff));
         add(new Content(R.layout.content_butterfly, R.string.content_butterfly, R.id.nav_butterfly));
+        add(new Content(R.layout.content_flight, R.string.content_flight, R.id.nav_flight));
     }};
 
     private Content findContentFromNav(int nav) {

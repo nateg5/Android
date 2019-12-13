@@ -88,6 +88,9 @@
         <item
             android:id="@+id/nav_butterfly"
             android:title="@string/content_butterfly" />
+        <item
+            android:id="@+id/nav_flight"
+            android:title="@string/content_flight" />
     </group>
 
 </menu>

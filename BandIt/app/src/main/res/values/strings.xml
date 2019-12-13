@@ -152,6 +152,10 @@
     <string name="content_butterfly_text_1">This is another one based on <b>Steps 1-7</b> of the <a href="">Chic Cuff</a>.</string>
     <string name="content_butterfly_text_2"><b>Step 8:</b> Let band 3 and band 2 be closer together so that band 1 loops up and away from your arm. (If the bands are old and stretched out they don\'t achieve the desired look, so make sure the bands still have some elasticity and aren\'t overly loose, but again, not unbearably tight!)</string>
     <string name="butterfly_1_description">Butterfly 1</string>
+    <string name="content_flight_text_1">This is one of the easiest ones yet! Use the same exact set up as <b>Steps 1-8</b> of the <a href="">Resting Butterfly</a>.</string>
+    <string name="content_flight_text_2"><b>Step 9:</b> Flare out the two loops of band 1 so that they lay closer to your arm.</string>
+    <string name="content_flight_text_3">(Again, this won’t work unless the bands are somewhat new and not too loose.)</string>
+    <string name="flight_1_description">Flight 1</string>
     <string name="ic_launcher_orange">Orange Icon</string>
     <string name="cover_description">Cover Image</string>
     <string name="hand_diagram_left_description">Hand Diagram</string>

@@ -101,7 +101,7 @@
     <string name="content_flanked_text_3"><b>Step 6:</b> Wrap band 1 around your wrist.</string>
     <string name="content_flanked_text_4"><b>Step 7:</b> Wrap band 2 around your thumb.</string>
     <string name="content_flanked_text_5"><b>Step 8:</b> Wrap band 3 around your pinky.</string>
-    <string name="content_flanked_text_6"><b>Step 9:</b> Shift the bands so that they lay as you like. Here’s how it should look:</string>
+    <string name="content_flanked_text_6"><b>Step 9:</b> Shift the bands so that they lay as you like. Here\'s how it should look:</string>
     <string name="flanked_1_description">Flanked 1</string>
     <string name="flanked_2_description">Flanked 2</string>
     <string name="content_closing_text_1">This is a continuation of our previous style. Start by following <b>Steps 1-9</b> of <a href="">Flanked</a>.</string>
@@ -126,7 +126,7 @@
     <string name="content_crowdtwist_text_2"><b>Step 8:</b> Twist band 3 and wrap it around your pinky finger.</string>
     <string name="crowdtwist_1_description">Crowd Twist 1</string>
     <string name="content_spider_text_1">Do you know what the first steps are? Yep, this again: Follow <b>Steps 1-4</b> of the <a href="">Basic Set Up</a>.</string>
-    <string name="content_spider_text_2"><b>Step 5:</b> Loop band 3 around the knot that band 1 and 2 make together, in the same style loop that you used putting band 2 on band 1. It\'s a little tricky, but keep trying and you’ll get it!</string>
+    <string name="content_spider_text_2"><b>Step 5:</b> Loop band 3 around the knot that band 1 and 2 make together, in the same style loop that you used putting band 2 on band 1. It\'s a little tricky, but keep trying and you\'ll get it!</string>
     <string name="content_spider_text_3"><b>Step 6:</b> Wrap band 1 around your thumb.</string>
     <string name="content_spider_text_4"><b>Step 7:</b> Wrap band 2 around your pinky.</string>
     <string name="content_spider_text_5"><b>Step 8:</b> Wrap band 3 around your middle finger.</string>
@@ -149,6 +149,9 @@
     <string name="content_tcuff_text_3"><b>Step 8:</b> Let band 2 be around your wrist and band 3 be farther down your forearm so that band 1 is stretched out.</string>
     <string name="content_tcuff_text_4">Make sure your bands are tight enough that they hold in place (but remember: not too tight that they cut off circulation!)</string>
     <string name="tcuff_1_description">Twisted Cuff 1</string>
+    <string name="content_butterfly_text_1">This is another one based on <b>Steps 1-7</b> of the <a href="">Chic Cuff</a>.</string>
+    <string name="content_butterfly_text_2"><b>Step 8:</b> Let band 3 and band 2 be closer together so that band 1 loops up and away from your arm. (If the bands are old and stretched out they don\'t achieve the desired look, so make sure the bands still have some elasticity and aren\'t overly loose, but again, not unbearably tight!)</string>
+    <string name="butterfly_1_description">Butterfly 1</string>
     <string name="ic_launcher_orange">Orange Icon</string>
     <string name="cover_description">Cover Image</string>
     <string name="hand_diagram_left_description">Hand Diagram</string>

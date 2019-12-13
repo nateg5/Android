@@ -85,6 +85,9 @@
         <item
             android:id="@+id/nav_tcuff"
             android:title="@string/content_tcuff" />
+        <item
+            android:id="@+id/nav_butterfly"
+            android:title="@string/content_butterfly" />
     </group>
 
 </menu>

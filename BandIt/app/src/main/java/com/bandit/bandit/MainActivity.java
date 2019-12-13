@@ -191,6 +191,7 @@ public class MainActivity extends AppCompatActivity
         add(new Content(R.layout.content_webbed, R.string.content_webbed, R.id.nav_webbed));
         add(new Content(R.layout.content_ccuff, R.string.content_ccuff, R.id.nav_ccuff));
         add(new Content(R.layout.content_tcuff, R.string.content_tcuff, R.id.nav_tcuff));
+        add(new Content(R.layout.content_butterfly, R.string.content_butterfly, R.id.nav_butterfly));
     }};
 
     private Content findContentFromNav(int nav) {

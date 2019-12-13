@@ -92,5 +92,10 @@
             android:id="@+id/nav_flight"
             android:title="@string/content_flight" />
     </group>
+    <group android:checkableBehavior="single" android:id="@+id/group4">
+        <item
+            android:id="@+id/nav_close"
+            android:title="@string/content_close" />
+    </group>
 
 </menu>

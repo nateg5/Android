@@ -149,6 +149,14 @@ public class MainActivity extends AppCompatActivity
         startActivity(intent);
     }
 
+    @SuppressWarnings("unused")
+    public void openEmail(View view) {
+        String url = "mailto:BandItGuide@gmail.com";
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setData(Uri.parse(url));
+        startActivity(intent);
+    }
+
     private static class Content {
 
         final int layout;
@@ -200,6 +208,7 @@ public class MainActivity extends AppCompatActivity
         add(new Content(R.layout.content_tcuff, R.string.content_tcuff, R.id.nav_tcuff));
         add(new Content(R.layout.content_butterfly, R.string.content_butterfly, R.id.nav_butterfly));
         add(new Content(R.layout.content_flight, R.string.content_flight, R.id.nav_flight));
+        add(new Content(R.layout.content_close, R.string.content_close, R.id.nav_close));
     }};
 
     private Content findContentFromNav(int nav) {

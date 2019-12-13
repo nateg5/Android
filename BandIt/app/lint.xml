@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <lint>
     <issue id="IconDuplicates">
+        <ignore path="src/main/res/drawable/ccuff_1.jpg" />
+        <ignore path="src/main/res/drawable/flanked_1.jpg" />
         <ignore path="src/main/res/drawable/tower_1.jpg" />
         <ignore path="src/main/res/drawable/two_1.jpg" />
     </issue>
@@ -13,6 +15,9 @@
         <ignore path="src/main/res/drawable/bowtie_1.jpg" />
         <ignore path="src/main/res/drawable/bowtie_2.jpg" />
         <ignore path="src/main/res/drawable/bridge.jpg" />
+        <ignore path="src/main/res/drawable/butterfly.jpg" />
+        <ignore path="src/main/res/drawable/ccuff_1.jpg" />
+        <ignore path="src/main/res/drawable/ccuff_2.jpg" />
         <ignore path="src/main/res/drawable/closing.jpg" />
         <ignore path="src/main/res/drawable/cover.jpg" />
         <ignore path="src/main/res/drawable/crowd_1.jpg" />
@@ -20,10 +25,12 @@
         <ignore path="src/main/res/drawable/crowdtwist.jpg" />
         <ignore path="src/main/res/drawable/flanked_1.jpg" />
         <ignore path="src/main/res/drawable/flanked_2.jpg" />
+        <ignore path="src/main/res/drawable/flight.jpg" />
         <ignore path="src/main/res/drawable/hand_diagram_left.jpg" />
         <ignore path="src/main/res/drawable/ring.jpg" />
         <ignore path="src/main/res/drawable/spider_1.jpg" />
         <ignore path="src/main/res/drawable/spider_2.jpg" />
+        <ignore path="src/main/res/drawable/tcuff.jpg" />
         <ignore path="src/main/res/drawable/thew.jpg" />
         <ignore path="src/main/res/drawable/tower_1.jpg" />
         <ignore path="src/main/res/drawable/tower_2.jpg" />

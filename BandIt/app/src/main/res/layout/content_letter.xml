@@ -34,6 +34,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:onClick="openBandItBlog"
             android:text="@string/content_letter_text_3"/>
 
         <TextView

@@ -182,6 +182,7 @@ public class MainActivity extends AppCompatActivity
         add(new Content(R.layout.content_crowdtwist, R.string.content_crowdtwist, R.id.nav_crowdtwist));
         add(new Content(R.layout.content_spider, R.string.content_spider, R.id.nav_spider));
         add(new Content(R.layout.content_webbed, R.string.content_webbed, R.id.nav_webbed));
+        add(new Content(R.layout.content_ccuff, R.string.content_ccuff, R.id.nav_ccuff));
     }};
 
     private Content findContentFromNav(int nav) {

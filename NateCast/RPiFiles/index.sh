@@ -39,8 +39,14 @@ while true; do
         chromium-browser "http://127.0.0.1/loading.php?time=15&url=$url" &
         if [ "$full" == "true" ]
         then
-            sleep 30
-            xdotool key F11 & 
+            if [[ "$url" == *"youtube.com"* ]]
+            then
+                sleep 60
+                xdotool key f &
+            else
+                sleep 30
+                xdotool key F11 & 
+            fi
         fi
     fi
     

@@ -33,7 +33,7 @@ while true; do
     elif [ "$url" == "mousemove" ]
     then
         echo "mousemove"
-        xdotool mousemove 1920 1080
+        xdotool mousemove 1920 450
     elif [ $url_length -gt 0 ] 
     then
         chromium-browser "http://127.0.0.1/loading.php?time=15&url=$url" &

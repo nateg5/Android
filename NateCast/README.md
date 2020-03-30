@@ -9,9 +9,13 @@
 2. Download and extract libwidevinecdm
 
 ```
+wget https://github.com/nateg5/Android/releases/download/NateCast/widevine-flash_armhf.sh
+chmod 777 widevine-flash_armhf.sh
+./widevine-flash_armhf.sh
+sudo tar Cfx / widevine-flash-*_armhf.tgz
 cd /usr/lib/chromium-browser
-sudo wget https://github.com/nateg5/Android/releases/download/NateCast/libwidevinecdm.so_.zip
-sudo unzip libwidevinecdm.so_.zip
+sudo cp /opt/WidevineCdm/_platform_specific/linux_arm/libwidevinecdm.so libwidevinecdm.so
+sudo chmod 777 libwidevinecdm.so
 ```
 
 3. Open Chromium
@@ -40,6 +44,8 @@ sudo unzip libwidevinecdm.so_.zip
     * https://blog.vpetkov.net/2019/07/12/netflix-and-spotify-on-a-raspberry-pi-4-with-latest-default-chromium/
     * https://www.novaspirit.com/2017/09/14/watch-netflix-raspberry-pi/
     * https://raspberryparanovatos.com/tutoriales/como-ver-netflix-en-raspberry-pi-usando-el-navegador-web-vivaldi/
+    * https://help.vivaldi.com/article/raspberry-pi/
+    * https://gist.github.com/ruario/19a28d98d29d34ec9b184c42e5f8bf29
 
 # Install Apache, PHP and XDOTool on RPi
 

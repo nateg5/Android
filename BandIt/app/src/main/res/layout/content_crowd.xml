@@ -71,6 +71,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/content_crowd_text_6"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

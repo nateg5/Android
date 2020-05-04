@@ -142,6 +142,13 @@ public class MainActivity extends AppCompatActivity
     }
 
     @SuppressWarnings("unused")
+    public void goToSimplyTwisted(View view) {
+        NavigationView navigationView = findViewById(R.id.nav_view);
+
+        onNavigationItemSelected(navigationView.getMenu().findItem(R.id.nav_twisted));
+    }
+
+    @SuppressWarnings("unused")
     public void openBandItBlog(View view) {
         String url = "http://banditguide.blogspot.com";
         Intent intent = new Intent(Intent.ACTION_VIEW);

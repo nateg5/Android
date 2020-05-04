@@ -32,23 +32,23 @@
     <string name="content_butterfly">Resting Butterfly</string>
     <string name="content_flight">Butterfly In Flight</string>
     <string name="content_close">In Closing</string>
-    <string name="content_copyright_text_1">Copyright © 2012</string>
-    <string name="content_copyright_text_2">All rights reserved. No part of this book may be reproduced or transmitted in any form or by any means, electronic or mechanical, including photocopying, recording, or by any information storage or retrieval system, without written permission from the author.</string>
+    <string name="content_copyright_text_1">Copyright © 2012–2020</string>
+    <string name="content_copyright_text_2">All rights reserved. No part of this app may be reproduced or transmitted in any form or by any means, electronic or mechanical, including photocopying, recording, or by any information storage or retrieval system, without written permission from the author.</string>
     <string name="content_copyright_text_3">Trademarks are property of their respective holders. When used, trademarks are for the benefit of the trademark owner only.</string>
     <string name="content_letter_text_1">Hi Readers!</string>
-    <string name="content_letter_text_2">Do you use a hair band to put your hair up? When your hair isn\'t up, do you wear the hair band around your wrist for safe keeping until you do want to put your hair up? Then instead of just having it on your wrist, why not make it look funky and cool! This eBook will show you a few different styles for using hair bands to decorate your hand and wrist, with step-by-step guides on how to create each one.</string>
-    <string name="content_letter_text_3">When you\'ve mastered each style in this book you can visit our blog at <a href="">BandItGuide.blogspot.com</a> and find even more funky cool designs. You can even submit your own creative styles!</string>
+    <string name="content_letter_text_2">Do you use a hair band to put your hair up? When your hair isn\'t up, do you wear the hair band around your wrist for safe keeping until you do want to put your hair up? Then instead of just having it on your wrist, why not make it look funky and cool! This app will show you a few different styles for using hair bands to decorate your hand and wrist, with step-by-step guides on how to create each one.</string>
+    <string name="content_letter_text_3">When you\'ve mastered each style in this app you can visit our blog at <a href="">BandItGuide.blogspot.com</a> and find even more funky cool designs. You can even submit your own creative styles!</string>
     <string name="content_letter_text_4">Have fun, stay safe, and get to creating!</string>
     <string name="content_letter_text_5">Sincerely,</string>
     <string name="content_letter_text_6">Joni Riley-Gardner</string>
-    <string name="content_safety_text">Always make sure your bands are never too tight and cut off circulation. If they do this, please remove the band immediately and choose a different band that is a little looser. When wearing these styles also be aware that they can catch on things, just like when you wear them around your wrist. Now, throughout the book we will use this diagram to help explain the process for making each style: (all instructions are written for creating designs on your left hand)</string>
+    <string name="content_safety_text">Always make sure your bands are never too tight and cut off circulation. If they do this, please remove the band immediately and choose a different band that is a little looser. When wearing these styles also be aware that they can catch on things, just like when you wear them around your wrist. Now, throughout the app we will use this diagram to help explain the process for making each style: (all instructions are written for creating designs on your left hand)</string>
     <string name="content_basic_text_1">First, we\'ll start out showing you how to connect two bands. (You\'ll use this process a lot when creating most of the styles.)</string>
     <string name="content_basic_text_2"><b>Step 1:</b> Lay both bands so that they are overlapping.</string>
     <string name="content_basic_text_3"><b>Step 2:</b> Pinch together the opposite sides of the band on bottom so that it curves around the other band.</string>
     <string name="content_basic_text_4"><b>Step 3:</b> Grab the band on the right by the loop on top and pull it under the bottom loop.</string>
     <string name="content_basic_text_5"><b>Step 4:</b> Pull the loop all the way through until the right band is snug around the left band.</string>
     <string name="content_basic_text_6">If you flip it over, it will look like this:</string>
-    <string name="content_basic_text_7">* If you pull the right band too much it will change the look of the knot. Throughout this book we will use the knot above, however feel free to use whichever look you like best! You can also visit our blog at <a href="">BandItGuide.blogspot.com</a> to check out other styles of knots that you can use.</string>
+    <string name="content_basic_text_7">* If you pull the right band too much it will change the look of the knot. Throughout this app we will use the knot above, however feel free to use whichever look you like best! You can also visit our blog at <a href="">BandItGuide.blogspot.com</a> to check out other styles of knots that you can use.</string>
     <string name="basic_1_description">Basic 1</string>
     <string name="basic_2_description">Basic 2</string>
     <string name="basic_3_description">Basic 3</string>
@@ -108,7 +108,8 @@
     <string name="content_closing_text_1">This is a continuation of our previous style. Start by following <b>Steps 1-9</b> of <a href="">Flanked</a>.</string>
     <string name="content_closing_text_2"><b>Step 10:</b> Make two simple adjustments, by moving the two knots closer together.</string>
     <string name="closing_1_description">Closing 1</string>
-    <string name="content_two_text_1">This one is basically like the <b>Simply Twisted</b> style but with a third band added. First, follow <b>Steps 1-4</b> of the <a href="">Basic Set Up</a>.</string>
+    <string name="content_two_text_1">This one is basically like the <a href="">Simply Twisted</a> style but with a third band added.</string>
+    <string name="content_two_text_1_1">First, follow <b>Steps 1-4</b> of the <a href="">Basic Set Up</a>.</string>
     <string name="content_two_text_2"><b>Step 5:</b> Take band 3 and loop it around band 1 right next to band 2.</string>
     <string name="content_two_text_3"><b>Step 6:</b> Wrap band 1 around your wrist so that band 2 and 3 lay on top of your hand.</string>
     <string name="content_two_text_4"><b>Step 7:</b> Take band 2 and twist it a couple of times then wrap it around your index finger.</string>
@@ -121,6 +122,7 @@
     <string name="content_crowd_text_3"><b>Step 6:</b> Wrap band 1 around your wrist so that band 2 and 3 lay on the top of your hand.</string>
     <string name="content_crowd_text_4"><b>Step 7:</b> Wrap band 2 around your index finger.</string>
     <string name="content_crowd_text_5"><b>Step 8:</b> Wrap band 3 around your pinky finger.</string>
+    <string name="content_crowd_text_6"><b>Step 9:</b> Shift the bands so that they lay as you like. Here\'s how it should look:</string>
     <string name="crowd_1_description">Crowd 1</string>
     <string name="crowd_2_description">Crowd 2</string>
     <string name="content_crowdtwist_text_1">Let\'s get twisted with this one too! Follow <b>Steps 1-7</b> of <a href="">3\'s A Crowd</a>.</string>

@@ -27,6 +27,8 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    private MenuItem checkedMenuItem ;
+
     /**
      * The {@link ViewPager} that will host the section contents.
      */
@@ -71,7 +73,11 @@ public class MainActivity extends AppCompatActivity
         mViewPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
             @Override
             public void onPageSelected(int i) {
+                if(checkedMenuItem != null) {
+                    checkedMenuItem.setChecked(false);
+                }
                 navigationView.getMenu().findItem(list.get(i).getNav()).setChecked(true);
+                checkedMenuItem = navigationView.getMenu().findItem(list.get(i).getNav());
                 setTitle(getString(list.get(i).getString()));
                 editor.putInt("currentItem", i);
                 editor.apply();
@@ -83,6 +89,7 @@ public class MainActivity extends AppCompatActivity
         mViewPager.setCurrentItem(sharedPreferences.getInt("currentItem", 0));
 
         navigationView.getMenu().findItem(list.get(mViewPager.getCurrentItem()).getNav()).setChecked(true);
+        checkedMenuItem = navigationView.getMenu().findItem(list.get(mViewPager.getCurrentItem()).getNav());
     }
 
     @SuppressWarnings("unused")
@@ -240,7 +247,9 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        checkedMenuItem.setChecked(false);
         item.setChecked(true);
+        checkedMenuItem = item;
 
         // Handle navigation view item clicks here.
         int id = item.getItemId();

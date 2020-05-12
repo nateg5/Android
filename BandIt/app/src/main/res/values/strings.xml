@@ -124,11 +124,11 @@
     <string name="content_crowd_text_4"><b>Step 7:</b> Wrap band 2 around your index finger.</string>
     <string name="content_crowd_text_5"><b>Step 8:</b> Wrap band 3 around your pinky finger.</string>
     <string name="content_crowd_text_6"><b>Step 9:</b> Shift the bands so that they lay as you like. Here\'s how it should look:</string>
-    <string name="content_crowd_text_7">See more variations at <a href="">BandItGuide.blogspot.com</a>.</string>
     <string name="crowd_1_description">Crowd 1</string>
     <string name="crowd_2_description">Crowd 2</string>
     <string name="content_crowdtwist_text_1">Let\'s get twisted with this one too! Follow <b>Steps 1-7</b> of <a href="">3\'s A Crowd</a>.</string>
     <string name="content_crowdtwist_text_2"><b>Step 8:</b> Twist band 3 and wrap it around your pinky finger.</string>
+    <string name="content_crowdtwist_text_3">See more variations at <a href="">BandItGuide.blogspot.com</a>.</string>
     <string name="crowdtwist_1_description">Crowd Twist 1</string>
     <string name="content_spider_text_1">Do you know what the first steps are? Yep, this again: Follow <b>Steps 1-4</b> of the <a href="">Basic Set Up</a>.</string>
     <string name="content_spider_text_2"><b>Step 5:</b> Loop band 3 around the knot that band 1 and 2 make together, in the same style loop that you used putting band 2 on band 1. It\'s a little tricky, but keep trying and you\'ll get it!</string>

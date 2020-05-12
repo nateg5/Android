@@ -172,7 +172,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     @SuppressWarnings("unused")
-    public void openBandItBlogCrowd(View view) {
+    public void openBandItBlogCrowdTwist(View view) {
         String url = "http://banditguide.blogspot.com/2020/05/3s-crowd-gets-super-twisty.html";
         Intent intent = new Intent(Intent.ACTION_VIEW);
         intent.setData(Uri.parse(url));

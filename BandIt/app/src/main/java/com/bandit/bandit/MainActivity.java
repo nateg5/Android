@@ -164,6 +164,38 @@ public class MainActivity extends AppCompatActivity
     }
 
     @SuppressWarnings("unused")
+    public void openBandItBlogTwo(View view) {
+        String url = "http://banditguide.blogspot.com/2020/05/two-too-twisted-variation.html";
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setData(Uri.parse(url));
+        startActivity(intent);
+    }
+
+    @SuppressWarnings("unused")
+    public void openBandItBlogCrowd(View view) {
+        String url = "http://banditguide.blogspot.com/2020/05/3s-crowd-gets-super-twisty.html";
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setData(Uri.parse(url));
+        startActivity(intent);
+    }
+
+    @SuppressWarnings("unused")
+    public void openBandItBlogCCuff(View view) {
+        String url = "http://banditguide.blogspot.com/2020/05/chic-cuff-variation.html";
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setData(Uri.parse(url));
+        startActivity(intent);
+    }
+
+    @SuppressWarnings("unused")
+    public void openBandItBlogFlight(View view) {
+        String url = "http://banditguide.blogspot.com/2020/05/heart-style.html";
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setData(Uri.parse(url));
+        startActivity(intent);
+    }
+
+    @SuppressWarnings("unused")
     public void openEmail(View view) {
         String url = "mailto:BandItGuide@gmail.com";
         Intent intent = new Intent(Intent.ACTION_VIEW);

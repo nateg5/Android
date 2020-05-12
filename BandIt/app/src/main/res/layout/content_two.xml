@@ -91,6 +91,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="openBandItBlogTwo"
+            android:text="@string/content_two_text_7"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

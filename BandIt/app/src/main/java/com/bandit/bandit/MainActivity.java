@@ -23,6 +23,7 @@ import android.view.ViewGroup;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -85,6 +86,12 @@ public class MainActivity extends AppCompatActivity
         });
 
         setTitle(getString(list.get(0).getString()));
+
+        Uri data = getIntent().getData();
+        if(data != null) {
+            editor.putInt("currentItem", Integer.valueOf(Objects.requireNonNull(data.getQueryParameter("page"))));
+            editor.apply();
+        }
 
         mViewPager.setCurrentItem(sharedPreferences.getInt("currentItem", 0));
 

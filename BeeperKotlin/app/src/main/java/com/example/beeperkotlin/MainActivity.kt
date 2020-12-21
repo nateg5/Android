@@ -11,7 +11,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val toneGenerator = ToneGenerator(AudioManager.STREAM_MUSIC, 90)
+        val toneGenerator = ToneGenerator(AudioManager.STREAM_MUSIC, 50)
 
         timer("beep timer", false, 1000L, 1000L) {
             toneGenerator.startTone(ToneGenerator.TONE_PROP_BEEP)

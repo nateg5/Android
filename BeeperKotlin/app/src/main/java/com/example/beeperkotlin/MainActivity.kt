@@ -1,7 +1,6 @@
 package com.example.beeperkotlin
 
-import android.media.AudioManager
-import android.media.ToneGenerator
+import android.media.MediaPlayer
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import kotlin.concurrent.timer
@@ -11,10 +10,10 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val toneGenerator = ToneGenerator(AudioManager.STREAM_MUSIC, 50)
+        val mediaPlayer = MediaPlayer.create(this, R.raw.beep)
 
         timer("beep timer", false, 1000L, 1000L) {
-            toneGenerator.startTone(ToneGenerator.TONE_PROP_BEEP)
+            mediaPlayer?.start()
         }
     }
 }

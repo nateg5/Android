@@ -46,6 +46,7 @@ sudo chmod 777 libwidevinecdm.so
     * https://raspberryparanovatos.com/tutoriales/como-ver-netflix-en-raspberry-pi-usando-el-navegador-web-vivaldi/
     * https://help.vivaldi.com/article/raspberry-pi/
     * https://gist.github.com/ruario/19a28d98d29d34ec9b184c42e5f8bf29
+    * https://lemariva.com/blog/2020/06/raspberry-pi-amazon-prime-netflix-and-drm-solution
 
 # Install Apache, PHP and XDOTool on RPi
 

@@ -30,7 +30,7 @@ sudo chmod 777 libwidevinecdm.so
 
     **Name:** Netflix
 
-    **User-Agent String:** Mozilla/5.0 (X11; CrOS x86_64 11895.95.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.125 Safari/537.36
+    **User-Agent String:** Mozilla/5.0 (X11; CrOS x86_64 13597.94.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.186 Safari/537.36
 
     **Group:** Chrome
 
@@ -39,6 +39,14 @@ sudo chmod 777 libwidevinecdm.so
     **Indicator Flag:** NFX
 
 9. Left-click User-Agent Switcher icon then select Chrome > Netflix
+
+* Note
+
+Could also add --user-agent string to command in these files
+```
+/usr/share/applications/lxde-x-www-browser.desktop
+/usr/share/raspi-ui-overrides/applications/lxde-x-www-browser.desktop
+```
 
 * References
     * https://blog.vpetkov.net/2019/07/12/netflix-and-spotify-on-a-raspberry-pi-4-with-latest-default-chromium/

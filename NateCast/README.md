@@ -30,7 +30,7 @@ sudo chmod 777 libwidevinecdm.so
 
     **Name:** Netflix
 
-    **User-Agent String:** Mozilla/5.0 (X11; CrOS x86_64 13597.94.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.186 Safari/537.36
+    **User-Agent String:** Mozilla/5.0 (X11; CrOS x86_64 13597.94.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.98 Safari/537.36
 
     **Group:** Chrome
 
